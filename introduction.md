@@ -14,7 +14,7 @@ Enlaces recomendades para empezar a aprender:
 - [Vistas & Respuestas](/docs/responses)
 - [Controladores](/docs/controllers)
 
-After reading through these documents, you should have a good grasp on basic request / response handling in Laravel. Next, you may wish to read about [configuring your database](/docs/database), the [fluent query builder](/docs/queries), and the [Eloquent ORM](/docs/eloquent). Or, you may wish to read about [authentication and security](/docs/security) so you can start signing people into your application.
+Después de leer esta documentación obtendrás un buen de nivel de compresión del manejo de peticiones/respuestas realizados por Laravel. A continuación, desearás leer acerca de la [configuración de la base de datos](/docs/database), [el constructor de consultas](/docs/queries), y el [ORM Eloquent](/docs/eloquent). O tal vez deseas saber sobre [autentificación y seguridad](/docs/security) así podrás empezar a crear el inicio de sesión para tu aplicación.
 
 <a name="laravel-philosophy"></a>
 ## Filosofía de Laravel
