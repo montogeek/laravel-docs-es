@@ -19,8 +19,8 @@ Después de leer esta documentación obtendrás un buen de nivel de compresión 
 <a name="laravel-philosophy"></a>
 ## Filosofía de Laravel
 
-Laravel es un framework para aplicaciones web como una sintaxis elegante y expresiva. Creemos que desarrollar debe ser una experiencia creativa y agradable para ser completamente satisfactoria. Laravel intenta eliminar los dolores de cabeza del proceso de desarrollo incluyendo las funcionalidades comunes de proyectos web como autenficación, rutas, sesiones y cache.
+Laravel es un framework para aplicaciones web con una sintaxis elegante y expresiva. Creemos que desarrollar debe ser una experiencia creativa y agradable para ser completamente satisfactoria. Laravel intenta eliminar los dolores de cabeza del proceso de desarrollo incluyendo las funcionalidades comunes de proyectos web como autenficación, rutas, sesiones y cache.
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+Laravel tiene el propósito de hacer agradable el proceso de desarrollo para el desarrollador sin sacrificar funcionalidad. Desarrolladores felices escriben el mejor código. Con este objetivo, hemos intentado combinar lo mejor de otros frameworks para la web, incluyendo frameworks en otros lenguajes de programación tales como Ruby on Rails, ASP.NET MVC y Sinatra.
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Laravel es de fácil accceso, muy poderoso, ofreciendo herramientas confiables necesarias para aplicaciones web grandes y robustas. Un magnifíco contenedor de Inversión de Control <!-- TODO: Referencia Wikipedia -->, expresivo sistema de migraciones y soporte de pruebas unitarias estrechamente integrado te dan las herramientas que necesitas para construir cualquier aplicación que necesites hacer.
