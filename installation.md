@@ -9,14 +9,14 @@
 <a name="install-composer"></a>
 ## Install Composer
 
-Laravel utilizes [Composer](http://getcomposer.org) to manage its dependencies. First, download a copy of the `composer.phar`. Once you have the PHAR archive, you can either keep it in your local project directory or move to `usr/local/bin` to use it globally on your system. On Windows, you can use the Composer [Windows installer](https://getcomposer.org/Composer-Setup.exe).
+Laravel utiliza [Composer](http://getcomposer.org) para administrar sus dependencias. Primero, descarga una copia de `composer.phar`, una vez lo tengas puedes dejarlo en la carpeta de tu proyecto o moverlo a `usr/local/bin` para ejecutarlo de forma global. En Microsoft Windows, puedes usar Composer a través de su [instalador](https://getcomposer.org/Composer-Setup.exe).
 
 <a name="install-laravel"></a>
 ## Instalar Laravel
 
 ### A través del Instalador de Laravel
 
-First, download the [Laravel installer PHAR archive](http://laravel.com/laravel.phar). For convenience, rename the file to `laravel` and move it to `/usr/local/bin`. Once installed, the simple `laravel new` command will create a fresh Laravel installation in the directory you specify. For instance, `laravel new blog` would create a directory named `blog` containing a fresh Laravel installation with all dependencies installed. This method of installation is much faster than installing via Composer.
+Primero, descarga el [instalador PHAR de Laravel](http://laravel.com/laravel.phar). Por cuestiones de facilidad, cambie el nombre del archivo a `laravel` y muevelo a `/usr/local/bin`. Una vez instalado, simplemente ejecuta `laravel new` y tendrás una nueva y fresca instalación de Laravel. Si deseas especificar un directorio para instalar Laravel agrega el nombre al final del comando, por ejemplo `laravel new blog` instalará Laravel en el directorio `blog`. Este método de instalación es mucho más rápido que hacerlo a través de Composer.
 
 ### A través del Instalador de Composer
 
