@@ -7,7 +7,7 @@
 - [URLs amigables](#pretty-urls)
 
 <a name="install-composer"></a>
-## Install Composer
+## Instalar Composer
 
 Laravel utiliza [Composer](http://getcomposer.org) para administrar sus dependencias. Primero, descarga una copia de `composer.phar`, una vez lo tengas puedes dejarlo en la carpeta de tu proyecto o moverlo a `usr/local/bin` para ejecutarlo de forma global. En Microsoft Windows, puedes usar Composer a través de su [instalador](https://getcomposer.org/Composer-Setup.exe).
 
@@ -20,48 +20,48 @@ Primero, descarga el [instalador PHAR de Laravel](http://laravel.com/laravel.pha
 
 ### A través del Instalador de Composer
 
-You may also install Laravel by issuing the Composer `create-project` command in your terminal:
+Tal vez te gustaría instalar Laravel usando el comando de Composer `create-project` en tu terminal:
 
-	composer create-project laravel/laravel --prefer-dist
+    composer create-project laravel/laravel --prefer-dist
 
 ### A través de descarga directa
 
-Once Composer is installed, download the [latest version](https://github.com/laravel/laravel/archive/master.zip) of the Laravel framework and extract its contents into a directory on your server. Next, in the root of your Laravel application, run the `php composer.phar install` (or `composer install`) command to install all of the framework's dependencies. This process requires Git to be installed on the server to successfully complete the installation.
+Una vez tengas instalado Composer, descarga la [última versión](https://github.com/laravel/laravel/archive/master.zip) de Laravel y extrae su contenido en algún directorio en tu servidor. A continuación, en la raíz del proyecto, ejecuta el comando `php composer.phar install` (o `composer install`) para instalar todas las dependencias del Framework. Este proceso requiere tener Git instalado en el servidor para hacerlo correctamente.
 
-If you want to update the Laravel framework, you may issue the `php composer.phar update` command.
+Si deseas actualizar Laravel, ejecuta el comando `php composer.phar update`.
 
 <a name="server-requirements"></a>
 ## Requerimientos del servidor
 
-The Laravel framework has a few system requirements:
-
+Laravel tiene pocos requerimientos para funcionar correctamente:
 - PHP >= 5.3.7
-- MCrypt PHP Extension
+- Extensión MCrypt PHP
 
-As of PHP 5.5, some OS distributions may require you to manually install the PHP JSON extension. When using Ubuntu, this can be done via `apt-get install php5-json`.
+Desde la versión 5.5 de PHP, algunas distribuciones de sistemas operativos podrián requerir la instalación manual de la extensión PHP JSON. Si usas Ubuntu, esta extensión se puede instalar con el comando `apt-get install php5-json`.
 
 <a name="configuration"></a>
 ## Configuración
 
-Laravel needs almost no configuration out of the box. You are free to get started developing! However, you may wish to review the `app/config/app.php` file and its documentation. It contains several options such as `timezone` and `locale` that you may wish to change according to your application.
+Laravel practicamente no necesita configuración para funcionar de inmediato. ¡Puedes empezar a programar ahora mismo! Aunque, podrías echarle un vistazo al archivo `app/config/app.php` y leer su documentación, contiene varias opciones como `timezone` y `locale`, las cuales seguramente desearías cambiar para tu aplicación.
 
 <a name="permissions"></a>
 ### Permisos
-Laravel may require one set of permissions to be configured: folders within app/storage require write access by the web server.
+
+Laravel podría requerir la configuración de algunos permisos: las carpetas dentro de `app/storage` requieren permisos de escritura por el servidor Web.
 
 <a name="paths"></a>
 ### Direcciones
 
-Several of the framework directory paths are configurable. To change the location of these directories, check out the `bootstrap/paths.php` file.
+Varias direcciones de los directorios del framework son configurables. Para cambiar la ubicación de dichos directorios revisa el archivo `bootstrap/paths.php`.
 
 <a name="pretty-urls"></a>
 ## URLs amigables
 
 ### Servidor Apache
 
-The framework ships with a `public/.htaccess` file that is used to allow URLs without `index.php`. If you use Apache to serve your Laravel application, be sure to enable the `mod_rewrite` module.
+Laravel posee de forma predeterminada el archivo `public/.htaccess` que es usado para permitir URLs sin `index.php`. Si usas Apache como servidor de tu aplicación de Laravel, asegúrate de habilitar el modulo `mod_rewrite`.
 
-If the `.htaccess` file that ships with Laravel does not work with your Apache installation, try this one:
+Si el archivo `.htaccess` que trae Laravel no funciona con tu configuración de Apache, prueba este:
 
 	Options +FollowSymLinks
 	RewriteEngine On
@@ -72,7 +72,7 @@ If the `.htaccess` file that ships with Laravel does not work with your Apache i
 
 ### Servidor Nginx
 
-On Nginx, the following directive in your site configuration will allow "pretty" URLs:
+Con Nginx, la siguiente directiva en la configuración de tu sitio permitirán URLS amigables.
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
