@@ -14,44 +14,44 @@
 <a name="basic-routing"></a>
 ## Rutas báscias
 
-Most of the routes for your application will be defined in the `app/routes.php` file. The simplest Laravel routes consist of a URI and a Closure callback.
+La mayoría de las rutas para tu aplicación serán definidias en el archivo `app/routes.php`. La definición de una ruta de Laravel más simple consiste en una URI y una retrollamada a una Clausura. <!-- TODO: Referencia Wikipedia y foot notes-->
 
-#### Basic GET Route
+#### Ruta GET básica
 
 	Route::get('/', function()
 	{
 		return 'Hello World';
 	});
 
-#### Basic POST Route
+#### Ruta POST básica
 
 	Route::post('foo/bar', function()
 	{
 		return 'Hello World';
 	});
 
-#### Registering A Route For Multiple Verbs
+#### Registrando una ruta para varios verbos HTTP
 
 	Route::match(array('GET', 'POST'), '/', function()
 	{
 		return 'Hello World';
 	});
 
-#### Registering A Route Responding To Any HTTP Verb
+#### Registrando una ruta para cualquier verbo HTTP
 
 	Route::any('foo', function()
 	{
 		return 'Hello World';
 	});
 
-#### Forcing A Route To Be Served Over HTTPS
+#### Obligar una ruta para responser solo por HTTPS
 
 	Route::get('foo', array('https', function()
 	{
 		return 'Must be over HTTPS';
 	}));
 
-Often, you will need to generate URLs to your routes, you may do so using the `URL::to` method:
+Con frecuencia, necesitará generar URLs para tus rutas, lo puedes hacer usando el método: `URL::to`.
 
 	$url = URL::to('foo');
 
@@ -63,21 +63,21 @@ Often, you will need to generate URLs to your routes, you may do so using the `U
 		return 'User '.$id;
 	});
 
-#### Optional Route Parameters
+#### Rutas con parámetros opcionales
 
 	Route::get('user/{name?}', function($name = null)
 	{
 		return $name;
 	});
 
-#### Optional Route Parameters With Defaults
+#### Rutas con parámetros opcionales y valores predeterminados
 
 	Route::get('user/{name?}', function($name = 'John')
 	{
 		return $name;
 	});
 
-#### Regular Expression Route Constraints
+#### Rutas con expresiones regulares como restricciones
 
 	Route::get('user/{name}', function($name)
 	{
@@ -91,9 +91,9 @@ Often, you will need to generate URLs to your routes, you may do so using the `U
 	})
 	->where('id', '[0-9]+');
 
-#### Passing An Array Of Wheres
+#### Múltiples expresiones regulares como restricciones
 
-Of course, you may pass an array of constraints when necessary:
+Por supuesto, puedes pasar un arreglo de restricciones cuando sea necesario:
 
 	Route::get('user/{id}/{name}', function($id, $name)
 	{
@@ -101,9 +101,9 @@ Of course, you may pass an array of constraints when necessary:
 	})
 	->where(array('id' => '[0-9]+', 'name' => '[a-z]+'))
 
-#### Defining Global Patterns
+#### Definición de patrones globales
 
-If you would like a route parameter to always be constrained by a given regular expression, you may use the `pattern` method:
+Si deseas que el parámetro de una ruta siempre sea restrictiva por una expresión regular, puedes usar el método `pattern`:
 
 	Route::pattern('id', '[0-9]+');
 
@@ -112,9 +112,9 @@ If you would like a route parameter to always be constrained by a given regular 
 		// Only called if {id} is numeric.
 	});
 
-#### Accessing A Route Parameter Value
+#### Obtener el valor del parámetro de una ruta
 
-If you need to access a route parameter value outside of a route, you may use the `Route::input` method:
+Si necesitas obtener el valor de algún parámetro de una ruta fuera de la ruta, puedes usar el método `Route::input`:
 
 	Route::filter('foo', function()
 	{
@@ -127,9 +127,10 @@ If you need to access a route parameter value outside of a route, you may use th
 <a name="route-filters"></a>
 ## Rutas con filtros
 
-Route filters provide a convenient way of limiting access to a given route, which is useful for creating areas of your site which require authentication. There are several filters included in the Laravel framework, including an `auth` filter, an `auth.basic` filter, a `guest` filter, and a `csrf` filter. These are located in the `app/filters.php` file.
+Filtros en rutas proveen una manera conveniente para limitar el acceso a la ruta dada, muy útil para definir áreas en tu aplicación que requieren autentificación.
+Laravel incluye varios filtros: filtro `auth`, filtro `auth.basic`, filtro `guest`, filtro `csrf`, los cuales están definidos en el archivo `app/filters.php`.
 
-#### Defining A Route Filter
+#### Definiendo un filtro para una ruta
 
 	Route::filter('old', function()
 	{
@@ -139,34 +140,34 @@ Route filters provide a convenient way of limiting access to a given route, whic
 		}
 	});
 
-If the filter returns a response, that response is considered the response to the request and the route will not execute. Any `after` filters on the route are also cancelled.
+Si el filtro retorna una respuesta, esa respuesta será considerada la respuesta de la petición y la ruta no será ejecutada. Cualquier filtro `después` de la ruta tampoco serán ejecutados.
 
-#### Attaching A Filter To A Route
+#### Agregar un filtro a una ruta
 
 	Route::get('user', array('before' => 'old', function()
 	{
 		return 'You are over 200 years old!';
 	}));
 
-#### Attaching A Filter To A Controller Action
+#### Agregar un filtro a una acción de un controlador
 
 	Route::get('user', array('before' => 'old', 'uses' => 'UserController@showProfile'));
 
-#### Attaching Multiple Filters To A Route
+#### Agregar varios filtros a una ruta
 
 	Route::get('user', array('before' => 'auth|old', function()
 	{
 		return 'You are authenticated and over 200 years old!';
 	}));
 
-#### Attaching Multiple Filters Via Array
+#### Agregar varios filtros a una ruta a través de un arreglo
 
 	Route::get('user', array('before' => array('auth', 'old'), function()
 	{
 		return 'You are authenticated and over 200 years old!';
 	}));
 
-#### Specifying Filter Parameters
+#### Especificando parámetros en un filtro
 
 	Route::filter('age', function($route, $request, $value)
 	{
@@ -178,16 +179,16 @@ If the filter returns a response, that response is considered the response to th
 		return 'Hello World';
 	}));
 
-After filters receive a `$response` as the third argument passed to the filter:
+Filtros que se ejecutan después de una ruta tienen disponible un `$response` como tercer parámetro:
 
 	Route::filter('log', function($route, $request, $response)
 	{
 		//
 	});
 
-#### Pattern Based Filters
+#### Filtros basados en patrones
 
-You may also specify that a filter applies to an entire set of routes based on their URI.
+Puedes también espeficiar que un filtro se ejecute a un conjunto completo de rutas basado en sus URIs.
 
 	Route::filter('admin', function()
 	{
@@ -196,21 +197,22 @@ You may also specify that a filter applies to an entire set of routes based on t
 
 	Route::when('admin/*', 'admin');
 
-In the example above, the `admin` filter would be applied to all routes beginning with `admin/`. The asterisk is used as a wildcard, and will match any combination of characters.
+En el ejemplo anterior, el filtro `admin` se aplicará a todas las rutas que empiezen con `admin/`. El asterisco es usado como un comodín y coincidará cualquier combinación de carácteres.
 
-You may also constrain pattern filters by HTTP verbs:
+También puedes restringir la ejecución de filtros basados en patrones por verbos HTTPs.
 
 	Route::when('admin/*', 'admin', array('post'));
 
-#### Filter Classes
+#### Filtros con clases
 
-For advanced filtering, you may wish to use a class instead of a Closure. Since filter classes are resolved out of the application [IoC Container](/docs/ioc), you will be able to utilize dependency injection in these filters for greater testability.
+Para filtros avanzados, tal vez desees usar una clase en vez de una Clausura.
+Como las clases para filtros son resueltas fuera del [contenedor IoC](/docs/ioc) de la aplicación, podrás utilizar inyección de dependencias en estos filtros para mejorar la capacidad de pruebas.
 
-#### Registering A Class Based Filter
+#### Registrando una clase para un filtro
 
 	Route::filter('foo', 'FooFilter');
 
-By default, the `filter` method on the `FooFilter` class will be called:
+De forma predeterminada, el método `filter` en la clase `FooFilter` será ejecutado:
 
 	class FooFilter {
 
@@ -221,31 +223,31 @@ By default, the `filter` method on the `FooFilter` class will be called:
 
 	}
 
-If you do not wish to use the `filter` method, just specify another method:
+Si no desea usar el método `filter`, simplemente específica otro:
 
 	Route::filter('foo', 'FooFilter@foo');
 
 <a name="named-routes"></a>
 ## Rutas con nombre
 
-Named routes make referring to routes when generating redirects or URLs more convenient. You may specify a name for a route like so:
+Rutas con nombre hacen que la referencia a rutas cuando se generan redirecciones o URLs sea mucho más conveniente.
 
 	Route::get('user/profile', array('as' => 'profile', function()
 	{
 		//
 	}));
 
-You may also specify route names for controller actions:
+También puedes especificar nombres de rutas para acciones en controladores
 
 	Route::get('user/profile', array('as' => 'profile', 'uses' => 'UserController@showProfile'));
 
-Now, you may use the route's name when generating URLs or redirects:
+Ahora, puedes usar el nombre de la ruta cuando generes URLs o redirecciones:
 
 	$url = URL::route('profile');
 
 	$redirect = Redirect::route('profile');
 
-You may access the name of a route that is running via the `currentRouteName` method:
+Puedes acceder al nombre de una ruta que se está ejecutando a través del método `currentRouteName`
 
 	$name = Route::currentRouteName();
 
