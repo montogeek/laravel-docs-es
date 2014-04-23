@@ -254,7 +254,7 @@ Puedes acceder al nombre de una ruta que se está ejecutando a través del méto
 <a name="route-groups"></a>
 ## Grupos de rutas
 
-Sometimes you may need to apply filters to a group of routes. Instead of specifying the filter on each route, you may use a route group:
+Algunas veces podrías necesitar aplicar un filtro a un grupo de rutas. En vez de especificarlos para cada ruta, puedes hacer para un grupo de rutas:
 
 	Route::group(array('before' => 'auth'), function()
 	{
@@ -269,7 +269,7 @@ Sometimes you may need to apply filters to a group of routes. Instead of specify
 		});
 	});
 
-You may also use the `namespace` parameter within your `group` array to specify all controllers within that group as being in a given namespace:
+Puedes usar el parámetro `namespace` en el arreglo de la definición del grupo de rutas para especificar que todos los controladores dentro del grupo pertenecen al mismo namespace<!-- TODO: Referencia Wikipedia y foot notes-->:
 
 	Route::group(array('namespace' => 'Admin'), function()
 	{
@@ -279,9 +279,9 @@ You may also use the `namespace` parameter within your `group` array to specify 
 <a name="sub-domain-routing"></a>
 ## Rutas con subdominios
 
-Laravel routes are also able to handle wildcard sub-domains, and pass you wildcard parameters from the domain:
+Las rutas en Laravel son capaces de manejar comódines en sub-dominios y definir parámetros de comódines desde el dominio principal:
 
-#### Registering Sub-Domain Routes
+#### Registrando rutas de subdominios
 
 	Route::group(array('domain' => '{account}.myapp.com'), function()
 	{
@@ -296,7 +296,7 @@ Laravel routes are also able to handle wildcard sub-domains, and pass you wildca
 <a name="route-prefixing"></a>
 ## Rutas con prefijos
 
-A group of routes may be prefixed by using the `prefix` option in the attributes array of a group:
+Un grupo de rutas pueden usar la opción `prefix` en el arreglo de sus atributos para definir un prefijo a todo el grupo:
 
 #### Prefixing Grouped Routes
 
