@@ -298,7 +298,7 @@ Las rutas en Laravel son capaces de manejar comódines en sub-dominios y definir
 
 Un grupo de rutas pueden usar la opción `prefix` en el arreglo de sus atributos para definir un prefijo a todo el grupo:
 
-#### Prefixing Grouped Routes
+#### Grupo de rutas con prefijo
 
 	Route::group(array('prefix' => 'admin'), function()
 	{
@@ -313,31 +313,31 @@ Un grupo de rutas pueden usar la opción `prefix` en el arreglo de sus atributos
 <a name="route-model-binding"></a>
 ## Rutas con modelos de Eloquent
 
-Model binding provides a convenient way to inject model instances into your routes. For example, instead of injecting a user's ID, you can inject the entire User model instance that matches the given ID. First, use the `Route::model` method to specify the model that should be used for a given parameter:
+Vincular modelos provee una manera conveniente para inyectar instancias del modelo en las rutas. Por ejemplo, en vez de inyectar el ID de un usuario, puedes inyectar el modelo Usuario completo que concuerde con un ID dado. Primero, usa el método `Route::model()` para especificar el modelo que será usado para un parámetro dado:
 
-#### Binding A Parameter To A Model
+#### Vinculando un parámetro a un modelo
 
 	Route::model('user', 'User');
 
-Next, define a route that contains a `{user}` parameter:
+A continuación, defina una ruta que contenga el parámetro `{user}`:
 
 	Route::get('profile/{user}', function(User $user)
 	{
 		//
 	});
 
-Since we have bound the `{user}` parameter to the `User` model, a `User` instance will be injected into the route. So, for example, a request to `profile/1` will inject the `User` instance which has an ID of 1.
+Como hemos vinculado el parámetro `{user}` al modelo `User`, una instancia `User` será inyectado a la ruta. Así, por ejemplo, una petición a `profile/1` inyectará una instancia con el ID igual a 1.
 
-> **Note:** If a matching model instance is not found in the database, a 404 error will be thrown.
+> **Note:** Si una instancia del modelo no se encuentra en la base de datos, se ejecutará un error 404.
 
-If you wish to specify your own "not found" behavior, you may pass a Closure as the third argument to the `model` method:
+Si deseas especificar tu propia implementación de un modelo no encontrado, puedes pasar una Clausura como tercer parámetro del método `model`:
 
 	Route::model('user', 'User', function()
 	{
 		throw new NotFoundException;
 	});
 
-Sometimes you may wish to use your own resolver for route parameters. Simply use the `Route::bind` method:
+Algunas veces deseas usar tu propia forma de resolver los parámetros de las rutas. Simplemente usa el método `Route::bing`:
 
 	Route::bind('user', function($value, $route)
 	{
@@ -347,17 +347,17 @@ Sometimes you may wish to use your own resolver for route parameters. Simply use
 <a name="throwing-404-errors"></a>
 ## Generando errores 404
 
-There are two ways to manually trigger a 404 error from a route. First, you may use the `App::abort` method:
+Existen dos formas de ejecutar un error 404 desde una ruta. Primero, puedes usar el método `App::abort`:
 
 	App::abort(404);
 
-Second, you may throw an instance of `Symfony\Component\HttpKernel\Exception\NotFoundHttpException`.
+Segundo, ejecutar una instancia de `Symfony\Component\HttpKernel\Exception\NotFoundHttpException`.
 
-More information on handling 404 exceptions and using custom responses for these errors may be found in the [errors](/docs/errors#handling-404-errors) section of the documentation.
+Más información acerca del manejo de excepciones 404 y utilizar respuestas personalizadas para estos errores puede ser encontrada en la sección de [errores](/docs/errors#handling-404-errors) de la documentación.
 
 <a name="routing-to-controllers"></a>
 ## Rutas con controladores
 
-Laravel allows you to not only route to Closures, but also to controller classes, and even allows the creation of [resource controllers](/docs/controllers#resource-controllers).
+Laravel permite no solo definir rutas con Clausuras, sino también con clases de Controladores, incluso permite la creación de [controladores de recursos](/docs/controllers#resource-controllers).
 
-See the documentation on [Controllers](/docs/controllers) for more details.
+Consulta la documentación en [Controladores](/docs/controllers) para más detalles.
