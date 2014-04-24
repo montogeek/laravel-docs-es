@@ -1,13 +1,13 @@
 # Configuration
 
-- [Introduction](#introduction)
-- [Environment Configuration](#environment-configuration)
-- [Provider Configuration](#provider-configuration)
-- [Protecting Sensitive Configuration](#protecting-sensitive-configuration)
-- [Maintenance Mode](#maintenance-mode)
+- [Introducción](#introduction)
+- [Configuración de entorno](#environment-configuration)
+- [Configuración de proveedores](#provider-configuration)
+- [Protegiendo configuración sensible](#protecting-sensitive-configuration)
+- [Modo mantenimiento](#maintenance-mode)
 
 <a name="introduction"></a>
-## Introduction
+## Introducción
 
 All of the configuration files for the Laravel framework are stored in the `app/config` directory. Each option in every file is documented, so feel free to look through the files and get familiar with the options available to you.
 
@@ -30,7 +30,7 @@ Notice that "dot" style syntax may be used to access values in the various files
 Configuration values that are set at run-time are only set for the current request, and will not be carried over to subsequent requests.
 
 <a name="environment-configuration"></a>
-## Environment Configuration
+## Configuración de entorno
 
 It is often helpful to have different configuration values based on the environment the application is running in. For example, you may wish to use a different cache driver on your local development machine than on the production server. It is easy to accomplish this using environment based configuration.
 
@@ -86,7 +86,7 @@ You may also pass arguments to the `environment` method to check if the environm
 	}
 
 <a name="provider-configuration"></a>
-### Provider Configuration
+### Configuración de proveedores
 
 When using environment configuration, you may want to "append" environment [service providers](/docs/ioc#service-providers) to your primary `app` configuration file. However, if you try this, you will notice the environment `app` providers are overriding the providers in your primary `app` configuration file. To force the providers to be appended, use the `append_config` helper method in your environment `app` configuration file:
 
@@ -95,7 +95,7 @@ When using environment configuration, you may want to "append" environment [serv
 	))
 
 <a name="protecting-sensitive-configuration"></a>
-## Protecting Sensitive Configuration
+## Protegiendo configuración sensible
 
 For "real" applications, it is advisable to keep all of your sensitive configuration out of your configuration files. Things such as database passwords, Stripe API keys, and encryption keys should be kept out of your configuration files whenever possible. So, where should we place them? Thankfully, Laravel provides a very simple solution to protecting these types of configuration items using "dot" files.
 
@@ -120,7 +120,7 @@ Now, On your production server, create a `.env.php` file in your project root th
 > **Note:** You may create a file for each environment supported by your application. For example, the `development` environment will load the `.env.development.php` file if it exists.
 
 <a name="maintenance-mode"></a>
-## Maintenance Mode
+## Modo mantenimiento
 
 When your application is in maintenance mode, a custom view will be displayed for all routes into your application. This makes it easy to "disable" your application while it is updating or when you are performing maintenance. A call to the `App::down` method is already present in your `app/start/global.php` file. The response from this method will be sent to users when your application is in maintenance mode.
 
