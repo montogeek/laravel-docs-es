@@ -9,11 +9,11 @@
 <a name="introduction"></a>
 ## Introducción
 
-All of the configuration files for the Laravel framework are stored in the `app/config` directory. Each option in every file is documented, so feel free to look through the files and get familiar with the options available to you.
+Todos lo archivos de configuración de Laravel están guardados en el directorio `app/config`. En todos los archivos cada opción de configuración está documentada, así que siéntete a gusto conociendo todas las opciones que tienes disponible.
 
-Sometimes you may need to access configuration values at run-time. You may do so using the `Config` class:
+Algunas veces necesitar acceder a las opciones de configuración. Puedes realizarlo haciendo uso de la clase `Config`:
 
-#### Accessing A Configuration Value
+#### Acceder a una opción de configuración
 
 	Config::get('app.timezone');
 
@@ -23,7 +23,7 @@ You may also specify a default value to return if the configuration option does 
 
 Notice that "dot" style syntax may be used to access values in the various files. You may also set configuration values at run-time:
 
-#### Setting A Configuration Value
+#### Establecer una opción de configuración
 
 	Config::set('database.default', 'sqlite');
 
