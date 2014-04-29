@@ -1,20 +1,20 @@
-# Laravel Quickstart
+# Laravel: Inicio rápido
 
-- [Installation](#installation)
-- [Routing](#routing)
-- [Creating A View](#creating-a-view)
-- [Creating A Migration](#creating-a-migration)
+- [Instalación](#instalacion)
+- [Enrutado](#routing)
+- [Creando una vista](#creating-a-view)
+- [Creando una Migración](#creating-a-migration)
 - [Eloquent ORM](#eloquent-orm)
-- [Displaying Data](#displaying-data)
+- [Mostrando la informacion](#displaying-data)
 
 <a name="installation"></a>
-## Installation
+## Instalación
 
-### Via Laravel Installer
+### Usando el instalador de Laravel
 
-First, download the [Laravel installer PHAR archive](http://laravel.com/laravel.phar). For convenience, rename the file to `laravel` and move it to `/usr/local/bin`. Once installed, the simple `laravel new` command will create a fresh Laravel installation in the directory you specify. For instance, `laravel new blog` would create a directory named `blog` containing a fresh Laravel installation with all dependencies installed. This method of installation is much faster than installing via Composer.
+Primero, descarga el [archivo de instalación PHAR de laravel](http://laravel.com/laravel.phar). Por conveniencia, cambie el nombre del archivo a `laravel` y muevalo a la carpeta `/usr/local/bin`. Una vez instalado, el comando `laravel new` creará una instalación limpia de Laravel en el directorio especificado. Por ejemplo, `laravel new blog` crearía el directorio llamado `blog` que contendra una instalación limpia de Laravel con todas las dependencias instaladas. Este método de instalación es mas rápido que el instalar usando Composer.
 
-### Via Composer
+### Usando Composer
 
 The Laravel framework utilizes [Composer](http://getcomposer.org) for installation and dependency management. If you haven't already, start by [installing Composer](http://getcomposer.org/doc/00-intro.md).
 
