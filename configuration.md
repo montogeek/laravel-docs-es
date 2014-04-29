@@ -17,17 +17,17 @@ Algunas veces necesitar acceder a las opciones de configuración. Puedes realiza
 
 	Config::get('app.timezone');
 
-You may also specify a default value to return if the configuration option does not exist:
+Puedes también espeficar un valor predeterminado para retornar y la opción de configuración no existe:
 
 	$timezone = Config::get('app.timezone', 'UTC');
 
-Notice that "dot" style syntax may be used to access values in the various files. You may also set configuration values at run-time:
+Observa que la síntaxis de "puntos" puede ser usada para acceder a las opciones de configuración en múltiples archivos. También puedes establecer opciones de configuración durante la ejecución:
 
 #### Establecer una opción de configuración
 
 	Config::set('database.default', 'sqlite');
 
-Configuration values that are set at run-time are only set for the current request, and will not be carried over to subsequent requests.
+Las opciones de configuración que son establecidas durante la ejecución solo son establecidas durante la petición actual, si no se tendrán en cuenta en las siguiente peticiones.
 
 <a name="environment-configuration"></a>
 ## Configuración de entorno
