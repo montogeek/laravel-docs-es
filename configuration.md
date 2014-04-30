@@ -32,7 +32,7 @@ Las opciones de configuración que son establecidas durante la ejecución solo s
 <a name="environment-configuration"></a>
 ## Configuración de entorno
 
-It is often helpful to have different configuration values based on the environment the application is running in. For example, you may wish to use a different cache driver on your local development machine than on the production server. It is easy to accomplish this using environment based configuration.
+A menudo es muy útil tener valores diferentes de configuración según el entorno en el cual se esté ejecutanddo la aplicación. Por ejemplo, tal vez desees utilizar un controlador de cache diferente en tu entorno de desarrollo local y otro en el servidor de producción. Esto es muy fácil de hacer usando configuraciones basadas en entornos.
 
 Simply create a folder within the `config` directory that matches your environment name, such as `local`. Next, create the configuration files you wish to override and specify the options for that environment. For example, to override the cache driver for the local environment, you would create a `cache.php` file in `app/config/local` with the following content:
 
