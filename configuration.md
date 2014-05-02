@@ -34,7 +34,7 @@ Las opciones de configuración que son establecidas durante la ejecución solo s
 
 A menudo es muy útil tener valores diferentes de configuración según el entorno en el cual se esté ejecutanddo la aplicación. Por ejemplo, tal vez desees utilizar un controlador de cache diferente en tu entorno de desarrollo local y otro en el servidor de producción. Esto es muy fácil de hacer usando configuraciones basadas en entornos.
 
-Simply create a folder within the `config` directory that matches your environment name, such as `local`. Next, create the configuration files you wish to override and specify the options for that environment. For example, to override the cache driver for the local environment, you would create a `cache.php` file in `app/config/local` with the following content:
+Simplemente crea una carpeta con un nombre que sea igual a tu entorno de desarrollo dentro en el directorio `config`, por ejemplo `local`. Después, crea los archivos de configuración que desees sobreescribir y especifica las opciones para tu entorno. Por ejemplo, para sobreescribir la configuración de cache para el entorno local, creas el archivo `cache.php` en `app/config/local` con el siguiente contenido:
 
 	<?php
 
@@ -44,11 +44,11 @@ Simply create a folder within the `config` directory that matches your environme
 
 	);
 
-> **Note:** Do not use 'testing' as an environment name. This is reserved for unit testing.
+> **Nota:** No uses 'testing' como nombre para tu entorno. Está reservado para las pruebas unitarias.
 
-Notice that you do not have to specify _every_ option that is in the base configuration file, but only the options you wish to override. The environment configuration files will "cascade" over the base files.
+Observa que no es necesario especificar _cada_ opción disponible en el archivo de configuración predeterminado, solamente las opciones que desees sobreescribir. Los archivos de configuración de tu entorno se aplicarán en "cascada" sobre los archivos predeterminados.
 
-Next, we need to instruct the framework how to determine which environment it is running in. The default environment is always `production`. However, you may setup other environments within the `bootstrap/start.php` file at the root of your installation. In this file you will find an `$app->detectEnvironment` call. The array passed to this method is used to determine the current environment. You may add other environments and machine names to the array as needed.
+A continuación, necesitamos decirle al framework como determinar en que entorno se está ejecutando. El entorno predeterminado siempre es `production`. sin embargo, tal vez necesites configurar otro entornos en el archivo `boostrap/start.php` en la raíz de tu instalación de Laravel. En este archivo te encontrarás con una llamada a `$app->detectEnvironment`. El arreglo pasado a este método es usado para determinar el entorno de ejecución actual. Puedes agregar otros entornos y nombres de máquinas al arreglo como desees.
 
     <?php
 
@@ -58,9 +58,9 @@ Next, we need to instruct the framework how to determine which environment it is
 
     ));
 
-In this example, 'local' is the name of the environment and 'your-machine-name' is the hostname of your server. On Linux and Mac, you may determine your hostname using the `hostname` terminal command.
+En este ejemplo, 'local' es el nombre del entorno y 'your-machine-name' es el nombre de la máquina en tu servidor. En Linux, Mac y Windows, puedes saber el nombre de tu máquina ejecutando el comando `hostname` en la terminal .
 
-If you need more flexible environment detection, you may pass a `Closure` to the `detectEnvironment` method, allowing you to implement environment detection however you wish:
+Si necesitas detectar de manera más flexible el entorno, puedes pasar una Clausura al método `detectEnvironment`, permitiéndote implementar tu propia forma de detectar el entorno:
 
 	$env = $app->detectEnvironment(function()
 	{
