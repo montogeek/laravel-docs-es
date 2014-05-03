@@ -67,9 +67,9 @@ Si necesitas detectar de manera más flexible el entorno, puedes pasar una Claus
 		return $_SERVER['MY_LARAVEL_ENV'];
 	});
 
-You may access the current application environment via the `environment` method:
+Puedes acceder al entorno actual de la aplicación a través del método `environment`.
 
-#### Accessing The Current Application Environment
+#### Accediendo al entorno actual de la aplicación
 
 	$environment = App::environment();
 
