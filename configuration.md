@@ -141,6 +141,6 @@ Para mostrar una vista personalizada cuando tu aplicación este en modo mantenim
 
 Si la Clausura pasada al método `down` retorna `NULL`, el modo mantenimiento será ignorado para esa petición.
 
-### Maintenance Mode & Queues
+### Modo mantenimiento y colas de trabajo
 
 Mientras tu aplicación este en modo mantenimiento, no se ejecutarán [trabajos en cola](/docs/queues). Los trabajos serán funcionando normalmente una vez la aplicación ya no este en modo mantenimiento.
