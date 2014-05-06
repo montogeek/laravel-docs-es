@@ -1,14 +1,14 @@
-# Views & Responses
+# Vistas & Respuestas
 
-- [Basic Responses](#basic-responses)
-- [Redirects](#redirects)
-- [Views](#views)
-- [View Composers](#view-composers)
-- [Special Responses](#special-responses)
-- [Response Macros](#response-macros)
+- [Respuestas básicas](#basic-responses)
+- [Redirecciones](#redirects)
+- [Vistas](#views)
+- [Composición de Vistas](#view-composers)
+- [Respuestas especiales](#special-responses)
+- [Macros de respuestas](#response-macros)
 
 <a name="basic-responses"></a>
-## Basic Responses
+## Respuestas básicas
 
 #### Returning Strings From Routes
 
@@ -38,7 +38,7 @@ If you need access to the `Response` class methods, but want to return a view as
 	return Response::make($content)->withCookie($cookie);
 
 <a name="redirects"></a>
-## Redirects
+## Redirecciones
 
 #### Returning A Redirect
 
@@ -75,7 +75,7 @@ If you need access to the `Response` class methods, but want to return a view as
 	return Redirect::action('UserController@profile', array('user' => 1));
 
 <a name="views"></a>
-## Views
+## Vistas
 
 Views typically contain the HTML of your application and provide a convenient way of separating your controller and domain logic from your presentation logic. Views are stored in the `app/views` directory.
 
@@ -134,7 +134,7 @@ The sub-view can then be rendered from the parent view:
 	</html>
 
 <a name="view-composers"></a>
-## View Composers
+## Composición de vistas
 
 View composers are callbacks or class methods that are called when a view is rendered. If you have data that you want bound to a given view each time that view is rendered throughout your application, a view composer can organize that code into a single location. Therefore, view composers may function like "view models" or "presenters".
 
@@ -190,7 +190,7 @@ View **creators** work almost exactly like view composers; however, they are fir
 	});
 
 <a name="special-responses"></a>
-## Special Responses
+## Respuestas especiales
 
 #### Creating A JSON Response
 
@@ -209,7 +209,7 @@ View **creators** work almost exactly like view composers; however, they are fir
 > **Note:** Symfony HttpFoundation, which manages file downloads, requires the file being downloaded to have an ASCII file name.
 
 <a name="response-macros"></a>
-## Response Macros
+## Macros de respuestas
 
 If you would like to define a custom response that you can re-use in a variety of your routes and controllers, you may use the `Response::macro` method:
 
