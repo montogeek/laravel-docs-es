@@ -1,19 +1,19 @@
 # Controllers
 
-- [Basic Controllers](#basic-controllers)
-- [Controller Filters](#controller-filters)
-- [RESTful Controllers](#restful-controllers)
-- [Resource Controllers](#resource-controllers)
-- [Handling Missing Methods](#handling-missing-methods)
+- [Controladores básicos](#basic-controllers)
+- [Controladores con filtros](#controller-filters)
+- [Controladores REST](#restful-controllers)
+- [Controladores de recursos](#resource-controllers)
+- [Manejando métodos faltantes](#handling-missing-methods)
 
 <a name="basic-controllers"></a>
-## Basic Controllers
+## Controladores básicos
 
-Instead of defining all of your route-level logic in a single `routes.php` file, you may wish to organize this behavior using Controller classes. Controllers can group related route logic into a class, as well as take advantage of more advanced framework features such as automatic [dependency injection](/docs/ioc).
+En vez de definir toda tu lógica de rutas en un solo archivo `routes.php`, puedes querer organizar esta comportamiento usando las clases de los Controladores. Los Controladores pueden agrupar lógica de rutas relacionadas en una clase, así como tomar ventaja de características más avanzadas del framework como la [inyección de dependencias](/docs/ioc) automática.
 
-Controllers are typically stored in the `app/controllers` directory, and this directory is registered in the `classmap` option of your `composer.json` file by default. However, controllers can technically live in any directory or any sub-directory. Route declarations are not dependent on the location of the controller class file on disk. So, as long as Composer knows how to autoload the controller class, it may be placed anywhere you wish.
+Los Controladores se guardan normalmente en el directorio `app/controllers`, este directorio esta registrado de forma predeterminada en la opción `classmap` de tu archivo `composer.json`. Sin embargo, los controladores pueden guardarse en cualquier directorio o sub-directorio. La declaración de Rutas no dependen del lugar de la clase del controlador en el disco. Así, mientras Composer conozco como autocargar la clase del controlador, este se puede guardar en el lugar que quieras.
 
-Here is an example of a basic controller class:
+Un ejemplo de una clase básica de un controlador.
 
 	class UserController extends BaseController {
 
@@ -29,40 +29,40 @@ Here is an example of a basic controller class:
 
 	}
 
-All controllers should extend the `BaseController` class. The `BaseController` is also stored in the `app/controllers` directory, and may be used as a place to put shared controller logic. The `BaseController` extends the framework's `Controller` class. Now, We can route to this controller action like so:
+Todos los controladores deberían extender la clase `BaseController`. La clase `BaseController` también se guarda en el directorio `app/controllers`, y puede ser usada para almacenar lógica común a todos los controladores. La clase `BaseController` extiende la clase base `Controller` del framework. Ahora, podemos crear una ruta a la acción de este controlador así:
 
 	Route::get('user/{id}', 'UserController@showProfile');
 
-If you choose to nest or organize your controller using PHP namespaces, simply use the fully qualified class name when defining the route:
+Si elegiste organizar o poner en una jerarquía tus controladores usando los namespaces de PHP, simplemente usa el nombre de la clase completo cuando definas la ruta:
 
 	Route::get('foo', 'Namespace\FooController@method');
 
-> **Note:** Since we're using [Composer](http://getcomposer.org) to auto-load our PHP classes, controllers may live anywhere on the file system, as long as composer knows how to load them. The controller directory does not enforce any folder structure for your application. Routing to controllers is entirely de-coupled from the file system.
+> **Nota:** Ya que estamos usando [Composer](http://getcomposer.org) para autocargar nuestras clases de PHP, los controladores pueden estar en cualquier lugar el sistema de archivos mientras Composer sepa como cargarlos. El directorio `controller` no obliga a usar una estructura estricta en tu aplicación. Crear rutas para los controladores esta completamente separado del sistema de archivos.
 
-You may also specify names on controller routes:
+Puedes especificar nombres a tus rutas de controladores:
 
 	Route::get('foo', array('uses' => 'FooController@method',
 											'as' => 'name'));
 
-To generate a URL to a controller action, you may use the `URL::action` method or the `action` helper method:
+Para generar una URL a la acción de un controlador, puedes usar el método `URL::action` o el método de ayuda `helper`:
 
 	$url = URL::action('FooController@method');
 
 	$url = action('FooController@method');
 
-You may access the name of the controller action being run using the `currentRouteAction` method:
+Puedes acceder al nombre de la acción del controlador que se está ejecutando usando el método `currentRouteAction`
 
 	$action = Route::currentRouteAction();
 
 <a name="controller-filters"></a>
-## Controller Filters
+## Controladores con filtros
 
-[Filters](/docs/routing#route-filters) may be specified on controller routes similar to "regular" routes:
+Los [Filtros](/docs/routing#route-filters) puedes ser especificados en las rutas de controladores, muy similar a las rutas regulares:
 
 	Route::get('profile', array('before' => 'auth',
 				'uses' => 'UserController@showProfile'));
 
-However, you may also specify filters from within your controller:
+Sin embargo, puedes también especificar filtros desde tu controlador:
 
 	class UserController extends BaseController {
 
@@ -81,7 +81,7 @@ However, you may also specify filters from within your controller:
 
 	}
 
-You may also specify controller filters inline using a Closure:
+Puedes especificar filtros de controladores en línea usando una Clausura:
 
 	class UserController extends BaseController {
 
@@ -98,7 +98,7 @@ You may also specify controller filters inline using a Closure:
 
 	}
 
-If you would like to use another method on the controller as a filter, you may use `@` syntax to define the filter:
+Si quieres usar otro método del controlador como filtro, puedes hacerlo usando la síntaxis `@` para definir el filtro:
 
 	class UserController extends BaseController {
 
@@ -121,7 +121,7 @@ If you would like to use another method on the controller as a filter, you may u
 	}
 
 <a name="restful-controllers"></a>
-## RESTful Controllers
+## Controladores REST
 
 Laravel allows you to easily define a single route to handle every action in a controller using simple, REST naming conventions. First, define the route using the `Route::controller` method:
 
@@ -152,7 +152,7 @@ If your controller action contains multiple words, you may access the action usi
 	public function getAdminProfile() {}
 
 <a name="resource-controllers"></a>
-## Resource Controllers
+## Controladores de recursos
 
 Resource controllers make it easier to build RESTful controllers around resources. For example, you may wish to create a controller that manages "photos" stored by your application. Using the `controller:make` command via the Artisan CLI and the `Route::resource` method, we can quickly create such a controller.
 
@@ -198,7 +198,7 @@ By default, all resource controller actions have a route name; however, you can 
 					array('names' => array('create' => 'photo.build')));
 
 <a name="handling-missing-methods"></a>
-## Handling Missing Methods
+## Manejando métodos faltantes
 
 A catch-all method may be defined which will be called when no other matching method is found on a given controller. The method should be named `missingMethod`, and receives the method and parameter array for the request:
 
