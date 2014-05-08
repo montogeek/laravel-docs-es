@@ -123,13 +123,13 @@ Si quieres usar otro método del controlador como filtro, puedes hacerlo usando 
 <a name="restful-controllers"></a>
 ## Controladores REST
 
-Laravel allows you to easily define a single route to handle every action in a controller using simple, REST naming conventions. First, define the route using the `Route::controller` method:
+Laravel te permite definir fácilmente en una sola ruta el manejo de cada acción en un controlador usando simples convenciones de nombres REST. Primero, define la ruta usando el método `Route::controller`:
 
-#### Defining A RESTful Controller
+#### Definiendo un controlador RESTful
 
 	Route::controller('users', 'UserController');
 
-The `controller` method accepts two arguments. The first is the base URI the controller handles, while the second is the class name of the controller. Next, just add methods to your controller, prefixed with the HTTP verb they respond to:
+El método `controller` acepta dos argumentos. El primero es la URI base del controlador, mientras el segundo es el nombre de la clase del controlador. A continuación, simplemente crea métodos en tu controlador, con un prefijo que corresponda al verbo HTTP al cual responderán:
 
 	class UserController extends BaseController {
 
@@ -145,30 +145,30 @@ The `controller` method accepts two arguments. The first is the base URI the con
 
 	}
 
-The `index` methods will respond to the root URI handled by the controller, which, in this case, is `users`.
+El método `index` responderá a la URI base definida para el controlador, que en este caso es `users`.
 
-If your controller action contains multiple words, you may access the action using "dash" syntax in the URI. For example, the following controller action on our `UserController` would respond to the `users/admin-profile` URI:
+Si la acción en tu controlador tiene varias palabras, puedes acceder a la acción usando la síntaxis `guión` en la URI. Por ejemplo, la siguiente acción en nuestro controlador `UserController` responderá a la URI `users/admin-profile`:
 
 	public function getAdminProfile() {}
 
 <a name="resource-controllers"></a>
 ## Controladores de recursos
 
-Resource controllers make it easier to build RESTful controllers around resources. For example, you may wish to create a controller that manages "photos" stored by your application. Using the `controller:make` command via the Artisan CLI and the `Route::resource` method, we can quickly create such a controller.
+Los controladores de recursos hacen más fácil la creación de controladores RESTful para recursos. Por ejemplo, es posible que desees crear un controlador que maneje 'photos' guardadas en tu aplicación. Usando el comando `controller:make` disponible a través de Artisan y el método `Route::resource`, podemos rápidamente crear dicho controlador.
 
-To create the controller via the command line, execute the following command:
+Para crear el controlador a través de la línea de comando, ejecuta el siguiente comando:
 
 	php artisan controller:make PhotoController
 
-Now we can register a resourceful route to the controller:
+Ahora podemos registrar una ruta de recursos para el controlador:
 
 	Route::resource('photo', 'PhotoController');
 
-This single route declaration creates multiple routes to handle a variety of RESTful actions on the photo resource. Likewise, the generated controller will already have stubbed methods for each of these actions with notes informing you which URIs and verbs they handle.
+Está única declaración de ruta crea múltiples rutas para manejar una variedad de acciones RESTful para el recurso `photo`. Del mismo modo, el controlador generado ya tendrá los métodos para cada una de estas acciones con notas informando cuales URIs y verbos HTTP manejará.
 
-#### Actions Handled By Resource Controller
+#### Acciones manejadas por un controlador de recursos
 
-Verb      | Path                        | Action       | Route Name
+Verbo     | Dirección                   | Acción       | Nombre de la ruta
 ----------|-----------------------------|--------------|---------------------
 GET       | /resource                   | index        | resource.index
 GET       | /resource/create            | create       | resource.create
@@ -178,13 +178,13 @@ GET       | /resource/{resource}/edit   | edit         | resource.edit
 PUT/PATCH | /resource/{resource}        | update       | resource.update
 DELETE    | /resource/{resource}        | destroy      | resource.destroy
 
-Sometimes you may only need to handle a subset of the resource actions:
+Algunas veces puedes solamente necesitar manejar un subconjunto de las acciones del recurso:
 
 	php artisan controller:make PhotoController --only=index,show
 
 	php artisan controller:make PhotoController --except=index
 
-And, you may also specify a subset of actions to handle on the route:
+Y, puedes también especificar un subconjunto de acciones para manejar en la ruta:
 
 	Route::resource('photo', 'PhotoController',
 					array('only' => array('index', 'show')));
@@ -192,7 +192,7 @@ And, you may also specify a subset of actions to handle on the route:
 	Route::resource('photo', 'PhotoController',
 					array('except' => array('create', 'store', 'update', 'destroy')));
 
-By default, all resource controller actions have a route name; however, you can override these names by passing a `names` array with your options:
+De forma predeterminada, todas las acciones de un controlador de recursos tienen una ruta con nombre, sin embargo, puedes sobreescribir estos nombres pasando el arreglo `names` a las opciones de la ruta:
 
 	Route::resource('photo', 'PhotoController',
 					array('names' => array('create' => 'photo.build')));
@@ -200,7 +200,7 @@ By default, all resource controller actions have a route name; however, you can 
 <a name="handling-missing-methods"></a>
 ## Manejando métodos faltantes
 
-A catch-all method may be defined which will be called when no other matching method is found on a given controller. The method should be named `missingMethod`, and receives the method and parameter array for the request:
+Un método comodín puede ser definido para ser llamado cuando ningún otro método concuerde en el controlador dado. El método debe llamarse `missingMethod` y recibe el método y un arreglo de los parámetros de la petición:
 
 #### Defining A Catch-All Method
 
