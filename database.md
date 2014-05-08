@@ -1,21 +1,21 @@
-# Basic Database Usage
+# Uso básico de la base de datos
 
-- [Configuration](#configuration)
-- [Read / Write Connections](#read-write-connections)
-- [Running Queries](#running-queries)
-- [Database Transactions](#database-transactions)
-- [Accessing Connections](#accessing-connections)
-- [Query Logging](#query-logging)
+- [Configuración](#configuration)
+- [Leer / Escribir Conexiones](#read-write-connections)
+- [Ejecutar consultas](#running-queries)
+- [Transacciones de base de datos](#database-transactions)
+- [Acceder conexiones](#accessing-connections)
+- [Registro de consultas](#query-logging)
 
 <a name="configuration"></a>
-## Configuration
+## Configuración
 
 Laravel makes connecting with databases and running queries extremely simple. The database configuration file is `app/config/database.php`. In this file you may define all of your database connections, as well as specify which connection should be used by default. Examples for all of the supported database systems are provided in this file.
 
 Currently Laravel supports four database systems: MySQL, Postgres, SQLite, and SQL Server.
 
 <a name="read-write-connections"></a>
-## Read / Write Connections
+## Leer / Escribir Conexiones
 
 Sometimes you may wish to use one database connection for SELECT statements, and another for INSERT, UPDATE, and DELETE statements. Laravel makes this a breeze, and the proper connections will always be used whether you are using raw queries, the query builder, or the Eloquent ORM.
 
@@ -40,7 +40,7 @@ To see how read / write connections should be configured, let's look at this exa
 Note that two keys have been added to the configuration array: `read` and `write`. Both of these keys have array values containing a single key: `host`. The rest of the database options for the `read` and `write` connections will be merged from the main `mysql` array. So, we only need to place items in the `read` and `write` arrays if we wish to override the values in the main array. So, in this case, `192.168.1.1` will be used as the "read" connection, while `192.168.1.2` will be used as the "write" connection. The database credentials, prefix, character set, and all other options in the main `mysql` array will be shared across both connections.
 
 <a name="running-queries"></a>
-## Running Queries
+## Ejecutar consultas
 
 Once you have configured your database connection, you may run queries using the `DB` class.
 
@@ -78,7 +78,7 @@ You may listen for query events using the `DB::listen` method:
 	});
 
 <a name="database-transactions"></a>
-## Database Transactions
+## Transacciones de base de datos
 
 To run a set of operations within a database transaction, you may use the `transaction` method:
 
@@ -104,7 +104,7 @@ Lastly, you can commit a transaction via the `commit` method:
 	DB::commit();
 
 <a name="accessing-connections"></a>
-## Accessing Connections
+## Acceder conexiones
 
 When using multiple connections, you may access them via the `DB::connection` method:
 
@@ -123,7 +123,7 @@ If you need to disconnect from the given database due to exceeding the underylin
 	DB::disconnect('foo');
 
 <a name="query-logging"></a>
-## Query Logging
+## Registro de consultas
 
 By default, Laravel keeps a log in memory of all queries that have been run for the current request. However, in some cases, such as when inserting a large number of rows, this can cause the application to use excess memory. To disable the log, you may use the `disableQueryLog` method:
 
