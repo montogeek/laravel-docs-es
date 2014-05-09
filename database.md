@@ -15,7 +15,7 @@ Laravel hace que la conexión a base de datos y la ejecución de sentencias extr
 Actualmente Laravel soporta los sistemas de base de datos: MySQL, Postgres, SQLite y SQL Server.
 
 <a name="read-write-connections"></a>
-## Leer / Escribir Conexiones
+## Conexiones de Lectura / Escritura
 
 Algunas puedes necesitar una conexión de base de datos para sentencias SELECT y otra para sentencias INSERT, UPDATE y DELETE. Laravel hace esto extremadamente fácil usando las conexiones apropiadas, no importa si estás ejecutando sentencias planas, el constructor de consultas o el ORM Eloquent.
 
