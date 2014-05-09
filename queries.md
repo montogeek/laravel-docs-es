@@ -1,20 +1,20 @@
-# Query Builder
+# Constructor de consultas
 
-- [Introduction](#introduction)
+- [Introducción](#introduction)
 - [Selects](#selects)
 - [Joins](#joins)
-- [Advanced Wheres](#advanced-wheres)
+- [Wheres avanzados](#advanced-wheres)
 - [Aggregates](#aggregates)
-- [Raw Expressions](#raw-expressions)
+- [Expresiones planas](#raw-expressions)
 - [Inserts](#inserts)
 - [Updates](#updates)
 - [Deletes](#deletes)
 - [Unions](#unions)
 - [Pessimistic Locking](#pessimistic-locking)
-- [Caching Queries](#caching-queries)
+- [Cache de consultras](#caching-queries)
 
 <a name="introduction"></a>
-## Introduction
+## Introducción
 
 The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works on all supported database systems.
 
@@ -204,7 +204,7 @@ The query builder also provides a variety of aggregate methods, such as `count`,
 	$total = DB::table('users')->sum('votes');
 
 <a name="raw-expressions"></a>
-## Raw Expressions
+## Expresiones planas
 
 Sometimes you may need to use a raw expression in a query. These expressions will be injected into the query as strings, so be careful not to create any SQL injection points! To create a raw expression, you may use the `DB::raw` method:
 
@@ -307,7 +307,7 @@ To "lock for update" on a SELECT statement, you may use the `lockForUpdate` meth
 	DB::table('users')->where('votes', '>', 100)->lockForUpdate()->get();
 
 <a name="caching-queries"></a>
-## Caching Queries
+## Cache de consultas
 
 You may easily cache the results of a query using the `remember` method:
 
