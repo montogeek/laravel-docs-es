@@ -1,151 +1,152 @@
-# Requests & Input
+# Peticiones y Entrada de datos
 
-- [Basic Input](#basic-input)
+- [Entrada de datos básico](#basic-input)
 - [Cookies](#cookies)
-- [Old Input](#old-input)
-- [Files](#files)
-- [Request Information](#request-information)
+- [Entrada de datos antigua](#old-input)
+- [Archivos](#files)
+- [Solicitud de información](#request-information)
 
 <a name="basic-input"></a>
-## Basic Input
+## Entrada de datos básico
 
-You may access all user input with a few simple methods. You do not need to worry about the HTTP verb used for the request, as input is accessed in the same way for all verbs.
+Puedes acceder a los datos ingresados por el usuario con varios métodos muy simples. No tienes necesidad de preocuparte por el verbo HTTP usado en la petición, la entrada de datos se accede de la misma manera para todos los verbos.
 
-#### Retrieving An Input Value
+#### Accediendo al valor de una entrada de datos
 
 	$name = Input::get('name');
 
-#### Retrieving A Default Value If The Input Value Is Absent
+#### Accediendo a un valor predeterminado si la entrada de datos no existe
 
 	$name = Input::get('name', 'Sally');
 
-#### Determining If An Input Value Is Present
+#### Comprobar si una entrada de datos existe
 
 	if (Input::has('name'))
 	{
 		//
 	}
 
-#### Getting All Input For The Request
+#### Obtener toda la entrada de datos de la petición
 
 	$input = Input::all();
 
-#### Getting Only Some Of The Request Input
+#### Obtener alguna entrada de datos de la petición
 
 	$input = Input::only('username', 'password');
 
 	$input = Input::except('credit_card');
 
-When working on forms with "array" inputs, you may use dot notation to access the arrays:
+Cuando tengas formularios con entrada de datos como arreglos, puedes usar la notación de punto para acceder los arreglos:
 
 	$input = Input::get('products.0.name');
 
-> **Note:** Some JavaScript libraries such as Backbone may send input to the application as JSON. You may access this data via `Input::get` like normal.
+> **Nota:** Algunas librerías JavaScript como Backbone envían la entrada de datos en formato JSON. Puedes acceder a ellos naturalmente con `Input::get`.
 
 <a name="cookies"></a>
 ## Cookies
 
-All cookies created by the Laravel framework are encrypted and signed with an authentication code, meaning they will be considered invalid if they have been changed by the client.
+Todas las cookies creadas por Laravel son escriptadas y firmadas con un código de autentificación, esto significa que serán consideradas inválidas si fueran cambiadas por el ciente.
 
-#### Retrieving A Cookie Value
+#### Accediendo al valor de una cookie
 
 	$value = Cookie::get('name');
 
-#### Attaching A New Cookie To A Response
+#### Adjuntar una cookie nueva a una respuesta
 
 	$response = Response::make('Hello World');
 
 	$response->withCookie(Cookie::make('name', 'value', $minutes));
 
-#### Queueing A Cookie For The Next Response
+#### Encolar una cookie para la siguiente respuesta
 
-If you would like to set a cookie before a response has been created, use the `Cookie::queue()` method. The cookie will automatically be attached to the final response from your application.
+Si deseas establecer una cookie antes de que una respuesta se haya creado, usa el método `Cookie::queue()`. La cookie automáticamente se adjuntará a la respuesta final de tu aplicación:
 
 	Cookie::queue($name, $value, $minutes);
 
-#### Creating A Cookie That Lasts Forever
+#### Creando una cookie que dure para siempre
 
 	$cookie = Cookie::forever('name', 'value');
 
 <a name="old-input"></a>
-## Old Input
+## Entrada de datos antigua
 
-You may need to keep input from one request until the next request. For example, you may need to re-populate a form after checking it for validation errors.
+Puedes necesitar mantener la entrada de datos de una petición hasta la siguiente petición. Por ejemplo, cuando necesites repoblar un formulario después de comprobar si tiene errores de validación.
 
-#### Flashing Input To The Session
+#### Guardando entrada de datos en la sesión
 
 	Input::flash();
 
-#### Flashing Only Some Input To The Session
+#### Guardando aguna entrada de datos a la sesión
 
 	Input::flashOnly('username', 'email');
 
 	Input::flashExcept('password');
 
-Since you often will want to flash input in association with a redirect to the previous page, you may easily chain input flashing onto a redirect.
+Ya que a menudo desearás guardar la entrada de datos combinada con una redirección a la página anterior, puedes hacerlo fácilmente encadenando la guardada de la entrada de datos en una redirección:
 
 	return Redirect::to('form')->withInput();
 
 	return Redirect::to('form')->withInput(Input::except('password'));
 
-> **Note:** You may flash other data across requests using the [Session](/docs/session) class.
+> **Nota:** Puedes guardar otros datos entre peticiones usando la clase [Sesión](/docs/session).
 
-#### Retrieving Old Data
+#### Obteniendo datos antiguos
 
 	Input::old('username');
 
 <a name="files"></a>
-## Files
+## Archivos
 
-#### Retrieving An Uploaded File
+#### Obteniendo un archivo subido
 
 	$file = Input::file('photo');
 
-#### Determining If A File Was Uploaded
+#### Determinar si un archivo fue subido
 
 	if (Input::hasFile('photo'))
 	{
 		//
 	}
 
-The object returned by the `file` method is an instance of the `Symfony\Component\HttpFoundation\File\UploadedFile` class, which extends the PHP `SplFileInfo` class and provides a variety of methods for interacting with the file.
+El objeto retornado por el métodot `file` es una instancia de la clase `Symfony\Component\HttpFoundation\File\UploadedFile`, la cual extiende la clase PHP `SplFileInfo` y provee una variedad de métodos para interactuar con el archivo.
 
-#### Moving An Uploaded File
+#### Moviendo un archivo subido
 
 	Input::file('photo')->move($destinationPath);
 
 	Input::file('photo')->move($destinationPath, $fileName);
 
-#### Retrieving The Path To An Uploaded File
+#### Obteniendo la ruta de un archivo subido
 
 	$path = Input::file('photo')->getRealPath();
 
-#### Retrieving The Original Name Of An Uploaded File
+#### Obteniendo el nombre original de un archivo subido
 
 	$name = Input::file('photo')->getClientOriginalName();
 
-#### Retrieving The Extension Of An Uploaded File
+#### Obteniendo la extensión de un archivo subido
 
 	$extension = Input::file('photo')->getClientOriginalExtension();
 
-#### Retrieving The Size Of An Uploaded File
+#### Obteniendo el tamaño de un archivo subido
 
 	$size = Input::file('photo')->getSize();
 
-#### Retrieving The MIME Type Of An Uploaded File
+#### Obteniendo el tipo MIME de un archivo subido
 
 	$mime = Input::file('photo')->getMimeType();
 
 <a name="request-information"></a>
-## Request Information
+## Solicitud de información
 
-The `Request` class provides many methods for examining the HTTP request for your application and extends the `Symfony\Component\HttpFoundation\Request` class. Here are some of the highlights.
+La clase `Request` provee diversos métodos para examinar la petición HTTP de tu aplicación y extiende la clase `Symfony\Component\HttpFoundation\Request`.
+Algunos de los métodos más relevantes:
 
-#### Retrieving The Request URI
+#### Obteniendo la URI de la petición
 
 	$uri = Request::path();
 
-#### Retrieving The Request Method
+#### Obteniendo el método de la petición
 
 	$method = Request::method();
 
@@ -154,60 +155,60 @@ The `Request` class provides many methods for examining the HTTP request for you
 		//
 	}
 
-#### Determining If The Request Path Matches A Pattern
+#### Determinar si la ruta de la petición concuerda con un patrón
 
 	if (Request::is('admin/*'))
 	{
 		//
 	}
 
-#### Get The Request URL
+#### Obtener la URL de la petición
 
 	$url = Request::url();
 
-#### Retrieve A Request URI Segment
+#### Obtener un segmento de la URI de la petición
 
 	$segment = Request::segment(1);
 
-#### Retrieving A Request Header
+#### Obtener un encabezado de la petición
 
 	$value = Request::header('Content-Type');
 
-#### Retrieving Values From $_SERVER
+#### Obtener valores de $_SERVER
 
 	$value = Request::server('PATH_INFO');
 
-#### Determining If The Request Is Over HTTPS
+#### Determinar si la petición es HTTPS
 
 	if (Request::secure())
 	{
 		//
 	}
 
-#### Determine If The Request Is Using AJAX
+#### Determinar si la petición es AJAX
 
 	if (Request::ajax())
 	{
 		//
 	}
 
-#### Determine If The Request Has JSON Content Type
+#### Determinar si la petición tiene tipo de contenido JSON
 
 	if (Request::isJson())
 	{
 		//
 	}
 
-#### Determine If The Request Is Asking For JSON
+#### Determinar si la petición espera un contenido tipo JSON
 
 	if (Request::wantsJson())
 	{
 		//
 	}
 
-#### Checking The Requested Response Format
+#### Verificar el formato de respuesta de la petición
 
-The `Request::format` method will return the requested response format based on the HTTP Accept header:
+El método `Request::format` retornará el formato de respuesta de la petición basado en el encabezado HTTP Accept
 
 	if (Request::format() == 'json')
 	{

@@ -17,24 +17,24 @@ Algunas veces necesitar acceder a las opciones de configuración. Puedes realiza
 
 	Config::get('app.timezone');
 
-You may also specify a default value to return if the configuration option does not exist:
+Puedes también espeficar un valor predeterminado para retornar y la opción de configuración no existe:
 
 	$timezone = Config::get('app.timezone', 'UTC');
 
-Notice that "dot" style syntax may be used to access values in the various files. You may also set configuration values at run-time:
+Observa que la síntaxis de "puntos" puede ser usada para acceder a las opciones de configuración en múltiples archivos. También puedes establecer opciones de configuración durante la ejecución:
 
 #### Establecer una opción de configuración
 
 	Config::set('database.default', 'sqlite');
 
-Configuration values that are set at run-time are only set for the current request, and will not be carried over to subsequent requests.
+Las opciones de configuración que son establecidas durante la ejecución solo son establecidas durante la petición actual, si no se tendrán en cuenta en las siguiente peticiones.
 
 <a name="environment-configuration"></a>
 ## Configuración de entorno
 
-It is often helpful to have different configuration values based on the environment the application is running in. For example, you may wish to use a different cache driver on your local development machine than on the production server. It is easy to accomplish this using environment based configuration.
+A menudo es muy útil tener valores diferentes de configuración según el entorno en el cual se esté ejecutanddo la aplicación. Por ejemplo, tal vez desees utilizar un controlador de cache diferente en tu entorno de desarrollo local y otro en el servidor de producción. Esto es muy fácil de hacer usando configuraciones basadas en entornos.
 
-Simply create a folder within the `config` directory that matches your environment name, such as `local`. Next, create the configuration files you wish to override and specify the options for that environment. For example, to override the cache driver for the local environment, you would create a `cache.php` file in `app/config/local` with the following content:
+Simplemente crea una carpeta con un nombre que sea igual a tu entorno de desarrollo dentro en el directorio `config`, por ejemplo `local`. Después, crea los archivos de configuración que desees sobreescribir y especifica las opciones para tu entorno. Por ejemplo, para sobreescribir la configuración de cache para el entorno local, creas el archivo `cache.php` en `app/config/local` con el siguiente contenido:
 
 	<?php
 
@@ -44,11 +44,11 @@ Simply create a folder within the `config` directory that matches your environme
 
 	);
 
-> **Note:** Do not use 'testing' as an environment name. This is reserved for unit testing.
+> **Nota:** No uses 'testing' como nombre para tu entorno. Está reservado para las pruebas unitarias.
 
-Notice that you do not have to specify _every_ option that is in the base configuration file, but only the options you wish to override. The environment configuration files will "cascade" over the base files.
+Observa que no es necesario especificar _cada_ opción disponible en el archivo de configuración predeterminado, solamente las opciones que desees sobreescribir. Los archivos de configuración de tu entorno se aplicarán en "cascada" sobre los archivos predeterminados.
 
-Next, we need to instruct the framework how to determine which environment it is running in. The default environment is always `production`. However, you may setup other environments within the `bootstrap/start.php` file at the root of your installation. In this file you will find an `$app->detectEnvironment` call. The array passed to this method is used to determine the current environment. You may add other environments and machine names to the array as needed.
+A continuación, necesitamos decirle al framework como determinar en que entorno se está ejecutando. El entorno predeterminado siempre es `production`. sin embargo, tal vez necesites configurar otro entornos en el archivo `boostrap/start.php` en la raíz de tu instalación de Laravel. En este archivo te encontrarás con una llamada a `$app->detectEnvironment`. El arreglo pasado a este método es usado para determinar el entorno de ejecución actual. Puedes agregar otros entornos y nombres de máquinas al arreglo como desees.
 
     <?php
 
@@ -58,22 +58,22 @@ Next, we need to instruct the framework how to determine which environment it is
 
     ));
 
-In this example, 'local' is the name of the environment and 'your-machine-name' is the hostname of your server. On Linux and Mac, you may determine your hostname using the `hostname` terminal command.
+En este ejemplo, 'local' es el nombre del entorno y 'your-machine-name' es el nombre de la máquina en tu servidor. En Linux, Mac y Windows, puedes saber el nombre de tu máquina ejecutando el comando `hostname` en la terminal .
 
-If you need more flexible environment detection, you may pass a `Closure` to the `detectEnvironment` method, allowing you to implement environment detection however you wish:
+Si necesitas detectar de manera más flexible el entorno, puedes pasar una Clausura al método `detectEnvironment`, permitiéndote implementar tu propia forma de detectar el entorno:
 
 	$env = $app->detectEnvironment(function()
 	{
 		return $_SERVER['MY_LARAVEL_ENV'];
 	});
 
-You may access the current application environment via the `environment` method:
+Puedes acceder al entorno actual de la aplicación a través del método `environment`.
 
-#### Accessing The Current Application Environment
+#### Accediendo al entorno actual de la aplicación
 
 	$environment = App::environment();
 
-You may also pass arguments to the `environment` method to check if the environment matches a given value:
+Puedes también pasar argumentos al método `environment` para comprobar si el entorno concuerda con el valor dado:
 
 	if (App::environment('local'))
 	{
@@ -88,7 +88,7 @@ You may also pass arguments to the `environment` method to check if the environm
 <a name="provider-configuration"></a>
 ### Configuración de proveedores
 
-When using environment configuration, you may want to "append" environment [service providers](/docs/ioc#service-providers) to your primary `app` configuration file. However, if you try this, you will notice the environment `app` providers are overriding the providers in your primary `app` configuration file. To force the providers to be appended, use the `append_config` helper method in your environment `app` configuration file:
+Cuando uses configuración por entorno, podrías querer "añadir" [proveedores de servicio](/docs/ioc#service-providers) de entorno a tu archivo de configuración `app` principal. Sin embargo, si pruebas esto, te darás cuenta que los proveedores de tu entorno están sobreescribiendo los proveedores en tu archivo de configuración `app` principal. Para forzar a los proveedores a ser añadidos, usa el método de ayuda `append_config` en tu archivo de configuración de entorno `app`.
 
 	'providers' => append_config(array(
 		'LocalOnlyServiceProvider',
@@ -97,9 +97,9 @@ When using environment configuration, you may want to "append" environment [serv
 <a name="protecting-sensitive-configuration"></a>
 ## Protegiendo configuración sensible
 
-For "real" applications, it is advisable to keep all of your sensitive configuration out of your configuration files. Things such as database passwords, Stripe API keys, and encryption keys should be kept out of your configuration files whenever possible. So, where should we place them? Thankfully, Laravel provides a very simple solution to protecting these types of configuration items using "dot" files.
+Para aplicaciones 'reales', es aconsejable mantener la configuración delicada fuera de los archivos de configuración. Cosas como contraseñas de bases de datos, llaves de la API de Stripe, y llaves de encriptación deberían permanecer fuera de los archivos de configuración siempre que sea posible. Así qué, ¿Dónde deberían guardarse? Afortunadamente, Laravel provee una solución muy simple para proteger ese tipo de configuración usando archivos "puntos".<!-- TODO "dot" -->
 
-First, [configure your application](/docs/configuration#environment-configuration) to recognize your machine as being in the `local` environment. Next, create a `.env.local.php` file within the root of your project, which is usually the same directory that contains your `composer.json` file. The `.env.local.php` should return an array of key-value pairs, much like a typical Laravel configuration file:
+Primero, [configura tu aplicación](/docs/configuration#environment-configuration) para hacer reconocible tu máquina en el entorno `local`. Después, crea el archivo `.env.local.php` en la raíz de tu proyecto, es usualmente el mismo directorio que contiene el archivo `composer.json`. El archivo `.env.local.php` debe retornar un arreglo de parejas llave-valor, tal como un archivo típico de configuración de Laravel:
 
 	<?php
 
@@ -109,38 +109,38 @@ First, [configure your application](/docs/configuration#environment-configuratio
 
 	);
 
-All of the key-value pairs returned by this file will automatically be available via the `$_ENV` and `$_SERVER` PHP "superglobals". You may now reference these globals from within your configuration files:
+Todos las parejas llave-valor retornadas por este archivo están automáticamente disponibles a través de las variables "superglobales" `$_ENV` y `$_SERVER` de PHP. Ahora puedes hacer referencia a estas variables globales en los archivos de configuración:
 
 	'key' => $_ENV['TEST_STRIPE_KEY']
 
-Be sure to add the `.env.local.php` file to your `.gitignore` file. This will allow other developers on your team to create their own local environment configuration, as well as hide your sensitive configuration items from source control.
+Asegúrate agregar el archivo `.env.local.php` a tu archivo `.gitignore`. Esto permitirá a otros desarrolladores en tu equipo crear su propia configuración de entorno local, así como ocultar configuración sensible del software de control de versiones.
 
-Now, On your production server, create a `.env.php` file in your project root that contains the corresponding values for your production environment. Like the `.env.local.php` file, the production `.env.php` file should never be included in source control.
+Ahora, en tu servidor de producción, crea el archivo `.env.php` en el directorio raíz de tu proyecto, este guardará la configuración para tu entorno de producción. Así como el archivo `.env.local.php`, el archivo de producción `.env.php` no debería incluirse en el software de control de versiones.
 
-> **Note:** You may create a file for each environment supported by your application. For example, the `development` environment will load the `.env.development.php` file if it exists.
+> **Nota:** Puedes crear un archivo para cada entorno soportado por tu aplicación. Por ejemplo, el entorno `development` cargará el archivo `.env.development.php` si existe.
 
 <a name="maintenance-mode"></a>
 ## Modo mantenimiento
 
-When your application is in maintenance mode, a custom view will be displayed for all routes into your application. This makes it easy to "disable" your application while it is updating or when you are performing maintenance. A call to the `App::down` method is already present in your `app/start/global.php` file. The response from this method will be sent to users when your application is in maintenance mode.
+Cuando tu aplicación está en modo mantenimiento, una vista personalizada se mostrará para todas las rutas de tu aplicación, esto hace que sea muy fácil "deshabilitar" tu aplicación mientras se está actualizando o cuando estás ejecutando un mantenimiento. Un llamado al método `App::down` ya se encuentra presente en tu archivo `app/start/global.php`. La respuesta de este método será enviada a los usuarios cuando tu aplicación está en modo mantenimiento.
 
-To enable maintenance mode, simply execute the `down` Artisan command:
+Para habilitar el modo mantenimiento, simplemente ejecuta el comando de Artisan `down`:
 
 	php artisan down
 
-To disable maintenance mode, use the `up` command:
+Para deshabilitar el modo mantenimiento, usa el comando `up`:
 
 	php artisan up
 
-To show a custom view when your application is in maintenance mode, you may add something like the following to your application's `app/start/global.php` file:
+Para mostrar una vista personalizada cuando tu aplicación este en modo mantenimiento, puedes agregar algo similar a esto al archivo `app/start/global.php` de tu aplicación:
 
 	App::down(function()
 	{
 		return Response::view('maintenance', array(), 503);
 	});
 
-If the Closure passed to the `down` method returns `NULL`, maintenace mode will be ignored for that request.
+Si la Clausura pasada al método `down` retorna `NULL`, el modo mantenimiento será ignorado para esa petición.
 
-### Maintenance Mode & Queues
+### Modo mantenimiento y colas de trabajo
 
-While your application is in maintenance mode, no [queue jobs](/docs/queues) will be handled. The jobs will continue to be handled as normal once the application is out of maintenance mode.
+Mientras tu aplicación este en modo mantenimiento, no se ejecutarán [trabajos en cola](/docs/queues). Los trabajos serán funcionando normalmente una vez la aplicación ya no este en modo mantenimiento.
