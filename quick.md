@@ -1,34 +1,34 @@
-# Laravel Quickstart
+# Laravel: Inicio rápido
 
-- [Installation](#installation)
-- [Routing](#routing)
-- [Creating A View](#creating-a-view)
-- [Creating A Migration](#creating-a-migration)
+- [Instalación](#instalacion)
+- [Enrutado](#routing)
+- [Creando una vista](#creating-a-view)
+- [Creando una Migración](#creating-a-migration)
 - [Eloquent ORM](#eloquent-orm)
-- [Displaying Data](#displaying-data)
+- [Mostrando la informacion](#displaying-data)
 
 <a name="installation"></a>
-## Installation
+## Instalación
 
-### Via Laravel Installer
+### Usando el instalador de Laravel
 
-First, download the [Laravel installer PHAR archive](http://laravel.com/laravel.phar). For convenience, rename the file to `laravel` and move it to `/usr/local/bin`. Once installed, the simple `laravel new` command will create a fresh Laravel installation in the directory you specify. For instance, `laravel new blog` would create a directory named `blog` containing a fresh Laravel installation with all dependencies installed. This method of installation is much faster than installing via Composer.
+Primero, descarga el [archivo de instalación PHAR de laravel](http://laravel.com/laravel.phar). Por conveniencia, cambie el nombre del archivo a `laravel` y muevalo a la carpeta `/usr/local/bin`. Una vez instalado, el comando `laravel new` creará una instalación limpia de Laravel en el directorio especificado. Por ejemplo, `laravel new blog` crearía el directorio llamado `blog` que contendra una instalación limpia de Laravel con todas las dependencias instaladas. Este método de instalación es mas rápido que el instalar usando Composer.
 
-### Via Composer
+### Usando Composer
 
-The Laravel framework utilizes [Composer](http://getcomposer.org) for installation and dependency management. If you haven't already, start by [installing Composer](http://getcomposer.org/doc/00-intro.md).
+El framework Laravel utiliza [Composer](http://getcomposer.org) para su instalación y la gestión de dependencias. Si no lo tiene instalado, puede empezar por [instalar Composer es su maquina](http://getcomposer.org/doc/00-intro.md).
 
-Now you can install Laravel by issuing the following command from your terminal:
+Ahora puedes instalar Laravel utilizado el siguiente comando en tu consola:
 
-	composer create-project laravel/laravel your-project-name --prefer-dist
+	composer create-project laravel/laravel nombre-de-proyecto --prefer-dist
 
-This command will download and install a fresh copy of Laravel in a new `your-project-name` folder within your current directory.
+Este comando descargará e instalará una copia limpia de Laravel en la carpeta `nombre-de-proyecto` en directorio que se encuentre en el momento.
 
-If you prefer, you can alternatively download a copy of the [Laravel repository from Github](https://github.com/laravel/laravel/archive/master.zip) manually. Next run the `composer install` command in the root of your manually created project directory. This command will download and install the framework's dependencies.
+Si prefiere, otra alternativa es descargar manualmente una copia del [repositorio de Laravel en Github](https://github.com/laravel/laravel/archive/master.zip). Lo siguiente es ejecutar el comando `composer install` en el directorio raíz del proyecto creado manualmente con anterioridad. Este comando dscargará e instalará las dependencia del framework.
 
-### Permissions
+### Permisos
 
-After installing Laravel, you may need to grant the web server write permissions to the `app/storage` directories. See the [Installation](/docs/installation) documentation for more details on configuration.
+Despúes de instalar Laravel, s probablemente se necesite darle permisos de escritura al navegador para el directorio `app/storage`. Para mas detalles de configuración ver la docmunetación de [Instalación](/docs/installation).
 
 ### Serving Laravel
 

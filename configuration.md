@@ -11,13 +11,13 @@
 
 Todos lo archivos de configuración de Laravel están guardados en el directorio `app/config`. En todos los archivos cada opción de configuración está documentada, así que siéntete a gusto conociendo todas las opciones que tienes disponible.
 
-Algunas veces necesitar acceder a las opciones de configuración. Puedes realizarlo haciendo uso de la clase `Config`:
+Algunas veces vas a necesitar acceder a las opciones de configuración durante la ejecución. Esto puedes realizarlo haciendo uso de la clase `Config`:
 
 #### Acceder a una opción de configuración
 
 	Config::get('app.timezone');
 
-Puedes también espeficar un valor predeterminado para retornar y la opción de configuración no existe:
+Puedes también espeficar un valor predeterminado para retornar si la opción de configuración no existe:
 
 	$timezone = Config::get('app.timezone', 'UTC');
 
@@ -27,7 +27,7 @@ Observa que la síntaxis de "puntos" puede ser usada para acceder a las opciones
 
 	Config::set('database.default', 'sqlite');
 
-Las opciones de configuración que son establecidas durante la ejecución solo son establecidas durante la petición actual, si no se tendrán en cuenta en las siguiente peticiones.
+Las opciones de configuración que son establecidas durante la ejecución solo son establecidas para la petición actual, y no se tendrán en cuenta en las siguiente peticiones.
 
 <a name="environment-configuration"></a>
 ## Configuración de entorno
@@ -88,7 +88,7 @@ Puedes también pasar argumentos al método `environment` para comprobar si el e
 <a name="provider-configuration"></a>
 ### Configuración de proveedores
 
-Cuando uses configuración por entorno, podrías querer "añadir" [proveedores de servicio](/docs/ioc#service-providers) de entorno a tu archivo de configuración `app` principal. Sin embargo, si pruebas esto, te darás cuenta que los proveedores de tu entorno están sobreescribiendo los proveedores en tu archivo de configuración `app` principal. Para forzar a los proveedores a ser añadidos, usa el método de ayuda `append_config` en tu archivo de configuración de entorno `app`.
+Al usar configuración por entorno, podrías querer "añadir" [proveedores de servicio](/docs/ioc#service-providers) de entorno a tu archivo de configuración `app` principal. Sin embargo, si pruebas esto, te darás cuenta que los proveedores de tu entorno están sobreescribiendo los proveedores en tu archivo de configuración `app` principal. Para forzar a los proveedores a ser añadidos, usa el método de ayuda `append_config` en tu archivo de configuración de entorno `app`.
 
 	'providers' => append_config(array(
 		'LocalOnlyServiceProvider',
@@ -97,9 +97,9 @@ Cuando uses configuración por entorno, podrías querer "añadir" [proveedores d
 <a name="protecting-sensitive-configuration"></a>
 ## Protegiendo configuración sensible
 
-Para aplicaciones 'reales', es aconsejable mantener la configuración delicada fuera de los archivos de configuración. Cosas como contraseñas de bases de datos, llaves de la API de Stripe, y llaves de encriptación deberían permanecer fuera de los archivos de configuración siempre que sea posible. Así qué, ¿Dónde deberían guardarse? Afortunadamente, Laravel provee una solución muy simple para proteger ese tipo de configuración usando archivos "puntos".<!-- TODO "dot" -->
+Para aplicaciones 'reales', es aconsejable mantener la configuración delicada fuera de los archivos de configuración. Cosas como contraseñas de bases de datos, llaves de la API de Stripe, y llaves de encriptación deberían permanecer fuera de los archivos de configuración siempre que sea posible. Así qué, ¿Dónde deberían guardarse? Afortunadamente, Laravel provee una solución muy simple para proteger ese tipo de configuración usando archivos "punto".<!-- TODO "dot" -->
 
-Primero, [configura tu aplicación](/docs/configuration#environment-configuration) para hacer reconocible tu máquina en el entorno `local`. Después, crea el archivo `.env.local.php` en la raíz de tu proyecto, es usualmente el mismo directorio que contiene el archivo `composer.json`. El archivo `.env.local.php` debe retornar un arreglo de parejas llave-valor, tal como un archivo típico de configuración de Laravel:
+Primero, [configura tu aplicación](/docs/configuration#environment-configuration) para hacer reconocible tu máquina en el entorno `local`. Después, crea el archivo `.env.local.php` en la raíz de tu proyecto, que es usualmente el mismo directorio que contiene el archivo `composer.json`. El archivo `.env.local.php` debe retornar un arreglo de parejas llave-valor, tal como un archivo típico de configuración de Laravel:
 
 	<?php
 
@@ -143,4 +143,4 @@ Si la Clausura pasada al método `down` retorna `NULL`, el modo mantenimiento se
 
 ### Modo mantenimiento y colas de trabajo
 
-Mientras tu aplicación este en modo mantenimiento, no se ejecutarán [trabajos en cola](/docs/queues). Los trabajos serán funcionando normalmente una vez la aplicación ya no este en modo mantenimiento.
+Mientras tu aplicación este en modo mantenimiento, no se ejecutarán [trabajos en cola](/docs/queues). Los trabajos serán ejecutados normalmente una vez la aplicación ya no este en modo mantenimiento.
