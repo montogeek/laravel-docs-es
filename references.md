@@ -8,3 +8,4 @@ Acá se dará una explicación extensa y clara sobre algunas palabras o concepto
 - Callback (retrollamadas)
 - Namespaces (espacio de nombres)
 - REST (Técnica de Arquitectura de software)
+- ORM (Mapeo Objeto-Relacional)
