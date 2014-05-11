@@ -23,20 +23,20 @@
 <a name="introduction"></a>
 ## Introducción
 
-The Eloquent ORM included with Laravel provides a beautiful, simple ActiveRecord implementation for working with your database. Each database table has a corresponding "Model" which is used to interact with that table.
+El ORM Eloquent incluído con Laravel provee una implementación de ActiveRecord hermosa y sencilla para trabajar con tu base de datos. Cada tabla de la base de datos tiene un "Modelo" correspondiente que es usado para interactuar con la tabla.
 
-Before getting started, be sure to configure a database connection in `app/config/database.php`.
+Antes de empezar, asegúrate de configurar la conexión a la base de datos en `app/config/database.php`.
 
 <a name="basic-usage"></a>
 ## Uso básico
 
-To get started, create an Eloquent model. Models typically live in the `app/models` directory, but you are free to place them anywhere that can be auto-loaded according to your `composer.json` file.
+Para empezar, crea un modelo Eloquent. Los modelos comúmente se guardan en el directorio `app/models`, pero eres libre de guardarlos en cualquier directorio que se puede autocargar a través de tu archivo `composer.json`.
 
-#### Defining An Eloquent Model
+#### Definiendo un modelo Eloquent
 
 	class User extends Eloquent {}
 
-Note that we did not tell Eloquent which table to use for our `User` model. The lower-case, plural name of the class will be used as the table name unless another name is explicitly specified. So, in this case, Eloquent will assume the `User` model stores records in the `users` table. You may specify a custom table by defining a `table` property on your model:
+Observa que no le especificamos a Eloquent cual tabla se usará para nuestro modelo `User`. El nombre en plural y minúsculas será usado como nombre de la tabla a menos que se espeficique otra explicítamente. Así, en este aso, Eloquent asumirá que el modelo `User` guardará los datos en la tabla `users`. También puedes especificar una tabla personalizada definiendo la propiedad `table` en tu modelo:
 
 	class User extends Eloquent {
 
@@ -44,11 +44,11 @@ Note that we did not tell Eloquent which table to use for our `User` model. The 
 
 	}
 
-> **Note:** Eloquent will also assume that each table has a primary key column named `id`. You may define a `primaryKey` property to override this convention. Likewise, you may define a `connection` property to override the name of the database connection that should be used when utilizing the model.
+> **Nota:** Eloquent también asumirá que cada tabla tiene una llame primaria llamada `id`. Puedes definir la propiedad `primaryKey` para sobreescribir esta convención. Igualmente, puedes definir la propiedad  `connection` para sobreescribir el nombre de la conexión de base de datos que utilizará el modelo.
 
-Once a model is defined, you are ready to start retrieving and creating records in your table. Note that you will need to place `updated_at` and `created_at` columns on your table by default. If you do not wish to have these columns automatically maintained, set the `$timestamps` property on your model to `false`.
+Una vez el modelo esté definido, estás listo para empezar a obtener y crear registroes en tu tabla. Es necesario crear las columnas `updated_at` y `created_at` en tu tabla, sino quieres tener estás columnas automáticamente mantenidas, establezca la propiedad `$timestamps` en tu modelo a `false`.
 
-#### Retrieving All Models
+#### Obteniendo todos los Retrieving All Models
 
 	$users = User::all();
 
