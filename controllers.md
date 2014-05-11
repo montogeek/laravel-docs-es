@@ -1,4 +1,4 @@
-# Controllers
+# Controladores
 
 - [Controladores básicos](#basic-controllers)
 - [Controladores con filtros](#controller-filters)
@@ -9,9 +9,9 @@
 <a name="basic-controllers"></a>
 ## Controladores básicos
 
-En vez de definir toda tu lógica de rutas en un solo archivo `routes.php`, puedes querer organizar esta comportamiento usando las clases de los Controladores. Los Controladores pueden agrupar lógica de rutas relacionadas en una clase, así como tomar ventaja de características más avanzadas del framework como la [inyección de dependencias](/docs/ioc) automática.
+En vez de definir toda tu lógica de rutas en un solo archivo `routes.php`, probablemente preferirías organizar este comportamiento con las clases de los Controladores. Los Controladores pueden agrupar lógica de rutas relacionadas en una clase, así como tomar ventaja de características más avanzadas del framework como la [inyección de dependencias](/docs/ioc) automática.
 
-Los Controladores se guardan normalmente en el directorio `app/controllers`, este directorio esta registrado de forma predeterminada en la opción `classmap` de tu archivo `composer.json`. Sin embargo, los controladores pueden guardarse en cualquier directorio o sub-directorio. La declaración de Rutas no dependen del lugar de la clase del controlador en el disco. Así, mientras Composer conozco como autocargar la clase del controlador, este se puede guardar en el lugar que quieras.
+Los Controladores se guardan normalmente en el directorio `app/controllers`, este directorio esta registrado de forma predeterminada en la opción `classmap` de tu archivo `composer.json`. Sin embargo, los controladores pueden guardarse en cualquier directorio o sub-directorio. La declaración de Rutas no dependen del lugar en disco donde se encuentre la clase del controlador. Así, mientras Composer conozca como autocargar la clase del controlador, este se puede guardar en el lugar que quieras.
 
 Un ejemplo de una clase básica de un controlador.
 
@@ -29,7 +29,7 @@ Un ejemplo de una clase básica de un controlador.
 
 	}
 
-Todos los controladores deberían extender la clase `BaseController`. La clase `BaseController` también se guarda en el directorio `app/controllers`, y puede ser usada para almacenar lógica común a todos los controladores. La clase `BaseController` extiende la clase base `Controller` del framework. Ahora, podemos crear una ruta a la acción de este controlador así:
+Todos los controladores deben extender de la clase `BaseController`. La clase `BaseController` también se guarda en el directorio `app/controllers`, y puede ser usada para almacenar lógica común a todos los controladores. La clase `BaseController` extiende de la clase base `Controller` del framework. Ahora, podemos crear una ruta a la acción de este controlador así:
 
 	Route::get('user/{id}', 'UserController@showProfile');
 
@@ -37,7 +37,7 @@ Si elegiste organizar o poner en una jerarquía tus controladores usando los nam
 
 	Route::get('foo', 'Namespace\FooController@method');
 
-> **Nota:** Ya que estamos usando [Composer](http://getcomposer.org) para autocargar nuestras clases de PHP, los controladores pueden estar en cualquier lugar el sistema de archivos mientras Composer sepa como cargarlos. El directorio `controller` no obliga a usar una estructura estricta en tu aplicación. Crear rutas para los controladores esta completamente separado del sistema de archivos.
+> **Nota:** Ya que estamos usando [Composer](http://getcomposer.org) para autocargar nuestras clases de PHP, los controladores pueden estar en cualquier lugar el sistema de archivos mientras Composer sepa como cargarlos. El directorio `controller` no obliga a usar una estructura de carpeta estricta en tu aplicación. Crear rutas para los controladores esta completamente separado del sistema de archivos.
 
 Puedes especificar nombres a tus rutas de controladores:
 
@@ -62,7 +62,7 @@ Los [Filtros](/docs/routing#route-filters) puedes ser especificados en las rutas
 	Route::get('profile', array('before' => 'auth',
 				'uses' => 'UserController@showProfile'));
 
-Sin embargo, puedes también especificar filtros desde tu controlador:
+Sin embargo, también puedes especificar filtros desde tu controlador:
 
 	class UserController extends BaseController {
 
@@ -81,7 +81,7 @@ Sin embargo, puedes también especificar filtros desde tu controlador:
 
 	}
 
-Puedes especificar filtros de controladores en línea usando una Clausura:
+Puedes especificar filtros de controladores en la línea usando una Clausura:
 
 	class UserController extends BaseController {
 
@@ -154,7 +154,7 @@ Si la acción en tu controlador tiene varias palabras, puedes acceder a la acci�
 <a name="resource-controllers"></a>
 ## Controladores de recursos
 
-Los controladores de recursos hacen más fácil la creación de controladores RESTful para recursos. Por ejemplo, es posible que desees crear un controlador que maneje 'photos' guardadas en tu aplicación. Usando el comando `controller:make` disponible a través de Artisan y el método `Route::resource`, podemos rápidamente crear dicho controlador.
+Los controladores de recursos hacen más fácil la creación de controladores REST para recursos. Por ejemplo, es posible que desees crear un controlador que maneje 'photos' guardadas en tu aplicación. Usando el comando `controller:make` disponible a través de Artisan y el método `Route::resource`, podemos rápidamente crear dicho controlador.
 
 Para crear el controlador a través de la línea de comando, ejecuta el siguiente comando:
 
@@ -164,7 +164,7 @@ Ahora podemos registrar una ruta de recursos para el controlador:
 
 	Route::resource('photo', 'PhotoController');
 
-Está única declaración de ruta crea múltiples rutas para manejar una variedad de acciones RESTful para el recurso `photo`. Del mismo modo, el controlador generado ya tendrá los métodos para cada una de estas acciones con notas informando cuales URIs y verbos HTTP manejará.
+Está única declaración de ruta crea múltiples rutas para manejar una variedad de acciones REST para el recurso `photo`. Del mismo modo, el controlador generado ya tendrá los métodos para cada una de estas acciones con notas informando cuales URIs y verbos HTTP manejará.
 
 #### Acciones manejadas por un controlador de recursos
 
