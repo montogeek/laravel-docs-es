@@ -4,7 +4,7 @@
 - [Selects](#selects)
 - [Joins](#joins)
 - [Wheres avanzados](#advanced-wheres)
-- [Aggregates](#aggregates)
+- [Agregados](#aggregates)
 - [Expresiones planas](#raw-expressions)
 - [Inserts](#inserts)
 - [Updates](#updates)
@@ -187,7 +187,7 @@ La consulta anterior generará la siguiente consulta SQL:
 	)
 
 <a name="aggregates"></a>
-## Aggregates
+## Agregados
 
 En constructor de consultas además ofrece una variedad de métodos de agregación, como `count`, `max`, `min`, `avg` y `sum`.
 

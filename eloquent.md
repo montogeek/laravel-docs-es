@@ -36,7 +36,7 @@ Para empezar, crea un modelo Eloquent. Los modelos comúmente se guardan en el d
 
 	class User extends Eloquent {}
 
-Observa que no le especificamos a Eloquent cual tabla se usará para nuestro modelo `User`. El nombre en plural y minúsculas será usado como nombre de la tabla a menos que se espeficique otra explicítamente. Así, en este aso, Eloquent asumirá que el modelo `User` guardará los datos en la tabla `users`. También puedes especificar una tabla personalizada definiendo la propiedad `table` en tu modelo:
+Observa que no le especificamos a Eloquent cual tabla se usará para nuestro modelo `User`. El nombre en plural y minúsculas será usado como nombre de la tabla a menos que se espeficique otra explicítamente. Así, en este aso, Eloquent asumirá que el modelo	 `User` guardará los datos en la tabla `users`. También puedes especificar una tabla personalizada definiendo la propiedad `table` en tu modelo:
 
 	class User extends Eloquent {
 
@@ -46,29 +46,29 @@ Observa que no le especificamos a Eloquent cual tabla se usará para nuestro mod
 
 > **Nota:** Eloquent también asumirá que cada tabla tiene una llame primaria llamada `id`. Puedes definir la propiedad `primaryKey` para sobreescribir esta convención. Igualmente, puedes definir la propiedad  `connection` para sobreescribir el nombre de la conexión de base de datos que utilizará el modelo.
 
-Una vez el modelo esté definido, estás listo para empezar a obtener y crear registroes en tu tabla. Es necesario crear las columnas `updated_at` y `created_at` en tu tabla, sino quieres tener estás columnas automáticamente mantenidas, establezca la propiedad `$timestamps` en tu modelo a `false`.
+Una vez el modelo esté definido, estás listo para empezar a obtener y crear registros en tu tabla. Es necesario crear las columnas `updated_at` y `created_at` en tu tabla, sino quieres tener estás columnas mantenidas automáticamente, establece la propiedad `$timestamps` en tu modelo a `false`.
 
-#### Obteniendo todos los Retrieving All Models
+#### Obteniendo todos los registros
 
 	$users = User::all();
 
-#### Retrieving A Record By Primary Key
+#### Obteniendo un modelo por su llave primaria
 
 	$user = User::find(1);
 
 	var_dump($user->name);
 
-> **Note:** All methods available on the [query builder](/docs/queries) are also available when querying Eloquent models.
+> **Nota:** Todos los métodos disponibles en el [constructor de consultas](/docs/queries) también están disponibles cuando se consulta con modelos de Eloquent.
 
-#### Retrieving A Model By Primary Key Or Throw An Exception
+#### Obteniendo un modelo por su llave primaria o lanzando una excepción
 
-Sometimes you may wish to throw an exception if a model is not found, allowing you to catch the exceptions using an `App::error` handler and display a 404 page.
+Algunas veces puedes desear lanzar una excepción si un modelo no es encontrado, permitiendote atrapar la excepción usando el manejador `App::error` y mostrando una página de error 404.
 
 	$model = User::findOrFail(1);
 
 	$model = User::where('votes', '>', 100)->firstOrFail();
 
-To register the error handler, listen for the `ModelNotFoundException`
+Para regisrar un manejador de errores, escucha la excepción `ModelNotFoundException`
 
 	use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -77,7 +77,7 @@ To register the error handler, listen for the `ModelNotFoundException`
 		return Response::make('Not Found', 404);
 	});
 
-#### Querying Using Eloquent Models
+#### Consultando usando los modelos de Eloquent
 
 	$users = User::where('votes', '>', 100)->take(10)->get();
 
@@ -86,19 +86,19 @@ To register the error handler, listen for the `ModelNotFoundException`
 		var_dump($user->name);
 	}
 
-Of course, you may also use the query builder aggregate functions.
+Por supuesto, también puedes usar las funciones de agregados del constructor de consultas.
 
-#### Eloquent Aggregates
+#### Agregados de Eloquent
 
 	$count = User::where('votes', '>', 100)->count();
 
-If you are unable to generate the query you need via the fluent interface, feel free to use `whereRaw`:
+Si no puedes construir una consulta a través de la interfaz fluída, siénte libre de usar el método `whereRaw`:
 
 	$users = User::whereRaw('age > ? and votes = 100', array(25))->get();
 
-#### Chunking Results
+#### Dividiendo resultados
 
-If you need to process a lot (thousands) of Eloquent records, using the `chunk` command will allow you to do without eating all of your RAM:
+Si necesitar procesar muchos (miles) de registros de Eloquent, usar el método `chunk` te permitirá hacerlo sin consumir toda tu memoria RAM:
 
 	User::chunk(200, function($users)
 	{
@@ -108,11 +108,11 @@ If you need to process a lot (thousands) of Eloquent records, using the `chunk` 
 		}
 	});
 
-The first argument passed to the method is the number of records you wish to receive per "chunk". The Closure passed as the second argument will be called for each chunk that is pulled from the database.
+El primer argumento pasado al método es el número de registros que deseas recibir por "porción". La Clausura pasado como segundo parámetro será ejecutada para cada porción que es traída de la base de datos.
 
-#### Specifying The Query Connection
+#### Especificando la conexión de la consulta
 
-You may also specify which database connection should be used when running an Eloquent query. Simply use the `on` method:
+Tambien puedes especificar que conexión de base de datos debería ser usada cuando se ejecuta una consulta de Eloquent. Simplemente usa el método `on`:
 
 	$user = User::on('connection-name')->find(1);
 
