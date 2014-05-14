@@ -4,9 +4,9 @@
 - [Uso básico](#basic-usage)
 - [Asignación en masa](#mass-assignment)
 - [Insertar, Actualizar, Eliminar](#insert-update-delete)
-- [Eliminación blanda](#soft-deleting)
+- [Eliminación flexible](#soft-deleting)
 - [Marcas de tiempo](#timestamps)
-- [Consultas con alcance](#query-scopes)
+- [Consultas con ámbito](#query-scopes)
 - [Relaciones](#relationships)
 - [Consultas sobre relaciones](#querying-relations)
 - [Carga impaciente](#eager-loading)
@@ -119,13 +119,13 @@ Tambien puedes especificar que conexión de base de datos debería ser usada cua
 <a name="mass-assignment"></a>
 ## Asignación en masa
 
-When creating a new model, you pass an array of attributes to the model constructor. These attributes are then assigned to the model via mass-assignment. This is convenient; however, can be a **serious** security concern when blindly passing user input into a model. If user input is blindly passed into a model, the user is free to modify **any** and **all** of the model's attributes. For this reason, all Eloquent models protect against mass-assignment by default.
+Cuando creas un nuevo registro, pasas un arreglo de atributos al constructor del modelo. Esos atributos luego son asignados al modelo a través de una asignación en masa. Esto es conveniente; sin embargo, puede ser un **grave y serio** problema de seguridad pasar ciegamente la entrada de datos del usuario al modelo. Si la entrada de datos del usuario es pasada ciegamente al modelo, el usuario está en la libertad de modificar **cualquiera** y **todos** los atributos del modelo. Por esta razón, todos los modelos de Eloquent están protegidos de la asignación en masa de forma predeterminada.
 
-To get started, set the `fillable` or `guarded` properties on your model.
+Para empezar, establece las propiedades `fillable` o `guarded` en tu modelo.
 
-The `fillable` property specifies which attributes should be mass-assignable. This can be set at the class or instance level.
+La propiedad `fillable` especifica que atributos deberían poder asignarse en masa. Esto puede ser establecido a nivel de la clase o en una instancia.
 
-#### Defining Fillable Attributes On A Model
+#### Definiendo los atributos que se puedan asignar en un modelo
 
 	class User extends Eloquent {
 
@@ -133,11 +133,11 @@ The `fillable` property specifies which attributes should be mass-assignable. Th
 
 	}
 
-In this example, only the three listed attributes will be mass-assignable.
+En este ejemplo, solo los tres atributos listados podrán ser asignados en masa.
 
-The inverse of `fillable` is `guarded`, and serves as a "black-list" instead of a "white-list":
+El inverso de `fillable` es `guarded`, y sirve como una "lista negra" en vez de una "lista blanca."
 
-#### Defining Guarded Attributes On A Model
+#### Definiendo los atributos asegurados en un modelo
 
 	class User extends Eloquent {
 
@@ -145,18 +145,18 @@ The inverse of `fillable` is `guarded`, and serves as a "black-list" instead of 
 
 	}
 
-In the example above, the `id` and `password` attributes may **not** be mass assigned. All other attributes will be mass assignable. You may also block **all** attributes from mass assignment using the guard property:
+En el anterior ejemplo, los atributos `id` y `password` **no** pueden ser asignados en masa. El resto de atributos se podrán asignar en masa. También puedes bloquear **todos** los atributos de la asignación en masa usando la propiedad `guarded`:
 
-#### Blocking All Attributes From Mass Assignment
+#### Bloqueando todos los atributos de la asignación en masa
 
 	protected $guarded = array('*');
 
 <a name="insert-update-delete"></a>
 ## Insertar, Actualizar, Eliminar
 
-To create a new record in the database from a model, simply create a new model instance and call the `save` method.
+Para crear un nuevo registro en la base dedatos de un modelo, simplemente crea una nueva instancia del modelo y llama el método `save`:
 
-#### Saving A New Model
+#### Guardando un nuevo modelo
 
 	$user = new User;
 
@@ -164,15 +164,15 @@ To create a new record in the database from a model, simply create a new model i
 
 	$user->save();
 
-> **Note:** Typically, your Eloquent models will have auto-incrementing keys. However, if you wish to specify your own keys, set the `incrementing` property on your model to `false`.
+> **Nota:** Normalmente, tus modelos de Eloquent tendrán llaves autoincrementables. Sin embargo, si deseas especificar tus propias llaves, establece la propiedad `incrementing` en `false`.
 
-You may also use the `create` method to save a new model in a single line. The inserted model instance will be returned to you from the method. However, before doing so, you will need to specify either a `fillable` or `guarded` attribute on the model, as all Eloquent models protect against mass-assignment.
+También puedes usar el método `create` para guardar un nnuevo modelo en una sola línea. La instancia del modelo insertado será retornado del método. Sin embargo, antes de hacerlo, necesitas especificar el atributo `fillabe` o `guarded` en tu modelo, como todos los modelos Eloquent protegido contra asignación en masa.
 
-After saving or creating a new model that uses auto-incrementing IDs, you may retrieve the ID by accessing the object's `id` attribute:
+Luego de guardar o creat el nuevo modelo que usa IDs autoinccrementable, puedes obtener el ID accediendo al atributo `id` del modelo:
 
 	$insertedId = $user->id;
 
-#### Setting The Guarded Attributes On The Model
+#### Configurando los atributos bloqueados de la asignación en masa en el modelo
 
 	class User extends Eloquent {
 
@@ -180,7 +180,7 @@ After saving or creating a new model that uses auto-incrementing IDs, you may re
 
 	}
 
-#### Using The Model Create Method
+#### Usando el método create del modelo
 
 	// Create a new user in the database...
 	$user = User::create(array('name' => 'John'));
@@ -191,9 +191,9 @@ After saving or creating a new model that uses auto-incrementing IDs, you may re
 	// Retrieve the user by the attributes, or instantiate a new instance...
 	$user = User::firstOrNew(array('name' => 'John'));
 
-To update a model, you may retrieve it, change an attribute, and use the `save` method:
+para actualiar un modelo, puedes obtenerlo, cambiar un atributo, y usar el método `save`:
 
-#### Updating A Retrieved Model
+#### Actualizando un modelo obtenido
 
 	$user = User::find(1);
 
@@ -201,27 +201,27 @@ To update a model, you may retrieve it, change an attribute, and use the `save` 
 
 	$user->save();
 
-Sometimes you may wish to save not only a model, but also all of its relationships. To do so, you may use the `push` method:
+Algunas veces deseas no solo guardar el modelo, sino también todas sus relaciones. Para hacerlo, puedes usar el método `push`:
 
-#### Saving A Model And Relationships
+#### Guardando un modelo y sus relaciones
 
 	$user->push();
 
-You may also run updates as queries against a set of models:
+También puedes ejecutar actualizaciones como consultas contra un conjunto de modelos:
 
 	$affectedRows = User::where('votes', '>', 100)->update(array('status' => 2));
 
-> **Note:** No model events are fired when updating a set of models via the Eloquent query builder.
+> **Nota:** No se disparan eventos cuando se actualizan un conjunto de modelos a través del constructor de consultas de Eloquent.
 
-#### Deleting An Existing Model
+#### Eliminando un modelo existente
 
-To delete a model, simply call the `delete` method on the instance:
+Para eliminar un modelo, simplemente llama el método `delete` en la instancia:
 
 	$user = User::find(1);
 
 	$user->delete();
 
-#### Deleting An Existing Model By Key
+#### Deliminando un modelo existente por su llave
 
 	User::destroy(1);
 
@@ -229,20 +229,20 @@ To delete a model, simply call the `delete` method on the instance:
 
 	User::destroy(1, 2, 3);
 
-Of course, you may also run a delete query on a set of models:
+Por supuesto, también puedes ejecutar una consulta para eliminar un conjunto de modelos:
 
 	$affectedRows = User::where('votes', '>', 100)->delete();
 
-#### Updating Only The Model's Timestamps
+#### Actualizando solo las marcas de tiempo del modelo
 
-If you wish to simply update the timestamps on a model, you may use the `touch` method:
+Si deseas simplemente actualizar lar marcas de tiempo en un modelo, puedes usar el método `touch`:
 
 	$user->touch();
 
 <a name="soft-deleting"></a>
-## Eliminación blanda
+## Eliminación flexible
 
-When soft deleting a model, it is not actually removed from your database. Instead, a `deleted_at` timestamp is set on the record. To enable soft deletes for a model, specify the `softDelete` property on the model:
+Cuando elimines de forma flexible un modelo, realmente no se está eliminando de tu base de datos. En realidad, una marca de tiempo `deleted_at` is establecida en el registro. Para habilitar eliminación flexible en un modelo, especifica la propiedad `softDelete` en el modelo:
 
 	class User extends Eloquent {
 
@@ -250,45 +250,45 @@ When soft deleting a model, it is not actually removed from your database. Inste
 
 	}
 
-To add a `deleted_at` column to your table, you may use the `softDeletes` method from a migration:
+Para agregar la columna `deleted_at` a tu tabla, puedes usar el método `softDeletes` en la migración:
 
 	$table->softDeletes();
 
-Now, when you call the `delete` method on the model, the `deleted_at` column will be set to the current timestamp. When querying a model that uses soft deletes, the "deleted" models will not be included in query results. To force soft deleted models to appear in a result set, use the `withTrashed` method on the query:
+Ahora, cuando llames el método `delete` en un modelo, en la columna `deleted_at` será establecida la marca de tiempo actual. Cuando consultes un modelo que use eliminación flexible, los  registros "eliminados" no serán incluídos en los resultados de la consulta. Para obligar que los registros eliminados aparezcan en los resultados, usa el método `withTrashed` en la consulta:
 
-#### Forcing Soft Deleted Models Into Results
+#### Obligando registros eliminados flexiblemente en resultados
 
 	$users = User::withTrashed()->where('account_id', 1)->get();
 
-The `withTrashed` method may be used on a defined relationship:
+El método `withTrashed` puedes ser usado en una relación definida:
 
 	$user->posts()->withTrashed()->get();
 
-If you wish to **only** receive soft deleted models in your results, you may use the `onlyTrashed` method:
+Si **solamente** deseas obtener los registros eliminados flexiblemente en tus resultados, puedes usar el método `onlyTrashed`:
 
 	$users = User::onlyTrashed()->where('account_id', 1)->get();
 
-To restore a soft deleted model into an active state, use the `restore` method:
+Para restaurar registros eliminados flexiblemente al estado activo, usa el método `restore`:
 
 	$user->restore();
 
-You may also use the `restore` method on a query:
+También puedes usar el método `restore` en una consulta:
 
 	User::withTrashed()->where('account_id', 1)->restore();
 
-Like with `withTrashed`, the `restore` method may also be used on relationships:
+Así como el método `withTrashed`, el método `restore` puede ser usado en tus relaciones:
 
 	$user->posts()->restore();
 
-If you wish to truly remove a model from the database, you may use the `forceDelete` method:
+Si deseas realmente eliminar registros de la base de datos, puedes usar el méotod `forceDelete`:
 
 	$user->forceDelete();
 
-The `forceDelete` method also works on relationships:
+El método `forceDelete` también funciona en relaciones:
 
 	$user->posts()->forceDelete();
 
-To determine if a given model instance has been soft deleted, you may use the `trashed` method:
+Para determinar si la instancia de un modelo ah sido eliminado flexiblemente, puedes usar el método `trashed`:
 
 	if ($user->trashed())
 	{
@@ -298,9 +298,9 @@ To determine if a given model instance has been soft deleted, you may use the `t
 <a name="timestamps"></a>
 ## Marcas de tiempo
 
-By default, Eloquent will maintain the `created_at` and `updated_at` columns on your database table automatically. Simply add these `timestamp` columns to your table and Eloquent will take care of the rest. If you do not wish for Eloquent to maintain these columns, add the following property to your model:
+Predeterminadamente, Eloquente mantendrá las columnas `created_at` y `updated_at` en tu base de datos automáticamente. Simplemente agrega esas columnas de tipo `timestamp` a tu table y Eloquent hará el resto. Si no deseas que Eloquent mantenga esas columnas, agrega la siguiente propiedad tu modelo:
 
-#### Disabling Auto Timestamps
+#### Deshabilitando marcas de tiempo automáticas
 
 	class User extends Eloquent {
 
@@ -310,9 +310,9 @@ By default, Eloquent will maintain the `created_at` and `updated_at` columns on 
 
 	}
 
-If you wish to customize the format of your timestamps, you may override the `getDateFormat` method in your model:
+Si deseas personalizar el mformato de tus marcas de tiempo, puedes sobreescribir el método `getDateFormat` en tu modelo:
 
-#### Providing A Custom Timestamp Format
+#### Definiendo un formato de marca de tiempo personalizada
 
 	class User extends Eloquent {
 
@@ -324,7 +324,7 @@ If you wish to customize the format of your timestamps, you may override the `ge
 	}
 
 <a name="query-scopes"></a>
-## Consultas con alcance
+## Consultas con ámbito
 
 Scopes allow you to easily re-use query logic in your models. To define a scope, simply prefix a model method with `scope`:
 
