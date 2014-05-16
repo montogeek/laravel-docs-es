@@ -298,7 +298,7 @@ Para determinar si la instancia de un modelo ah sido eliminado flexiblemente, pu
 <a name="timestamps"></a>
 ## Marcas de tiempo
 
-Predeterminadamente, Eloquente mantendrá las columnas `created_at` y `updated_at` en tu base de datos automáticamente. Simplemente agrega esas columnas de tipo `timestamp` a tu table y Eloquent hará el resto. Si no deseas que Eloquent mantenga esas columnas, agrega la siguiente propiedad tu modelo:
+Predeterminadamente, Eloquent mantendrá las columnas `created_at` y `updated_at` en tu base de datos automáticamente. Simplemente agrega esas columnas de tipo `timestamp` a tu table y Eloquent hará el resto. Si no deseas que Eloquent mantenga esas columnas, agrega la siguiente propiedad tu modelo:
 
 #### Deshabilitando marcas de tiempo automáticas
 
