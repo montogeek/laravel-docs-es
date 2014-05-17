@@ -1,4 +1,4 @@
-# Helper Functions
+# Funciones de ayuda
 
 - [Arrays](#arrays)
 - [Paths](#paths)
