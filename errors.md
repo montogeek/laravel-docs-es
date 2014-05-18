@@ -1,4 +1,4 @@
-# Errors & Logging
+# Errores & Registro de errores
 
 - [Configuration](#configuration)
 - [Handling Errors](#handling-errors)
