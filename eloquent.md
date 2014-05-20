@@ -280,7 +280,7 @@ Así como el método `withTrashed`, el método `restore` puede ser usado en tus 
 
 	$user->posts()->restore();
 
-Si deseas realmente eliminar registros de la base de datos, puedes usar el méotod `forceDelete`:
+Si deseas realmente eliminar registros de la base de datos, puedes usar el método `forceDelete`:
 
 	$user->forceDelete();
 
@@ -288,7 +288,7 @@ El método `forceDelete` también funciona en relaciones:
 
 	$user->posts()->forceDelete();
 
-Para determinar si la instancia de un modelo ah sido eliminado flexiblemente, puedes usar el método `trashed`:
+Para determinar si la instancia de un modelo ha sido eliminado flexiblemente, puedes usar el método `trashed`:
 
 	if ($user->trashed())
 	{
@@ -298,7 +298,7 @@ Para determinar si la instancia de un modelo ah sido eliminado flexiblemente, pu
 <a name="timestamps"></a>
 ## Marcas de tiempo
 
-Predeterminadamente, Eloquent mantendrá las columnas `created_at` y `updated_at` en tu base de datos automáticamente. Simplemente agrega esas columnas de tipo `timestamp` a tu table y Eloquent hará el resto. Si no deseas que Eloquent mantenga esas columnas, agrega la siguiente propiedad tu modelo:
+De forma predeterminada, Eloquent mantendrá las columnas `created_at` y `updated_at` en tu base de datos actualizadas automáticamente. Simplemente agrega esas columnas de tipo `timestamp` a tu tabla y Eloquent hará el resto. Si no deseas que Eloquent mantenga esas columnas, agrega la siguiente propiedad tu modelo:
 
 #### Deshabilitando marcas de tiempo automáticas
 
@@ -310,7 +310,7 @@ Predeterminadamente, Eloquent mantendrá las columnas `created_at` y `updated_at
 
 	}
 
-Si deseas personalizar el mformato de tus marcas de tiempo, puedes sobreescribir el método `getDateFormat` en tu modelo:
+Si deseas personalizar el formato de tus marcas de tiempo, puedes sobreescribir el método `getDateFormat` en tu modelo:
 
 #### Definiendo un formato de marca de tiempo personalizada
 
@@ -324,8 +324,9 @@ Si deseas personalizar el mformato de tus marcas de tiempo, puedes sobreescribir
 	}
 
 <a name="query-scopes"></a>
-## Consultas con ámbito
+## Consultas con alcance
 
+Los ámbitos te permiten reusar fácilmente la lógica en tus modelos. Para definir un ámbito
 Scopes allow you to easily re-use query logic in your models. To define a scope, simply prefix a model method with `scope`:
 
 #### Defining A Query Scope
