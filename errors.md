@@ -7,7 +7,7 @@
 - [Logging](#logging)
 
 <a name="configuration"></a>
-## Configuration
+## Configuración
 
 The logging handler for your application is registered in the `app/start/global.php` [start file](/docs/lifecycle#start-files). By default, the logger is configured to use a single log file; however, you may customize this behavior as needed. Since Laravel uses the popular [Monolog](https://github.com/Seldaek/monolog) logging library, you can take advantage of the variety of handlers that Monolog offers.
 
