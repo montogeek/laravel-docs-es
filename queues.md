@@ -1,4 +1,4 @@
-# Queues
+# Colas
 
 - [Configuration](#configuration)
 - [Basic Usage](#basic-usage)
