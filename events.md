@@ -1,4 +1,4 @@
-# Events
+# Eventos
 
 - [Basic Usage](#basic-usage)
 - [Wildcard Listeners](#wildcard-listeners)
