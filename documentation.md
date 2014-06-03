@@ -1,9 +1,3 @@
-[submodule "docs"]
-	path = docs
-	url = https://github.com/montogeek/laravel-es
-[submodule "public/Workless"]
-	path = public/Workless
-	url = https://github.com/iKreativ/Workless
 - Preface
     - [Introduction](/page/introduction)
     - [Quickstart](/page/quick)
