@@ -8,13 +8,13 @@
 
 Aprender un nuevo framework puede ser algo desalentador, pero también emocionante. Para hacer fácil tu aprendizaje, hemos intentado crear una documentación clara y concisa.
 Enlaces recomendades para empezar a aprender:
-- [Instalación](/docs/installation) and [Configuración](/docs/configuration)
-- [Rutas](/docs/routing)
-- [Peticiones y Entrada de datos](/docs/requests)
-- [Vistas & Respuestas](/docs/responses)
-- [Controladores](/docs/controllers)
+- [Instalación](/page/installation) and [Configuración](/page/configuration)
+- [Rutas](/page/routing)
+- [Peticiones y Entrada de datos](/page/requests)
+- [Vistas & Respuestas](/page/responses)
+- [Controladores](/page/controllers)
 
-Después de leer esta documentación obtendrás un buen de nivel de compresión del manejo de peticiones/respuestas realizados por Laravel. A continuación, desearás leer acerca de la [configuración de la base de datos](/docs/database), [el constructor de consultas](/docs/queries), y el [ORM Eloquent](/docs/eloquent). O tal vez deseas saber sobre [autentificación y seguridad](/docs/security) así podrás empezar a crear el inicio de sesión para tu aplicación.
+Después de leer esta documentación obtendrás un buen de nivel de compresión del manejo de peticiones/respuestas realizados por Laravel. A continuación, desearás leer acerca de la [configuración de la base de datos](/page/database), [el constructor de consultas](/page/queries), y el [ORM Eloquent](/page/eloquent). O tal vez deseas saber sobre [autentificación y seguridad](/page/security) así podrás empezar a crear el inicio de sesión para tu aplicación.
 
 <a name="laravel-philosophy"></a>
 ## Filosofía de Laravel

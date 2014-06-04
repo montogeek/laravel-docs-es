@@ -22,7 +22,7 @@ There are several ways to paginate items. The simplest is by using the `paginate
 
 	$users = DB::table('users')->paginate(15);
 
-You may also paginate [Eloquent](/docs/eloquent) models:
+You may also paginate [Eloquent](/page/eloquent) models:
 
 #### Paginating An Eloquent Model
 

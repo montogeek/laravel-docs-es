@@ -9,7 +9,7 @@
 <a name="basic-controllers"></a>
 ## Controladores básicos
 
-En vez de definir toda tu lógica de rutas en un solo archivo `routes.php`, probablemente preferirías organizar este comportamiento con las clases de los Controladores. Los Controladores pueden agrupar lógica de rutas relacionadas en una clase, así como tomar ventaja de características más avanzadas del framework como la [inyección de dependencias](/docs/ioc) automática.
+En vez de definir toda tu lógica de rutas en un solo archivo `routes.php`, probablemente preferirías organizar este comportamiento con las clases de los Controladores. Los Controladores pueden agrupar lógica de rutas relacionadas en una clase, así como tomar ventaja de características más avanzadas del framework como la [inyección de dependencias](/page/ioc) automática.
 
 Los Controladores se guardan normalmente en el directorio `app/controllers`, este directorio esta registrado de forma predeterminada en la opción `classmap` de tu archivo `composer.json`. Sin embargo, los controladores pueden guardarse en cualquier directorio o sub-directorio. La declaración de Rutas no dependen del lugar en disco donde se encuentre la clase del controlador. Así, mientras Composer conozca como autocargar la clase del controlador, este se puede guardar en el lugar que quieras.
 
@@ -57,7 +57,7 @@ Puedes acceder al nombre de la acción del controlador que se está ejecutando u
 <a name="controller-filters"></a>
 ## Controladores con filtros
 
-Los [Filtros](/docs/routing#route-filters) puedes ser especificados en las rutas de controladores, muy similar a las rutas regulares:
+Los [Filtros](/page/routing#route-filters) puedes ser especificados en las rutas de controladores, muy similar a las rutas regulares:
 
 	Route::get('profile', array('before' => 'auth',
 				'uses' => 'UserController@showProfile'));

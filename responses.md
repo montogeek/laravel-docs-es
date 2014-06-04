@@ -154,7 +154,7 @@ También puedes adjuntar un compositor de una vista a varias vistas en uno solo:
         $view->with('count', User::count());
     });
 
-Si prefieres usar una clase como compositor, lo cual provee el beneficio de ser resuelta a través de la aplicación gracias al [contenedor IoC](/docs/ioc), lo harías así:
+Si prefieres usar una clase como compositor, lo cual provee el beneficio de ser resuelta a través de la aplicación gracias al [contenedor IoC](/page/ioc), lo harías así:
 
 	View::composer('profile', 'ProfileComposer');
 

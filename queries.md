@@ -317,6 +317,6 @@ Puedes fácilmente tener un cache de los resultados de una consulta con el méto
 
 En este ejemplo, los resultados de la consulta serán guardados en cache durante diez minutos. Mientras los resultados estén guardados en cache, la consulta no se ejecutará otra vez en la base de datos, y los resultados será cargados del cache predeterminado configurado en tu aplicación.
 
-Si estás usando un [controlador de cache soportado](/docs/cache#cache-tags), puedes además agregar etiquetas al caché:
+Si estás usando un [controlador de cache soportado](/page/cache#cache-tags), puedes además agregar etiquetas al caché:
 
 	$users = DB::table('users')->cacheTags(array('people', 'authors'))->remember(10)->get();

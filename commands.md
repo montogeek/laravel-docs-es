@@ -123,7 +123,7 @@ Once your command is finished, you need to register it with Artisan so it will b
 
 	Artisan::add(new CustomCommand);
 
-If your command is registered in the application [IoC container](/docs/ioc), you may use the `Artisan::resolve` method to make it available to Artisan:
+If your command is registered in the application [IoC container](/page/ioc), you may use the `Artisan::resolve` method to make it available to Artisan:
 
 #### Registering A Command That Is In The IoC Container
 
