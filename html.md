@@ -1,16 +1,16 @@
 # Formularios & HTML
 
-- [Opening A Form](#opening-a-form)
-- [CSRF Protection](#csrf-protection)
-- [Form Model Binding](#form-model-binding)
-- [Labels](#labels)
-- [Text, Text Area, Password & Hidden Fields](#text)
-- [Checkboxes and Radio Buttons](#checkboxes-and-radio-buttons)
-- [File Input](#file-input)
-- [Drop-Down Lists](#drop-down-lists)
-- [Buttons](#buttons)
-- [Custom Macros](#custom-macros)
-- [Generating URLs](#generating-urls)
+- [Creado un formulario](#opening-a-form)
+- [Protección CSRF](#csrf-protection)
+- [Formularios de modelos](#form-model-binding)
+- [Etiquetas](#labels)
+- [Texto, Áreas de texto, Contraseña & Campos ocultos](#text)
+- [Botones checkboxes y radio](#checkboxes-and-radio-buttons)
+- [Entrada archivos](#file-input)
+- [Listas desplegables](#drop-down-lists)
+- [Butones](#buttons)
+- [Macros personalizados](#custom-macros)
+- [Generando URLs](#generating-urls)
 
 <a name="opening-a-form"></a>
 ## Opening A Form
