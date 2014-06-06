@@ -1,4 +1,4 @@
-# Request Lifecycle
+# Ciclo de vida
 
 - [Overview](#overview)
 - [Request Lifecycle](#request-lifecycle)
