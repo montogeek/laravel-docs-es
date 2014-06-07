@@ -1,13 +1,13 @@
 # Funciones de ayuda
 
-- [Arrays](#arrays)
-- [Paths](#paths)
-- [Strings](#strings)
+- [Arreglos](#arrays)
+- [Directorios](#paths)
+- [Cadenas](#strings)
 - [URLs](#urls)
 - [Miscellaneous](#miscellaneous)
 
 <a name="arrays"></a>
-## Arrays
+## Arreglos
 
 ### array_add
 
@@ -188,7 +188,7 @@ Return the last element in the array. Useful for method chaining.
 	$last = last($this->returnsArray('foo'));
 
 <a name="paths"></a>
-## Paths
+## Directorios
 
 ### app_path
 
@@ -209,7 +209,7 @@ Get the fully qualified path to the `public` directory.
 Get the fully qualified path to the `app/storage` directory.
 
 <a name="strings"></a>
-## Strings
+## Cadenas
 
 ### camel_case
 
