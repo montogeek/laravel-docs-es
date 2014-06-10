@@ -326,10 +326,9 @@ Si deseas personalizar el formato de tus marcas de tiempo, puedes sobreescribir 
 <a name="query-scopes"></a>
 ## Consultas con alcance
 
-Los ámbitos te permiten reusar fácilmente la lógica en tus modelos. Para definir un ámbito
-Scopes allow you to easily re-use query logic in your models. To define a scope, simply prefix a model method with `scope`:
+Las consultas con alcance te permiten reusar fácilmente la lógia de tus modelos. Para definir una consulta con alcance, simplemente define un método en el modelo con el prefijo `scope`:
 
-#### Defining A Query Scope
+#### Definiendo una consulta con alcance
 
 	class User extends Eloquent {
 
@@ -345,13 +344,13 @@ Scopes allow you to easily re-use query logic in your models. To define a scope,
 
 	}
 
-#### Utilizing A Query Scope
+#### Utilizando una consulta con alcance
 
 	$users = User::popular()->women()->orderBy('created_at')->get();
 
-#### Dynamic Scopes
+#### Alcances dinámicos
 
-Sometimes You may wish to define a scope that accepts parameters. Just add your parameters to your scope function:
+Algunas veces puedes desear definir un alcance que acepta parámetros. Simplemente agrega tus parámetros a la función de alcance:
 
 	class User extends Eloquent {
 
@@ -362,28 +361,28 @@ Sometimes You may wish to define a scope that accepts parameters. Just add your 
 
 	}
 
-Then pass the parameter into the scope call:
+Luego pasa el parámetro al llamado del alcance:
 
 	$users = User::ofType('member')->get();
 
 <a name="relationships"></a>
 ## Relaciones
 
-Of course, your database tables are probably related to one another. For example, a blog post may have many comments, or an order could be related to the user who placed it. Eloquent makes managing and working with these relationships easy. Laravel supports many types of relationships:
+Por supuesto, tus tablas de la base de datos probablemente se relacionen una con otras. Por ejemplo, un artículo en un blog tiene muchos comentarios, o un recibo puede relacionarse con el usuario que lo solicitó. Eloquent hace el manejo y el funcionamiento de esas relaciones fácilmente. Laravel soporta varios tipos de relaciones:
 
-- [One To One](#one-to-one)
-- [One To Many](#one-to-many)
-- [Many To Many](#many-to-many)
-- [Has Many Through](#has-many-through)
-- [Polymorphic Relations](#polymorphic-relations)
-- [Many To Many Polymorphic Relations](#many-to-many-polymorphic-relations)
+- [Una a una](#one-to-one)
+- [Una a muchas](#one-to-many)
+- [Muchas a muchas](#many-to-many)
+- [Muchas a través](#has-many-through)
+- [Relaciones polimórficas](#polymorphic-relations)
+- [Relaciones polimórficas muchas a muchas](#many-to-many-polymorphic-relations)
 
 <a name="one-to-one"></a>
-### One To One
+### Una a una
 
-A one-to-one relationship is a very basic relation. For example, a `User` model might have one `Phone`. We can define this relation in Eloquent:
+Una relación una a una es una relación muy básica. Por ejemplo un modelo `User` puede tener un `Phone`. Podemos definir está relación en Eloquent:
 
-#### Defining A One To One Relation
+#### Definiendo una relación una a una
 
 	class User extends Eloquent {
 
@@ -394,16 +393,17 @@ A one-to-one relationship is a very basic relation. For example, a `User` model 
 
 	}
 
-The first argument passed to the `hasOne` method is the name of the related model. Once the relationship is defined, we may retrieve it using Eloquent's [dynamic properties](#dynamic-properties):
+El primer argumento pasado al método `hasOne` es el nombre del modelo relacionado. Una vez la relación esté definida podemos obtenerla usando las [propiedades dinámicas](#dynamic-properties) de Eloquent:
 
 	$phone = User::find(1)->phone;
 
-The SQL performed by this statement will be as follows:
+La consulta SQL ejecutada por esta sentencia es:
 
 	select * from users where id = 1
 
 	select * from phones where user_id = 1
 
+Es de notar que Eloquent asume el nombre de la llave foránea
 Take note that Eloquent assumes the foreign key of the relationship based on the model name. In this case, `Phone` model is assumed to use a `user_id` foreign key. If you wish to override this convention, you may pass a second argument to the `hasOne` method. Furthermore, you may pass a third argument to the method to specify which local column that should be used for the association:
 
 	return $this->hasOne('Phone', 'foreign_key');
