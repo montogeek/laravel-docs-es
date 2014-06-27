@@ -403,16 +403,15 @@ La consulta SQL ejecutada por esta sentencia es:
 
 	select * from phones where user_id = 1
 
-Es de notar que Eloquent asume el nombre de la llave foránea
-Take note that Eloquent assumes the foreign key of the relationship based on the model name. In this case, `Phone` model is assumed to use a `user_id` foreign key. If you wish to override this convention, you may pass a second argument to the `hasOne` method. Furthermore, you may pass a third argument to the method to specify which local column that should be used for the association:
+Es de notar que Eloquent asume el nombre de la llave foránea basado en el nombre del modelo. En este ejemplo, el modelo `Phone` asume usar la llave foránea `user_id`. Si deseas cambiar está convención, puedes pasar un segundo parámetro al método `hasOne`. Además, puedes pasar un tercer parámetro al método para especificar que columna local debe ser usada para la asociación:
 
 	return $this->hasOne('Phone', 'foreign_key');
 
 	return $this->hasOne('Phone', 'foreign_key', 'local_key');
 
-#### Defining The Inverse Of A Relation
+#### Definiendo el inverso de una relación
 
-To define the inverse of the relationship on the `Phone` model, we use the `belongsTo` method:
+Para definir el inverso de una relación en el modelo `Phone`, usamos el método `belongsTo`:
 
 	class Phone extends Eloquent {
 
@@ -423,7 +422,7 @@ To define the inverse of the relationship on the `Phone` model, we use the `belo
 
 	}
 
-In the example above, Eloquent will look for a `user_id` column on the `phones` table. If you would like to define a different foreign key column, you may pass it as the second argument to the `belongsTo` method:
+En el ejemplo anterior, Eloquent buscará la columna `user_id` en la tabla `phones`. Si quieres definir otra columna como llave foránea, puedes pasar un segundo parámetro al método `belongsTo`:
 
 	class Phone extends Eloquent {
 
@@ -434,7 +433,7 @@ In the example above, Eloquent will look for a `user_id` column on the `phones` 
 
 	}
 
-Additionally, you pass a third parameter which specifies the name of the associated column on the parent table:
+Adicionalmente, puedes pasar un tercer parámetro para especificar el nombre de la columna asociada a la tabla padre:
 
 	class Phone extends Eloquent {
 
