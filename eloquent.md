@@ -445,9 +445,9 @@ Adicionalmente, puedes pasar un tercer parámetro para especificar el nombre de 
 	}
 
 <a name="one-to-many"></a>
-### One To Many
+### Uno a muchos
 
-An example of a one-to-many relation is a blog post that "has many" comments. We can model this relation like so:
+Un ejemplo de una relación uno a muchos es un artículo en un blog "tiene muchos" comentarios. Podemos modelar esta relación así:
 
 	class Post extends Eloquent {
 
@@ -458,23 +458,23 @@ An example of a one-to-many relation is a blog post that "has many" comments. We
 
 	}
 
-Now we can access the post's comments through the [dynamic property](#dynamic-properties):
+Ahora podemos acceder a los comentarios del artículo a través de [propiedades dinámicas](#dynamic-properties):
 
 	$comments = Post::find(1)->comments;
 
-If you need to add further constraints to which comments are retrieved, you may call the `comments` method and continue chaining conditions:
+Si necesitas agregar más condiciones a los comentarios obtenidos, puedes llamar al método `comments` y seguir encadenando condiciones:
 
 	$comments = Post::find(1)->comments()->where('title', '=', 'foo')->first();
 
-Again, you may override the conventional foreign key by passing a second argument to the `hasMany` method. And, like the `hasOne` relation, the local column may also be specified:
+De nuevo, puedes sobreescribir la convención de las llaves foráneas pasando un segundo argumento al método `hasMany`. Y, como en la relación `hasOne`, la columna local también se puede especificar:
 
 	return $this->hasMany('Comment', 'foreign_key');
 
 	return $this->hasMany('Comment', 'foreign_key', 'local_key');
 
-To define the inverse of the relationship on the `Comment` model, we use the `belongsTo` method:
+Para definir el inverso de la relación, en el modelo `Comment`, usamos el método `belongsTo`:
 
-#### Defining The Inverse Of A Relation
+#### Definiendo el inverso de una relación
 
 	class Comment extends Eloquent {
 
