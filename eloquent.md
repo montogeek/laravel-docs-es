@@ -370,15 +370,15 @@ Luego pasa el parámetro al llamado del alcance:
 
 Por supuesto, tus tablas de la base de datos probablemente se relacionen una con otras. Por ejemplo, un artículo en un blog tiene muchos comentarios, o un recibo puede relacionarse con el usuario que lo solicitó. Eloquent hace el manejo y el funcionamiento de esas relaciones fácilmente. Laravel soporta varios tipos de relaciones:
 
-- [Una a una](#one-to-one)
-- [Una a muchas](#one-to-many)
-- [Muchas a muchas](#many-to-many)
-- [Muchas a través](#has-many-through)
+- [Uno a uno](#one-to-one)
+- [Uno a muchos](#one-to-many)
+- [Muchos a muchos](#many-to-many)
+- [Muchos a través](#has-many-through)
 - [Relaciones polimórficas](#polymorphic-relations)
-- [Relaciones polimórficas muchas a muchas](#many-to-many-polymorphic-relations)
+- [Relaciones polimórficas muchos a muchos](#many-to-many-polymorphic-relations)
 
 <a name="one-to-one"></a>
-### Una a una
+### Uno a uno
 
 Una relación una a una es una relación muy básica. Por ejemplo un modelo `User` puede tener un `Phone`. Podemos definir está relación en Eloquent:
 
@@ -486,7 +486,7 @@ Para definir el inverso de la relación, en el modelo `Comment`, usamos el méto
 	}
 
 <a name="many-to-many"></a>
-### Many To Many
+### Muchos a muchos
 
 Many-to-many relations are a more complicated relationship type. An example of such a relationship is a user with many roles, where the roles are also shared by other users. For example, many users may have the role of "Admin". Three database tables are needed for this relationship: `users`, `roles`, and `role_user`. The `role_user` table is derived from the alphabetical order of the related model names, and should have `user_id` and `role_id` columns.
 
@@ -525,7 +525,7 @@ Of course, you may also define the inverse of the relationship on the `Role` mod
 	}
 
 <a name="has-many-through"></a>
-### Has Many Through
+### Muchos a través
 
 The "has many through" relation provides a convenient short-cut for accessing distant relations via an intermediate relation. For example, a `Country` model might have many `Posts` through a `Users` model. The tables for this relationship would look like this:
 
@@ -566,7 +566,7 @@ If you would like to manually specify the keys of the relationship, you may pass
 	}
 
 <a name="polymorphic-relations"></a>
-### Polymorphic Relations
+### Relaciones polimórficas
 
 Polymorphic relations allow a model to belong to more than one other model, on a single association. For example, you might have a photo model that belongs to either a staff model or an order model. We would define this relation like so:
 
@@ -639,7 +639,7 @@ To help understand how this works, let's explore the database structure for a po
 The key fields to notice here are the `imageable_id` and `imageable_type` on the `photos` table. The ID will contain the ID value of, in this example, the owning staff or order, while the type will contain the class name of the owning model. This is what allows the ORM to determine which type of owning model to return when accessing the `imageable` relation.
 
 <a name="many-to-many-polymorphic-relations"></a>
-### Many To Many Polymorphic Relations
+### Relaciones Polimórficas muchos a muchos
 
 In addition to traditional polymorphic relations, you may also specify many-to-many polymorphic relations. For example, a blog `Post` and `Video` model could share a polymorphic relation to a `Tag` model. First, let's examine the table structure:
 
@@ -711,7 +711,7 @@ If you need even more power, you may use the `whereHas` and `orWhereHas` methods
 	})->get();
 
 <a name="dynamic-properties"></a>
-### Dynamic Properties
+### Propiedades dinámicas
 
 Eloquent allows you to access your relations via dynamic properties. Eloquent will automatically load the relationship for you, and is even smart enough to know whether to call the `get` (for one-to-many relationships) or `first` (for one-to-one relationships) method.  It will then be accessible via a dynamic property by the same name as the relation. For example, with the following model `$phone`:
 
@@ -784,7 +784,7 @@ You may even eager load nested relationships:
 
 In the example above, the `author` relationship will be eager loaded, and the author's `contacts` relation will also be loaded.
 
-### Eager Load Constraints
+### Restricciones en precargas
 
 Sometimes you may wish to eager load a relationship, but also specify a condition for the eager load. Here's an example:
 
@@ -804,7 +804,7 @@ Of course, eager loading Closures aren't limited to "constraints". You may also 
 
 	}))->get();
 
-### Lazy Eager Loading
+### Carga impaciente
 
 It is also possible to eagerly load related models directly from an already existing model collection. This may be useful when dynamically deciding whether to load related models or not, or in combination with caching.
 
@@ -827,7 +827,7 @@ You will often need to insert new related models. For example, you may wish to i
 
 In this example, the `post_id` field will automatically be set on the inserted comment.
 
-### Associating Models (Belongs To)
+### Asociando modelos (Pertenece a)
 
 When updating a `belongsTo` relationship, you may use the `associate` method. This method will set the foreign key on the child model:
 
@@ -837,7 +837,7 @@ When updating a `belongsTo` relationship, you may use the `associate` method. Th
 
 	$user->save();
 
-### Inserting Related Models (Many To Many)
+### Insertados modelos relacionados (Muchos a muchos)
 
 You may also insert related models when working with many-to-many relations. Let's continue using our `User` and `Role` models as examples. We can easily attach new roles to a user using the `attach` method:
 
