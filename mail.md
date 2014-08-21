@@ -1,10 +1,10 @@
-# Mail
+# Email
 
-- [Configuration](#configuration)
-- [Basic Usage](#basic-usage)
-- [Embedding Inline Attachments](#embedding-inline-attachments)
-- [Queueing Mail](#queueing-mail)
-- [Mail & Local Development](#mail-and-local-development)
+- [Configuración](#configuration)
+- [Uso básico](#basic-usage)
+- [Embeber archivos adjuntos](#embedding-inline-attachments)
+- [Email en colas](#queueing-mail)
+- [Desarrollo local](#mail-and-local-development)
 
 <a name="configuration"></a>
 ## Configuration
