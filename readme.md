@@ -1,4 +1,5 @@
 # Laravel Documentation
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/montogeek/laravel-docs-es?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Contribution Guidelines
 
