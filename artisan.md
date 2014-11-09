@@ -1,15 +1,15 @@
 # Artisan CLI
 
-- [Introduction](#introduction)
-- [Usage](#usage)
+- [Introducción](#introduction)
+- [Uso](#usage)
 
 <a name="introduction"></a>
-## Introduction
+## Introducción
 
 Artisan is the name of the command-line interface included with Laravel. It provides a number of helpful commands for your use while developing your application. It is driven by the powerful Symfony Console component.
 
 <a name="usage"></a>
-## Usage
+## Uso
 
 To view a list of all available Artisan commands, you may use the `list` command:
 
