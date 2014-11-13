@@ -6,31 +6,31 @@
 <a name="introduction"></a>
 ## Introducción
 
-Artisan is the name of the command-line interface included with Laravel. It provides a number of helpful commands for your use while developing your application. It is driven by the powerful Symfony Console component.
+Artisan es el nombre de la utilidad para la línea de comandos incluída en Laravel. Provee varios comandos útiles para ser usados mientras desarrollas tu aplicación. It is driven by the powerful Symfony Console component.
 
 <a name="usage"></a>
 ## Uso
 
-To view a list of all available Artisan commands, you may use the `list` command:
+Para ver una lista de los comandos disponibles en Artisan puedes usar el comando `list`:
 
-#### Listing All Available Commands
+#### Mostrar lista de todos los comandos disponibles
 
 	php artisan list
 
-Every command also includes a "help" screen which displays and describes the command's available arguments and options. To view a help screen, simply precede the name of the command with `help`:
+Cada comando además incluye una pantalla de ayuda que muestra y describe los argumentos y opciones disponibles del comando. Para ver la ayuda, simplemente agrega `help` antes del nombre del comando:
 
-#### Viewing The Help Screen For A Command
+#### Ver la ayuda de un comando
 
 	php artisan help migrate
 
-You may specify the configuration environment that should be used while running a command using the `--env` switch:
+Puedes espeficar el entorno de configuración que debería usarse para correr el comando usando la opción `--env`:
 
-#### Specifying The Configuration Environment
+#### Especificar la configuración del entorno
 
 	php artisan migrate --env=local
 
-You may also view the current version of your Laravel installation using the `--version` option:
+Puedes ver la versión de Laravel usando la opción `--version`:
 
-#### Displaying Your Current Laravel Version
+#### Mostrar la versión de Laravel
 
 	php artisan --version
