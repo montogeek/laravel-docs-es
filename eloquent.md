@@ -48,11 +48,11 @@ Observa que no le especificamos a Eloquent cual tabla se usará para nuestro mod
 
 Una vez el modelo esté definido, estás listo para empezar a obtener y crear registros en tu tabla. Es necesario crear las columnas `updated_at` y `created_at` en tu tabla, sino quieres tener estás columnas mantenidas automáticamente, establece la propiedad `$timestamps` en tu modelo a `false`.
 
-#### Obteniendo todos los registros
+#### Obtener todos los registros
 
 	$users = User::all();
 
-#### Obteniendo un modelo por su llave primaria
+#### Obtener un modelo a través de su llave primaria
 
 	$user = User::find(1);
 
@@ -60,7 +60,7 @@ Una vez el modelo esté definido, estás listo para empezar a obtener y crear re
 
 > **Nota:** Todos los métodos disponibles en el [constructor de consultas](/page/queries) también están disponibles cuando se consulta con modelos de Eloquent.
 
-#### Obteniendo un modelo por su llave primaria o lanzando una excepción
+#### Obtener un modelo a través de su llave primaria y lanzar una excepción
 
 Algunas veces puedes desear lanzar una excepción si un modelo no es encontrado, permitiendote atrapar la excepción usando el manejador `App::error` y mostrando una página de error 404.
 
@@ -77,7 +77,7 @@ Para regisrar un manejador de errores, escucha la excepción `ModelNotFoundExcep
 		return Response::make('Not Found', 404);
 	});
 
-#### Consultando usando los modelos de Eloquent
+#### Consultas usando los modelos de Eloquent
 
 	$users = User::where('votes', '>', 100)->take(10)->get();
 
