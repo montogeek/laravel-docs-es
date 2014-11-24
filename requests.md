@@ -11,11 +11,11 @@
 
 Puedes acceder a los datos ingresados por el usuario con varios métodos muy simples. No tienes necesidad de preocuparte por el verbo HTTP usado en la petición, la entrada de datos se accede de la misma manera para todos los verbos.
 
-#### Accediendo al valor de una entrada de datos
+#### Acceder al valor de una entrada de datos
 
 	$name = Input::get('name');
 
-#### Accediendo a un valor predeterminado si la entrada de datos no existe
+#### Acceder a un valor predeterminado si la entrada de datos no existe
 
 	$name = Input::get('name', 'Sally');
 
@@ -47,7 +47,7 @@ Cuando tengas formularios con entrada de datos como arreglos, puedes usar la not
 
 Todas las cookies creadas por Laravel son escriptadas y firmadas con un código de autentificación, esto significa que serán consideradas inválidas si fueran cambiadas por el ciente.
 
-#### Accediendo al valor de una cookie
+#### Acceder al valor de una cookie
 
 	$value = Cookie::get('name');
 
@@ -63,7 +63,7 @@ Si deseas establecer una cookie antes de que una respuesta se haya creado, usa e
 
 	Cookie::queue($name, $value, $minutes);
 
-#### Creando una cookie que dure para siempre
+#### Crear una cookie que dure para siempre
 
 	$cookie = Cookie::forever('name', 'value');
 
@@ -72,11 +72,11 @@ Si deseas establecer una cookie antes de que una respuesta se haya creado, usa e
 
 Puedes necesitar mantener la entrada de datos de una petición hasta la siguiente petición. Por ejemplo, cuando necesites repoblar un formulario después de comprobar si tiene errores de validación.
 
-#### Guardando entrada de datos en la sesión
+#### Guardar entrada de datos en la sesión
 
 	Input::flash();
 
-#### Guardando aguna entrada de datos a la sesión
+#### Guardar aguna entrada de datos a la sesión
 
 	Input::flashOnly('username', 'email');
 
@@ -97,7 +97,7 @@ Ya que a menudo desearás guardar la entrada de datos combinada con una redirecc
 <a name="files"></a>
 ## Archivos
 
-#### Obteniendo un archivo subido
+#### Obtener un archivo subido
 
 	$file = Input::file('photo');
 
@@ -110,29 +110,29 @@ Ya que a menudo desearás guardar la entrada de datos combinada con una redirecc
 
 El objeto retornado por el métodot `file` es una instancia de la clase `Symfony\Component\HttpFoundation\File\UploadedFile`, la cual extiende la clase PHP `SplFileInfo` y provee una variedad de métodos para interactuar con el archivo.
 
-#### Moviendo un archivo subido
+#### Mover un archivo subido
 
 	Input::file('photo')->move($destinationPath);
 
 	Input::file('photo')->move($destinationPath, $fileName);
 
-#### Obteniendo la ruta de un archivo subido
+#### Obtener la ruta de un archivo subido
 
 	$path = Input::file('photo')->getRealPath();
 
-#### Obteniendo el nombre original de un archivo subido
+#### Obtener el nombre original de un archivo subido
 
 	$name = Input::file('photo')->getClientOriginalName();
 
-#### Obteniendo la extensión de un archivo subido
+#### Obtener la extensión de un archivo subido
 
 	$extension = Input::file('photo')->getClientOriginalExtension();
 
-#### Obteniendo el tamaño de un archivo subido
+#### Obtener el tamaño de un archivo subido
 
 	$size = Input::file('photo')->getSize();
 
-#### Obteniendo el tipo MIME de un archivo subido
+#### Obtener el tipo MIME de un archivo subido
 
 	$mime = Input::file('photo')->getMimeType();
 
@@ -142,11 +142,11 @@ El objeto retornado por el métodot `file` es una instancia de la clase `Symfony
 La clase `Request` provee diversos métodos para examinar la petición HTTP de tu aplicación y extiende la clase `Symfony\Component\HttpFoundation\Request`.
 Algunos de los métodos más relevantes:
 
-#### Obteniendo la URI de la petición
+#### Obtener la URI de la petición
 
 	$uri = Request::path();
 
-#### Obteniendo el método de la petición
+#### Obtener el método de la petición
 
 	$method = Request::method();
 
