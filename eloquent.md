@@ -125,7 +125,7 @@ Para empezar, establece las propiedades `fillable` o `guarded` en tu modelo.
 
 La propiedad `fillable` especifica que atributos deberían poder asignarse en masa. Esto puede ser establecido a nivel de la clase o en una instancia.
 
-#### Definiendo los atributos que se puedan asignar en un modelo
+#### Definir los atributos que se puedan asignar en un modelo
 
 	class User extends Eloquent {
 
@@ -137,7 +137,7 @@ En este ejemplo, solo los tres atributos listados podrán ser asignados en masa.
 
 El inverso de `fillable` es `guarded`, y sirve como una "lista negra" en vez de una "lista blanca."
 
-#### Definiendo los atributos asegurados en un modelo
+#### Definir los atributos asegurados en un modelo
 
 	class User extends Eloquent {
 
@@ -147,7 +147,7 @@ El inverso de `fillable` es `guarded`, y sirve como una "lista negra" en vez de 
 
 En el anterior ejemplo, los atributos `id` y `password` **no** pueden ser asignados en masa. El resto de atributos se podrán asignar en masa. También puedes bloquear **todos** los atributos de la asignación en masa usando la propiedad `guarded`:
 
-#### Bloqueando todos los atributos de la asignación en masa
+#### Bloquear todos los atributos de la asignación en masa
 
 	protected $guarded = array('*');
 
@@ -156,7 +156,7 @@ En el anterior ejemplo, los atributos `id` y `password` **no** pueden ser asigna
 
 Para crear un nuevo registro en la base dedatos de un modelo, simplemente crea una nueva instancia del modelo y llama el método `save`:
 
-#### Guardando un nuevo modelo
+#### Guardar un nuevo modelo
 
 	$user = new User;
 
@@ -193,7 +193,7 @@ Luego de guardar o creat el nuevo modelo que usa IDs autoinccrementable, puedes 
 
 para actualiar un modelo, puedes obtenerlo, cambiar un atributo, y usar el método `save`:
 
-#### Actualizando un modelo obtenido
+#### Actualizar un modelo consultado
 
 	$user = User::find(1);
 
@@ -203,7 +203,7 @@ para actualiar un modelo, puedes obtenerlo, cambiar un atributo, y usar el méto
 
 Algunas veces deseas no solo guardar el modelo, sino también todas sus relaciones. Para hacerlo, puedes usar el método `push`:
 
-#### Guardando un modelo y sus relaciones
+#### Guardar un modelo y sus relaciones
 
 	$user->push();
 
@@ -213,7 +213,7 @@ También puedes ejecutar actualizaciones como consultas contra un conjunto de mo
 
 > **Nota:** No se disparan eventos cuando se actualizan un conjunto de modelos a través del constructor de consultas de Eloquent.
 
-#### Eliminando un modelo existente
+#### Eliminar un modelo existente
 
 Para eliminar un modelo, simplemente llama el método `delete` en la instancia:
 
@@ -233,7 +233,7 @@ Por supuesto, también puedes ejecutar una consulta para eliminar un conjunto de
 
 	$affectedRows = User::where('votes', '>', 100)->delete();
 
-#### Actualizando solo las marcas de tiempo del modelo
+#### Actualizar solo las marcas de tiempo del modelo
 
 Si deseas simplemente actualizar lar marcas de tiempo en un modelo, puedes usar el método `touch`:
 
@@ -256,7 +256,7 @@ Para agregar la columna `deleted_at` a tu tabla, puedes usar el método `softDel
 
 Ahora, cuando llames el método `delete` en un modelo, en la columna `deleted_at` será establecida la marca de tiempo actual. Cuando consultes un modelo que use eliminación flexible, los  registros "eliminados" no serán incluídos en los resultados de la consulta. Para obligar que los registros eliminados aparezcan en los resultados, usa el método `withTrashed` en la consulta:
 
-#### Obligando registros eliminados flexiblemente en resultados
+#### Obligar registros eliminados flexiblemente en resultados
 
 	$users = User::withTrashed()->where('account_id', 1)->get();
 
@@ -300,7 +300,7 @@ Para determinar si la instancia de un modelo ha sido eliminado flexiblemente, pu
 
 De forma predeterminada, Eloquent mantendrá las columnas `created_at` y `updated_at` en tu base de datos actualizadas automáticamente. Simplemente agrega esas columnas de tipo `timestamp` a tu tabla y Eloquent hará el resto. Si no deseas que Eloquent mantenga esas columnas, agrega la siguiente propiedad tu modelo:
 
-#### Deshabilitando marcas de tiempo automáticas
+#### Deshabilitar marcas de tiempo automáticas
 
 	class User extends Eloquent {
 
@@ -312,7 +312,7 @@ De forma predeterminada, Eloquent mantendrá las columnas `created_at` y `update
 
 Si deseas personalizar el formato de tus marcas de tiempo, puedes sobreescribir el método `getDateFormat` en tu modelo:
 
-#### Definiendo un formato de marca de tiempo personalizada
+#### Definir un formato de marca de tiempo personalizada
 
 	class User extends Eloquent {
 
@@ -328,7 +328,7 @@ Si deseas personalizar el formato de tus marcas de tiempo, puedes sobreescribir 
 
 Las consultas con alcance te permiten reusar fácilmente la lógia de tus modelos. Para definir una consulta con alcance, simplemente define un método en el modelo con el prefijo `scope`:
 
-#### Definiendo una consulta con alcance
+#### Definir una consulta con alcance
 
 	class User extends Eloquent {
 
@@ -344,7 +344,7 @@ Las consultas con alcance te permiten reusar fácilmente la lógia de tus modelo
 
 	}
 
-#### Utilizando una consulta con alcance
+#### Utilizar una consulta con alcance
 
 	$users = User::popular()->women()->orderBy('created_at')->get();
 
@@ -382,7 +382,7 @@ Por supuesto, tus tablas de la base de datos probablemente se relacionen una con
 
 Una relación una a una es una relación muy básica. Por ejemplo un modelo `User` puede tener un `Phone`. Podemos definir está relación en Eloquent:
 
-#### Definiendo una relación una a una
+#### Definir una relación una a una
 
 	class User extends Eloquent {
 
@@ -409,7 +409,7 @@ Es de notar que Eloquent asume el nombre de la llave foránea basado en el nombr
 
 	return $this->hasOne('Phone', 'foreign_key', 'local_key');
 
-#### Definiendo el inverso de una relación
+#### Definir el inverso de una relación
 
 Para definir el inverso de una relación en el modelo `Phone`, usamos el método `belongsTo`:
 
@@ -474,7 +474,7 @@ De nuevo, puedes sobreescribir la convención de las llaves foráneas pasando un
 
 Para definir el inverso de la relación, en el modelo `Comment`, usamos el método `belongsTo`:
 
-#### Definiendo el inverso de una relación
+#### Definir el inverso de una relación
 
 	class Comment extends Eloquent {
 
