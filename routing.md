@@ -12,7 +12,7 @@
 - [Rutas con controladores](#routing-to-controllers)
 
 <a name="basic-routing"></a>
-## Rutas báscias
+## Rutas básicas
 
 La mayoría de las rutas para tu aplicación serán definidias en el archivo `app/routes.php`. La definición de una ruta de Laravel más simple consiste en una URI y una retrollamada a una Clausura. <!-- TODO: Referencia Wikipedia y foot notes-->
 
@@ -30,14 +30,14 @@ La mayoría de las rutas para tu aplicación serán definidias en el archivo `ap
 		return 'Hello World';
 	});
 
-#### Registrando una ruta para varios verbos HTTP
+#### Registrar una ruta para varios verbos HTTP
 
 	Route::match(array('GET', 'POST'), '/', function()
 	{
 		return 'Hello World';
 	});
 
-#### Registrando una ruta para cualquier verbo HTTP
+#### Registrar una ruta para cualquier verbo HTTP
 
 	Route::any('foo', function()
 	{
@@ -167,7 +167,7 @@ Si el filtro retorna una respuesta, esa respuesta será considerada la respuesta
 		return 'You are authenticated and over 200 years old!';
 	}));
 
-#### Especificando parámetros en un filtro
+#### Especificar parámetros en un filtro
 
 	Route::filter('age', function($route, $request, $value)
 	{
@@ -281,7 +281,7 @@ Puedes usar el parámetro `namespace` en el arreglo de la definición del grupo 
 
 Las rutas en Laravel son capaces de manejar comódines en sub-dominios y definir parámetros de comódines desde el dominio principal:
 
-#### Registrando rutas de subdominios
+#### Registrar rutas de subdominios
 
 	Route::group(array('domain' => '{account}.myapp.com'), function()
 	{
@@ -315,7 +315,7 @@ Un grupo de rutas pueden usar la opción `prefix` en el arreglo de sus atributos
 
 Vincular modelos provee una manera conveniente para inyectar instancias del modelo en las rutas. Por ejemplo, en vez de inyectar el ID de un usuario, puedes inyectar el modelo Usuario completo que concuerde con un ID dado. Primero, usa el método `Route::model()` para especificar el modelo que será usado para un parámetro dado:
 
-#### Vinculando un parámetro a un modelo
+#### Vincular un parámetro a un modelo
 
 	Route::model('user', 'User');
 
