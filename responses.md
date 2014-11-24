@@ -10,14 +10,14 @@
 <a name="basic-responses"></a>
 ## Respuestas básicas
 
-#### Retornando cadenas desde rutas
+#### Retornar cadenas desde rutas
 
 	Route::get('/', function()
 	{
 		return 'Hello World';
 	});
 
-#### Creando respuestas personalizadas
+#### Crear respuestas personalizadas
 
 Una instancia de `Response` herede la clase `Symfony\Component\HttpFoundation\Response`, proporcionando una variedad de métodos para crear respuestas HTTP.
 
@@ -31,7 +31,7 @@ Si necesitas acceder a los métodos de la clase `Response`, pero deseas retornar
 
 	return Response::view('hello')->header('Content-Type', $type);
 
-#### Adjuntando Cookies a respuestas
+#### Adjuntar Cookies a respuestas
 
 	$cookie = Cookie::make('name', 'value');
 
@@ -40,37 +40,37 @@ Si necesitas acceder a los métodos de la clase `Response`, pero deseas retornar
 <a name="redirects"></a>
 ## Redirecciones
 
-#### Retornando una redirección
+#### Retornar una redirección
 
 	return Redirect::to('user/login');
 
-#### Retornando una redirección con datos instantáneos
+#### Retornar una redirección con datos instantáneos
 
 	return Redirect::to('user/login')->with('message', 'Login Failed');
 
 > **Nota:** Dado que el método `with` guarda datos instantáneos en la sesión, estos pueden ser obtenidos usando el método `Session:get`.
 
-#### Retornando una redirección a una ruta con nombre
+#### Retornar una redirección a una ruta con nombre
 
 	return Redirect::route('login');
 
-#### Retornando una redirección a una ruta con nombre con parámetros
+#### Retornar una redirección a una ruta con nombre con parámetros
 
 	return Redirect::route('profile', array(1));
 
-#### Retornando una redirección a una ruta con nombre con parámetros con nombres
+#### Retornar una redirección a una ruta con nombre con parámetros con nombres
 
 	return Redirect::route('profile', array('user' => 1));
 
-#### Retornando una redirección a la acción de un controlador
+#### Retornar una redirección a la acción de un controlador
 
 	return Redirect::action('HomeController@index');
 
-#### Retornando una redireción a la acción de un controlador con parámetros
+#### Retornar una redireción a la acción de un controlador con parámetros
 
 	return Redirect::action('UserController@profile', array(1));
 
-#### Retornando una redirección a la acción de un controlador con parámetros con nombres
+#### Retornar una redirección a la acción de un controlador con parámetros con nombres
 
 	return Redirect::action('UserController@profile', array('user' => 1));
 
@@ -98,7 +98,7 @@ Esta vista puede ser retornada al navegador así:
 
 El segundo parámetro pasado al método `View::make` es un arreglo de datos que estarás disponibles en la vista:
 
-#### Pasando datos a la vista
+#### Pasar datos a la vista
 
 	// Using conventional approach
 	$view = View::make('greeting')->with('name', 'Steve');
@@ -116,7 +116,7 @@ También puedes hacer disponible un segmento de datos en todas tus vistas:
 
 	View::share('name', 'Steve');
 
-#### Pasando una sub-vista a una vista
+#### Pasar una sub-vista a una vista
 
 Algunas veces puedes desea pasar una vista dentro de otra vista. Por ejemplo, dada una sub-vista guardada en `app/views/child/view.php`, podemos pasarlal a otra vista así:
 
@@ -138,7 +138,7 @@ La sub-vista puede ser mostrada desde la vista padre:
 
 La composición de vistas son retrollamadas o métodos de clase que son llamados cuando una vista is mostrada. Si tienes datos que desees que se carguen cada vez que una vista es mostrada en tu aplicación, la composición de vistas pueden organizar ese código en un solo lugar. Por lo tanto, la composición de una vista pueden funcionar como 'Modelos de vistas' o 'presentadores'.
 
-#### Definiendo el compositor de una vista
+#### Definir el compositor de una vista
 
 	View::composer('profile', function($view)
 	{
@@ -169,7 +169,7 @@ Un compositos de una vista debería ser definido así:
 
 	}
 
-#### Definiciendo múltiples compositores
+#### Definir múltiples compositores
 
 Puedes usar el método `composers` para registar un grupo de compositores al mismo tiempo:
 
@@ -192,15 +192,15 @@ Puedes usar el método `composers` para registar un grupo de compositores al mis
 <a name="special-responses"></a>
 ## Respuestas especiales
 
-#### Creando una respuesta JSON
+#### Crear una respuesta JSON
 
 	return Response::json(array('name' => 'Steve', 'state' => 'CA'));
 
-#### Creando una respuesta JSONP
+#### Crear una respuesta JSONP
 
 	return Response::json(array('name' => 'Steve', 'state' => 'CA'))->setCallback(Input::get('callback'));
 
-#### Creando una respuesta para descarga de archivo
+#### Crear una respuesta para descarga de archivo
 
 	return Response::download($pathToFile);
 
