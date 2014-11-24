@@ -69,7 +69,7 @@ Si necesitas detectar de manera más flexible el entorno, puedes pasar una Claus
 
 Puedes acceder al entorno actual de la aplicación a través del método `environment`.
 
-#### Accediendo al entorno actual de la aplicación
+#### Acceder al entorno actual de la aplicación
 
 	$environment = App::environment();
 
