@@ -198,7 +198,7 @@ De forma predeterminada, todas las acciones de un controlador de recursos tienen
 					array('names' => array('create' => 'photo.build')));
 
 <a name="handling-missing-methods"></a>
-## Manejando métodos faltantes
+## Manejo métodos faltantes
 
 Un método comodín puede ser definido para ser llamado cuando ningún otro método concuerde en el controlador dado. El método debe llamarse `missingMethod` y recibe el método y un arreglo de los parámetros de la petición:
 
