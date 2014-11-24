@@ -44,27 +44,27 @@ Tenga en cuenta que se han agregado dos índices al arreglo de configuración: `
 
 Una vez tengas configuradas las conexiones a las bases de datos, puedes ejecutar consultas usando la clase `BD`.
 
-#### Ejecutando una sentencia SELECT
+#### Ejecutar una sentencia SELECT
 
 	$results = DB::select('select * from users where id = ?', array(1));
 
 El método `select` siempre retornará un `array` de resultados.
 
-#### Ejecutando una sentencia INSERT
+#### Ejecutar una sentencia INSERT
 
 	DB::insert('insert into users (id, name) values (?, ?)', array(1, 'Dayle'));
 
-#### Ejecutando una sentencia UPDATE
+#### Ejecutar una sentencia UPDATE
 
 	DB::update('update users set votes = 100 where name = ?', array('John'));
 
-#### Ejecutando una sentencia DELETE
+#### Ejecutar una sentencia DELETE
 
 	DB::delete('delete from users');
 
 > **Nota:** Los métodos `update` y `delete` retornan el número de filas afectadas por la sentencia.
 
-#### Ejecutando una sentencia
+#### Ejecutar una sentencia
 
 	DB::statement('drop table users');
 
