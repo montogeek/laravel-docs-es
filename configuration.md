@@ -1,40 +1,40 @@
 # Configuration
 
 - [Introducción](#introduction)
-- [Configuración de entorno](#environment-configuration)
-- [Configuración de proveedores](#provider-configuration)
-- [Protegiendo configuración sensible](#protecting-sensitive-configuration)
-- [Modo mantenimiento](#maintenance-mode)
+- [Configuración del Entorno](#environment-configuration)
+- [Configuración de Proveedores](#provider-configuration)
+- [Protegiendo Configuración Sensible](#protecting-sensitive-configuration)
+- [Modo Mantenimiento](#maintenance-mode)
 
 <a name="introduction"></a>
 ## Introducción
 
-Todos lo archivos de configuración de Laravel están guardados en el directorio `app/config`. En todos los archivos cada opción de configuración está documentada, así que siéntete a gusto conociendo todas las opciones que tienes disponible.
+Todos los archivos de configuración de Laravel están guardados en el directorio `app/config`. En todos los archivos cada opción de configuración está documentada, así que siéntete a gusto de ver los archivos y familiarizarte con las opciones que tienes disponible.
 
-Algunas veces vas a necesitar acceder a las opciones de configuración durante la ejecución. Esto puedes realizarlo haciendo uso de la clase `Config`:
+Algunas veces puedes necesitar acceder a las opciones de configuración durante la ejecución. Puedes realizarlo usando la clase `Config`:
 
-#### Acceder a una opción de configuración
+#### Acceder a una Opción de Configuración
 
 	Config::get('app.timezone');
 
-Puedes también espeficar un valor predeterminado para retornar si la opción de configuración no existe:
+También puedes espeficar un valor predeterminado para retornar si la opción de configuración no existe:
 
 	$timezone = Config::get('app.timezone', 'UTC');
 
-Observa que la síntaxis de "puntos" puede ser usada para acceder a las opciones de configuración en múltiples archivos. También puedes establecer opciones de configuración durante la ejecución:
+Nótese que el estilo de sintáxis con "puntos" puede ser usada para acceder a las opciones de configuración en múltiples archivos. También puedes establecer opciones de configuración durante la ejecución:
 
-#### Establecer una opción de configuración
+#### Establecer una Opción de Configuración
 
 	Config::set('database.default', 'sqlite');
 
-Las opciones de configuración que son establecidas durante la ejecución solo son establecidas para la petición actual, y no se tendrán en cuenta en las siguiente peticiones.
+Las opciones de configuración que son establecidas en tiempo de ejecución solo son establecidas para la petición actual, y no se tendrán en cuenta en las siguiente peticiones.
 
 <a name="environment-configuration"></a>
-## Configuración de entorno
+## Configuración del Entorno
 
-A menudo es muy útil tener valores diferentes de configuración según el entorno en el cual se esté ejecutanddo la aplicación. Por ejemplo, tal vez desees utilizar un controlador de cache diferente en tu entorno de desarrollo local y otro en el servidor de producción. Esto es muy fácil de hacer usando configuraciones basadas en entornos.
+A menudo es muy útil tener diferentes opciones de configuración basado en el entorno en el cual la aplicación se está ejecutanddo. Por ejemplo, tal vez desees utilizar un controlador de cache diferente en tu entorno de desarrollo local y otro en el servidor de producción. Es fácil de hacerlo usando una configuración basada en el entorno.
 
-Simplemente crea una carpeta con un nombre que sea igual a tu entorno de desarrollo dentro en el directorio `config`, por ejemplo `local`. Después, crea los archivos de configuración que desees sobreescribir y especifica las opciones para tu entorno. Por ejemplo, para sobreescribir la configuración de cache para el entorno local, creas el archivo `cache.php` en `app/config/local` con el siguiente contenido:
+Simplemente crea una carpeta con un nombre que sea igual al de tu entorno de desarrollo dentro del directorio `config`, por ejemplo `local`. Después, crea los archivos de configuración que desees sobreescribir y especifica las opciones para tu entorno. Por ejemplo, para sobreescribir la configuración de caché para el entorno local, crearías el archivo `cache.php` en el directorio `app/config/local` con el siguiente contenido:
 
 	<?php
 
@@ -44,11 +44,11 @@ Simplemente crea una carpeta con un nombre que sea igual a tu entorno de desarro
 
 	);
 
-> **Nota:** No uses 'testing' como nombre para tu entorno. Está reservado para las pruebas unitarias.
+> **Nota:** No uses 'testing' como nombre para tu entorno. Éste está reservado para pruebas unitarias.
 
-Observa que no es necesario especificar _cada_ opción disponible en el archivo de configuración predeterminado, solamente las opciones que desees sobreescribir. Los archivos de configuración de tu entorno se aplicarán en "cascada" sobre los archivos predeterminados.
+Observa que no necesitas especificar _cada_ opción disponible en el archivo de configuración predeterminado, sólo aquellas opciones que desees sobreescribir. Los archivos de configuración de tu entorno se aplicarán en "cascada" sobre los archivos predeterminados.
 
-A continuación, necesitamos decirle al framework como determinar en que entorno se está ejecutando. El entorno predeterminado siempre es `production`. sin embargo, tal vez necesites configurar otro entornos en el archivo `boostrap/start.php` en la raíz de tu instalación de Laravel. En este archivo te encontrarás con una llamada a `$app->detectEnvironment`. El arreglo pasado a este método es usado para determinar el entorno de ejecución actual. Puedes agregar otros entornos y nombres de máquinas al arreglo como desees.
+A continuación, necesitamos decirle al framework como determinar que entorno se está ejecutando. El entorno por defecto es siempre `production`. Sin embargo, puedes configurar otros entornos dentro del archivo `boostrap/start.php` en la raíz de tu instalación. En este archivo te encontrarás con un llamado a `$app->detectEnvironment`. El arreglo pasado a este método es usado para determinar el entorno de ejecución actual. Puedes agregar otros entornos y nombres de máquinas al arreglo como necesites.
 
     <?php
 
