@@ -1,15 +1,15 @@
-# Validation
+# Validación
 
-- [Basic Usage](#basic-usage)
-- [Working With Error Messages](#working-with-error-messages)
-- [Error Messages & Views](#error-messages-and-views)
-- [Available Validation Rules](#available-validation-rules)
-- [Conditionally Adding Rules](#conditionally-adding-rules)
-- [Custom Error Messages](#custom-error-messages)
-- [Custom Validation Rules](#custom-validation-rules)
+- [Uso básico](#basic-usage)
+- [Manejo de mensajes de error](#working-with-error-messages)
+- [Mensajes de error & Vistas](#error-messages-and-views)
+- [Reglas de validación disponibles](#available-validation-rules)
+- [Agregar reglas de validación dinámicamente](#conditionally-adding-rules)
+- [Mensajes de error personalizados](#custom-error-messages)
+- [Reglas de validación personalizadasc](#custom-validation-rules)
 
 <a name="basic-usage"></a>
-## Basic Usage
+## Uso básico
 
 Laravel ships with a simple, convenient facility for validating data and retrieving validation error messages via the `Validation` class.
 
@@ -66,7 +66,7 @@ You may also access an array of the failed validation rules, without messages. T
 The `Validator` class provides several rules for validating files, such as `size`, `mimes`, and others. When validating files, you may simply pass them into the validator with your other data.
 
 <a name="working-with-error-messages"></a>
-## Working With Error Messages
+## Manejo de mensajes de error
 
 After calling the `messages` method on a `Validator` instance, you will receive a `MessageBag` instance, which has a variety of convenient methods for working with error messages.
 
@@ -109,7 +109,7 @@ After calling the `messages` method on a `Validator` instance, you will receive 
 	}
 
 <a name="error-messages-and-views"></a>
-## Error Messages & Views
+## Mensajes de error & Vistas
 
 Once you have performed validation, you will need an easy way to get the error messages back to your views. This is conveniently handled by Laravel. Consider the following routes as an example:
 
@@ -139,7 +139,7 @@ So, after redirection, you may utilize the automatically bound `$errors` variabl
 	<?php echo $errors->first('email'); ?>
 
 <a name="available-validation-rules"></a>
-## Available Validation Rules
+## Reglas de validación disponibles
 
 Below is a list of all available validation rules and their function:
 
@@ -411,7 +411,7 @@ The field under validation must be formatted as an URL.
 > **Note:** This function uses PHP's `filter_var` method.
 
 <a name="conditionally-adding-rules"></a>
-## Conditionally Adding Rules
+## Agregar reglas de validación dinámicamente
 
 In some situations, you may wish to run validation checks against a field **only** if that field is present in the input array. To quickly accomplish this, add the `sometimes` rule to your rule list:
 
@@ -447,7 +447,7 @@ The first argument passed to the `sometimes` method is the name of the field we 
 > **Note:** The `$input` parameter passed to your `Closure` will be an instance of `Illuminate\Support\Fluent` and may be used as an object to access your input and files.
 
 <a name="custom-error-messages"></a>
-## Custom Error Messages
+## Mensajes de error personalizados
 
 If needed, you may use custom error messages for validation instead of the defaults. There are several ways to specify custom messages.
 
@@ -490,7 +490,7 @@ In some cases, you may wish to specify your custom messages in a language file i
 	),
 
 <a name="custom-validation-rules"></a>
-## Custom Validation Rules
+## Reglas de validación personalizadas
 
 Laravel provides a variety of helpful validation rules; however, you may wish to specify some of your own. One method of registering custom validation rules is using the `Validator::extend` method:
 
