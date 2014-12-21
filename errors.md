@@ -1,10 +1,10 @@
-# Errores & Registro de errores
+# Errores & Manejo de errores
 
-- [Configuration](#configuration)
-- [Handling Errors](#handling-errors)
-- [HTTP Exceptions](#http-exceptions)
-- [Handling 404 Errors](#handling-404-errors)
-- [Logging](#logging)
+- [Configuración](#configuration)
+- [Manejo de errores](#handling-errors)
+- [Excepciones HTTP](#http-exceptions)
+- [Manero de errores 404](#handling-404-errors)
+- [Registro](#logging)
 
 <a name="configuration"></a>
 ## Configuración
