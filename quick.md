@@ -5,7 +5,7 @@
 - [Creando una vista](#creating-a-view)
 - [Creando una Migración](#creating-a-migration)
 - [Eloquent ORM](#eloquent-orm)
-- [Mostrando la informacion](#displaying-data)
+- [Mostrando informacion](#displaying-data)
 
 <a name="installation"></a>
 ## Instalación
@@ -42,7 +42,7 @@ Typically, you may use a web server such as Apache or Nginx to serve your Larave
 After installing the framework, take a glance around the project to familiarize yourself with the directory structure. The `app` directory contains folders such as `views`, `controllers`, and `models`. Most of your application's code will reside somewhere in this directory. You may also wish to explore the `app/config` directory and the configuration options that are available to you.
 
 <a name="routing"></a>
-## Routing
+## Rutas
 
 To get started, let's create our first route. In Laravel, the simplest route is a route to a Closure. Pop open the `app/routes.php` file and add the following route to the bottom of the file:
 
@@ -60,7 +60,7 @@ Routes can also be attached to controller classes. For example:
 This route informs the framework that requests to the `/users` route should call the `getIndex` method on the `UserController` class. For more information on controller routing, check out the [controller documentation](/page/controllers).
 
 <a name="creating-a-view"></a>
-## Creating A View
+## Crear una vista
 
 Next, we'll create a simple view to display our user data. Views live in the `app/views` directory and contain the HTML of your application. We're going to place two new views in this directory: `layout.blade.php` and `users.blade.php`. First, let's create our `layout.blade.php` file:
 
@@ -92,7 +92,7 @@ Now that we have our views, let's return it from our `/users` route. Instead of 
 Wonderful! Now you have setup a simple view that extends a layout. Next, let's start working on our database layer.
 
 <a name="creating-a-migration"></a>
-## Creating A Migration
+## Crear una migración
 
 To create a table to hold our data, we'll use the Laravel migration system. Migrations let you expressively define modifications to your database, and easily share them with the rest of your team.
 
@@ -155,7 +155,7 @@ Let's walk through this route. First, the `all` method on the `User` model will 
 Awesome. Now we're ready to display the users in our view!
 
 <a name="displaying-data"></a>
-## Displaying Data
+## Mostrando información
 
 Now that we have made the `users` available to our view. We can display them like so:
 
