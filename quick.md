@@ -12,7 +12,7 @@
 
 ### Usando el instalador de Laravel
 
-Primero, descarga el [archivo de instalación PHAR de laravel](http://laravel.com/laravel.phar). Por conveniencia, cambie el nombre del archivo a `laravel` y muevalo a la carpeta `/usr/local/bin`. Una vez instalado, el comando `laravel new` creará una instalación limpia de Laravel en el directorio especificado. Por ejemplo, `laravel new blog` crearía el directorio llamado `blog` que contendra una instalación limpia de Laravel con todas las dependencias instaladas. Este método de instalación es mas rápido que el instalar usando Composer.
+Primero, descarga el [archivo de instalación PHAR de laravel](http://laravel.com/laravel.phar). Por conveniencia, cambia el nombre del archivo a `laravel` y muevelo a la carpeta `/usr/local/bin`. Una vez instalado, el comando `laravel new` creará una instalación limpia de Laravel en el directorio especificado. Por ejemplo, `laravel new blog` crearía el directorio llamado `blog` que contendra una instalación limpia de Laravel con todas las dependencias instaladas. Este método de instalación es mas rápido que el instalar usando Composer.
 
 ### Usando Composer
 
@@ -28,41 +28,42 @@ Si prefiere, otra alternativa es descargar manualmente una copia del [repositori
 
 ### Permisos
 
-Despúes de instalar Laravel, s probablemente se necesite darle permisos de escritura al navegador para el directorio `app/storage`. Para mas detalles de configuración ver la docmunetación de [Instalación](/page/installation).
+Despúes de instalar Laravel, s probablemente se necesite darle permisos de escritura al navegador para el directorio `app/storage`. Para más detalles de configuración ver la documentación de [Instalación](/page/installation).
 
-### Serving Laravel
+### Ejecutar Laravel
 
-Typically, you may use a web server such as Apache or Nginx to serve your Laravel applications. If you are on PHP 5.4+ and would like to use PHP's built-in development server, you may use the `serve` Artisan command:
+Normalmente puedes usar un servidor Apache o Ngnix para ejecutar tus aplicaciones de Laravel. Si tienes una versión de PHP mayor a 5.4 puedes usar el servidor interno de Laravel, a través del comando de Artisan `serve`.
 
 	php artisan serve
 
 <a name="directories"></a>
-### Directory Structure
+### Estructura de los directorios
 
-After installing the framework, take a glance around the project to familiarize yourself with the directory structure. The `app` directory contains folders such as `views`, `controllers`, and `models`. Most of your application's code will reside somewhere in this directory. You may also wish to explore the `app/config` directory and the configuration options that are available to you.
+Después de instalar el framework, echale un vistazo al proyecto para familiarizarte con la estructura de los directorios. El directorio `app` contiene las carpetas `views`, `controllers`, y `models`. La mayoría del código de tu aplicación existirá en éste directorio. También puedes explorar la carpeta `app/config` y las opciones de configuración disponibles.
 
 <a name="routing"></a>
 ## Rutas
 
-To get started, let's create our first route. In Laravel, the simplest route is a route to a Closure. Pop open the `app/routes.php` file and add the following route to the bottom of the file:
+Para empezar, creemos nuestra primer ruta. En Laravel, la ruta más simple es una Clausura. Abre el archivo `app/routes.php` y agrega la siguiente rua al final del archivo:
 
 	Route::get('users', function()
 	{
 		return 'Users!';
 	});
 
-Now, if you hit the `/users` route in your web browser, you should see `Users!` displayed as the response. Great! You've just created your first route.
+Ahora, si visitas la ruta `/users` en tu navegador, deberías ver `Users!` como respuesta. Genial! Has creado tu primer ruta..
 
-Routes can also be attached to controller classes. For example:
+Las rutas también pueden ser vinculadas a clases de Controladores. Por ejemplo:
 
 	Route::get('users', 'UserController@getIndex');
 
-This route informs the framework that requests to the `/users` route should call the `getIndex` method on the `UserController` class. For more information on controller routing, check out the [controller documentation](/page/controllers).
+Esta ruta se informa al framework que la ruta `/users` deberá ejecutar el método `getIndex` en la clase `UserController`. Para más información de rutas con controladores, visita la [documentación de controladores](/page/controllers).
 
 <a name="creating-a-view"></a>
 ## Crear una vista
 
-Next, we'll create a simple view to display our user data. Views live in the `app/views` directory and contain the HTML of your application. We're going to place two new views in this directory: `layout.blade.php` and `users.blade.php`. First, let's create our `layout.blade.php` file:
+Ahora, crearemos una vista sencilla para mostrar la información de nuestro usuario. Las vistas se encuentran en la carpeta `app/views` y contienen el HTML de tu aplicación.
+Vamos a crear dos nuevas vistas en esta carpeta `layout.blade.php` y `users.blade.php`. Primero, creemos nuestro archivo `layout.blade.php`: file:
 
 	<html>
 		<body>
@@ -72,7 +73,7 @@ Next, we'll create a simple view to display our user data. Views live in the `ap
 		</body>
 	</html>
 
-Next, we'll create our `users.blade.php` view:
+A continuación, nuestra vista `users.blade.php`
 
 	@extends('layout')
 
@@ -80,19 +81,19 @@ Next, we'll create our `users.blade.php` view:
 		Users!
 	@stop
 
-Some of this syntax probably looks quite strange to you. That's because we're using Laravel's templating system: Blade. Blade is very fast, because it is simply a handful of regular expressions that are run against your templates to compile them to pure PHP. Blade provides powerful functionality like template inheritance, as well as some syntax sugar on typical PHP control structures such as `if` and `for`. Check out the [Blade documentation](/page/templates) for more details.
+Alguna parte de la síntaxis probablemente sea extraña para ti. Es porque estamos usando el motor de plantillas de Laravel: Blade. Blade es muy rápido, porque simplemente son varias expresiones regulares ejecutadas a través de tus plantillas para ser compiladas en PHP nativo. Blade provee funcionalidad poderosa como herencia de plantillas, así como algunas mejoras de síntaxis en las estructuras de control de PHP como `if` y `for`. Revisa la documentación de [Blade](/page/templates) para más detalles.
 
-Now that we have our views, let's return it from our `/users` route. Instead of returning `Users!` from the route, return the view instead:
+Ahora que tenemos nuestras vistas, ejecutemoslas desde nuestra ruta `/users`. En vez de retornar `Users!` desde la ruta, retornaremos una vista:
 
 	Route::get('users', function()
 	{
 		return View::make('users');
 	});
 
-Wonderful! Now you have setup a simple view that extends a layout. Next, let's start working on our database layer.
+Maravilloso! Has configurado una vista simple que extiende una plantilla. A continuación, empezemos con nuestra capa de base de datos.
 
 <a name="creating-a-migration"></a>
-## Crear una migración
+## Crear un archivo de migración
 
 To create a table to hold our data, we'll use the Laravel migration system. Migrations let you expressively define modifications to your database, and easily share them with the rest of your team.
 
