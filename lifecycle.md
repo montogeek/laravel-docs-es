@@ -1,19 +1,19 @@
 # Ciclo de vida
 
-- [Overview](#overview)
-- [Request Lifecycle](#request-lifecycle)
-- [Start Files](#start-files)
-- [Application Events](#application-events)
+- [Introducción](#overview)
+- [Ciclo de vida de una petición](#request-lifecycle)
+- [Archivos de inicio](#start-files)
+- [Eventos de la aplicación](#application-events)
 
 <a name="overview"></a>
-## Overview
+## Introducción
 
 When using any tool in the "real world", you feel more confidence if you understand how that tool works. Application development is no different. When you understand how your development tools function, you feel more comfortable and confident using them. The goal of this document is to give you a good, high-level overview of how the Laravel framework "works". By getting to know the overall framework better, everything feels less "magical" and you will be more confident building your applications. In addition to a high-level overview of the request lifecycle, we'll cover "start" files and application events.
 
 If you don't understand all of the terms right away, don't lose heart! Just try to get a basic grasp of what is going on, and your knowledge will grow as you explore other sections of the documentation.
 
 <a name="request-lifecycle"></a>
-## Request Lifecycle
+## Ciclo de vida de una petición
 
 All requests into your application are directed through the `public/index.php` script. When using Apache, the `.htaccess` file that ships with Laravel handles the passing of all requests to `index.php`. From here, Laravel begins the process of handling the requests and returning a response to the client. Getting a general idea for the Laravel bootstrap process will be useful, so we'll cover that now!
 
@@ -38,7 +38,7 @@ So, let's summarize:
 Now that you have a good idea of how a request to a Laravel application is handled, let's take a closer look at "start" files!
 
 <a name="start-files"></a>
-## Start Files
+## Archivos de inicio
 
 Your application's start files are stored at `app/start`. By default, three are included with your application: `global.php`, `local.php`, and `artisan.php`. For more information about `artisan.php`, refer to the documentation on the [Artisan command line](/page/commands#registering-commands).
 
@@ -51,7 +51,7 @@ Of course, if you have other environments in addition to `local`, you may create
 Start files serve as a simple place to place any "bootstrapping" code. For example, you could register a View composer, configure your logging preferences, set some PHP settings, etc. It's totally up to you. Of course, throwing all of your bootstrapping code into your start files can get messy. For large applications, or if you feel your start files are getting messy, consider moving some bootstrapping code into [service providers](/page/ioc#service-providers).
 
 <a name="application-events"></a>
-## Application Events
+## Eventos de la aplicación
 
 You may also do pre and post request processing by registering `before`, `after`, `finish`, and `shutdown` application events:
 
