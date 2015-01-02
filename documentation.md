@@ -22,7 +22,7 @@
     - [Auxiliares](/page/helpers)
     - [Contenedor IoC](/page/ioc)
     - [Localización](/page/localization)
-    - [Correo](/page/mail)
+    - [Email](/page/mail)
     - [Desarrollo de paquetes](/page/packages)
     - [Paginación](/page/pagination)
     - [Colas](/page/queues)
