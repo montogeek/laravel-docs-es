@@ -12,7 +12,7 @@
     - [Vistas y Respuestas](/page/responses)
     - [Controladores](/page/controllers)
     - [Errores y Registro de errores](/page/errors)
-- Aprendiendo más
+- Avanzado
     - [Autentificación](/page/security)
     - [Cache](/page/cache)
     - [Extensión del núcleo](/page/extending)
