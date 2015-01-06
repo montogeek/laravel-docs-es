@@ -1,14 +1,14 @@
-# Security
+# Seguridad
 
-- [Configuration](#configuration)
-- [Storing Passwords](#storing-passwords)
-- [Authenticating Users](#authenticating-users)
-- [Manually Logging In Users](#manually)
-- [Protecting Routes](#protecting-routes)
-- [HTTP Basic Authentication](#http-basic-authentication)
-- [Password Reminders & Reset](#password-reminders-and-reset)
-- [Encryption](#encryption)
-- [Authentication Drivers](#authentication-drivers)
+- [Configuración](#configuration)
+- [Guardar contraseñas](#storing-passwords)
+- [Autenticando usuarios](#authenticating-users)
+- [Autenticar usuarios manualmente](#manually)
+- [Proteger rutas](#protecting-routes)
+- [Autenticación HTTP Básica](#http-basic-authentication)
+- [Recordar y restablecer contraseñas](#password-reminders-and-reset)
+- [Encriptar](#encryption)
+- [Manejadores de autenticación](#authentication-drivers)
 
 <a name="configuration"></a>
 ## Configuration
