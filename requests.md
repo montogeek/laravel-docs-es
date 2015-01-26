@@ -1,152 +1,207 @@
-# Peticiones y Entrada de datos
+# HTTP Requests
 
-- [Entrada de datos básico](#basic-input)
+- [Obtaining A Request Instance](#obtaining-a-request-instance)
+- [Retrieving Input](#retrieving-input)
+- [Old Input](#old-input)
 - [Cookies](#cookies)
-- [Entrada de datos antigua](#old-input)
-- [Archivos](#files)
-- [Solicitud de información](#request-information)
+- [Files](#files)
+- [Other Request Information](#other-request-information)
 
-<a name="basic-input"></a>
-## Entrada de datos básico
+<a name="obtaining-a-request-instance"></a>
+## Obtaining A Request Instance
 
-Puedes acceder a los datos ingresados por el usuario con varios métodos muy simples. No tienes necesidad de preocuparte por el verbo HTTP usado en la petición, la entrada de datos se accede de la misma manera para todos los verbos.
+### Via Facade
 
-#### Acceder al valor de una entrada de datos
+The `Request` facade will grant you access to the current request that is bound in the container. For example:
 
-	$name = Input::get('name');
+	$name = Request::input('name');
 
-#### Acceder a un valor predeterminado si la entrada de datos no existe
+Remember, if you are in a namespace, you will have to import the `Request` facade using a `use Request;` statement at the top of your class file.
 
-	$name = Input::get('name', 'Sally');
+### Via Dependency Injection
 
-#### Comprobar si una entrada de datos existe
+To obtain an instance of the current HTTP request via dependency injection, you should type-hint the class on your controller constructor or method. The current request instance will automatically be injected by the [service container](/docs/master/container):
 
-	if (Input::has('name'))
+	<?php namespace App\Http\Controllers;
+
+	use Illuminate\Http\Request;
+	use Illuminate\Routing\Controller;
+
+	class UserController extends Controller {
+
+		/**
+		 * Store a new user.
+		 *
+		 * @param  Request  $request
+		 * @return Response
+		 */
+		public function store(Request $request)
+		{
+			$name = $request->input('name');
+
+			//
+		}
+
+	}
+
+If your controller method is also expecting input from a route parameter, simply list your route arguments after your other dependencies:
+
+	<?php namespace App\Http\Controllers;
+
+	use Illuminate\Http\Request;
+	use Illuminate\Routing\Controller;
+
+	class UserController extends Controller {
+
+		/**
+		 * Store a new user.
+		 *
+		 * @param  Request  $request
+		 * @param  int  $id
+		 * @return Response
+		 */
+		public function update(Request $request, $id)
+		{
+			//
+		}
+
+	}
+
+<a name="retrieving-input"></a>
+## Retrieving Input
+
+#### Retrieving An Input Value
+
+Using a few simple methods, you may access all user input from your `Illuminate\Http\Request` instance. You do not need to worry about the HTTP verb used for the request, as input is accessed in the same way for all verbs.
+
+	$name = Request::input('name');
+
+#### Retrieving A Default Value If The Input Value Is Absent
+
+	$name = Request::input('name', 'Sally');
+
+#### Determining If An Input Value Is Present
+
+	if (Request::has('name'))
 	{
 		//
 	}
 
-#### Obtener toda la entrada de datos de la petición
+#### Getting All Input For The Request
 
-	$input = Input::all();
+	$input = Request::all();
 
-#### Obtener alguna entrada de datos de la petición
+#### Getting Only Some Of The Request Input
 
-	$input = Input::only('username', 'password');
+	$input = Request::only('username', 'password');
 
-	$input = Input::except('credit_card');
+	$input = Request::except('credit_card');
 
-Cuando tengas formularios con entrada de datos como arreglos, puedes usar la notación de punto para acceder los arreglos:
+When working on forms with "array" inputs, you may use dot notation to access the arrays:
 
-	$input = Input::get('products.0.name');
+	$input = Request::input('products.0.name');
 
-> **Nota:** Algunas librerías JavaScript como Backbone envían la entrada de datos en formato JSON. Puedes acceder a ellos naturalmente con `Input::get`.
+<a name="old-input"></a>
+## Old Input
+
+Laravel also allows you to keep input from one request during the next request. For example, you may need to re-populate a form after checking it for validation errors.
+
+#### Flashing Input To The Session
+
+The `flash` method will flash the current input to the [session](/docs/master/session) so that it is available during the user's next request to the application:
+
+	Request::flash();
+
+#### Flashing Only Some Input To The Session
+
+	Request::flashOnly('username', 'email');
+
+	Request::flashExcept('password');
+
+#### Flash & Redirect
+
+Since you often will want to flash input in association with a redirect to the previous page, you may easily chain input flashing onto a redirect.
+
+	return redirect('form')->withInput();
+
+	return redirect('form')->withInput(Request::except('password'));
+
+#### Retrieving Old Data
+
+To retrieve flashed input from the previous request, use the `old` method on the `Request` instance.
+
+	$username = Request::old('username');
+
+If you are displaying old input within a Blade template, it is more convenient to use the `old` helper:
+
+	{{ old('username') }}
 
 <a name="cookies"></a>
 ## Cookies
 
-Todas las cookies creadas por Laravel son escriptadas y firmadas con un código de autentificación, esto significa que serán consideradas inválidas si fueran cambiadas por el ciente.
+All cookies created by the Laravel framework are encrypted and signed with an authentication code, meaning they will be considered invalid if they have been changed by the client.
 
-#### Acceder al valor de una cookie
+#### Retrieving A Cookie Value
 
-	$value = Cookie::get('name');
+	$value = Request::cookie('name');
 
-#### Adjuntar una cookie nueva a una respuesta
+#### Attaching A New Cookie To A Response
 
-	$response = Response::make('Hello World');
+The `cookie` helper serves as a simple factory for generating new `Symfony\Component\HttpFoundation\Cookie` instances. The cookies may be attached to a `Response` instance using the `withCookie` method:
 
-	$response->withCookie(Cookie::make('name', 'value', $minutes));
+	$response = new Illuminate\Http\Response('Hello World');
 
-#### Encolar una cookie para la siguiente respuesta
+	$response->withCookie(cookie('name', 'value', $minutes));
 
-Si deseas establecer una cookie antes de que una respuesta se haya creado, usa el método `Cookie::queue()`. La cookie automáticamente se adjuntará a la respuesta final de tu aplicación:
+#### Creating A Cookie That Lasts Forever*
 
-	Cookie::queue($name, $value, $minutes);
+_By "forever", we really mean five years._
 
-#### Crear una cookie que dure para siempre
-
-	$cookie = Cookie::forever('name', 'value');
-
-<a name="old-input"></a>
-## Entrada de datos antigua
-
-Puedes necesitar mantener la entrada de datos de una petición hasta la siguiente petición. Por ejemplo, cuando necesites repoblar un formulario después de comprobar si tiene errores de validación.
-
-#### Guardar entrada de datos en la sesión
-
-	Input::flash();
-
-#### Guardar aguna entrada de datos a la sesión
-
-	Input::flashOnly('username', 'email');
-
-	Input::flashExcept('password');
-
-Ya que a menudo desearás guardar la entrada de datos combinada con una redirección a la página anterior, puedes hacerlo fácilmente encadenando la guardada de la entrada de datos en una redirección:
-
-	return Redirect::to('form')->withInput();
-
-	return Redirect::to('form')->withInput(Input::except('password'));
-
-> **Nota:** Puedes guardar otros datos entre peticiones usando la clase [Sesión](/page/session).
-
-#### Obteniendo datos antiguos
-
-	Input::old('username');
+	$response->withCookie(cookie()->forever('name', 'value'));
 
 <a name="files"></a>
-## Archivos
+## Files
 
-#### Obtener un archivo subido
+#### Retrieving An Uploaded File
 
-	$file = Input::file('photo');
+	$file = Request::file('photo');
 
-#### Determinar si un archivo fue subido
+#### Determining If A File Was Uploaded
 
-	if (Input::hasFile('photo'))
+	if (Request::hasFile('photo'))
 	{
 		//
 	}
 
-El objeto retornado por el métodot `file` es una instancia de la clase `Symfony\Component\HttpFoundation\File\UploadedFile`, la cual extiende la clase PHP `SplFileInfo` y provee una variedad de métodos para interactuar con el archivo.
+The object returned by the `file` method is an instance of the `Symfony\Component\HttpFoundation\File\UploadedFile` class, which extends the PHP `SplFileInfo` class and provides a variety of methods for interacting with the file.
 
-#### Mover un archivo subido
+#### Determining If An Uploaded File Is Valid
 
-	Input::file('photo')->move($destinationPath);
+	if (Request::file('photo')->isValid())
+	{
+		//
+	}
 
-	Input::file('photo')->move($destinationPath, $fileName);
+#### Moving An Uploaded File
 
-#### Obtener la ruta de un archivo subido
+	Request::file('photo')->move($destinationPath);
 
-	$path = Input::file('photo')->getRealPath();
+	Request::file('photo')->move($destinationPath, $fileName);
 
-#### Obtener el nombre original de un archivo subido
+### Other File Methods
 
-	$name = Input::file('photo')->getClientOriginalName();
+There are a variety of other methods available on `UploadedFile` instances. Check out the [API documentation for the class](http://api.symfony.com/2.5/Symfony/Component/HttpFoundation/File/UploadedFile.html) for more information regarding these methods.
 
-#### Obtener la extensión de un archivo subido
+<a name="other-request-information"></a>
+## Other Request Information
 
-	$extension = Input::file('photo')->getClientOriginalExtension();
+The `Request` class provides many methods for examining the HTTP request for your application and extends the `Symfony\Component\HttpFoundation\Request` class. Here are some of the highlights.
 
-#### Obtener el tamaño de un archivo subido
-
-	$size = Input::file('photo')->getSize();
-
-#### Obtener el tipo MIME de un archivo subido
-
-	$mime = Input::file('photo')->getMimeType();
-
-<a name="request-information"></a>
-## Solicitud de información
-
-La clase `Request` provee diversos métodos para examinar la petición HTTP de tu aplicación y extiende la clase `Symfony\Component\HttpFoundation\Request`.
-Algunos de los métodos más relevantes:
-
-#### Obtener la URI de la petición
+#### Retrieving The Request URI
 
 	$uri = Request::path();
 
-#### Obtener el método de la petición
+#### Retrieving The Request Method
 
 	$method = Request::method();
 
@@ -155,62 +210,13 @@ Algunos de los métodos más relevantes:
 		//
 	}
 
-#### Determinar si la ruta de la petición concuerda con un patrón
+#### Determining If The Request Path Matches A Pattern
 
 	if (Request::is('admin/*'))
 	{
 		//
 	}
 
-#### Obtener la URL de la petición
+#### Get The Current Request URL
 
 	$url = Request::url();
-
-#### Obtener un segmento de la URI de la petición
-
-	$segment = Request::segment(1);
-
-#### Obtener un encabezado de la petición
-
-	$value = Request::header('Content-Type');
-
-#### Obtener valores de $_SERVER
-
-	$value = Request::server('PATH_INFO');
-
-#### Determinar si la petición es HTTPS
-
-	if (Request::secure())
-	{
-		//
-	}
-
-#### Determinar si la petición es AJAX
-
-	if (Request::ajax())
-	{
-		//
-	}
-
-#### Determinar si la petición tiene tipo de contenido JSON
-
-	if (Request::isJson())
-	{
-		//
-	}
-
-#### Determinar si la petición espera un contenido tipo JSON
-
-	if (Request::wantsJson())
-	{
-		//
-	}
-
-#### Verificar el formato de respuesta de la petición
-
-El método `Request::format` retornará el formato de respuesta de la petición basado en el encabezado HTTP Accept
-
-	if (Request::format() == 'json')
-	{
-		//
-	}

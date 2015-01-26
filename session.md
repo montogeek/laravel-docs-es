@@ -11,7 +11,13 @@
 
 Since HTTP driven applications are stateless, sessions provide a way to store information about the user across requests. Laravel ships with a variety of session back-ends available for use through a clean, unified API. Support for popular back-ends such as [Memcached](http://memcached.org), [Redis](http://redis.io), and databases is included out of the box.
 
-The session configuration is stored in `app/config/session.php`. Be sure to review the well documented options available to you in this file. By default, Laravel is configured to use the `file` session driver, which will work well for the majority of applications.
+The session configuration is stored in `config/session.php`. Be sure to review the well documented options available to you in this file. By default, Laravel is configured to use the `file` session driver, which will work well for the majority of applications.
+
+> **Note:** If you need all stored session data to be encrypted, set the `encrypt` configuration option to `true`.
+
+#### Reserved Keys
+
+The Laravel framework uses the `flash` session key internally, so you should not add an item to the session by that name.
 
 <a name="session-usage"></a>
 ## Session Usage
@@ -33,6 +39,10 @@ The session configuration is stored in `app/config/session.php`. Be sure to revi
 	$value = Session::get('key', 'default');
 
 	$value = Session::get('key', function() { return 'default'; });
+
+#### Retrieving An Item And Forgetting It
+
+	$value = Session::pull('key', 'default');
 
 #### Retrieving All Data From The Session
 
@@ -103,4 +113,4 @@ The session "driver" defines where session data will be stored for each request.
 - `memcached` / `redis` - sessions will be stored in one of these fast, cached based stores.
 - `array` - sessions will be stored in a simple PHP array and will not be persisted across requests.
 
-> **Note:** The array driver is typically used for running [unit tests](/page/testing), so no session data will be persisted.
+> **Note:** The array driver is typically used for running [unit tests](/docs/master/testing), so no session data will be persisted.

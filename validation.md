@@ -1,15 +1,17 @@
-# Validación
+# Validation
 
-- [Uso básico](#basic-usage)
-- [Manejo de mensajes de error](#working-with-error-messages)
-- [Mensajes de error & Vistas](#error-messages-and-views)
-- [Reglas de validación disponibles](#available-validation-rules)
-- [Agregar reglas de validación dinámicamente](#conditionally-adding-rules)
-- [Mensajes de error personalizados](#custom-error-messages)
-- [Reglas de validación personalizadasc](#custom-validation-rules)
+- [Basic Usage](#basic-usage)
+- [Controller Validation](#controller-validation)
+- [Form Request Validation](#form-request-validation)
+- [Working With Error Messages](#working-with-error-messages)
+- [Error Messages & Views](#error-messages-and-views)
+- [Available Validation Rules](#available-validation-rules)
+- [Conditionally Adding Rules](#conditionally-adding-rules)
+- [Custom Error Messages](#custom-error-messages)
+- [Custom Validation Rules](#custom-validation-rules)
 
 <a name="basic-usage"></a>
-## Uso básico
+## Basic Usage
 
 Laravel ships with a simple, convenient facility for validating data and retrieving validation error messages via the `Validation` class.
 
@@ -22,9 +24,9 @@ Laravel ships with a simple, convenient facility for validating data and retriev
 
 The first argument passed to the `make` method is the data under validation. The second argument is the validation rules that should be applied to the data.
 
-Multiple rules may be delimited using either a "pipe" character, or as separate elements of an array.
-
 #### Using Arrays To Specify Rules
+
+Multiple rules may be delimited using either a "pipe" character, or as separate elements of an array.
 
 	$validator = Validator::make(
 		array('name' => 'Dayle'),
@@ -65,8 +67,175 @@ You may also access an array of the failed validation rules, without messages. T
 
 The `Validator` class provides several rules for validating files, such as `size`, `mimes`, and others. When validating files, you may simply pass them into the validator with your other data.
 
+### After Validation Hook
+
+The validator also allows you to attach callbacks to be run after validation is completed. This allows you to easily perform further validation, and even add more error messages to the message collection. To get started, use the `after` method on a validator instance:
+
+	$validator = Validator::make(...);
+
+	$validator->after(function($validator)
+	{
+		if ($this->somethingElseIsInvalid())
+		{
+			$validator->errors()->add('field', 'Something is wrong with this field!');
+		}
+	});
+
+	if ($validator->fails())
+	{
+		//
+	}
+
+You may add as many `after` callbacks to a validator as needed.
+
+<a name="controller-validation"></a>
+## Controller Validation
+
+Of course, manually creating and checking a `Validator` instance each time you do validation is a headache. Don't worry, you have other options! The base `App\Http\Controllers\Controller` class included with Laravel uses a `ValidatesRequests` trait. This trait provides a single, convenient method for validating incoming HTTP requests. Here's what it looks like:
+
+	/**
+	 * Store the incoming blog post.
+	 *
+	 * @param  Request  $request
+	 * @return Response
+	 */
+	public function store(Request $request)
+	{
+		$this->validate($request, [
+			'title' => 'required|unique|max:255',
+			'body' => 'required',
+		]);
+
+		//
+	}
+
+If validation passes, your code will keep exeucting normally. However, if validation fails, an `Illuminate\Contracts\Validation\ValidationException` will be thrown. This exception is automatically caught and a redirect is generated to the user's previous location. The validation errors are even automatically flashed to the session!
+
+If the incoming request was an AJAX request, no redirect will be generated. Instead, an HTTP response with a 422 status code will be returned to the browser containing a JSON representation of the validation errors.
+
+For example, here is the equivalent code written manually:
+
+	/**
+	 * Store the incoming blog post.
+	 *
+	 * @param  Request  $request
+	 * @return Response
+	 */
+	public function store(Request $request)
+	{
+		$v = Validator::make($request->all(), [
+			'title' => 'required|unique|max:255',
+			'body' => 'required',
+		]);
+
+		if ($v->fails())
+		{
+			return redirect()->back()->withErrors($v->errors());
+		}
+
+		//
+	}
+
+### Customizing The Flashed Error Format
+
+If you wish to customize the format of the validation errors that are flashed to the session when validation fails, override the `formatValidationErrors` on your base controller. Don't forget to import the `Illuminate\Validation\Validator` class at the top of the file:
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function formatValidationErrors(Validator $validator)
+	{
+		return $validator->errors()->all();
+	}
+
+<a name="form-request-validation"></a>
+## Form Request Validation
+
+For more complex validation scenarios, you may wish to create a "form request". Form requests are custom request classes that contain validation logic. To create a form request class, use the `make:request` Artisan CLI command:
+
+	php artisan make:request StoreBlogPostRequest
+
+The generated class will be placed in the `app/Http/Requests` directory. Let's add a few validation rules to the `rules` method:
+
+	/**
+	 * Get the validation rules that apply to the request.
+	 *
+	 * @return array
+	 */
+	public function rules()
+	{
+		return [
+			'title' => 'required|unique|max:255',
+			'body' => 'required',
+		];
+	}
+
+So, how are the validation rules executed? All you need to do is type-hint the request on your controller method:
+
+	/**
+	 * Store the incoming blog post.
+	 *
+	 * @param  StoreBlogPostRequest  $request
+	 * @return Response
+	 */
+	public function store(StoreBlogPostRequest $request)
+	{
+		// The incoming request is valid...
+	}
+
+The incoming form request is validated before the controller method is called, meaning you do not need to clutter your controller with any validation logic. It has already been validated!
+
+If validation fails, a redirect response will be generated to send the user back to their previous location. The errors will also be flashed to the session so they are available for display. If the request was an AJAX request, a HTTP response with a 422 status code will be returned to the user including a JSON representation of the validation errors.
+
+### Authorizing Form Requests
+
+The form request class also contains an `authorize` method. Within this method, you may check if the authenticated user actually has the authority to update a given resource. For example, if a user is attempeting to update a blog post comment, do they actually own that comment? For example:
+
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @return bool
+	 */
+	public function authorize()
+	{
+		$commentId = $this->route('comment');
+
+		return Comment::where('id', $commentId)
+                      ->where('user_id', Auth::id())->exists();
+	}
+
+Note the call to the `route` method in the example above. This method grants you access to the URI parameters defined on the route being called, such as the `{comment}` parameter in the example below:
+
+	Route::post('comment/{comment}');
+
+If the `authorize` method returns `false`, a HTTP response with a 403 status code will automatically be returned and your controller method will not execute.
+
+If you plan to have authorization logic in another part of your application, simply return `true` from the `authorize` method:
+
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @return bool
+	 */
+	public function authorize()
+	{
+		return true;
+	}
+
+### Customizing The Flashed Error Format
+
+If you wish to customize the format of the validation errors that are flashed to the session when validation fails, override the `formatValidationErrors` on your base request (`App\Http\Requests\Request`). Don't forget to import the `Illuminate\Validation\Validator` class at the top of the file:
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function formatErrors(Validator $validator)
+	{
+		return $validator->errors()->all();
+	}
+
 <a name="working-with-error-messages"></a>
-## Manejo de mensajes de error
+## Working With Error Messages
 
 After calling the `messages` method on a `Validator` instance, you will receive a `MessageBag` instance, which has a variety of convenient methods for working with error messages.
 
@@ -109,7 +278,7 @@ After calling the `messages` method on a `Validator` instance, you will receive 
 	}
 
 <a name="error-messages-and-views"></a>
-## Mensajes de error & Vistas
+## Error Messages & Views
 
 Once you have performed validation, you will need an easy way to get the error messages back to your views. This is conveniently handled by Laravel. Consider the following routes as an example:
 
@@ -126,7 +295,7 @@ Once you have performed validation, you will need an easy way to get the error m
 
 		if ($validator->fails())
 		{
-			return Redirect::to('register')->withErrors($validator);
+			return redirect('register')->withErrors($validator);
 		}
 	});
 
@@ -138,8 +307,18 @@ So, after redirection, you may utilize the automatically bound `$errors` variabl
 
 	<?php echo $errors->first('email'); ?>
 
+### Named Error Bags
+
+If you have multiple forms on a single page, you may wish to name the `MessageBag` of errors. This will allow you to retrieve the error messages for a specific form. Simply pass a name as the second argument to `withErrors`:
+
+	return redirect('register')->withErrors($validator, 'login');
+
+You may then access the named `MessageBag` instance from the `$errors` variable:
+
+	<?php echo $errors->login->first('email'); ?>
+
 <a name="available-validation-rules"></a>
-## Reglas de validación disponibles
+## Available Validation Rules
 
 Below is a list of all available validation rules and their function:
 
@@ -152,6 +331,7 @@ Below is a list of all available validation rules and their function:
 - [Array](#rule-array)
 - [Before (Date)](#rule-before)
 - [Between](#rule-between)
+- [Boolean](#rule-boolean)
 - [Confirmed](#rule-confirmed)
 - [Date](#rule-date)
 - [Date Format](#rule-date-format)
@@ -178,6 +358,7 @@ Below is a list of all available validation rules and their function:
 - [Required Without All](#rule-required-without-all)
 - [Same](#rule-same)
 - [Size](#rule-size)
+- [Timezone](#rule-timezone)
 - [Unique (Database)](#rule-unique)
 - [URL](#rule-url)
 
@@ -225,6 +406,11 @@ The field under validation must be a value preceding the given date. The dates w
 #### between:_min_,_max_
 
 The field under validation must have a size between the given _min_ and _max_. Strings, numerics, and files are evaluated in the same fashion as the `size` rule.
+
+<a name="rule-boolean"></a>
+#### boolean
+
+The field under validation must be able to be cast as a boolean. Accepted input are `true`, `false`, `1`, `0`, `"1"` and `"0"`.
 
 <a name="rule-confirmed"></a>
 #### confirmed
@@ -285,7 +471,7 @@ Passing `NULL` as a "where" clause value will add a check for a `NULL` database 
 <a name="rule-image"></a>
 #### image
 
-The file under validation must be an image (jpeg, png, bmp, or gif)
+The file under validation must be an image (jpeg, png, bmp, gif, or svg)
 
 <a name="rule-in"></a>
 #### in:_foo_,_bar_,...
@@ -305,7 +491,7 @@ The field under validation must be formatted as an IP address.
 <a name="rule-max"></a>
 #### max:_value_
 
-The field under validation must be less than or equal to a maximum _value_. Strings, numerics, and files are evaluated in the same fashion as the `size` rule.
+The field under validation must be less than or equal to a maximum _value_. Strings, numerics, and files are evaluated in the same fashion as the [`size`](#rule-size) rule.
 
 <a name="rule-mimes"></a>
 #### mimes:_foo_,_bar_,...
@@ -319,7 +505,7 @@ The file under validation must have a MIME type corresponding to one of the list
 <a name="rule-min"></a>
 #### min:_value_
 
-The field under validation must have a minimum _value_. Strings, numerics, and files are evaluated in the same fashion as the `size` rule.
+The field under validation must have a minimum _value_. Strings, numerics, and files are evaluated in the same fashion as the [`size`](#rule-size) rule.
 
 <a name="rule-not-in"></a>
 #### not_in:_foo_,_bar_,...
@@ -344,9 +530,9 @@ The field under validation must match the given regular expression.
 The field under validation must be present in the input data.
 
 <a name="rule-required-if"></a>
-#### required\_if:_field_,_value_
+#### required_if:_field_,_value_,...
 
-The field under validation must be present if the _field_ field is equal to _value_.
+The field under validation must be present if the _field_ field is equal to any _value_.
 
 <a name="rule-required-with"></a>
 #### required_with:_foo_,_bar_,...
@@ -366,7 +552,7 @@ The field under validation must be present _only when_ any of the other specifie
 <a name="rule-required-without-all"></a>
 #### required_without_all:_foo_,_bar_,...
 
-The field under validation must be present _only when_ the all of the other specified fields are not present.
+The field under validation must be present _only when_ all of the other specified fields are not present.
 
 <a name="rule-same"></a>
 #### same:_field_
@@ -377,6 +563,11 @@ The given _field_ must match the field under validation.
 #### size:_value_
 
 The field under validation must have a size matching the given _value_. For string data, _value_ corresponds to the number of characters. For numeric data, _value_ corresponds to a given integer value. For files, _size_ corresponds to the file size in kilobytes.
+
+<a name="rule-timezone"></a>
+#### timezone
+
+The field under validation must be a valid timezone identifier according to the `timezone_identifiers_list` PHP function.
 
 <a name="rule-unique"></a>
 #### unique:_table_,_column_,_except_,_idColumn_
@@ -411,7 +602,7 @@ The field under validation must be formatted as an URL.
 > **Note:** This function uses PHP's `filter_var` method.
 
 <a name="conditionally-adding-rules"></a>
-## Agregar reglas de validación dinámicamente
+## Conditionally Adding Rules
 
 In some situations, you may wish to run validation checks against a field **only** if that field is present in the input array. To quickly accomplish this, add the `sometimes` rule to your rule list:
 
@@ -447,7 +638,7 @@ The first argument passed to the `sometimes` method is the name of the field we 
 > **Note:** The `$input` parameter passed to your `Closure` will be an instance of `Illuminate\Support\Fluent` and may be used as an object to access your input and files.
 
 <a name="custom-error-messages"></a>
-## Mensajes de error personalizados
+## Custom Error Messages
 
 If needed, you may use custom error messages for validation instead of the defaults. There are several ways to specify custom messages.
 
@@ -459,7 +650,7 @@ If needed, you may use custom error messages for validation instead of the defau
 
 	$validator = Validator::make($input, $rules, $messages);
 
-*Note:* The `:attribute` place-holder will be replaced by the actual name of the field under validation. You may also utilize other place-holders in validation messages.
+> *Note:* The `:attribute` place-holder will be replaced by the actual name of the field under validation. You may also utilize other place-holders in validation messages.
 
 #### Other Validation Place-Holders
 
@@ -470,18 +661,18 @@ If needed, you may use custom error messages for validation instead of the defau
 		'in'      => 'The :attribute must be one of the following types: :values',
 	);
 
-Sometimes you may wish to specify a custom error messages only for a specific field:
-
 #### Specifying A Custom Message For A Given Attribute
+
+Sometimes you may wish to specify a custom error messages only for a specific field:
 
 	$messages = array(
 		'email.required' => 'We need to know your e-mail address!',
 	);
 
-In some cases, you may wish to specify your custom messages in a language file instead of passing them directly to the `Validator`. To do so, add your messages to `custom` array in the `app/lang/xx/validation.php` language file.
-
 <a name="localization"></a>
 #### Specifying Custom Messages In Language Files
+
+In some cases, you may wish to specify your custom messages in a language file instead of passing them directly to the `Validator`. To do so, add your messages to `custom` array in the `resources/lang/xx/validation.php` language file.
 
 	'custom' => array(
 		'email' => array(
@@ -490,11 +681,11 @@ In some cases, you may wish to specify your custom messages in a language file i
 	),
 
 <a name="custom-validation-rules"></a>
-## Reglas de validación personalizadas
-
-Laravel provides a variety of helpful validation rules; however, you may wish to specify some of your own. One method of registering custom validation rules is using the `Validator::extend` method:
+## Custom Validation Rules
 
 #### Registering A Custom Validation Rule
+
+Laravel provides a variety of helpful validation rules; however, you may wish to specify some of your own. One method of registering custom validation rules is using the `Validator::extend` method:
 
 	Validator::extend('foo', function($attribute, $value, $parameters)
 	{
@@ -509,9 +700,9 @@ You may also pass a class and method to the `extend` method instead of a Closure
 
 Note that you will also need to define an error message for your custom rules. You can do so either using an inline custom message array or by adding an entry in the validation language file.
 
-Instead of using Closure callbacks to extend the Validator, you may also extend the Validator class itself. To do so, write a Validator class that extends `Illuminate\Validation\Validator`. You may add validation methods to the class by prefixing them with `validate`:
-
 #### Extending The Validator Class
+
+Instead of using Closure callbacks to extend the Validator, you may also extend the Validator class itself. To do so, write a Validator class that extends `Illuminate\Validation\Validator`. You may add validation methods to the class by prefixing them with `validate`:
 
 	<?php
 
@@ -524,9 +715,9 @@ Instead of using Closure callbacks to extend the Validator, you may also extend 
 
 	}
 
-Next, you need to register your custom Validator extension:
-
 #### Registering A Custom Validator Resolver
+
+Next, you need to register your custom Validator extension:
 
 	Validator::resolver(function($translator, $data, $rules, $messages)
 	{

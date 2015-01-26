@@ -1,225 +1,158 @@
-# Vistas & Respuestas
+# HTTP Responses
 
-- [Respuestas básicas](#basic-responses)
-- [Redirecciones](#redirects)
-- [Vistas](#views)
-- [Composición de Vistas](#view-composers)
-- [Respuestas especiales](#special-responses)
-- [Macros de respuestas](#response-macros)
+- [Basic Responses](#basic-responses)
+- [Redirects](#redirects)
+- [Other Responses](#other-responses)
+- [Response Macros](#response-macros)
 
 <a name="basic-responses"></a>
-## Respuestas básicas
+## Basic Responses
 
-#### Retornar cadenas desde rutas
+#### Returning Strings From Routes
+
+The most basic response from a Laravel route is a string:
 
 	Route::get('/', function()
 	{
 		return 'Hello World';
 	});
 
-#### Crear respuestas personalizadas
+#### Creating Custom Responses
 
-Una instancia de `Response` herede la clase `Symfony\Component\HttpFoundation\Response`, proporcionando una variedad de métodos para crear respuestas HTTP.
+However, for most routes and controller actions, you will be returning a full `Illuminate\Http\Response` instance or a [view](/docs/master/views). Returning a full `Response` instance allows you customize the response's HTTP status code and headers. A `Response` instance inherits from the `Symfony\Component\HttpFoundation\Response` class, providing a variety of methods for building HTTP responses:
 
-	$response = Response::make($contents, $statusCode);
+	use Illuminate\Http\Response;
 
-	$response->header('Content-Type', $value);
+	return (new Response($content, $status))
+	              ->header('Content-Type', $value);
 
-	return $response;
+For convenience, you may also use the `response` helper:
 
-Si necesitas acceder a los métodos de la clase `Response`, pero deseas retornar una vista como el contenido de la respuesta, puedes usar el método `Response::view` convenientemente:
+	return response($content, $status)
+	              ->header('Content-Type', $value);
 
-	return Response::view('hello')->header('Content-Type', $type);
+> **Note:** For a full list of available `Response` methods, check out its [API documentation](http://laravel.com/api/master/Illuminate/Http/Response.html) and the [Symfony API documentation](http://api.symfony.com/2.5/Symfony/Component/HttpFoundation/Response.html).
 
-#### Adjuntar Cookies a respuestas
+#### Sending A View In A Response
 
-	$cookie = Cookie::make('name', 'value');
+If you need access to the `Response` class methods, but want to return a view as the response content, you may use the `view` method for convenience:
 
-	return Response::make($content)->withCookie($cookie);
+	return response()->view('hello')->header('Content-Type', $type);
+
+#### Attaching Cookies To Responses
+
+	return response($content)->withCookie(cookie('name', 'value'));
 
 <a name="redirects"></a>
-## Redirecciones
+## Redirects
 
-#### Retornar una redirección
+Redirect responses are typically instances of the `Illuminate\Http\RedirectResponse` class, and contain the proper headers needed to redirect the user to another URL.
 
-	return Redirect::to('user/login');
+#### Returning A Redirect
 
-#### Retornar una redirección con datos instantáneos
+There are several ways to generate a `RedirectResponse` instance. The simplest method is to use the `redirect` helper method. When testing, it is not common to mock the creation of a redirect response, so using the helper method is almost always acceptable:
 
-	return Redirect::to('user/login')->with('message', 'Login Failed');
+	return redirect('user/login');
 
-> **Nota:** Dado que el método `with` guarda datos instantáneos en la sesión, estos pueden ser obtenidos usando el método `Session:get`.
+#### Returning A Redirect With Flash Data
 
-#### Retornar una redirección a una ruta con nombre
+Redirecting to a new URL and [flashing data to the session](/docs/master/session) are typically done at the same time. So, for convenience, you may create a `RedirectResponse` instance **and** flash data to the session in a single method chain:
 
-	return Redirect::route('login');
+	return redirect('user/login')->with('message', 'Login Failed');
 
-#### Retornar una redirección a una ruta con nombre con parámetros
+#### Returning A Redirect To A Named Route
 
-	return Redirect::route('profile', array(1));
+When you call the `redirect` helper with no parameters, an instance of `Illuminate\Routing\Redirector` is returned, allowing you to call any method on the `Redirector` instance. For example, to generate a `RedirectResponse` to a named route, you may use the `route` method:
 
-#### Retornar una redirección a una ruta con nombre con parámetros con nombres
+	return redirect()->route('login');
 
-	return Redirect::route('profile', array('user' => 1));
+#### Returning A Redirect To A Named Route With Parameters
 
-#### Retornar una redirección a la acción de un controlador
+If your route has parameters, you may pass them as the second argument to the `route` method.
 
-	return Redirect::action('HomeController@index');
+	// For a route with the following URI: profile/{id}
 
-#### Retornar una redireción a la acción de un controlador con parámetros
+	return redirect()->route('profile', [1]);
 
-	return Redirect::action('UserController@profile', array(1));
+If you are redirecting to a route with an "ID" parameter that is being populated from an Eloquent model, you may simply pass the model itself. The ID will be extracted automatically:
 
-#### Retornar una redirección a la acción de un controlador con parámetros con nombres
+	return redirect()->route('profile', [$user]);
 
-	return Redirect::action('UserController@profile', array('user' => 1));
+#### Returning A Redirect To A Named Route Using Named Parameters
 
-<a name="views"></a>
-## Vistas
+	// For a route with the following URI: profile/{user}
 
-Las vistas normalmente contienen el HTML de tu aplicación y proveen una manera conveniente para separar tu controlador y la lógica del dominio de tu lógica de presentación. Las archivos de las vistas son guardadas en el directorio `app/views`.
+	return redirect()->route('profile', ['user' => 1]);
 
-Una simple vista puede verse así:
+#### Returning A Redirect To A Controller Action
 
-	<!-- View stored in app/views/greeting.php -->
+Similarly to generating `RedirectResponse` instances to named routes, you may also generate redirects to [controller actions](/docs/master/controllers):
 
-	<html>
-		<body>
-			<h1>Hello, <?php echo $name; ?></h1>
-		</body>
-	</html>
+	return redirect()->action('App\Http\Controllers\HomeController@index');
 
-Esta vista puede ser retornada al navegador así:
+> **Note:** You do not need to specify the full namespace to the controller if you have registered a root controller namespace via `URL::setRootControllerNamespace`.
 
-	Route::get('/', function()
-	{
-		return View::make('greeting', array('name' => 'Taylor'));
-	});
+#### Returning A Redirect To A Controller Action With Parameters
 
-El segundo parámetro pasado al método `View::make` es un arreglo de datos que estarás disponibles en la vista:
+	return redirect()->action('App\Http\Controllers\UserController@profile', [1]);
 
-#### Pasar datos a la vista
+#### Returning A Redirect To A Controller Action Using Named Parameters
 
-	// Using conventional approach
-	$view = View::make('greeting')->with('name', 'Steve');
+	return redirect()->action('App\Http\Controllers\UserController@profile', ['user' => 1]);
 
-	// Using Magic Methods
-	$view = View::make('greeting')->withName('steve');
+<a name="other-responses"></a>
+## Other Responses
 
-En el ejemplo anterior la variable `$name` será accesible desde la vista, y será igual a `Steve`.
+The `response` helper may be used to conveniently generate other types of response instances. When the `response` helper is called without arguments, an implementation of the `Illuminate\Contracts\Routing\ResponseFactory` [contract](/docs/master/contracts) is returned. This contract provides several helpful methods for generating responses.
 
-Si lo deseas, puedes pasar un arreglo de datos como segundo parámetro al método `make`
+#### Creating A JSON Response
 
-	$view = View::make('greetings', $data);
+The `json` method will automatically set the `Content-Type` header to `application/json`:
 
-También puedes hacer disponible un segmento de datos en todas tus vistas:
+	return response()->json(['name' => 'Steve', 'state' => 'CA']);
 
-	View::share('name', 'Steve');
+#### Creating A JSONP Response
 
-#### Pasar una sub-vista a una vista
+	return response()->json(['name' => 'Steve', 'state' => 'CA'])
+	                 ->setCallback($request->input('callback'));
 
-Algunas veces puedes desea pasar una vista dentro de otra vista. Por ejemplo, dada una sub-vista guardada en `app/views/child/view.php`, podemos pasarlal a otra vista así:
+#### Creating A File Download Response
 
-	$view = View::make('greeting')->nest('child', 'child.view');
+	return response()->download($pathToFile);
 
-	$view = View::make('greeting')->nest('child', 'child.view', $data);
+	return response()->download($pathToFile, $name, $headers);
 
-La sub-vista puede ser mostrada desde la vista padre:
+> **Note:** Symfony HttpFoundation, which manages file downloads, requires the file being downloaded to have an ASCII file name.
 
-	<html>
-		<body>
-			<h1>Hello!</h1>
-			<?php echo $child; ?>
-		</body>
-	</html>
+<a name="response-macros"></a>
+## Response Macros
 
-<a name="view-composers"></a>
-## Composición de vistas
+If you would like to define a custom response that you can re-use in a variety of your routes and controllers, you may use the `macro` method on an implementation of `Illuminate\Contracts\Routing\ResponseFactory`.
 
-La composición de vistas son retrollamadas o métodos de clase que son llamados cuando una vista is mostrada. Si tienes datos que desees que se carguen cada vez que una vista es mostrada en tu aplicación, la composición de vistas pueden organizar ese código en un solo lugar. Por lo tanto, la composición de una vista pueden funcionar como 'Modelos de vistas' o 'presentadores'.
+For example, from a [service provider's](/docs/master/providers) `boot` method:
 
-#### Definir el compositor de una vista
+	<?php namespace App\Providers;
 
-	View::composer('profile', function($view)
-	{
-		$view->with('count', User::count());
-	});
+	use Response;
+	use Illuminate\Support\ServiceProvider;
 
-Ahora, cada vez que la vista `profile` se muestra, el dato `count` será cargado a la vista.
+	class ResponseMacroServiceProvider extends ServiceProvider {
 
-También puedes adjuntar un compositor de una vista a varias vistas en uno solo:
-
-    View::composer(array('profile','dashboard'), function($view)
-    {
-        $view->with('count', User::count());
-    });
-
-Si prefieres usar una clase como compositor, lo cual provee el beneficio de ser resuelta a través de la aplicación gracias al [contenedor IoC](/page/ioc), lo harías así:
-
-	View::composer('profile', 'ProfileComposer');
-
-Un compositos de una vista debería ser definido así:
-
-	class ProfileComposer {
-
-		public function compose($view)
+		/**
+		 * Perform post-registration booting of services.
+		 *
+		 * @return void
+		 */
+		public function boot()
 		{
-			$view->with('count', User::count());
+			Response::('caps', function($value) use ($response)
+			{
+				return $response->make(strtoupper($value));
+			});
 		}
 
 	}
 
-#### Definir múltiples compositores
+The `macro` function accepts a name as its first argument, and a Closure as its second. The macro's Closure will be executed when calling the macro name from a `ResponseFactory` implementation or the `response` helper:
 
-Puedes usar el método `composers` para registar un grupo de compositores al mismo tiempo:
-
-	View::composers(array(
-		'AdminComposer' => array('admin.index', 'admin.profile'),
-		'UserComposer' => 'user',
-	));
-
-> **Nota:** No hay una convención sobre el lugar donde las clases de compositores deberían estar. Existe total libertad para guardarlas donde desees mientras se pueden autocargar usando la configuración de tu archivo `composer.json`.
-
-### Creadores de Vistas
-
-**Creadores** de vistas funcionan casi igual a los compositores de vistas; sin embargo, ellos son ejecutados inmediatamente cuando la vista es instanciada. Para registrar una creados de vistas, simplemente usa el método `creator`:
-
-	View::creator('profile', function($view)
-	{
-		$view->with('count', User::count());
-	});
-
-<a name="special-responses"></a>
-## Respuestas especiales
-
-#### Crear una respuesta JSON
-
-	return Response::json(array('name' => 'Steve', 'state' => 'CA'));
-
-#### Crear una respuesta JSONP
-
-	return Response::json(array('name' => 'Steve', 'state' => 'CA'))->setCallback(Input::get('callback'));
-
-#### Crear una respuesta para descarga de archivo
-
-	return Response::download($pathToFile);
-
-	return Response::download($pathToFile, $name, $headers);
-
-> **Nota:** Symfony HttpFoundation, el cual maneja la descarga de archivos, requiere que el archivo sea descargado con un nombre ASCII.
-
-<a name="response-macros"></a>
-## Macros de respuestas
-
-Si quieres definir una respuesta personalizada que puedes reutilizar en tus rutas y controladores, puedes usar el método `Response::macro`:
-
-	Response::macro('caps', function($value)
-	{
-		return Response::make(strtoupper($value));
-	});
-
-La función `macro` acepta un nombre como primer parámetro y una Clausura como segundo parámetro. La Clausura del macro será ejecutado cuando se llame el nombre del macro desde la clase `Response`:
-
-	return Response::caps('foo');
-
-Puedes definir tus macros en uno de los archivos del directorio `app/start`. Alternativamente, puedes organizar tus macros en un archivo separado que sea incluído por algunos de los archivos del directorio `app/start.`
+	return response()->caps('foo');

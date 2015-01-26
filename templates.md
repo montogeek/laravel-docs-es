@@ -1,33 +1,8 @@
 # Templates
 
-- [Controller Layouts](#controller-layouts)
 - [Blade Templating](#blade-templating)
 - [Other Blade Control Structures](#other-blade-control-structures)
 - [Extending Blade](#extending-blade)
-
-<a name="controller-layouts"></a>
-## Controller Layouts
-
-One method of using templates in Laravel is via controller layouts. By specifying the `layout` property on the controller, the view specified will be created for you and will be the assumed response that should be returned from actions.
-
-#### Defining A Layout On A Controller
-
-	class UserController extends BaseController {
-
-		/**
-		 * The layout that should be used for responses.
-		 */
-		protected $layout = 'layouts.master';
-
-		/**
-		 * Show the user profile.
-		 */
-		public function showProfile()
-		{
-			$this->layout->content = View::make('user.profile');
-		}
-
-	}
 
 <a name="blade-templating"></a>
 ## Blade Templating
@@ -36,13 +11,13 @@ Blade is a simple, yet powerful templating engine provided with Laravel. Unlike 
 
 #### Defining A Blade Layout
 
-	<!-- Stored in app/views/layouts/master.blade.php -->
+	<!-- Stored in resources/views/layouts/master.blade.php -->
 
 	<html>
 		<body>
 			@section('sidebar')
 				This is the master sidebar.
-			@show
+			@stop
 
 			<div class="container">
 				@yield('content')
@@ -68,26 +43,26 @@ Note that views which `extend` a Blade layout simply override sections from the 
 
 Sometimes, such as when you are not sure if a section has been defined, you may wish to pass a default value to the `@yield` directive. You may pass the default value as the second argument:
 
-	@yield('section', 'Default Content');
+	@yield('section', 'Default Content')
 
 <a name="other-blade-control-structures"></a>
 ## Other Blade Control Structures
 
 #### Echoing Data
 
-	Hello, {{{ $name }}}.
+	Hello, {{ $name }}.
 
-	The current UNIX timestamp is {{{ time() }}}.
+	The current UNIX timestamp is {{ time() }}.
 
 #### Echoing Data After Checking For Existence
 
 Sometimes you may wish to echo a variable, but you aren't sure if the variable has been set. Basically, you want to do this:
 
-	{{{ isset($name) ? $name : 'Default' }}}
+	{{ isset($name) ? $name : 'Default' }}
 
 However, instead of writing a ternary statement, Blade allows you to use the following convenient short-cut:
 
-	{{{ $name or 'Default' }}}
+	{{ $name or 'Default' }}
 
 #### Displaying Raw Text With Curly Braces
 
@@ -95,13 +70,9 @@ If you need to display a string that is wrapped in curly braces, you may escape 
 
 	@{{ This will not be processed by Blade }}
 
-Of course, all user supplied data should be escaped or purified. To escape the output, you may use the triple curly brace syntax:
+If you don't want the data to be escaped, you may use the following syntax:
 
-	Hello, {{{ $name }}}.
-
-If you don't want the data to be escaped, you may use double curly-braces:
-
-	Hello, {{ $name }}.
+	Hello, {!! $name !!}.
 
 > **Note:** Be very careful when echoing content that is supplied by users of your application. Always use the triple curly brace syntax to escape any HTML entities in the content.
 
@@ -129,6 +100,12 @@ If you don't want the data to be escaped, you may use double curly-braces:
 		<p>This is user {{ $user->id }}</p>
 	@endforeach
 
+	@forelse($users as $user)
+	  	<li>{{ $user->name }}</li>
+	@empty
+	  	<p>No users</p>
+	@endforelse
+
 	@while (true)
 		<p>I'm looping forever.</p>
 	@endwhile
@@ -139,11 +116,11 @@ If you don't want the data to be escaped, you may use double curly-braces:
 
 You may also pass an array of data to the included view:
 
-	@include('view.name', array('some'=>'data'))
+	@include('view.name', ['some' => 'data'])
 
 #### Overwriting Sections
 
-By default, sections are appended to any previous content that exists in the section. To overwrite a section entirely, you may use the `overwrite` statement:
+To overwrite a section entirely, you may use the `overwrite` statement:
 
 	@extends('list.item.container')
 
@@ -155,7 +132,7 @@ By default, sections are appended to any previous content that exists in the sec
 
 	@lang('language.line')
 
-	@choice('language.line', 1);
+	@choice('language.line', 1)
 
 #### Comments
 
@@ -176,5 +153,5 @@ The following example creates a `@datetime($var)` directive which simply calls `
 	{
 		$pattern = $compiler->createMatcher('datetime');
 
-		return preg_replace($pattern, '$1<?php echo $2->format('m/d/Y H:i'); ?>', $view);
+		return preg_replace($pattern, '$1<?php echo $2->format(\'m/d/Y H:i\'); ?>', $view);
 	});

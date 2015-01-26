@@ -1,26 +1,27 @@
-# Introducción
+# Introduction
 
-- [¿Por dónde empezar?](#where-to-start)
-- [Filosofía de Laravel](#laravel-philosophy)
+- [Where To Start](#where-to-start)
+- [Laravel Philosophy](#laravel-philosophy)
 
 <a name="where-to-start"></a>
-## ¿Por dónde empezar?
+## Where To Start
 
-Aprender un nuevo framework puede ser algo desalentador, pero también emocionante. Para hacer fácil tu aprendizaje, hemos intentado crear una documentación clara y concisa.
-Enlaces recomendades para empezar a aprender:
-- [Instalación](/page/installation) and [Configuración](/page/configuration)
-- [Rutas](/page/routing)
-- [Peticiones y Entrada de datos](/page/requests)
-- [Vistas & Respuestas](/page/responses)
-- [Controladores](/page/controllers)
+Learning a new framework can be daunting, but it's also exciting. To smooth your transition, we've attempted to create very clear, concise documentation for Laravel. Here are some recommendations for what to read first:
 
-Después de leer esta documentación obtendrás un buen de nivel de compresión del manejo de peticiones/respuestas realizados por Laravel. A continuación, desearás leer acerca de la [configuración de la base de datos](/page/database), [el constructor de consultas](/page/queries), y el [ORM Eloquent](/page/eloquent). O tal vez deseas saber sobre [autentificación y seguridad](/page/security) así podrás empezar a crear el inicio de sesión para tu aplicación.
+- [Installation](/docs/master/installation) and [Configuration](/docs/master/configuration)
+- [Routing](/docs/master/routing)
+- [Requests & Input](/docs/master/requests)
+- [Responses](/docs/master/responses)
+- [Views](/docs/master/views)
+- [Controllers](/docs/master/controllers)
+
+After reading through these documents, you should have a good grasp on basic request / response handling in Laravel. Next, you may wish to read about [configuring your database](/docs/master/database), the [fluent query builder](/docs/master/queries), and the [Eloquent ORM](/docs/master/eloquent). Or, you may wish to read about [authentication and security](/docs/master/authentication) so you can start signing people into your application.
 
 <a name="laravel-philosophy"></a>
-## Filosofía de Laravel
+## Laravel Philosophy
 
-Laravel es un framework para aplicaciones web con una sintaxis elegante y expresiva. Creemos que desarrollar debe ser una experiencia creativa y agradable para ser completamente satisfactoria. Laravel intenta eliminar los dolores de cabeza del proceso de desarrollo incluyendo las funcionalidades comunes de proyectos web como autenficación, rutas, sesiones y cache.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
 
-Laravel tiene el propósito de hacer agradable el proceso de desarrollo para el desarrollador sin sacrificar funcionalidad. Desarrolladores felices escriben el mejor código. Con este objetivo, hemos intentado combinar lo mejor de otros frameworks para la web, incluyendo frameworks en otros lenguajes de programación tales como Ruby on Rails, ASP.NET MVC y Sinatra.
+Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
 
-Laravel es de fácil accceso, muy poderoso, ofreciendo herramientas confiables necesarias para aplicaciones web grandes y robustas. Un magnifíco contenedor de Inversión de Control, expresivo sistema de migraciones y soporte de pruebas unitarias estrechamente integrado te dan las herramientas que necesitas para construir cualquier aplicación que necesites hacer.
+Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.

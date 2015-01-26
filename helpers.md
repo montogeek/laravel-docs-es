@@ -1,13 +1,13 @@
-# Funciones de ayuda
+# Helper Functions
 
-- [Arreglos](#arrays)
-- [Directorios](#paths)
-- [Cadenas](#strings)
+- [Arrays](#arrays)
+- [Paths](#paths)
+- [Strings](#strings)
 - [URLs](#urls)
 - [Miscellaneous](#miscellaneous)
 
 <a name="arrays"></a>
-## Arreglos
+## Arrays
 
 ### array_add
 
@@ -112,6 +112,8 @@ The `array_get` method will retrieve a given value from a deeply nested array us
 
 	$value = array_get($array, 'names.joe');
 
+	$value = array_get($array, 'names.john', 'default');
+
 > **Note:** Want something like `array_get` but for objects instead? Use `object_get`.
 
 ### array_only
@@ -188,7 +190,7 @@ Return the last element in the array. Useful for method chaining.
 	$last = last($this->returnsArray('foo'));
 
 <a name="paths"></a>
-## Directorios
+## Paths
 
 ### app_path
 
@@ -209,7 +211,7 @@ Get the fully qualified path to the `public` directory.
 Get the fully qualified path to the `app/storage` directory.
 
 <a name="strings"></a>
-## Cadenas
+## Strings
 
 ### camel_case
 

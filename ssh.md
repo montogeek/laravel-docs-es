@@ -13,7 +13,7 @@
 
 Laravel includes a simple way to SSH into remote servers and run commands, allowing you to easily build Artisan tasks that work on remote servers. The `SSH` facade provides the access point to connecting to your remote servers and running commands.
 
-The configuration file is located at `app/config/remote.php`, and contains all of the options you need to configure your remote connections. The `connections` array contains a list of your servers keyed by name. Simply populate the credentials in the `connections` array and you will be ready to start running remote tasks. Note that the `SSH` can authenticate using either a password or an SSH key.
+The configuration file is located at `config/remote.php`, and contains all of the options you need to configure your remote connections. The `connections` array contains a list of your servers keyed by name. Simply populate the credentials in the `connections` array and you will be ready to start running remote tasks. Note that the `SSH` can authenticate using either a password or an SSH key.
 
 > **Note:** Need to easily run a variety of tasks on your remote server? Check out the [Envoy task runner](#envoy-task-runner)!
 
@@ -103,14 +103,18 @@ Laravel includes a helpful command for tailing the `laravel.log` files on any of
 - [Notifications](#envoy-notifications)
 - [Updating Envoy](#envoy-updating-envoy)
 
-Laravel Envoy provides a clean, minimal syntax for defining common tasks you run on your remote servers. Using a [Blade](/page/templates#blade-templating) style syntax, you can easily setup tasks for deployment, Artisan commands, and more.
+Laravel Envoy provides a clean, minimal syntax for defining common tasks you run on your remote servers. Using a [Blade](/docs/templates#blade-templating) style syntax, you can easily setup tasks for deployment, Artisan commands, and more.
 
 > **Note:** Envoy requires PHP version 5.4 or greater, and only runs on Mac / Linux operating systems.
 
 <a name="envoy-installation"></a>
 ### Installation
 
-First, download the Envoy [Phar archive](https://github.com/laravel/envoy/raw/master/envoy.phar) and place it in `/usr/local/bin` as `envoy` for easy access. Before running tasks, you may need to grant execute permissions to the `envoy` file.
+First, install Envoy using the Composer `global` command:
+
+	composer global require "laravel/envoy=~1.0"
+
+Make sure to place the `~/.composer/vendor/bin` directory in your PATH so the `envoy` executable is found when you run the `envoy` command in your terminal.
 
 Next, create an `Envoy.blade.php` file in the root of your project. Here's an example to get you started:
 
@@ -256,4 +260,4 @@ To update Envoy, simply run the `self-update` command:
 
 If your Envoy installation is in `/usr/local/bin`, you may need to use `sudo`:
 
-	sudo envoy self-update
+	composer global update

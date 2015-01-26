@@ -1,16 +1,17 @@
-# Formularios & HTML
+# Forms & HTML
 
-- [Creado un formulario](#opening-a-form)
-- [Protección CSRF](#csrf-protection)
-- [Formularios de modelos](#form-model-binding)
-- [Etiquetas](#labels)
-- [Texto, Áreas de texto, Contraseña & Campos ocultos](#text)
-- [Botones checkboxes y radio](#checkboxes-and-radio-buttons)
-- [Entrada archivos](#file-input)
-- [Listas desplegables](#drop-down-lists)
-- [Butones](#buttons)
-- [Macros personalizados](#custom-macros)
-- [Generando URLs](#generating-urls)
+- [Opening A Form](#opening-a-form)
+- [CSRF Protection](#csrf-protection)
+- [Form Model Binding](#form-model-binding)
+- [Labels](#labels)
+- [Text, Text Area, Password & Hidden Fields](#text)
+- [Checkboxes and Radio Buttons](#checkboxes-and-radio-buttons)
+- [File Input](#file-input)
+- [Number Input](#number)
+- [Drop-Down Lists](#drop-down-lists)
+- [Buttons](#buttons)
+- [Custom Macros](#custom-macros)
+- [Generating URLs](#generating-urls)
 
 <a name="opening-a-form"></a>
 ## Opening A Form
@@ -46,9 +47,9 @@ If your form is going to accept file uploads, add a `files` option to your array
 <a name="csrf-protection"></a>
 ## CSRF Protection
 
-Laravel provides an easy method of protecting your application from cross-site request forgeries. First, a random token is placed in your user's session. Don't sweat it, this is done automatically. The CSRF token will be added to your forms as a hidden field automatically. However, if you wish to generate the HTML for the hidden field, you may use the `token` method:
-
 #### Adding The CSRF Token To A Form
+
+Laravel provides an easy method of protecting your application from cross-site request forgeries. First, a random token is placed in your user's session. If you use the `Form::open` method with `POST`, `PUT` or `DELETE` the CSRF token will be added to your forms as a hidden field automatically. Alternatively, if you wish to generate the HTML for the hidden CSRF field, you may use the `token` method:
 
 	echo Form::token();
 
@@ -62,9 +63,9 @@ Laravel provides an easy method of protecting your application from cross-site r
 <a name="form-model-binding"></a>
 ## Form Model Binding
 
-Often, you will want to populate a form based on the contents of a model. To do so, use the `Form::model` method:
-
 #### Opening A Model Form
+
+Often, you will want to populate a form based on the contents of a model. To do so, use the `Form::model` method:
 
 	echo Form::model($user, array('route' => array('user.update', $user->id)))
 
@@ -128,6 +129,13 @@ This allows you to quickly build forms that not only bind to model values, but e
 
 	echo Form::radio('name', 'value', true);
 
+<a name="number"></a>
+## Number
+
+#### Generating A Number Input
+
+	echo Form::number('name', 'value');
+
 <a name="file-input"></a>
 ## File Input
 
@@ -135,7 +143,7 @@ This allows you to quickly build forms that not only bind to model values, but e
 
 	echo Form::file('image');
 
-> **Note:** The form must have been opened with the `file` option set to `true`.
+> **Note:** The form must have been opened with the `files` option set to `true`.
 
 <a name="drop-down-lists"></a>
 ## Drop-Down Lists
@@ -175,9 +183,9 @@ This allows you to quickly build forms that not only bind to model values, but e
 <a name="custom-macros"></a>
 ## Custom Macros
 
-It's easy to define your own custom Form class helpers called "macros". Here's how it works. First, simply register the macro with a given name and a Closure:
-
 #### Registering A Form Macro
+
+It's easy to define your own custom Form class helpers called "macros". Here's how it works. First, simply register the macro with a given name and a Closure:
 
 	Form::macro('myField', function()
 	{
@@ -190,8 +198,7 @@ Now you can call your macro using its name:
 
 	echo Form::myField();
 
-
 <a name="generating-urls"></a>
-##Generating URLs
+## Generating URLs
 
-For more information on generating URL's, check out the documentation on [helpers](/page/helpers#urls).
+For more information on generating URL's, check out the documentation on [helpers](/docs/helpers#urls).

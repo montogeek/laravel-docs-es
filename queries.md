@@ -1,29 +1,28 @@
-# Constructor de consultas
+# Query Builder
 
-- [Introducción](#introduction)
+- [Introduction](#introduction)
 - [Selects](#selects)
 - [Joins](#joins)
-- [Wheres avanzados](#advanced-wheres)
-- [Agregados](#aggregates)
-- [Expresiones planas](#raw-expressions)
+- [Advanced Wheres](#advanced-wheres)
+- [Aggregates](#aggregates)
+- [Raw Expressions](#raw-expressions)
 - [Inserts](#inserts)
 - [Updates](#updates)
 - [Deletes](#deletes)
 - [Unions](#unions)
-- [Bloqueo pesimista](#pessimistic-locking)
-- [Cache de consultas](#caching-queries)
+- [Pessimistic Locking](#pessimistic-locking)
 
 <a name="introduction"></a>
-## Introducción
+## Introduction
 
-El constructor de consulta de base de datos ofrece una cómoda, conveniente y fluída forma para crear y ejecutar consultas de base de datos. Puede ser usado para ejecutar la mayoría de las operaciones con la base de datos en tu aplicación, y funciona en todos los motores de base de datos soportados.
+The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works on all supported database systems.
 
-> **Nota:** El constructor de consultas de Laravel usa vinculación de parámetros PDO en todas las consultas para proteger tu aplicación de ataques de inyección de SQL. No hay necesidad de limpiar las cadenas de texto que son pasadas como vínculos.
+> **Note:** The Laravel query builder uses PDO parameter binding throughout to protect your application against SQL injection attacks. There is no need to clean strings being passed as bindings.
 
 <a name="selects"></a>
 ## Selects
 
-#### Obtener todas las filas de una tabla
+#### Retrieving All Rows From A Table
 
 	$users = DB::table('users')->get();
 
@@ -32,25 +31,44 @@ El constructor de consulta de base de datos ofrece una cómoda, conveniente y fl
 		var_dump($user->name);
 	}
 
-#### Obtener una sola fila de una tabla
+#### Chunking Results From A Table
+
+	DB::table('users')->chunk(100, function($users)
+	{
+		foreach ($users as $user)
+		{
+			//
+		}
+	});
+
+You may stop further chunks from being processed by returning `false` from the `Closure`:
+
+	DB::table('users')->chunk(100, function($users)
+	{
+		//
+
+		return false;
+	});
+
+#### Retrieving A Single Row From A Table
 
 	$user = DB::table('users')->where('name', 'John')->first();
 
 	var_dump($user->name);
 
-#### Obtener una sola columna de una fila
+#### Retrieving A Single Column From A Row
 
 	$name = DB::table('users')->where('name', 'John')->pluck('name');
 
-#### Obtener una lista de valores de una columna
+#### Retrieving A List Of Column Values
 
 	$roles = DB::table('roles')->lists('title');
 
-Éste método retornará una rreglo de títulos de roles. Puedes también especificar un índice de una columna personalizada para el arreglo retornado:
+This method will return an array of role titles. You may also specify a custom key column for the returned array:
 
 	$roles = DB::table('roles')->lists('title', 'name');
 
-#### Especificar una sentencia Select
+#### Specifying A Select Clause
 
 	$users = DB::table('users')->select('name', 'email')->get();
 
@@ -58,34 +76,34 @@ El constructor de consulta de base de datos ofrece una cómoda, conveniente y fl
 
 	$users = DB::table('users')->select('name as user_name')->get();
 
-#### Agregar una sentencia Select a una consulta previa
+#### Adding A Select Clause To An Existing Query
 
 	$query = DB::table('users')->select('name');
 
 	$users = $query->addSelect('age')->get();
 
-#### Usar operadores Where
+#### Using Where Operators
 
 	$users = DB::table('users')->where('votes', '>', 100)->get();
 
-#### O sentencias
+#### Or Statements
 
 	$users = DB::table('users')
 	                    ->where('votes', '>', 100)
 	                    ->orWhere('name', 'John')
 	                    ->get();
 
-#### Usar Where entre
+#### Using Where Between
 
 	$users = DB::table('users')
 	                    ->whereBetween('votes', array(1, 100))->get();
 
-#### Usar Where no entre
+#### Using Where Not Between
 
 	$users = DB::table('users')
 	                    ->whereNotBetween('votes', array(1, 100))->get();
 
-#### Usar Where In en un array
+#### Using Where In With An Array
 
 	$users = DB::table('users')
 	                    ->whereIn('id', array(1, 2, 3))->get();
@@ -93,12 +111,12 @@ El constructor de consulta de base de datos ofrece una cómoda, conveniente y fl
 	$users = DB::table('users')
 	                    ->whereNotIn('id', array(1, 2, 3))->get();
 
-#### Usar Where Null para encontrar registros con valores no definidos
+#### Using Where Null To Find Records With Unset Values
 
 	$users = DB::table('users')
 	                    ->whereNull('updated_at')->get();
 
-#### Usar Order By, Group By, And Having
+#### Order By, Group By, And Having
 
 	$users = DB::table('users')
 	                    ->orderBy('name', 'desc')
@@ -106,16 +124,16 @@ El constructor de consulta de base de datos ofrece una cómoda, conveniente y fl
 	                    ->having('count', '>', 100)
 	                    ->get();
 
-#### Usar Offset y Limit
+#### Offset & Limit
 
 	$users = DB::table('users')->skip(10)->take(5)->get();
 
 <a name="joins"></a>
-## Uniones
+## Joins
 
-El constructor de consultras puede además ser usado para escribir sentencias JOIN. Mira los siguientes ejemplos:
+The query builder may also be used to write join statements. Take a look at the following examples:
 
-#### Sentencia básica de Join
+#### Basic Join Statement
 
 	DB::table('users')
 	            ->join('contacts', 'users.id', '=', 'contacts.user_id')
@@ -123,13 +141,13 @@ El constructor de consultras puede además ser usado para escribir sentencias JO
 	            ->select('users.id', 'contacts.phone', 'orders.price')
 	            ->get();
 
-#### Sentencia Left Join
+#### Left Join Statement
 
 	DB::table('users')
 		    ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
 		    ->get();
 
-Puedes también crear sentencias JOIN más avanzadas:
+You may also specify more advanced join clauses:
 
 	DB::table('users')
 	        ->join('contacts', function($join)
@@ -138,7 +156,7 @@ Puedes también crear sentencias JOIN más avanzadas:
 	        })
 	        ->get();
 
-Si deseas usar una sentencia estilo "where" en tus sentencias JOIN, puedes usar el método `where` y `orWhere` en el método `join`. En vez de comparar dos columnas, estos métodos compararán la columna contra un valor:
+If you would like to use a "where" style clause on your joins, you may use the `where` and `orWhere` methods on a join. Instead of comparing two columns, these methods will compare the column against a value:
 
 	DB::table('users')
 	        ->join('contacts', function($join)
@@ -149,11 +167,11 @@ Si deseas usar una sentencia estilo "where" en tus sentencias JOIN, puedes usar 
 	        ->get();
 
 <a name="advanced-wheres"></a>
-## Wheres Avanzados
+## Advanced Wheres
 
-Algunas veces puedes necesitar la ccreación de sentencias where más avanzadas como "where exists" o agrupar jerarquicamente parámetros. El constructor de consultas de Laravel pueden manejar esto también:
+#### Parameter Grouping
 
-#### Agrupación de parámetros
+Sometimes you may need to create more advanced where clauses such as "where exists" or nested parameter groupings. The Laravel query builder can handle these as well:
 
 	DB::table('users')
 	            ->where('name', '=', 'John')
@@ -164,11 +182,11 @@ Algunas veces puedes necesitar la ccreación de sentencias where más avanzadas 
 	            })
 	            ->get();
 
-La consulta anterior generará la siguiente consulta SQL:
+The query above will produce the following SQL:
 
 	select * from users where name = 'John' or (votes > 100 and title <> 'Admin')
 
-#### Sentencias Exists
+#### Exists Statements
 
 	DB::table('users')
 	            ->whereExists(function($query)
@@ -179,7 +197,7 @@ La consulta anterior generará la siguiente consulta SQL:
 	            })
 	            ->get();
 
-La consulta anterior generará la siguiente consulta SQL:
+The query above will produce the following SQL:
 
 	select * from users
 	where exists (
@@ -187,11 +205,11 @@ La consulta anterior generará la siguiente consulta SQL:
 	)
 
 <a name="aggregates"></a>
-## Agregados
+## Aggregates
 
-En constructor de consultas además ofrece una variedad de métodos de agregación, como `count`, `max`, `min`, `avg` y `sum`.
+The query builder also provides a variety of aggregate methods, such as `count`, `max`, `min`, `avg`, and `sum`.
 
-#### Usando los métodos
+#### Using Aggregate Methods
 
 	$users = DB::table('users')->count();
 
@@ -204,11 +222,11 @@ En constructor de consultas además ofrece una variedad de métodos de agregaci�
 	$total = DB::table('users')->sum('votes');
 
 <a name="raw-expressions"></a>
-## Expresiones planas
+## Raw Expressions
 
-Algunas veces puedes necesitar el uso de expresiones planas en una consulta. Dichas expresiones serán inyectadas dentro de la consulta como cadenas de texto, así que ten cuidado de no crear algún punto débil para inyecciones SQL! Para crear una expresión plana, puedes usar el método `DB::raw`:
+Sometimes you may need to use a raw expression in a query. These expressions will be injected into the query as strings, so be careful not to create any SQL injection points! To create a raw expression, you may use the `DB::raw` method:
 
-#### Usar una expresión plana
+#### Using A Raw Expression
 
 	$users = DB::table('users')
 	                     ->select(DB::raw('count(*) as user_count, status'))
@@ -216,7 +234,42 @@ Algunas veces puedes necesitar el uso de expresiones planas en una consulta. Dic
 	                     ->groupBy('status')
 	                     ->get();
 
-#### Aumentar o disminuir el valor de una columna:
+<a name="inserts"></a>
+## Inserts
+
+#### Inserting Records Into A Table
+
+	DB::table('users')->insert(
+		array('email' => 'john@example.com', 'votes' => 0)
+	);
+
+#### Inserting Records Into A Table With An Auto-Incrementing ID
+
+If the table has an auto-incrementing id, use `insertGetId` to insert a record and retrieve the id:
+
+	$id = DB::table('users')->insertGetId(
+		array('email' => 'john@example.com', 'votes' => 0)
+	);
+
+> **Note:** When using PostgreSQL the insertGetId method expects the auto-incrementing column to be named "id".
+
+#### Inserting Multiple Records Into A Table
+
+	DB::table('users')->insert(array(
+		array('email' => 'taylor@example.com', 'votes' => 0),
+		array('email' => 'dayle@example.com', 'votes' => 0),
+	));
+
+<a name="updates"></a>
+## Updates
+
+#### Updating Records In A Table
+
+	DB::table('users')
+	            ->where('id', 1)
+	            ->update(array('votes' => 1));
+
+#### Incrementing or decrementing a value of a column
 
 	DB::table('users')->increment('votes');
 
@@ -230,93 +283,41 @@ You may also specify additional columns to update:
 
 	DB::table('users')->increment('votes', 1, array('name' => 'John'));
 
-<a name="inserts"></a>
-## Inserts
-
-#### Insertando filas en una tabla
-
-	DB::table('users')->insert(
-		array('email' => 'john@example.com', 'votes' => 0)
-	);
-
-Si las tablas tienen un ID autoincrementable, usa el método `insertGetId` para insertar una fila y retornar el ID:
-
-#### Insertar filas en una tabla con un ID autoincrementable
-
-	$id = DB::table('users')->insertGetId(
-		array('email' => 'john@example.com', 'votes' => 0)
-	);
-
-> **Nota:** Cuando estés usando PostgreSQL el método `insertGetId` espera que la columna autoincrementable se llame "id".
-
-#### Insertar múltiples filas en una tabla
-
-	DB::table('users')->insert(array(
-		array('email' => 'taylor@example.com', 'votes' => 0),
-		array('email' => 'dayle@example.com', 'votes' => 0),
-	));
-
-<a name="updates"></a>
-## Updates
-
-#### Actualizar filas en una tabla
-
-	DB::table('users')
-	            ->where('id', 1)
-	            ->update(array('votes' => 1));
-
 <a name="deletes"></a>
 ## Deletes
 
-#### Eliminar filas en una tabla
+#### Deleting Records In A Table
 
 	DB::table('users')->where('votes', '<', 100)->delete();
 
-#### Eliminar todas las filas de una tabla
+#### Deleting All Records From A Table
 
 	DB::table('users')->delete();
 
-#### Truncar una tabla
+#### Truncating A Table
 
 	DB::table('users')->truncate();
 
 <a name="unions"></a>
 ## Unions
 
-El constructor de consultas también ofrece una forma rápida para "unir" dos consultas en una sola:
-
-#### Realizar la unión de dos consultas
+The query builder also provides a quick way to "union" two queries together:
 
 	$first = DB::table('users')->whereNull('first_name');
 
 	$users = DB::table('users')->whereNull('last_name')->union($first)->get();
 
-El método `unionAll` está también disponible, y tiene la misma síntaxis que `union`.
+The `unionAll` method is also available, and has the same method signature as `union`.
 
 <a name="pessimistic-locking"></a>
-## Bloqueo pesimista
+## Pessimistic Locking
 
-El constructor de consultas incluye algunas funciones que te ayudan a realizar "bloqueos pesimistas" en tus sentencias SELECT.
+The query builder includes a few functions to help you do "pessimistic locking" on your SELECT statements.
 
-Para ejecutar una sentencia SELECT con un "bloqueo compartido", puedes usar el método `sharedLock` en la consulta:
+To run the SELECT statement with a "shared lock", you may use the `sharedLock` method on a query:
 
 	DB::table('users')->where('votes', '>', 100)->sharedLock()->get();
 
-Para "bloquear para actualizaciones" en una sentencia SELECT, puedes usar el método `lockForUpdate` en la consulta:
+To "lock for update" on a SELECT statement, you may use the `lockForUpdate` method on a query:
 
 	DB::table('users')->where('votes', '>', 100)->lockForUpdate()->get();
-
-<a name="caching-queries"></a>
-## Cache de consultas
-
-Puedes fácilmente tener un cache de los resultados de una consulta con el método `remember`:
-
-#### Crear un cache de los resultados de una consulta:
-
-	$users = DB::table('users')->remember(10)->get();
-
-En este ejemplo, los resultados de la consulta serán guardados en cache durante diez minutos. Mientras los resultados estén guardados en cache, la consulta no se ejecutará otra vez en la base de datos, y los resultados será cargados del cache predeterminado configurado en tu aplicación.
-
-Si estás usando un [controlador de cache soportado](/page/cache#cache-tags), puedes además agregar etiquetas al caché:
-
-	$users = DB::table('users')->cacheTags(array('people', 'authors'))->remember(10)->get();
