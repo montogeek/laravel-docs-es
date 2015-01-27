@@ -6,7 +6,7 @@
 <a name="where-to-start"></a>
 ## Donde empezar
 
-Aprender un nuevo framework puede ser desalentador, pero también emocionante. To smooth your transition, we've attempted to create very clear, concise documentation for Laravel. Here are some recommendations for what to read first:
+Aprender un nuevo framework puede ser desalentador, pero también emocionante. Para facilitar tu transición, hemos intentado crear una documentación exacta y concisa. Algunas recomendaciones para empezar:
 
 - [Installation](/docs/master/installation) and [Configuration](/docs/master/configuration)
 - [Routing](/docs/master/routing)
