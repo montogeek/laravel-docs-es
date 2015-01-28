@@ -8,14 +8,14 @@
 
 Aprender un nuevo framework puede ser desalentador, pero también emocionante. Para facilitar tu transición, hemos intentado crear una documentación exacta y concisa. Algunas recomendaciones para empezar:
 
-- [Installation](/docs/master/installation) and [Configuration](/docs/master/configuration)
-- [Routing](/docs/master/routing)
-- [Requests & Input](/docs/master/requests)
-- [Responses](/docs/master/responses)
-- [Views](/docs/master/views)
-- [Controllers](/docs/master/controllers)
+- [Instalación](5.0/installation) and [Configuración](/5.0/configuration)
+- [Rutas](/5.0/routing)
+- [Peticiones y datos de entrada](/5.0/requests)
+- [Respuestas](/5.0/responses)
+- [Vistas](/5.0/views)
+- [Controladores](/5.0/controllers)
 
-After reading through these documents, you should have a good grasp on basic request / response handling in Laravel. Next, you may wish to read about [configuring your database](/docs/master/database), the [fluent query builder](/docs/master/queries), and the [Eloquent ORM](/docs/master/eloquent). Or, you may wish to read about [authentication and security](/docs/master/authentication) so you can start signing people into your application.
+After reading through these documents, you should have a good grasp on basic request / response handling in Laravel. Next, you may wish to read about [configuring your database](/5.0/database), the [fluent query builder](/5.0/queries), and the [Eloquent ORM](/5.0/eloquent). Or, you may wish to read about [authentication and security](/5.0/authentication) so you can start signing people into your application.
 
 <a name="laravel-philosophy"></a>
 ## Filosofía de Laravel
