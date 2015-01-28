@@ -15,7 +15,7 @@ Aprender un nuevo framework puede ser desalentador, pero también emocionante. P
 - [Vistas](/5.0/views)
 - [Controladores](/5.0/controllers)
 
-After reading through these documents, you should have a good grasp on basic request / response handling in Laravel. Next, you may wish to read about [configuring your database](/5.0/database), the [fluent query builder](/5.0/queries), and the [Eloquent ORM](/5.0/eloquent). Or, you may wish to read about [authentication and security](/5.0/authentication) so you can start signing people into your application.
+Despues de leer esas páginas deberías tener una buena idea del funcionamiento de una respuesta/petición en Laravel. Después, podrías leer sobre [configura tu base de datos](/5.0/database), el [constructor de consultas Fluent](/5.0/queries), y [Eloquent ORM](/5.0/eloquent). O también puedes leer sobre [autenticación y seguridad](/5.0/authentication) así puedes empezar a crear un módulo de usuarios en tu aplicación.
 
 <a name="laravel-philosophy"></a>
 ## Filosofía de Laravel
