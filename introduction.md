@@ -20,7 +20,7 @@ Despues de leer esas páginas deberías tener una buena idea del funcionamiento 
 <a name="laravel-philosophy"></a>
 ## Filosofía de Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+Laravel es un framework para aplicaciones web con sintaxis expresiva y elegante. Creemos que desarrollar debe ser una experiencia agradable y creativa para ser plenamente satisfactorio. Laravel intenta aliviar las complicaciones de desarrollo proporcionando una solución a la mayoría de las tareas comunes en proyectos web, como son la autenticación, rutas, sesiones y cache.
 
 Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
 
