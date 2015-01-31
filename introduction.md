@@ -22,6 +22,6 @@ Despues de leer esas páginas deberías tener una buena idea del funcionamiento 
 
 Laravel es un framework para aplicaciones web con sintaxis expresiva y elegante. Creemos que desarrollar debe ser una experiencia agradable y creativa para ser plenamente satisfactorio. Laravel intenta aliviar las complicaciones de desarrollo proporcionando una solución a la mayoría de las tareas comunes en proyectos web, como son la autenticación, rutas, sesiones y cache.
 
-Laravel se enfoca en hacer el proceso de desarrollo agradable para el desarrollador sin sacrificar funcionalidad. Los desarrolladores mas felices escriben el mejor código. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+Laravel se enfoca en hacer el proceso de desarrollo agradable para el desarrollador sin sacrificar funcionalidad. Los desarrolladores mas felices escriben el mejor código. Para lograrlo, intentamos combinar lo mejor de lo que hemos visto en otro framework web como Ruby on Rails, ASP.NET MVC y Sinatra.
 
 Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
