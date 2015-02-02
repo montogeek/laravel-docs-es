@@ -8,7 +8,7 @@
 
 Aprender un nuevo framework puede ser desalentador, pero también emocionante. Para facilitar tu transición, hemos intentado crear una documentación exacta y concisa. Algunas recomendaciones para empezar:
 
-- [Instalación](5.0/installation) and [Configuración](/5.0/configuration)
+- [Instalación](/5.0/installation) and [Configuración](/5.0/configuration)
 - [Rutas](/5.0/routing)
 - [Peticiones y datos de entrada](/5.0/requests)
 - [Respuestas](/5.0/responses)
