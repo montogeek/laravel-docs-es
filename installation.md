@@ -1,8 +1,8 @@
-# Installation
+# Instalación
 
-- [Install Composer](#install-composer)
-- [Install Laravel](#install-laravel)
-- [Server Requirements](#server-requirements)
+- [Instalar Composer](#install-composer)
+- [Instalar Laravel](#install-laravel)
+- [Requerimientos del servidor](#server-requirements)
 
 <a name="install-composer"></a>
 ## Install Composer
