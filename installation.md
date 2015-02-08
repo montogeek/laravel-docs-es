@@ -5,22 +5,22 @@
 - [Requerimientos del servidor](#server-requirements)
 
 <a name="install-composer"></a>
-## Install Composer
+## Instalar Composer
 
-Laravel utilizes [Composer](http://getcomposer.org) to manage its dependencies. So, before using Laravel, you will need to make sure you have Composer installed on your machine.
+Laravel utiliza [Composer](http://getcomposer.org) para administrar sus dependencias. Antes de usar Laravel, asegúrate de tener instalado Composer en tu sistema.
 
 <a name="install-laravel"></a>
-## Install Laravel
+## Instalar Laravel
 
-### Via Laravel Installer
+### Instalador de Laravel
 
-First, download the Laravel installer using Composer.
+Primero, descarga el instalador de Laravel utilizando Composer.
 
 	composer global require "laravel/installer=~1.1"
 
-Make sure to place the `~/.composer/vendor/bin` directory in your PATH so the `laravel` executable can be located by your system.
+Asegúrate de agregar el directorio `~/.composer/vendor/bin` a tu variable de entorno PATH, así tu sistema podrá localizar el archivo ejecutable `laravel`.
 
-Once installed, the simple `laravel new` command will create a fresh Laravel installation in the directory you specify. For instance, `laravel new blog` would create a directory named `blog` containing a fresh Laravel installation with all dependencies installed. This method of installation is much faster than installing via Composer:
+Una vez instalado, el comando `laravel new` creará una nueva instalación de Laravel en el directorio especificado. Por ejemplo, `laravel new blog` creará un directorio llamado `blog`, el cual contiene una nueva instalación de Laravel con todas sus dependencias. Este método de instalación es mucho más rápido que instalar Laravel utilizando Composer:
 
 	laravel new blog
 
