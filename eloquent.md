@@ -58,7 +58,7 @@ Una vez el modelo esté definido, estás listo para empezar a obtener y crear re
 
 	var_dump($user->name);
 
-> **Nota:** Todos los métodos disponibles en el [constructor de consultas](/page/queries) también están disponibles cuando se consulta con modelos de Eloquent.
+> **Nota:** Todos los métodos disponibles en el [constructor de consultas](/4.1/queries) también están disponibles cuando se consulta con modelos de Eloquent.
 
 #### Obtener un modelo a través de su llave primaria y lanzar una excepción
 

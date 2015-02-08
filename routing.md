@@ -206,7 +206,7 @@ También puedes restringir la ejecución de filtros basados en patrones por verb
 #### Filtros con clases
 
 Para filtros avanzados, tal vez desees usar una clase en vez de una Clausura.
-Como las clases para filtros son resueltas fuera del [contenedor IoC](/page/ioc) de la aplicación, podrás utilizar inyección de dependencias en estos filtros para mejorar la capacidad de pruebas.
+Como las clases para filtros son resueltas fuera del [contenedor IoC](/4.1/ioc) de la aplicación, podrás utilizar inyección de dependencias en estos filtros para mejorar la capacidad de pruebas.
 
 #### Registrando una clase para un filtro
 
@@ -353,11 +353,11 @@ Existen dos formas de ejecutar un error 404 desde una ruta. Primero, puedes usar
 
 Segundo, ejecutar una instancia de `Symfony\Component\HttpKernel\Exception\NotFoundHttpException`.
 
-Más información acerca del manejo de excepciones 404 y utilizar respuestas personalizadas para estos errores puede ser encontrada en la sección de [errores](/page/errors#handling-404-errors) de la documentación.
+Más información acerca del manejo de excepciones 404 y utilizar respuestas personalizadas para estos errores puede ser encontrada en la sección de [errores](/4.1/errors#handling-404-errors) de la documentación.
 
 <a name="routing-to-controllers"></a>
 ## Rutas con controladores
 
-Laravel permite no solo definir rutas con Clausuras, sino también con clases de Controladores, incluso permite la creación de [controladores de recursos](/page/controllers#resource-controllers).
+Laravel permite no solo definir rutas con Clausuras, sino también con clases de Controladores, incluso permite la creación de [controladores de recursos](/4.1/controllers#resource-controllers).
 
-Consulta la documentación en [Controladores](/page/controllers) para más detalles.
+Consulta la documentación en [Controladores](/4.1/controllers) para más detalles.

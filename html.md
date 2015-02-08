@@ -194,4 +194,4 @@ Now you can call your macro using its name:
 <a name="generating-urls"></a>
 ##Generating URLs
 
-For more information on generating URL's, check out the documentation on [helpers](/page/helpers#urls).
+For more information on generating URL's, check out the documentation on [helpers](/4.1/helpers#urls).

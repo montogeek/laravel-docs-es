@@ -28,7 +28,7 @@ Si prefiere, otra alternativa es descargar manualmente una copia del [repositori
 
 ### Permisos
 
-Despúes de instalar Laravel, s probablemente se necesite darle permisos de escritura al navegador para el directorio `app/storage`. Para más detalles de configuración ver la documentación de [Instalación](/page/installation).
+Despúes de instalar Laravel, s probablemente se necesite darle permisos de escritura al navegador para el directorio `app/storage`. Para más detalles de configuración ver la documentación de [Instalación](/4.1/installation).
 
 ### Ejecutar Laravel
 
@@ -57,7 +57,7 @@ Las rutas también pueden ser vinculadas a clases de Controladores. Por ejemplo:
 
 	Route::get('users', 'UserController@getIndex');
 
-Esta ruta se informa al framework que la ruta `/users` deberá ejecutar el método `getIndex` en la clase `UserController`. Para más información de rutas con controladores, visita la [documentación de controladores](/page/controllers).
+Esta ruta se informa al framework que la ruta `/users` deberá ejecutar el método `getIndex` en la clase `UserController`. Para más información de rutas con controladores, visita la [documentación de controladores](/4.1/controllers).
 
 <a name="creating-a-view"></a>
 ## Crear una vista
@@ -81,7 +81,7 @@ A continuación, nuestra vista `users.blade.php`
 		Users!
 	@stop
 
-Alguna parte de la síntaxis probablemente sea extraña para ti. Es porque estamos usando el motor de plantillas de Laravel: Blade. Blade es muy rápido, porque simplemente son varias expresiones regulares ejecutadas a través de tus plantillas para ser compiladas en PHP nativo. Blade provee funcionalidad poderosa como herencia de plantillas, así como algunas mejoras de síntaxis en las estructuras de control de PHP como `if` y `for`. Revisa la documentación de [Blade](/page/templates) para más detalles.
+Alguna parte de la síntaxis probablemente sea extraña para ti. Es porque estamos usando el motor de plantillas de Laravel: Blade. Blade es muy rápido, porque simplemente son varias expresiones regulares ejecutadas a través de tus plantillas para ser compiladas en PHP nativo. Blade provee funcionalidad poderosa como herencia de plantillas, así como algunas mejoras de síntaxis en las estructuras de control de PHP como `if` y `for`. Revisa la documentación de [Blade](/4.1/templates) para más detalles.
 
 Ahora que tenemos nuestras vistas, ejecutemoslas desde nuestra ruta `/users`. En vez de retornar `Users!` desde la ruta, retornaremos una vista:
 
@@ -99,7 +99,7 @@ To create a table to hold our data, we'll use the Laravel migration system. Migr
 
 First, let's configure a database connection. You may configure all of your database connections from the `app/config/database.php` file. By default, Laravel is configured to use MySQL, and you will need to supply connection credentials within the database configuration file. If you wish, you may change the `driver` option to `sqlite` and it will use the SQLite database included in the `app/database` directory.
 
-Next, to create the migration, we'll use the [Artisan CLI](/page/artisan). From the root of your project, run the following from your terminal:
+Next, to create the migration, we'll use the [Artisan CLI](/4.1/artisan). From the root of your project, run the following from your terminal:
 
 	php artisan migrate:make create_users_table
 
@@ -170,4 +170,4 @@ Now that we have made the `users` available to our view. We can display them lik
 
 You may be wondering where to find our `echo` statements. When using Blade, you may echo data by surrounding it with double curly braces. It's a cinch. Now, you should be able to hit the `/users` route and see the names of your users displayed in the response.
 
-This is just the beginning. In this tutorial, you've seen the very basics of Laravel, but there are so many more exciting things to learn. Keep reading through the documentation and dig deeper into the powerful features available to you in [Eloquent](/page/eloquent) and [Blade](/page/templates). Or, maybe you're more interested in [Queues](/page/queues) and [Unit Testing](/page/testing). Then again, maybe you want to flex your architecture muscles with the [IoC Container](/page/ioc). The choice is yours!
+This is just the beginning. In this tutorial, you've seen the very basics of Laravel, but there are so many more exciting things to learn. Keep reading through the documentation and dig deeper into the powerful features available to you in [Eloquent](/4.1/eloquent) and [Blade](/4.1/templates). Or, maybe you're more interested in [Queues](/4.1/queues) and [Unit Testing](/4.1/testing). Then again, maybe you want to flex your architecture muscles with the [IoC Container](/4.1/ioc). The choice is yours!

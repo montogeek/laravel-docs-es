@@ -123,7 +123,7 @@ Una vez tu comando esté finalizado, necesitas registrarlo con Artisan para que 
 
 	Artisan::add(new CustomCommand);
 
-Si tu comando está registrado en la aplicación [IoC container](/page/ioc), puedes usar el método `Artisan::resolve` para que esté disponibla en Artisan:
+Si tu comando está registrado en la aplicación [IoC container](/4.1/ioc), puedes usar el método `Artisan::resolve` para que esté disponibla en Artisan:
 
 #### Registrar un Comando que está en el IoC Container
 

@@ -88,7 +88,7 @@ Ya que a menudo desearás guardar la entrada de datos combinada con una redirecc
 
 	return Redirect::to('form')->withInput(Input::except('password'));
 
-> **Nota:** Puedes guardar otros datos entre peticiones usando la clase [Sesión](/page/session).
+> **Nota:** Puedes guardar otros datos entre peticiones usando la clase [Sesión](/4.1/session).
 
 #### Obteniendo datos antiguos
 
