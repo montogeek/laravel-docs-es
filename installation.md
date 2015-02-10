@@ -24,50 +24,50 @@ Una vez instalado, el comando `laravel new` creará una nueva instalación de La
 
 	laravel new blog
 
-### Via Composer Create-Project
+### Composer Create-Project
 
-You may also install Laravel by issuing the Composer `create-project` command in your terminal:
+Puedes instalar Laravel usando el comando `create-project` de Composer en tu terminal:
 
 	composer create-project laravel/laravel --prefer-dist
 
 <a name="server-requirements"></a>
-## Server Requirements
+## Requerimientos del servidor
 
-The Laravel framework has a few system requirements:
+Laravel tiene algunos requerimientos:
 
 - PHP >= 5.4
-- Mcrypt PHP Extension
-- OpenSSL PHP Extension
-- Mbstring PHP Extension
+- Extensión Mcrypt PHP
+- Extensión OpenSSL PHP
+- Extensión Mbstring PHP
 
-As of PHP 5.5, some OS distributions may require you to manually install the PHP JSON extension. When using Ubuntu, this can be done via `apt-get install php5-json`.
+En PHP 5.5, algunos sistemas operativos requieren que instales manualmente la extensión PHP JSON. Si usas Ubuntu, lo puedes instalar con el comando `apt-get install php5-json`.
 
 <a name="configuration"></a>
-## Configuration
+## Configuración
 
-The first thing you should do after installing Laravel is set your application key to a random string. If you installed Laravel via Composer, this key has probably already been set for you by the `key:generate` command.
+Lo primero que debes hacer despues de instalar Laravel es establecer la llave de tu aplicacion. Si instalaste Laravel a traves de Composer, esta llave probablemente ya fue establecida por ti por el comando `key:generate`.
 
-Typically, this string should be 32 characters long. The key can be set in the `app.php` configuration file. **If the application key is not set, your user sessions and other encrypted data will not be secure!**
+Normalmente, esta cadena debe tener una longitud de 32 caracteres. Esta llave puede ser establecida en el archivo de configuracion `config/app.php`. **Si la llave no establecida, las sesiones de usuarios y otra informacion encriptada no sera segura!**
 
-Laravel needs almost no other configuration out of the box. You are free to get started developing! However, you may wish to review the `config/app.php` file and its documentation. It contains several options such as `timezone` and `locale` that you may wish to change according to your application.
+Laravel no necesita mas configuracion para funcionar. Eres libre para empezar a desarrollar! Sin embargo, puedes revisar el archivo `config/app.php` y su documentacion, contiene multiples opciones como `timezone` y `locale` que seguro necesitaras cambiar de acuerdo a tu aplicacion.
 
-Once Laravel is installed, you should also [configure your local environment](/5.0/configuration#environment-configuration).
+Una vez Laravel este instalado, puedes [configurar tu entorno local](/5.0/configuration#environment-configuration).
 
-> **Note:** You should never have the `app.debug` configuration option set to `true` for a production application.
+> **Nota:** Jamas deberias establecer la opcion `app.debug` en `true` para tu aplicacion en produccion.
 
 <a name="permissions"></a>
-### Permissions
+### Permisos
 
-Laravel may require one set of permissions to be configured: folders within `storage` require write access by the web server.
+Laravel podria requerir permisos para ser configurado: las carpetas de `storage` requieren permisos de escritura por el servidor web.
 
 <a name="pretty-urls"></a>
-## Pretty URLs
+## URLs amigables
 
 ### Apache
 
-The framework ships with a `public/.htaccess` file that is used to allow URLs without `index.php`. If you use Apache to serve your Laravel application, be sure to enable the `mod_rewrite` module.
+El framework viene con un archivo `public/.htaccess` que es usado para permitir URLs sin el prefijo `index.php`. Si usas Apache para servir tu aplicacion, asegurate de tener habilitado el modulo `mod_rewrite`.
 
-If the `.htaccess` file that ships with Laravel does not work with your Apache installation, try this one:
+Si el archivo `.htaccess` que viene con Laravel no funciona con tu instalacion de Apache, prueba con este:
 
 	Options +FollowSymLinks
 	RewriteEngine On
@@ -78,10 +78,10 @@ If the `.htaccess` file that ships with Laravel does not work with your Apache i
 
 ### Nginx
 
-On Nginx, the following directive in your site configuration will allow "pretty" URLs:
+Con Nginx, la siguiente directiva en la configuracion de tu sitio permitira URLS "bonitas":
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
-Of course, when using [Homestead](/5.0/homestead), pretty URLs will be configured automatically.
+Por supuesto, usando [Homestead](/5.0/homestead) obtendras URLs bonitas automaticamente.
