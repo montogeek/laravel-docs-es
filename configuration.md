@@ -1,30 +1,30 @@
-# Configuration
+# Configuración
 
-- [Introduction](#introduction)
-- [After Installation](#after-installation)
-- [Accessing Configuration Values](#accessing-configuration-values)
-- [Environment Configuration](#environment-configuration)
-- [Protecting Sensitive Configuration](#protecting-sensitive-configuration)
-- [Maintenance Mode](#maintenance-mode)
-- [Pretty URLs](#pretty-urls)
+- [Introducción](#introduction)
+- [Después de instalar](#after-installation)
+- [Acceder a las opciones de configuración](#accessing-configuration-values)
+- [Configuración de entorno](#environment-configuration)
+- [Proteger configuración sensible](#protecting-sensitive-configuration)
+- [Modo mantenimineto](#maintenance-mode)
+- [URLs amigables](#pretty-urls)
 
 <a name="introduction"></a>
-## Introduction
+## Introducción
 
 All of the configuration files for the Laravel framework are stored in the `config` directory. Each option is documented, so feel free to look through the files and get familiar with the options available to you.
 
 <a name="configuration"></a>
-## After Installation
+## Después de instalar
 
-### Naming Your Application
+### Nombrando tu aplicación
 
-After installing Laravel, you may wish to "name" your application. By default, the `app` directory is namespaced under `App`, and autoloaded by Composer using the [PSR-4 autoloading standard](http://www.php-fig.org/psr/psr-4/). However, you may change the namespace to match the name of your application, which you can easily do via the `app:name` Artisan command.
+Despues de instalar Laravel, podras querer "nombrar" tu aplicacion. Por defecto, la carpeta `app` esta nombrada como `App` y autocargada por Composer usando el [estandar de autocargar PSR-4](http://www.php-fig.org/psr/psr-4/). Sin embargo, puedes cambiar el namespace para que concuerde con el nombre de tu aplicación, lo puedes hacer facilmente con el comando de Artisan `app:name`.
 
-For example, if your application is named "Horsefly", you could run the following command from the root of your installation:
+Por ejemplo, si tu aplicacion se llamada "Libelula", puedes ejecutar el siguiente comando desde la razi de tu instalacion:
 
-	php artisan app:name Horsefly
+	php artisan app:name Libelula
 
-Renaming your application is entirely optional, and you are free to keep the `App` namespace if you wish.
+Renombrar tu aplicacion es completamente opcional, eres libre de mantener el nombre `App` si asi lo deseas.
 
 ### Other Configuration
 
