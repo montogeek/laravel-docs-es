@@ -26,7 +26,7 @@ Por ejemplo, si tu aplicacion se llamada "Libelula", puedes ejecutar el siguient
 
 Renombrar tu aplicacion es completamente opcional, eres libre de mantener el nombre `App` si asi lo deseas.
 
-### Other Configuration
+### Configuracion adicional
 
 Laravel needs very little configuration out of the box. You are free to get started developing! However, you may wish to review the `config/app.php` file and its documentation. It contains several options such as `timezone` and `locale` that you may wish to change according to your location.
 
@@ -35,12 +35,12 @@ Once Laravel is installed, you should also [configure your local environment](/5
 > **Note:** You should never have the `app.debug` configuration option set to `true` for a production application.
 
 <a name="permissions"></a>
-### Permissions
+### Permisos
 
 Laravel may require one set of permissions to be configured: folders within `storage` require write access by the web server.
 
 <a name="accessing-configuration-values"></a>
-## Accessing Configuration Values
+## Acceder a las opciones de configuración
 
 You may easily access your configuration values using the `Config` facade:
 
@@ -53,7 +53,7 @@ You may also use the `config` helper function:
 	$value = config('app.timezone');
 
 <a name="environment-configuration"></a>
-## Environment Configuration
+## Configuración de entorno
 
 It is often helpful to have different configuration values based on the environment the application is running in. For example, you may wish to use a different cache driver locally than you do on your production server. It's easy using environment based configuration.
 
@@ -92,7 +92,7 @@ An application instance may also be accessed via the `app` helper of the `App` f
 	$environment = App::environment();
 
 <a name="maintenance-mode"></a>
-## Maintenance Mode
+## Modo mantenimineto
 
 When your application is in maintenance mode, a custom view will be displayed for all requests into your application. This makes it easy to "disable" your application while it is updating or when you are performing maintenance. A maintenance mode check is included in the default middleware stack for your application. If the application is in maintenance mode, an `HttpException` will be thrown with a status code of 503.
 
@@ -113,7 +113,7 @@ The default template for maintenance mode responses is located in `resources/tem
 While your application is in maintenance mode, no [queued jobs](/5.0/queues) will be handled. The jobs will continue to be handled as normal once the application is out of maintenance mode.
 
 <a name="pretty-urls"></a>
-## Pretty URLs
+## URLs amigables
 
 ### Apache
 
