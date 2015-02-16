@@ -13,6 +13,8 @@ Laravel provides a unified API for various caching systems. The cache configurat
 
 The cache configuration file also contains various other options, which are documented within the file, so make sure to read over these options. By default, Laravel is configured to use the `file` cache driver, which stores the serialized, cached objects in the filesystem. For larger applications, it is recommended that you use an in-memory cache such as Memcached or APC. You may even configure multiple cache configurations for the same driver.
 
+Before using a Redis cache with Laravel, you will need to install the `predis/predis` package (~1.0) via Composer.
+
 <a name="cache-usage"></a>
 ## Cache Usage
 
@@ -109,7 +111,7 @@ You may store a tagged cache by passing in an ordered list of tag names as argum
 
 	Cache::tags('people', 'authors')->put('John', $john, $minutes);
 
-	Cache::tags(array('people', 'artists'))->put('Anne', $anne, $minutes);
+	Cache::tags(['people', 'artists'])->put('Anne', $anne, $minutes);
 
 You may use any cache storage method in combination with tags, including `remember`, `forever`, and `rememberForever`. You may also access cached items from the tagged cache, as well as use the other cache methods such as `increment` and `decrement`.
 
@@ -119,7 +121,7 @@ To access a tagged cache, pass the same ordered list of tags used to save it.
 
 	$anne = Cache::tags('people', 'artists')->get('Anne');
 
-	$john = Cache::tags(array('people', 'authors'))->get('John');
+	$john = Cache::tags(['people', 'authors'])->get('John');
 
 You may flush all items tagged with a name or list of names. For example, this statement would remove all caches tagged with either `people`, `authors`, or both. So, both "Anne" and "John" would be removed from the cache:
 

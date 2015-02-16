@@ -21,13 +21,13 @@ Sometimes you may wish to use one database connection for SELECT statements, and
 
 To see how read / write connections should be configured, let's look at this example:
 
-	'mysql' => array(
-		'read' => array(
+	'mysql' => [
+		'read' => [
 			'host' => '192.168.1.1',
-		),
-		'write' => array(
+		],
+		'write' => [
 			'host' => '196.168.1.2'
-		),
+		],
 		'driver'    => 'mysql',
 		'database'  => 'database',
 		'username'  => 'root',
@@ -35,7 +35,7 @@ To see how read / write connections should be configured, let's look at this exa
 		'charset'   => 'utf8',
 		'collation' => 'utf8_unicode_ci',
 		'prefix'    => '',
-	),
+	],
 
 Note that two keys have been added to the configuration array: `read` and `write`. Both of these keys have array values containing a single key: `host`. The rest of the database options for the `read` and `write` connections will be merged from the main `mysql` array. So, we only need to place items in the `read` and `write` arrays if we wish to override the values in the main array. So, in this case, `192.168.1.1` will be used as the "read" connection, while `192.168.1.2` will be used as the "write" connection. The database credentials, prefix, character set, and all other options in the main `mysql` array will be shared across both connections.
 
@@ -125,10 +125,10 @@ If you need to disconnect from the given database due to exceeding the underlyin
 <a name="query-logging"></a>
 ## Query Logging
 
-By default, Laravel keeps a log in memory of all queries that have been run for the current request. However, in some cases, such as when inserting a large number of rows, this can cause the application to use excess memory. To disable the log, you may use the `disableQueryLog` method:
+Laravel can optionally log in memory all queries that have been run for the current request. Be aware that in some cases, such as when inserting a large number of rows, this can cause the application to use excess memory. To enable the log, you may use the `enableQueryLog` method:
 
-	DB::connection()->disableQueryLog();
+	DB::connection()->enableQueryLog();
 
 To get an array of the executed queries, you may use the `getQueryLog` method:
 
-       $queries = DB::getQueryLog();
+	$queries = DB::getQueryLog();

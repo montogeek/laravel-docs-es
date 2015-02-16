@@ -19,7 +19,7 @@ The most basic response from a Laravel route is a string:
 
 #### Creating Custom Responses
 
-However, for most routes and controller actions, you will be returning a full `Illuminate\Http\Response` instance or a [view](/5.0/views). Returning a full `Response` instance allows you customize the response's HTTP status code and headers. A `Response` instance inherits from the `Symfony\Component\HttpFoundation\Response` class, providing a variety of methods for building HTTP responses:
+Sin embargo, para la mayoria de las acciones en rutas y controladores, se retornara una instancia completa de `Illuminate\Http\Response` o una [vista](/5.0/views). Retornar una instancia completa de `Response` te permite personalizar los codigo de estado HTTP y sus encabezados. Una instancia `Response` hereda de la clase `Symfony\Component\HttpFoundation\Response`, proveyendo una variedad de metodos para construir respuestas HTTP:
 
 	use Illuminate\Http\Response;
 

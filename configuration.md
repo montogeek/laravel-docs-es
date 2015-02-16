@@ -85,7 +85,7 @@ You may also pass arguments to the `environment` method to check if the environm
 
 To obtain an instance of the application, resolve the `Illuminate\Contracts\Foundation\Application` contract via the [service container](/5.0/container). Of course, if you are within a [service provider](/5.0/providers), the application instance is available via the `$this->app` instance variable.
 
-An application instance may also be accessed via the `app` helper of the `App` facade:
+Una instancia de la aplicación tambien puede ser accedida a traves del metodo `app` or el facade `App`:
 
 	$environment = app()->environment();
 

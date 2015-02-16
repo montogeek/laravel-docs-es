@@ -6,7 +6,7 @@
 - [Protecting Routes](#protecting-routes)
 - [HTTP Basic Authentication](#http-basic-authentication)
 - [Password Reminders & Reset](#password-reminders-and-reset)
-- [Authentication Drivers](#authentication-drivers)
+- [Social Authentication](#social-authentication)
 
 <a name="introduction"></a>
 ## Introduction
@@ -15,7 +15,7 @@ Laravel makes implementing authentication very simple. In fact, almost everythin
 
 By default, Laravel includes an `App\User` model in your `app` directory. This model may be used with the default Eloquent authentication driver.
 
-Remember: when building the database schema for this model, make the password column at least 60 characters. Also, before getting started, make sure that your `users` (or equivalent) table contains a nullable, string `remember_token` column of 100 characters. This column will be used to store a token for "remember me" sessions being maintained by your application. This can be done by using `$table->rememberToken();` in a migration.
+Remember: when building the database schema for this model, make the password column at least 60 characters. Also, before getting started, make sure that your `users` (or equivalent) table contains a nullable, string `remember_token` column of 100 characters. This column will be used to store a token for "remember me" sessions being maintained by your application. This can be done by using `$table->rememberToken();` in a migration. Of course, Laravel 5 ships migrations for these columns out of the box!
 
 If your application is not using Eloquent, you may use the `database` authentication driver which uses the Laravel query builder.
 
@@ -136,7 +136,7 @@ This is equivalent to logging in a user via credentials using the `attempt` meth
 
 	Auth::logout();
 
-Of course, if you are using the built-in Laravel authentication controllers, a controller method that handles logging uers out of the application is provided out of the box.
+Of course, if you are using the built-in Laravel authentication controllers, a controller method that handles logging users out of the application is provided out of the box.
 
 #### Authentication Events
 
@@ -164,7 +164,7 @@ First, you may access the user from the `Auth` facade:
 		{
 			if (Auth::user())
 			{
-				// $request->user() returns an instance of the authenticated user...
+				// Auth::user() returns an instance of the authenticated user...
 			}
 		}
 
@@ -194,12 +194,12 @@ Second, you may access the authenticated user via an `Illuminate\Http\Request` i
 
 	}
 
-Thirdly, you may type-hint the `Illuminate\Contracts\Auth\User` contract. This type-hint may be added to a controller constructor, controller method, or any other constructor of a class resolved by the [service container](/5.0/container):
+Thirdly, you may type-hint the `Illuminate\Contracts\Auth\Authenticatable` contract. This type-hint may be added to a controller constructor, controller method, or any other constructor of a class resolved by the [service container](/5.0/container):
 
 	<?php namespace App\Http\Controllers;
 
 	use Illuminate\Routing\Controller;
-	use Illuminate\Contracts\Auth\User;
+	use Illuminate\Contracts\Auth\Authenticatable;
 
 	class ProfileController extends Controller {
 
@@ -208,7 +208,7 @@ Thirdly, you may type-hint the `Illuminate\Contracts\Auth\User` contract. This t
 		 *
 		 * @return Response
 		 */
-		public function updateProfile(User $user)
+		public function updateProfile(Authenticatable $user)
 		{
 			// $user is an instance of the authenticated user...
 		}
@@ -266,7 +266,7 @@ If you are using PHP FastCGI, HTTP Basic authentication may not work correctly o
 
 Most web applications provide a way for users to reset their forgotten passwords. Rather than forcing you to re-implement this on each application, Laravel provides convenient methods for sending password reminders and performing password resets.
 
-To get started, verify that your `User` model implements the `Illuminate\Contracts\Auth\Remindable` contract. Of course, the `User` model included with the framework already implements this interface, and uses the `Illuminate\Auth\Reminders\Remindable` trait to include the methods needed to implement the interface.
+To get started, verify that your `User` model implements the `Illuminate\Contracts\Auth\CanResetPassword` contract. Of course, the `User` model included with the framework already implements this interface, and uses the `Illuminate\Auth\Passwords\CanResetPassword` trait to include the methods needed to implement the interface.
 
 #### Generating The Reminder Table Migration
 
@@ -284,7 +284,60 @@ Your user will receive an e-mail with a link that points to the `getReset` metho
 
 > **Note:** By default, password reset tokens expire after one hour. You may change this via the `reminder.expire` option of your `config/auth.php` file.
 
-<a name="authentication-drivers"></a>
-## Authentication Drivers
+<a name="social-authentication"></a>
+## Social Authentication
 
-Laravel offers the `database` and `eloquent` authentication drivers out of the box. For more information about adding additional authentication drivers, check out the [Authentication extension documentation](/5.0/extending#authentication).
+In addition to typical, form based authentication, Laravel also provides a simple, convenient way to authenticate with OAuth providers using [Laravel Socialite](https://github.com/laravel/socialite). **Socialite currently supports authentication with Facebook, Twitter, Google, and GitHub.**
+
+To get started with Socialite, include the package in your `composer.json` file:
+
+	"laravel/socialite": "~2.0"
+
+Next, register the `Laravel\Socialite\SocialiteServiceProvider` in your `config/app.php` configuration file. You may also register a [facade](/5.0/facades):
+
+	'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+
+You will need to add credentials for the OAuth services your application utilizes. These credentials should be placed in your `config/services.php` configuration file, and should use the key `facebook`, `twitter`, `google`, or `github`, depending on the providers your application requires. For example:
+
+	'github' => [
+		'client_id' => 'your-github-app-id',
+		'client_secret' => 'your-github-app-secret',
+		'redirect' => 'http://your-callback-url',
+	],
+
+Next, you are ready to authenticate users! You will need two routes: one for redirecting the user to the OAuth provider, and another for receiving the callback from the provider after authentication. Here's an example using the `Socialize` facade:
+
+	public function redirectToProvider()
+	{
+		return Socialize::with('github')->redirect();
+	}
+
+	public function handleProviderCallback()
+	{
+		$user = Socialize::with('github')->user();
+
+		// $user->token;
+	}
+
+The `redirect` method takes care of sending the user to the OAuth provider, while the `user` method will read the incoming request and retrieve the user's information from the provider. Before redirecting the user, you may also set "scopes" on the request:
+
+	return Socialize::with('github')->scopes(['scope1', 'scope2'])->redirect();
+
+Once you have a user instance, you can grab a few more details about the user:
+
+#### Retrieving User Details
+
+	$user = Socialize::with('github')->user();
+
+	// OAuth Two Providers
+	$token = $user->token;
+
+	// OAuth One Providers
+	$token = $user->token;
+	$tokenSecret = $user->tokenSecret;
+
+	// All Providers
+	$user->getNickname();
+	$user->getName();
+	$user->getEmail();
+	$user->getAvatar();
