@@ -13,6 +13,8 @@ Since HTTP driven applications are stateless, sessions provide a way to store in
 
 The session configuration is stored in `config/session.php`. Be sure to review the well documented options available to you in this file. By default, Laravel is configured to use the `file` session driver, which will work well for the majority of applications.
 
+Before using Redis sessions with Laravel, you will need to install the `predis/predis` package (~1.0) via Composer.
+
 > **Note:** If you need all stored session data to be encrypted, set the `encrypt` configuration option to `true`.
 
 #### Reserved Keys
@@ -80,7 +82,7 @@ Sometimes you may wish to store items in the session only for the next request. 
 
 #### Reflashing Only A Subset Of Flash Data
 
-	Session::keep(array('username', 'email'));
+	Session::keep(['username', 'email']);
 
 <a name="database-sessions"></a>
 ## Database Sessions
@@ -107,7 +109,7 @@ Of course, you may use the `session:table` Artisan command to generate this migr
 
 The session "driver" defines where session data will be stored for each request. Laravel ships with several great drivers out of the box:
 
-- `file` - sessions will be stored in `app/storage/sessions`.
+- `file` - sessions will be stored in `storage/framework/sessions`.
 - `cookie` - sessions will be stored in secure, encrypted cookies.
 - `database` - sessions will be stored in a database used by your application.
 - `memcached` / `redis` - sessions will be stored in one of these fast, cached based stores.
