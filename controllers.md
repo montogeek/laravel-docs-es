@@ -3,6 +3,7 @@
 - [Introduction](#introduction)
 - [Basic Controllers](#basic-controllers)
 - [Controller Middleware](#controller-middleware)
+- [Implicit Controllers](#implicit-controllers)
 - [RESTful Resource Controllers](#restful-resource-controllers)
 - [Dependency Injection & Controllers](#dependency-injection-and-controllers)
 - [Route Caching](#route-caching)
@@ -46,7 +47,7 @@ We can route to the controller action like so:
 
 It is very important to note that we did not need to specify the full controller namespace, only the portion of the class name that comes after the `App\Http\Controllers` namespace "root". By default, the `RouteServiceProvider` will load the `routes.php` file within a route group containing the root controller namespace.
 
-If you choose to nest or organize your controllers using PHP namespaces deeper into the `App\Http\Controllers` directory, simply use the specify the class name relative to the `App\Http\Controllers` root namespace. So, if your full controller class is `App\Http\Controllers\Photos\AdminController`, you would register a route like so:
+If you choose to nest or organize your controllers using PHP namespaces deeper into the `App\Http\Controllers` directory, simply use the specific class name relative to the `App\Http\Controllers` root namespace. So, if your full controller class is `App\Http\Controllers\Photos\AdminController`, you would register a route like so:
 
 	Route::get('foo', 'Photos\AdminController@method');
 
@@ -100,6 +101,40 @@ Additionally, you may specify middleware within your controller's constructor:
 
 	}
 
+<a name="implicit-controllers"></a>
+## Implicit Controllers
+
+Laravel allows you to easily define a single route to handle every action in a controller. First, define the route using the `Route::controller` method:
+
+	Route::controller('users', 'UserController');
+
+The `controller` method accepts two arguments. The first is the base URI the controller handles, while the second is the class name of the controller. Next, just add methods to your controller, prefixed with the HTTP verb they respond to:
+
+	class UserController extends BaseController {
+
+		public function getIndex()
+		{
+			//
+		}
+
+		public function postProfile()
+		{
+			//
+		}
+
+		public function anyLogin()
+		{
+			//
+		}
+
+	}
+
+The `index` methods will respond to the root URI handled by the controller, which, in this case, is `users`.
+
+If your controller action contains multiple words, you may access the action using "dash" syntax in the URI. For example, the following controller action on our `UserController` would respond to the `users/admin-profile` URI:
+
+	public function getAdminProfile() {}
+
 <a name="restful-resource-controllers"></a>
 ## RESTful Resource Controllers
 
@@ -115,15 +150,15 @@ This single route declaration creates multiple routes to handle a variety of RES
 
 #### Actions Handled By Resource Controller
 
-Verb      | Path                        | Action       | Route Name
-----------|-----------------------------|--------------|---------------------
-GET       | /resource                   | index        | resource.index
-GET       | /resource/create            | create       | resource.create
-POST      | /resource                   | store        | resource.store
-GET       | /resource/{resource}        | show         | resource.show
-GET       | /resource/{resource}/edit   | edit         | resource.edit
-PUT/PATCH | /resource/{resource}        | update       | resource.update
-DELETE    | /resource/{resource}        | destroy      | resource.destroy
+Verb      | Path                  | Action       | Route Name
+----------|-----------------------|--------------|---------------------
+GET       | /photo                | index        | photo.index
+GET       | /photo/create         | create       | photo.create
+POST      | /photo                | store        | photo.store
+GET       | /photo/{photo}        | show         | photo.show
+GET       | /photo/{photo}/edit   | edit         | photo.edit
+PUT/PATCH | /photo/{photo}        | update       | photo.update
+DELETE    | /photo/{photo}        | destroy      | photo.destroy
 
 #### Customizing Resource Routes
 
