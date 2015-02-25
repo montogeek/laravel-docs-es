@@ -135,6 +135,14 @@ If your controller action contains multiple words, you may access the action usi
 
 	public function getAdminProfile() {}
 
+#### Assigning Route Names
+
+If you would like to "name" some of the routes on the controller, you may pass a third argument to the `controller` method:
+
+	Route::controller('users', 'UserController', [
+		'anyLogin' => 'user.login',
+	]);
+
 <a name="restful-resource-controllers"></a>
 ## RESTful Resource Controllers
 
@@ -203,7 +211,7 @@ This route will register a "nested" resource that may be accessed with URLs like
 
 If it becomes necessary to add additional routes to a resource controller beyond the default resource routes, you should define those routes before your call to `Route::resource`:
 
-	Route::get('photos/popular');
+	Route::get('photos/popular', 'PhotoController@method');
 
 	Route::resource('photos', 'PhotoController');
 

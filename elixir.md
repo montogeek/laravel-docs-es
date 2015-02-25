@@ -192,7 +192,7 @@ Within your views, you may use the `elixir()` function to load the appropriately
 
 Behind the scenes, the `elixir()` function will determine the name of the hashed file that should be included. Don't you feel the weight lifting off your shoulders already?
 
-Tambien puedes pasar un array al metodo `version` para versionar multiples archivos:
+You may also pass an array to the `version` method to version multiple files:
 
 ```javascript
 elixir(function(mix) {
@@ -246,6 +246,14 @@ Now that you've told Elixir which tasks to execute, you only need to trigger Gul
 #### Watch Assets For Changes
 
     gulp watch
+
+#### Only Compile Scripts
+
+    gulp scripts
+
+#### Only Compile Styles
+
+    gulp styles
 
 #### Watch Tests And PHP Classes for Changes
 
