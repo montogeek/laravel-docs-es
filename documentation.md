@@ -32,6 +32,7 @@
     - [Encripción](/5.0/encryption)
     - [Errores y Registro](/5.0/errors)
     - [Eventos](/5.0/events)
+    - [Sistema de archivos/Guardado en la nube](/5.0/filesystem)
     - [Hashing](/5.0/hashing)
     - [Utilidades](/5.0/helpers)
     - [Internacionalización](/5.0/localization)

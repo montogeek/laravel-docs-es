@@ -42,7 +42,7 @@ To push a new job onto the queue, use the `Queue::push` method:
 
 	Queue::push(new SendEmail($message));
 
-By default, the `make:command` Artisan command generates a "self-handling" command, meaning a `handle` method is added to the command itself. This method will be called when the job is executed by the queue. You may type-hint any dependencies you need on the `handle` method and the [IoC container](/5.0/container) will automatically inject them:
+By default, the `make:command` Artisan command generates a "self-handling" command, meaning a `handle` method is added to the command itself. This method will be called when the job is executed by the queue. You may type-hint any dependencies you need on the `handle` method and the [service container](/5.0/container) will automatically inject them:
 
 	public function handle(UserRepository $users)
 	{

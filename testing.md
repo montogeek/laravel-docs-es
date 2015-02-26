@@ -41,6 +41,8 @@ You may run all of the tests for your application by executing the `phpunit` com
 
 When running unit tests, Laravel will automatically set the configuration environment to `testing`. Also, Laravel includes configuration files for `session` and `cache` in the test environment. Both of these drivers are set to `array` while in the test environment, meaning no session or cache data will be persisted while testing. You are free to create other testing environment configurations as necessary.
 
+The `testing` environment variables may be configured in the `phpunit.xml` file.
+
 <a name="calling-routes-from-tests"></a>
 ## Calling Routes From Tests
 
@@ -62,7 +64,7 @@ You may also call a controller from a test:
 
 	$response = $this->action('GET', 'HomeController@index');
 
-	$response = $this->action('GET', 'UserController@profile', array('user' => 1));
+	$response = $this->action('GET', 'UserController@profile', ['user' => 1]);
 
 > **Note:** You do not need to specify the full controller namespace when using the `action` method. Only specify the portion of the class name that follows the `App\Http\Controllers` namespace.
 
@@ -159,7 +161,7 @@ Laravel ships with several `assert` methods to make testing a little easier:
         $this->assertSessionHasErrors('name');
 
         // Asserting the session has errors for several keys...
-        $this->assertSessionHasErrors(array('name', 'age'));
+        $this->assertSessionHasErrors(['name', 'age']);
     }
 
 #### Asserting Old Input Has Some Data
@@ -186,7 +188,7 @@ The `TestCase` class contains several helper methods to make testing your applic
 
 You may set the currently authenticated user using the `be` method:
 
-	$user = new User(array('name' => 'John'));
+	$user = new User(['name' => 'John']);
 
 	$this->be($user);
 
@@ -203,4 +205,4 @@ More information on creating seeds may be found in the [migrations and seeding](
 <a name="refreshing-the-application"></a>
 ## Refreshing The Application
 
-As you may already know, you can access your Laravel `Application` / IoC Container via `$this->app` from any test method. This Application instance is refreshed for each test class. If you wish to manually force the Application to be refreshed for a given method, you may use the `refreshApplication` method from your test method. This will reset any extra bindings, such as mocks, that have been placed in the IoC container since the test case started running.
+As you may already know, you can access your Application ([service container](/5.0/container)) via `$this->app` from any test method. This service container instance is refreshed for each test class. If you wish to manually force the Application to be refreshed for a given method, you may use the `refreshApplication` method from your test method. This will reset any extra bindings, such as mocks, that have been placed in the IoC container since the test case started running.
