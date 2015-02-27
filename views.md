@@ -41,13 +41,13 @@ Of course, views may also be nested within sub-directories of the `resources/vie
 
 In the example above, the variable `$name` is made accessible to the view and contains `Victoria`.
 
-If you wish, you may pass an array of data as the second parameter to the `make` method:
+If you wish, you may pass an array of data as the second parameter to the `view` helper:
 
 	$view = view('greetings', $data);
 
 #### Sharing Data With All Views
 
-Occasionally, you may need to share a piece of data with all views that are rendered by your application. You have several options: the `view` helper, the `Illuminate\Contracts\View\Factory` [contract](/5.0/contracts), or a wildcard [view composer](#view-composers).
+Occasionally, you may need to share a piece of data with all views that are rendered by your application. You have several options: the `view` helper, the `Illuminate\Contracts\View\Factory` [contract](/docs/5.0/contracts), or a wildcard [view composer](#view-composers).
 
 For example, using the `view` helper:
 
@@ -65,18 +65,16 @@ Typically, you would place calls to the `share` method within a service provider
 
 If you need to determine if a view exists, you may use the `exists` method:
 
-Using the helper:
-
 	if (view()->exists('emails.customer'))
 	{
 		//
 	}
 
-### Returning A View From A File Path
+#### Returning A View From A File Path
 
 If you wish, you may generate a view from a fully-qualified file path:
 
-	return view()->file($pathToFile);
+	return view()->file($pathToFile, $data);
 
 <a name="view-composers"></a>
 ## View Composers
@@ -85,7 +83,7 @@ View composers are callbacks or class methods that are called when a view is ren
 
 #### Defining A View Composer
 
-Let's organize our view composers within a [service provider](/5.0/providers). We'll use the `View` facade to access the underlying `Illuminate\Contracts\View\Factory` contract implementation:
+Let's organize our view composers within a [service provider](/docs/5.0/providers). We'll use the `View` facade to access the underlying `Illuminate\Contracts\View\Factory` contract implementation:
 
 	<?php namespace App\Providers;
 
@@ -110,10 +108,22 @@ Let's organize our view composers within a [service provider](/5.0/providers). W
 
 			});
 		}
+		
+		/**
+		 * Register
+		 *
+		 * @return void
+		 */
+		public function register()
+		{
+			//
+		}
 
 	}
 
 > **Note:** Laravel does not include a default directory for view composers. You are free to organize them however you wish. For example, you could create an `App\Http\ViewComposers` directory.
+
+Remember to add the service provider in the `config/app.php` configuration file. This file contains a providers array where you can list the names of your service providers.
 
 Now that we have registered the composer, the `ProfileComposer@compose` method will be executed each time the `profile` view is being rendered. So, let's define the composer class:
 
@@ -158,7 +168,7 @@ Now that we have registered the composer, the `ProfileComposer@compose` method w
 
 Just before the view is rendered, the composer's `compose` method is called with the `Illuminate\Contracts\View\View` instance. You may use the `with` method to bind data to the view.
 
-> **Note:** All view composers are resolved via the [service container](/5.0/container), so you may type-hint any dependencies you need within a composer's constructor.
+> **Note:** All view composers are resolved via the [service container](/docs/5.0/container), so you may type-hint any dependencies you need within a composer's constructor.
 
 #### Wildcard View Composers
 
