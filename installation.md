@@ -30,6 +30,12 @@ Puedes instalar Laravel usando el comando `create-project` de Composer en tu ter
 
 	composer create-project laravel/laravel --prefer-dist
 
+### Scaffolding
+
+Laravel ships with scaffolding for user registration and authentication. If you would like to remove this scaffolding, use the `fresh` Artisan command:
+
+    php artisan fresh
+
 <a name="server-requirements"></a>
 ## Requerimientos del servidor
 

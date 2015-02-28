@@ -1,9 +1,10 @@
 # Command Bus
 
 - [Introduction](#introduction)
-- [Creating Commamnds](#creating-commands)
-- [Dispatching Commamnds](#dispatching-commands)
+- [Creating Commands](#creating-commands)
+- [Dispatching Commands](#dispatching-commands)
 - [Queued Commands](#queued-commands)
+- [Command Pipeline](#command-pipeline)
 
 <a name="introduction"></a>
 ## Introduction
@@ -14,7 +15,7 @@ When a user purchases a podcast, there are a variety of things that need to happ
 
 We could put all of this logic inside a controller method; however, this has several disadvantages. The first disadvantage is that our controller probably handles several other incoming HTTP actions, and including complicated logic in each controller method will soon bloat our controller and make it harder to read. Secondly, it is difficult to re-use the purchase podcast logic outside of the controller context. Thirdly, it is more difficult to unit-test the command as we must also generate a stub HTTP request and make a full request to the application to test the purchase podcast logic.
 
-Instead of putting this logic in the controller, we may choose to encapsulte it within a "command" object, such as a `PurchasePodcast` command.
+Instead of putting this logic in the controller, we may choose to encapsulate it within a "command" object, such as a `PurchasePodcast` command.
 
 <a name="creating-commands"></a>
 ## Creating Commands
@@ -34,7 +35,7 @@ The newly generated class will be placed in the `app/Commands` directory. By def
 		 *
 		 * @return void
 		 */
-		public function __construct(User $user, Podcast $pocast)
+		public function __construct(User $user, Podcast $podcast)
 		{
 			$this->user = $user;
 			$this->podcast = $podcast;
@@ -54,7 +55,7 @@ The newly generated class will be placed in the `app/Commands` directory. By def
 
 	}
 
-The `handle` method may also type-hint dependencies, and they will be automatically injected by the [service container](/5.0/container). For example:
+The `handle` method may also type-hint dependencies, and they will be automatically injected by the [service container](/docs/5.0/container). For example:
 
 		/**
 		 * Execute the command.
@@ -115,4 +116,39 @@ If you would like to convert an existing command into a queued command, simply i
 
 Then, just write your command normally. When you dispatch it to the bus that bus will automatically queue the command for background processing. It doesn't get any easier than that.
 
-For more information on interacting with queued commands, view the full [queue documentation](/5.0/queues).
+For more information on interacting with queued commands, view the full [queue documentation](/docs/5.0/queues).
+
+<a name="command-pipeline"></a>
+## Command Pipeline
+
+Before a command is dispatched to a handler, you may pass it through other classes in a "pipeline". Command pipes work just like HTTP middleware, except for your commands! For example, a command pipe could wrap the entire command operation within a database transaction, or simply log its execution.
+
+To add a pipe to your bus, call the `pipeThrough` method of the dispatcher from your `App\Providers\BusServiceProvider::boot` method:
+
+	$dispatcher->pipeThrough(['UseDatabaseTransactions', 'LogCommand']);
+
+A command pipe is defined with a `handle` method, just like a middleware:
+
+	class UseDatabaseTransactions {
+
+		public function handle($command, $next)
+		{
+			return DB::transaction(function() use ($command, $next)
+			{
+				return $next($command);
+			});
+		}
+
+	}
+
+Command pipe classes are resolved through the [IoC container](/docs/5.0/container), so feel free to type-hint any dependencies you need within their constructors.
+
+You may even define a `Closure` as a command pipe:
+
+	$dispatcher->pipeThrough([function($command, $next)
+	{
+		return DB::transaction(function() use ($command, $next)
+		{
+			return $next($command);
+		});
+	}]);
