@@ -30,6 +30,7 @@
     - [Extensión del núcleo](/5.0/extending)
     - [Elixir](/5.0/elixir)
     - [Encripción](/5.0/encryption)
+    - [Envoy](/5.0/envoy)
     - [Errores y Registro](/5.0/errors)
     - [Eventos](/5.0/events)
     - [Sistema de archivos/Guardado en la nube](/5.0/filesystem)
