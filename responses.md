@@ -19,7 +19,7 @@ The most basic response from a Laravel route is a string:
 
 #### Creating Custom Responses
 
-Sin embargo, para la mayoria de las acciones en rutas y controladores, se retornara una instancia completa de `Illuminate\Http\Response` o una [vista](/5.0/views). Retornar una instancia completa de `Response` te permite personalizar los codigo de estado HTTP y sus encabezados. Una instancia `Response` hereda de la clase `Symfony\Component\HttpFoundation\Response`, proveyendo una variedad de metodos para construir respuestas HTTP:
+However, for most routes and controller actions, you will be returning a full `Illuminate\Http\Response` instance or a [view](/5.0/views). Returning a full `Response` instance allows you to customize the response's HTTP status code and headers. A `Response` instance inherits from the `Symfony\Component\HttpFoundation\Response` class, providing a variety of methods for building HTTP responses:
 
 	use Illuminate\Http\Response;
 
@@ -43,6 +43,13 @@ If you need access to the `Response` class methods, but want to return a view as
 
 	return response($content)->withCookie(cookie('name', 'value'));
 
+#### Method Chaining
+
+Keep in mind that most `Response` methods are chainable, allowing for the fluent building of responses:
+
+	return response()->view('hello')->header('Content-Type', $type)
+                     ->withCookie(cookie('name', 'value'));
+
 <a name="redirects"></a>
 ## Redirects
 
@@ -59,6 +66,14 @@ There are several ways to generate a `RedirectResponse` instance. The simplest m
 Redirecting to a new URL and [flashing data to the session](/5.0/session) are typically done at the same time. So, for convenience, you may create a `RedirectResponse` instance **and** flash data to the session in a single method chain:
 
 	return redirect('user/login')->with('message', 'Login Failed');
+
+#### Redirecting To The Previous URL
+
+You may wish to redirect the user to their previous location, for example, after a form submission. You can do so by using the `back` method:
+
+	return redirect()->back();
+
+	return redirect()->back()->withInput();
 
 #### Returning A Redirect To A Named Route
 
@@ -109,11 +124,11 @@ The `response` helper may be used to conveniently generate other types of respon
 
 The `json` method will automatically set the `Content-Type` header to `application/json`:
 
-	return response()->json(['name' => 'Steve', 'state' => 'CA']);
+	return response()->json(['name' => 'Abigail', 'state' => 'CA']);
 
 #### Creating A JSONP Response
 
-	return response()->json(['name' => 'Steve', 'state' => 'CA'])
+	return response()->json(['name' => 'Abigail', 'state' => 'CA'])
 	                 ->setCallback($request->input('callback'));
 
 #### Creating A File Download Response
@@ -121,6 +136,8 @@ The `json` method will automatically set the `Content-Type` header to `applicati
 	return response()->download($pathToFile);
 
 	return response()->download($pathToFile, $name, $headers);
+
+	return response()->download($pathToFile)->deleteFileAfterSend(true);
 
 > **Note:** Symfony HttpFoundation, which manages file downloads, requires the file being downloaded to have an ASCII file name.
 
@@ -145,9 +162,9 @@ For example, from a [service provider's](/5.0/providers) `boot` method:
 		 */
 		public function boot()
 		{
-			Response::('caps', function($value) use ($response)
+			Response::macro('caps', function($value)
 			{
-				return $response->make(strtoupper($value));
+				return Response::make(strtoupper($value));
 			});
 		}
 
