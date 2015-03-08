@@ -49,7 +49,7 @@ Sometimes you may wish to execute an Artisan command outside of the CLI. For exa
 		//
 	});
 
-You may even queue Artisan commands so they are processed in the background by your [queue workers](/5.0/queues):
+You may even queue Artisan commands so they are processed in the background by your [queue workers](/docs/5.0/queues):
 
 	Route::get('/foo', function()
 	{
@@ -151,7 +151,9 @@ Let's look at a few more scheduling examples:
 
 #### E-mail The Output Of A Scheduled Job
 
-	$schedule->command('foo')->emailOutputTo('foo@example.com');
+	$schedule->command('foo')->sendOutputTo($filePath)->emailOutputTo('foo@example.com');
+
+> **Note:** You must send the output to a file before it can be mailed.
 
 #### Send The Output Of The Scheduled Job To A Given Location
 
