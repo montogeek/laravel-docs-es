@@ -1,44 +1,44 @@
 # Artisan CLI
 
-- [Introduction](#introduction)
-- [Usage](#usage)
-- [Calling Commands Outside Of CLI](#calling-commands-outside-of-cli)
-- [Scheduling Artisan Commands](#scheduling-artisan-commands)
+- [Introducción](#introduction)
+- [Uso](#usage)
+- [Ejecutar comandos externos a CLI](#calling-commands-outside-of-cli)
+- [Programar comandos de Artisan](#scheduling-artisan-commands)
 
 <a name="introduction"></a>
-## Introduction
+## Introducción
 
 Artisan is the name of the command-line interface included with Laravel. It provides a number of helpful commands for your use while developing your application. It is driven by the powerful Symfony Console component.
 
 <a name="usage"></a>
-## Usage
+## Uso
 
-#### Listing All Available Commands
+#### Listar todos los comandos disponibles
 
 To view a list of all available Artisan commands, you may use the `list` command:
 
 	php artisan list
 
-#### Viewing The Help Screen For A Command
+#### Ver la ayuda para un comando
 
 Every command also includes a "help" screen which displays and describes the command's available arguments and options. To view a help screen, simply precede the name of the command with `help`:
 
 	php artisan help migrate
 
-#### Specifying The Configuration Environment
+#### Especificar el entorno de configuración
 
 You may specify the configuration environment that should be used while running a command using the `--env` switch:
 
 	php artisan migrate --env=local
 
-#### Displaying Your Current Laravel Version
+#### Mostrar la versión actual de Laravel
 
 You may also view the current version of your Laravel installation using the `--version` option:
 
 	php artisan --version
 
 <a name="calling-commands-outside-of-cli"></a>
-## Calling Commands Outside Of CLI
+## Ejecutar comandos externos a CLI
 
 Sometimes you may wish to execute an Artisan command outside of the CLI. For example, you may wish to fire an Artisan command from an HTTP route. Just use the `Artisan` facade:
 
@@ -49,7 +49,7 @@ Sometimes you may wish to execute an Artisan command outside of the CLI. For exa
 		//
 	});
 
-You may even queue Artisan commands so they are processed in the background by your [queue workers](/docs/5.0/queues):
+You may even queue Artisan commands so they are processed in the background by your [queue workers](/5.0/queues):
 
 	Route::get('/foo', function()
 	{
@@ -59,7 +59,7 @@ You may even queue Artisan commands so they are processed in the background by y
 	});
 
 <a name="scheduling-artisan-commands"></a>
-## Scheduling Artisan Commands
+## Programar comandos de Artisan
 
 In the past, developers have generated a Cron entry for each console command they wished to schedule. However, this is a headache. Your console schedule is no longer in source control, and you must SSH into your server to add the Cron entries. Let's make our lives easier. The Laravel command scheduler allows you to fluently and expressively define your command schedule within Laravel itself, and only a single Cron entry is needed on your server.
 
@@ -69,11 +69,11 @@ Your command schedule is stored in the `app/Console/Kernel.php` file. Within thi
 
 This Cron will call the Laravel command scheduler every minute. Then, Laravel evaluates your scheduled jobs and runs the jobs that are due. It couldn't be easier!
 
-### More Scheduling Examples
+### Más ejemplos de programación de comandos
 
 Let's look at a few more scheduling examples:
 
-#### Scheduling Closures
+#### Clausura de programación de comandos
 
 	$schedule->call(function()
 	{
@@ -81,15 +81,15 @@ Let's look at a few more scheduling examples:
 
 	})->hourly();
 
-#### Scheduling Terminal Commands
+#### Programando comandos de terminal
 
 	$schedule->exec('composer self-update')->daily();
 
-#### Manual Cron Expression
+#### Expresión CRON manual
 
 	$schedule->command('foo')->cron('* * * * *');
 
-#### Frequent Jobs
+#### Frecuencia de Jobs
 
 	$schedule->command('foo')->everyFiveMinutes();
 
@@ -97,34 +97,34 @@ Let's look at a few more scheduling examples:
 
 	$schedule->command('foo')->everyThirtyMinutes();
 
-#### Daily Jobs
+#### Jobs diarios
 
 	$schedule->command('foo')->daily();
 
-#### Daily Jobs At A Specific Time (24 Hour Time)
+#### Jobs diarios un un momento especifico (Formato 24 horas)
 
 	$schedule->command('foo')->dailyAt('15:00');
 
-#### Twice Daily Jobs
+#### Jobs dos veces por dia
 
 	$schedule->command('foo')->twiceDaily();
 
-#### Job That Runs Every Weekday
+#### Job cada fin de semana
 
 	$schedule->command('foo')->weekdays();
 
-#### Weekly Jobs
+#### Jobs semanales
 
 	$schedule->command('foo')->weekly();
 
 	// Schedule weekly job for specific day (0-6) and time...
 	$schedule->command('foo')->weeklyOn(1, '8:00');
 
-#### Monthly Jobs
+#### Jobs mensuales
 
 	$schedule->command('foo')->monthly();
 
-#### Job That Runs On Specific Days
+#### Job ejecutados en un día específico
 
 	$schedule->command('foo')->mondays();
 	$schedule->command('foo')->tuesdays();
@@ -134,31 +134,31 @@ Let's look at a few more scheduling examples:
 	$schedule->command('foo')->saturdays();
 	$schedule->command('foo')->sundays();
 
-#### Limit The Environment The Jobs Should Run In
+#### Job ejecutado en un entorno específico
 
 	$schedule->command('foo')->monthly()->environments('production');
 
-#### Indicate The Job Should Run Even When Application Is In Maintenance Mode
+#### Ejecutar el Job incluso con la aplicación en mantenimiento
 
 	$schedule->command('foo')->monthly()->evenInMaintenanceMode();
 
-#### Only Allow Job To Run When Callback Is True
+#### Solo ejecutar un Job cuando el callback retorna `true`
 
 	$schedule->command('foo')->monthly()->when(function()
 	{
 		return true;
 	});
 
-#### E-mail The Output Of A Scheduled Job
+#### Enviar la salida del Job a un E-mail
 
 	$schedule->command('foo')->sendOutputTo($filePath)->emailOutputTo('foo@example.com');
 
 > **Note:** You must send the output to a file before it can be mailed.
 
-#### Send The Output Of The Scheduled Job To A Given Location
+#### Guardar la salida del Job a una locación en específica
 
 	$schedule->command('foo')->sendOutputTo($filePath);
 
-#### Ping A Given URL After The Job Runs
+#### Ping una URL cuando el Job se ejecute
 
 	$schedule->command('foo')->thenPing($url);

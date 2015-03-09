@@ -6,9 +6,9 @@
 <a name="introduction"></a>
 ## Introducción
 
-El Facade 'Hash' de Laravel provee el uso de Bcrypt hash seguro para almacenar contraseñas de usuarios. Si usted esta usando el controlador 'AuthController' que esta incluido en su aplicación de Laravel, el verificara la contraseña hasheada por Bcrypt contra la contraseña sin hashear suministrada por el usuario.
+El Facade 'Hash' de Laravel provee el uso de Bcrypt hash seguro para almacenar contraseñas de usuarios. Si usted esta usando el controlador 'AuthController' que esta incluido en su aplicación de Laravel, el verificará la contraseña hasheada por Bcrypt contra la contraseña sin hashear suministrada por el usuario.
 
-Del mismo modo, el service 'Registrar' que se incluye con Laravel hace la llamada 'bcrypt' a la funcion apropiada para verificar las contraseñas almacenadas.
+Del mismo modo, el servicio 'Registrar' que se incluye con Laravel hace la llamada 'bcrypt' a la funcion apropiada para verificar las contraseñas almacenadas.
 
 <a name="basic-usage"></a>
 ## Uso Básico
