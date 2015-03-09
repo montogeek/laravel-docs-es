@@ -45,6 +45,7 @@ Laravel tiene algunos requerimientos:
 - Extensión Mcrypt PHP
 - Extensión OpenSSL PHP
 - Extensión Mbstring PHP
+- Extensión Tokenizer PHP
 
 En PHP 5.5, algunos sistemas operativos requieren que instales manualmente la extensión PHP JSON. Si usas Ubuntu, lo puedes instalar con el comando `apt-get install php5-json`.
 
