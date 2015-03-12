@@ -25,9 +25,10 @@ In order to use the `database` queue driver, you will need a database table to h
 
 The following dependencies are needed for the listed queue drivers:
 
-- Beanstalkd: `pda/pheanstalk ~3.0`
 - Amazon SQS: `aws/aws-sdk-php`
-- IronMQ: `iron-io/iron_mq`
+- Beanstalkd: `pda/pheanstalk ~3.0`
+- IronMQ: `iron-io/iron_mq ~1.5`
+- Redis: `predis/predis ~1.0`
 
 <a name="basic-usage"></a>
 ## Basic Usage
@@ -41,6 +42,8 @@ All of the queueable jobs for your application are stored in the `App\Commands` 
 To push a new job onto the queue, use the `Queue::push` method:
 
 	Queue::push(new SendEmail($message));
+
+> **Note:** In this example, we are using the `Queue` facade directly; however, typically you would dispatch queued command via the [Command Bus](/5.0/bus). We will continue to use the `Queue` facade throughout this page; however, familiarize with the command bus as well, since it is used to dispatch both queued and synchronous commands for your application.
 
 By default, the `make:command` Artisan command generates a "self-handling" command, meaning a `handle` method is added to the command itself. This method will be called when the job is executed by the queue. You may type-hint any dependencies you need on the `handle` method and the [service container](/5.0/container) will automatically inject them:
 
@@ -65,7 +68,7 @@ You may also specify the queue / tube a job should be sent to:
 
 If you need to pass the same data to several queue jobs, you may use the `Queue::bulk` method:
 
-	Queue::bulk(array(new SendEmail($message), new AnotherCommand));
+	Queue::bulk([new SendEmail($message), new AnotherCommand]);
 
 #### Delaying The Execution Of A Job
 
@@ -76,6 +79,8 @@ Sometimes you may wish to delay the execution of a queued job. For instance, you
 	Queue::later($date, new SendEmail($message));
 
 In this example, we're using the [Carbon](https://github.com/briannesbitt/Carbon) date library to specify the delay we wish to assign to the job. Alternatively, you may pass the number of seconds you wish to delay as an integer.
+
+> **Note:** The Amazon SQS service has a delay limit of 900 seconds (15 minutes).
 
 #### Queues And Eloquent Models
 
