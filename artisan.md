@@ -7,40 +7,36 @@
 
 <a name="introduction"></a>
 ## Introducción
-
-Artisan is the name of the command-line interface included with Laravel. It provides a number of helpful commands for your use while developing your application. It is driven by the powerful Symfony Console component.
+Artisan es el nombre de la interfaz de línea de comando incluída en Laravel. Este brinda varios comandos útiles en el desarrollo de su aplicación. Este es impulsado por el poderoso componente Symfony Console.
 
 <a name="usage"></a>
 ## Uso
 
 #### Listar todos los comandos disponibles
-
-To view a list of all available Artisan commands, you may use the `list` command:
+Para ver una lista de todos los comandos disponibles en Artisan usted puede utilizar el comando `list`:
 
 	php artisan list
 
 #### Ver la ayuda para un comando
 
-Every command also includes a "help" screen which displays and describes the command's available arguments and options. To view a help screen, simply precede the name of the command with `help`:
+Cada comando incluye una pantalla de ayuda la cual despliega y describe los argumentos disponibles para el comando y sus opciones. Para ver una pantalla de ayuda simplemente anteponga `help` al nombre del comando:
 
 	php artisan help migrate
 
 #### Especificar el entorno de configuración
 
-You may specify the configuration environment that should be used while running a command using the `--env` switch:
+Usted puede especificar la configuración del ambiente que debe ser utilizada mientras ejecuta un comando usando el argumento `--env`:
 
 	php artisan migrate --env=local
 
 #### Mostrar la versión actual de Laravel
-
-You may also view the current version of your Laravel installation using the `--version` option:
+Usted puede ver la versión de su instalación de Laravel utilizando la opción `--version`:
 
 	php artisan --version
 
 <a name="calling-commands-outside-of-cli"></a>
 ## Ejecutar comandos externos a CLI
-
-Sometimes you may wish to execute an Artisan command outside of the CLI. For example, you may wish to fire an Artisan command from an HTTP route. Just use the `Artisan` facade:
+Algunas veces usted puede desear ejecutar un comando de Artisan externamente a la línea de comando. Por ejemplo usted puede querer ejecutar un comando de Artisan desde una ruta HTTP. Simplemente utilice el "facade" `Artisan`:
 
 	Route::get('/foo', function()
 	{
@@ -49,7 +45,7 @@ Sometimes you may wish to execute an Artisan command outside of the CLI. For exa
 		//
 	});
 
-You may even queue Artisan commands so they are processed in the background by your [queue workers](/5.0/queues):
+Incluso puede poner los comandos Artisan en una cola para que sean procesados en segundo plano por su [queue workers](/5.0/queues):
 
 	Route::get('/foo', function()
 	{
