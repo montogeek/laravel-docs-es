@@ -18,7 +18,7 @@ Homestead runs on any Windows, Mac, or Linux system, and includes the Nginx web 
 
 > **Note:** If you are using Windows, you may need to enable hardware virtualization (VT-x). It can usually be enabled via your BIOS.
 
-Homestead is currently built and tested using Vagrant 1.6.
+Homestead is currently built and tested using Vagrant 1.7.
 
 <a name="included-software"></a>
 ## Included Software
@@ -50,7 +50,7 @@ In addition to VirtualBox, Homestead also supports VMware. To use the VMware pro
 
 ### Adding The Vagrant Box
 
-Once VirtualBox and Vagrant have been installed, you should add the `laravel/homestead` box to your Vagrant installation using the following command in your terminal. It will take a few minutes to download the box, depending on your Internet connection speed:
+Once VirtualBox / VMware and Vagrant have been installed, you should add the `laravel/homestead` box to your Vagrant installation using the following command in your terminal. It will take a few minutes to download the box, depending on your Internet connection speed:
 
 	vagrant box add laravel/homestead
 
