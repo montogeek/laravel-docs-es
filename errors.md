@@ -8,7 +8,7 @@
 <a name="configuration"></a>
 ## Configuration
 
-The logging facilities for your application are configured in the `Illuminate\Foundation\Bootstrap\ConfigureLogging` bootstrapper class. This class utilizees the `log` configuration option from your `config/app.php` configuration file.
+The logging facilities for your application are configured in the `Illuminate\Foundation\Bootstrap\ConfigureLogging` bootstrapper class. This class utilizes the `log` configuration option from your `config/app.php` configuration file.
 
 By default, the logger is configured to use daily log files; however, you may customize this behavior as needed. Since Laravel uses the popular [Monolog](https://github.com/Seldaek/monolog) logging library, you can take advantage of the variety of handlers that Monolog offers.
 
@@ -16,7 +16,7 @@ For example, if you wish to use a single log file instead of daily files, you ca
 
 	'log' => 'single'
 
-Out of the box, Laravel supported `single`, `daily`, and `syslog` logging modes. However, you are free to customize the logging for your application as you wish by overriding the `ConfigureLogging` bootstrapper class.
+Out of the box, Laravel supported `single`, `daily`, `syslog` and `errorlog` logging modes. However, you are free to customize the logging for your application as you wish by overriding the `ConfigureLogging` bootstrapper class.
 
 ### Error Detail
 
