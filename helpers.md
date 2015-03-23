@@ -49,7 +49,7 @@ The `array_fetch` method returns a flattened array containing the selected neste
 	$array = [
 		['developer' => ['name' => 'Taylor']],
 		['developer' => ['name' => 'Dayle']]
-	);
+	];
 
 	$array = array_fetch($array, 'developer.name');
 
@@ -243,7 +243,7 @@ Register a new PATCH route with the router.
 Register a new DELETE route with the router.
 
 	delete('foo/bar', 'FooController@action');
-	
+
 ### resource
 
 Register a new RESTful resource route with the router.
