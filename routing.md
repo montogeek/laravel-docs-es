@@ -1,13 +1,13 @@
-# HTTP Routing
+# Rutas HTTP
 
-- [Basic Routing](#basic-routing)
-- [CSRF Protection](#csrf-protection)
+- [Rutas básicas](#basic-routing)
+- [Protección CSRF](#csrf-protection)
 - [Method Spoofing](#method-spoofing)
-- [Route Parameters](#route-parameters)
-- [Named Routes](#named-routes)
-- [Route Groups](#route-groups)
-- [Route Model Binding](#route-model-binding)
-- [Throwing 404 Errors](#throwing-404-errors)
+- [Rutas con parámetros](#route-parameters)
+- [Rutas con nombres](#named-routes)
+- [Grupos de rutas](#route-groups)
+- [Rutas con modelos vinculados](#route-model-binding)
+- [Lanzar errores 404](#throwing-404-errors)
 
 <a name="basic-routing"></a>
 ## Basic Routing
