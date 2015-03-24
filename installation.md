@@ -65,7 +65,7 @@ Una vez Laravel este instalado, puedes [configurar tu entorno local](/5.0/config
 <a name="permissions"></a>
 ### Permisos
 
-Laravel podria requerir permisos para ser configurado: las carpetas de `storage` requieren permisos de escritura por el servidor web.
+Laravel podria requerir permisos para ser configurado: las carpetas de `storage` y `vendor` requieren permisos de escritura por el servidor web.
 
 <a name="pretty-urls"></a>
 ## URLs amigables

@@ -37,7 +37,7 @@ Una vez Laravel este instalado, tambien puedes [configurar tu entorno local](/5.
 <a name="permissions"></a>
 ### Permisos
 
-Laravel puede requerir varios permisos para funcionar: Los directorios dentro de `storage` requieren permisos de acceso por el servidor web.
+Laravel puede requerir varios permisos para funcionar: Los directorios dentro de `storage` y `vendor` requieren permisos de acceso por el servidor web.
 
 <a name="accessing-configuration-values"></a>
 ## Acceder a las opciones de configuración
@@ -127,6 +127,8 @@ Si el archivo `.htaccess` que viene con Laravel no funciona con tu instalacion d
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule ^ index.php [L]
+
+Si tu servidor web no permite la opción `FollowSymlinks` option, intenta con `Options +SymLinksIfOwnerMatch`.
 
 ### Nginx
 
