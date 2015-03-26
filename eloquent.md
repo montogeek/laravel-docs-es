@@ -53,29 +53,29 @@ Observe que no se dijo cual tabla se debe usar para el modelo `User`. El nombre 
 
 > **Nota:** Eloquent también asume que cada tabla tiene una columna `id` como llave primaria. Puede definir la propiedad `primaryKey` para cambiar esta convensión. Así mismo,  puede definir la propiedad `connection` para cambiar el nombre de la conexión a labase de datos que se debe usar cuando se use el modelo.
 
-Once a model is defined, you are ready to start retrieving and creating records in your table. Note that you will need to place `updated_at` and `created_at` columns on your table by default. If you do not wish to have these columns automatically maintained, set the `$timestamps` property on your model to `false`.
+Una vez se define un modelo, ya está listo para comenzar la recuperación y la creación de registros en la tabla. Tenga en cuenta que tendrá que colocar las columnas `updated_at` y `created_at` en su tabla de forma predeterminada. Si no desea que estas columnas sean mantenidas automáticamente, establezca la propiedad `$timestamps` de su modelo en falso.
 
-#### Retrieving All Models
+#### Recuperando Todos Los Modelos
 
 	$users = User::all();
 
-#### Retrieving A Record By Primary Key
+#### Recuperando Un Registro Por Llave Primaria
 
 	$user = User::find(1);
 
 	var_dump($user->name);
 
-> **Note:** All methods available on the [query builder](/docs/queries) are also available when querying Eloquent models.
+> **Nota:** Todos los métodos disponibles en el [generador de consultas](/docs/queries) también están disponibles al consultar modelos Elocuent.
 
-#### Retrieving A Model By Primary Key Or Throw An Exception
+#### Recuperando Un Registro Por Llave Primaria o Generar Excepción
 
-Sometimes you may wish to throw an exception if a model is not found, allowing you to catch the exceptions using an `App::error` handler and display a 404 page.
+A veces es posible que desee lanzar una excepción si no se encuentra un modelo, lo que le permite capturar las excepciones utilizando un manejador `App::error` y mostrar una página 404.
 
 	$model = User::findOrFail(1);
 
 	$model = User::where('votes', '>', 100)->firstOrFail();
 
-To register the error handler, listen for the `ModelNotFoundException`
+Para registrar el manejador de errores, escuche por `ModelNotFoundException`
 
 	use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -84,7 +84,7 @@ To register the error handler, listen for the `ModelNotFoundException`
 		return Response::make('Not Found', 404);
 	});
 
-#### Querying Using Eloquent Models
+#### Consultas Usando Modelos Eloquent
 
 	$users = User::where('votes', '>', 100)->take(10)->get();
 
@@ -93,19 +93,19 @@ To register the error handler, listen for the `ModelNotFoundException`
 		var_dump($user->name);
 	}
 
-#### Eloquent Aggregates
+#### Agregados Eloquent
 
-Of course, you may also use the query builder aggregate functions.
+Por supuesto, también puede utilizar las funciones de agregado de generador de consultas.
 
 	$count = User::where('votes', '>', 100)->count();
 
-If you are unable to generate the query you need via the fluent interface, feel free to use `whereRaw`:
+Si usted es incapaz de generar la consulta que necesita a través de la interfaz fluida, no dude en utilizar `whereRaw`:
 
 	$users = User::whereRaw('age > ? and votes = 100', [25])->get();
 
-#### Chunking Results
+#### Resultado en Partes
 
-If you need to process a lot (thousands) of Eloquent records, using the `chunk` command will allow you to do without eating all of your RAM:
+Si usted necesita procesar una gran cantidad (miles) de registros Elocuent, usando el comando `chunk` permitirá que usted lo haga sin acabar toda su RAM:
 
 	User::chunk(200, function($users)
 	{
@@ -115,28 +115,28 @@ If you need to process a lot (thousands) of Eloquent records, using the `chunk` 
 		}
 	});
 
-The first argument passed to the method is the number of records you wish to receive per "chunk". The Closure passed as the second argument will be called for each chunk that is pulled from the database.
+El primer argumento pasado al método es el número de registros que desea recibir por "trozo". La Clausura (closure) pasado como segundo argumento se llamará para cada trozo que se extrae de la base de datos.
 
-#### Specifying The Query Connection
+#### Especificación de la Conexión de Consulta
 
-You may also specify which database connection should be used when running an Eloquent query. Simply use the `on` method:
+También puede especificar qué conexión base de datos se debe emplear cuando se ejecuta una consulta Elocuent. Sólo tiene que utilizar el método `on`:
 
 	$user = User::on('connection-name')->find(1);
 
-If you are using [read / write connections](/5.0/database#read-write-connections), you may force the query to use the "write" connection with the following method:
+Si utiliza [conexiones lectura/escritura](/5.0/database#read-write-connections), es posible forzar la consulta para utilizar la conexión "escribir" con el siguiente método:
 
 	$user = User::onWriteConnection()->find(1);
 
 <a name="mass-assignment"></a>
 ## Asignación Masiva 
 
-When creating a new model, you pass an array of attributes to the model constructor. These attributes are then assigned to the model via mass-assignment. This is convenient; however, can be a **serious** security concern when blindly passing user input into a model. If user input is blindly passed into a model, the user is free to modify **any** and **all** of the model's attributes. For this reason, all Eloquent models protect against mass-assignment by default.
+Al crear un nuevo modelo, puede pasar un arreglo de atributos al constructor del modelo. Estos atributos se asignan al modelo a través de la asignación masiva. Esto es conveniente; Sin embargo, puede ser un **grave** problema de seguridad al pasar ciegamente la entrada del usuario en un modelo. Si la entrada del usuario se pasa a ciegas a un modelo, el usuario es libre de modificar **cualquier** o **todos** los atributos del modelo. Por esta razón, todos los modelos Elocuent por omisión se protegen contra la asignación masiva.
 
-To get started, set the `fillable` or `guarded` properties on your model.
+Para empezar, establezca la propiedad `fillable` o  `guarded` en su modelo.
 
-#### Defining Fillable Attributes On A Model
+#### Definición del atributo `fillable` en un Modelo 
 
-The `fillable` property specifies which attributes should be mass-assignable. This can be set at the class or instance level.
+La propiedad `fillable` especifica qué atributos puen asignarse en masa. Esto se puede configurar a nivel de clase o instancia.
 
 	class User extends Model {
 
@@ -144,11 +144,11 @@ The `fillable` property specifies which attributes should be mass-assignable. Th
 
 	}
 
-In this example, only the three listed attributes will be mass-assignable.
+En este ejemplo, sólo los tres atributos enumerados serán asignables en mas.
 
-#### Defining Guarded Attributes On A Model
+#### Definición del atributo `guarded` en un Modelo 
 
-The inverse of `fillable` is `guarded`, and serves as a "black-list" instead of a "white-list":
+La propiedad inversa de `fillable` es `guarded`, y sirve como una "lista negra" en lugar de una "lista blanca":
 
 	class User extends Model {
 
@@ -156,7 +156,7 @@ The inverse of `fillable` is `guarded`, and serves as a "black-list" instead of 
 
 	}
 
-> **Note:** When using `guarded`, you should still never pass `Input::get()` or any raw array of user controlled input into a `save` or `update` method, as any column that is not guarded may be updated.
+> **Nota:** Al usar `guarded`, nunca debe pasar `Input::get()` o cualquier arreglo crudo de entrada controlado por el usuario en un método `update` o `save`, por que cualquier columna que este en `guarded` podrán actualizarse.
 
 #### Blocking All Attributes From Asignación Masiva 
 
