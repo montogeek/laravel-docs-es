@@ -1,49 +1,49 @@
-# Eloquent ORM
+# ORM Eloquent
 
-- [Introduction](#introduction)
-- [Basic Usage](#basic-usage)
-- [Mass Assignment](#mass-assignment)
-- [Insert, Update, Delete](#insert-update-delete)
-- [Soft Deleting](#soft-deleting)
-- [Timestamps](#timestamps)
-- [Query Scopes](#query-scopes)
-- [Global Scopes](#global-scopes)
-- [Relationships](#relationships)
-- [Querying Relations](#querying-relations)
-- [Eager Loading](#eager-loading)
-- [Inserting Related Models](#inserting-related-models)
-- [Touching Parent Timestamps](#touching-parent-timestamps)
-- [Working With Pivot Tables](#working-with-pivot-tables)
-- [Collections](#collections)
-- [Accessors & Mutators](#accessors-and-mutators)
-- [Date Mutators](#date-mutators)
-- [Attribute Casting](#attribute-casting)
-- [Model Events](#model-events)
-- [Model Observers](#model-observers)
-- [Model URL Generation](#model-url-generation)
-- [Converting To Arrays / JSON](#converting-to-arrays-or-json)
+- [Introducción](#introduction)
+- [Uso Básico](#basic-usage)
+- [Asignación Masiva](#mass-assignment)
+- [Insertar, Actualizar, Borrar](#insert-update-delete)
+- [Borrado suave](#soft-deleting)
+- [Marcas de Tiempo](#timestamps)
+- [Consultas con Ámbito](#query-scopes)
+- [Consultas Globales con Ámbito](#global-scopes)
+- [Relaciones](#relationships)
+- [Consulta de Relaciones](#querying-relations)
+- [Carga Impaciente](#eager-loading)
+- [Insertando Modelos Asociados](#inserting-related-models)
+- [Actualizando Marcas de Tiempo en Relacioines Padre](#touching-parent-timestamps)
+- [Trabajando con Tablas Pivote](#working-with-pivot-tables)
+- [Colecciones](#collections)
+- [Descriptores de Acceso Y Mutadores](#accessors-and-mutators)
+- [Mutators de Fecha](#date-mutators)
+- [Forzando Tipos](#attribute-casting)
+- [Eventos de Modelos](#model-events)
+- [Observadores de Modelos](#model-observers)
+- [Generación de URL para Modelos](#model-url-generation)
+- [Convitirndo a JSON / Arreglos](#converting-to-arrays-or-json)
 
 <a name="introduction"></a>
-## Introduction
+## Introducción
 
-The Eloquent ORM included with Laravel provides a beautiful, simple ActiveRecord implementation for working with your database. Each database table has a corresponding "Model" which is used to interact with that table.
+El ORM Eloquent incluído con Laravel provee una implementación hermosa y sencilla de ActiveRecord para trabajar con su base de datos. Cada tabla de la base de datos tiene un "Modelo" correspondiente que es usado para interactuar con la tabla.
 
-Before getting started, be sure to configure a database connection in `config/database.php`.
+Antes de empezar, asegúrase de configurar la conexión a la base de datos en `config/database.php`.
 
 <a name="basic-usage"></a>
-## Basic Usage
+## Uso Básico
 
-To get started, create an Eloquent model. Models typically live in the `app` directory, but you are free to place them anywhere that can be auto-loaded according to your `composer.json` file. All Eloquent models extend `Illuminate\Database\Eloquent\Model`.
+Para empezar, cree un modelo Eloquent. Generalmente los modelos están en el directorio `app`, pero siéntase en libertad de guardarlos en cualquier directorio que se pueda autocargar a través de su archivo `composer.json`. Todos los modelos Eloquent extienden `Illuminate\Database\Eloquent\Model`.
 
-#### Defining An Eloquent Model
+#### Definición de un Modelo Eloquent
 
 	class User extends Model {}
 
-You may also generate Eloquent models using the `make:model` command:
+También puede general los modelos Eloquent usando el commando `make:model`:
 
 	php artisan make:model User
 
-Note that we did not tell Eloquent which table to use for our `User` model. The "snake case" name of the class will be used as the table name unless another name is explicitly specified. So, in this case, Eloquent will assume the `User` model stores records in the `users` table. You may specify a custom table by defining a `table` property on your model:
+Observe que no se dijo cual tabla se debe usar para el modelo `User`. El nombre de la clase en mínusculas se usará para el nombre de la tabla a menos que explícitamente se especifique uno diferente. Entonces, en este caso Eloquent asume que el modelo `User` almacena los registroes en la tabla `users`. Puede personalizar el nombre de la tabla con la propiedad `table` en su modelo.
 
 	class User extends Model {
 
@@ -51,7 +51,7 @@ Note that we did not tell Eloquent which table to use for our `User` model. The 
 
 	}
 
-> **Note:** Eloquent will also assume that each table has a primary key column named `id`. You may define a `primaryKey` property to override this convention. Likewise, you may define a `connection` property to override the name of the database connection that should be used when utilizing the model.
+> **Nota:** Eloquent también asume que cada tabla tiene una columna `id` como llave primaria. Puede definir la propiedad `primaryKey` para cambiar esta convensión. Así mismo,  puede definir la propiedad `connection` para cambiar el nombre de la conexión a labase de datos que se debe usar cuando se use el modelo.
 
 Once a model is defined, you are ready to start retrieving and creating records in your table. Note that you will need to place `updated_at` and `created_at` columns on your table by default. If you do not wish to have these columns automatically maintained, set the `$timestamps` property on your model to `false`.
 
@@ -128,7 +128,7 @@ If you are using [read / write connections](/5.0/database#read-write-connections
 	$user = User::onWriteConnection()->find(1);
 
 <a name="mass-assignment"></a>
-## Mass Assignment
+## Asignación Masiva 
 
 When creating a new model, you pass an array of attributes to the model constructor. These attributes are then assigned to the model via mass-assignment. This is convenient; however, can be a **serious** security concern when blindly passing user input into a model. If user input is blindly passed into a model, the user is free to modify **any** and **all** of the model's attributes. For this reason, all Eloquent models protect against mass-assignment by default.
 
@@ -158,7 +158,7 @@ The inverse of `fillable` is `guarded`, and serves as a "black-list" instead of 
 
 > **Note:** When using `guarded`, you should still never pass `Input::get()` or any raw array of user controlled input into a `save` or `update` method, as any column that is not guarded may be updated.
 
-#### Blocking All Attributes From Mass Assignment
+#### Blocking All Attributes From Asignación Masiva 
 
 In the example above, the `id` and `password` attributes may **not** be mass assigned. All other attributes will be mass assignable. You may also block **all** attributes from mass assignment using the guard property:
 
@@ -214,7 +214,7 @@ To update a model, you may retrieve it, change an attribute, and use the `save` 
 
 	$user->save();
 
-#### Saving A Model And Relationships
+#### Saving A Model And Relaciones
 
 Sometimes you may wish to save not only a model, but also all of its relationships. To do so, you may use the `push` method:
 
@@ -246,14 +246,14 @@ Of course, you may also run a delete query on a set of models:
 
 	$affectedRows = User::where('votes', '>', 100)->delete();
 
-#### Updating Only The Model's Timestamps
+#### Updating Only The Model's Marcas de Tiempo
 
 If you wish to simply update the timestamps on a model, you may use the `touch` method:
 
 	$user->touch();
 
 <a name="soft-deleting"></a>
-## Soft Deleting
+## Borrado suave
 
 When soft deleting a model, it is not actually removed from your database. Instead, a `deleted_at` timestamp is set on the record. To enable soft deletes for a model, apply the `SoftDeletes` to the model:
 
@@ -315,11 +315,11 @@ To determine if a given model instance has been soft deleted, you may use the `t
 	}
 
 <a name="timestamps"></a>
-## Timestamps
+## Marcas de Tiempo
 
 By default, Eloquent will maintain the `created_at` and `updated_at` columns on your database table automatically. Simply add these `timestamp` columns to your table and Eloquent will take care of the rest. If you do not wish for Eloquent to maintain these columns, add the following property to your model:
 
-#### Disabling Auto Timestamps
+#### Disabling Auto Marcas de Tiempo
 
 	class User extends Model {
 
@@ -343,9 +343,9 @@ If you wish to customize the format of your timestamps, you may override the `ge
 	}
 
 <a name="query-scopes"></a>
-## Query Scopes
+## Consultas con Ámbito
 
-#### Defining A Query Scope
+#### Defining A Consultas con Ámbito
 
 Scopes allow you to easily re-use query logic in your models. To define a scope, simply prefix a model method with `scope`:
 
@@ -363,7 +363,7 @@ Scopes allow you to easily re-use query logic in your models. To define a scope,
 
 	}
 
-#### Utilizing A Query Scope
+#### Utilizing A Consultas con Ámbito
 
 	$users = User::popular()->women()->orderBy('created_at')->get();
 
@@ -385,7 +385,7 @@ Then pass the parameter into the scope call:
 	$users = User::ofType('member')->get();
 
 <a name="global-scopes"></a>
-## Global Scopes
+## Consultas Globales con Ámbito
 
 Sometimes you may wish to define a scope that applies to all queries performed on a model. In essence, this is how Eloquent's own "soft delete" feature works. Global scopes are defined using a combination of PHP traits and an implementation of `Illuminate\Database\Eloquent\ScopeInterface`.
 
@@ -451,7 +451,7 @@ The `apply` method receives an `Illuminate\Database\Eloquent\Builder` query buil
 	}
 
 <a name="relationships"></a>
-## Relationships
+## Relaciones
 
 Of course, your database tables are probably related to one another. For example, a blog post may have many comments, or an order could be related to the user who placed it. Eloquent makes managing and working with these relationships easy. Laravel supports many types of relationships:
 
@@ -775,9 +775,9 @@ The `Tag` model may define a method for each of its relationships:
 	}
 
 <a name="querying-relations"></a>
-## Querying Relations
+## Consulta de Relaciones
 
-#### Querying Relations When Selecting
+#### Consulta de Relaciones When Selecting
 
 When accessing the records for a model, you may wish to limit your results based on the existence of a relationship. For example, you wish to pull all blog posts that have at least one comment. To do so, you may use the `has` method:
 
@@ -823,10 +823,10 @@ It may be shortened to simply:
 
 	echo $phone->user->email;
 
-> **Note:** Relationships that return many results will return an instance of the `Illuminate\Database\Eloquent\Collection` class.
+> **Note:** Relaciones that return many results will return an instance of the `Illuminate\Database\Eloquent\Collection` class.
 
 <a name="eager-loading"></a>
-## Eager Loading
+## Carga Impaciente
 
 Eager loading exists to alleviate the N + 1 query problem. For example, consider a `Book` model that is related to `Author`. The relationship is defined like so:
 
@@ -893,7 +893,7 @@ Of course, eager loading Closures aren't limited to "constraints". You may also 
 
 	}])->get();
 
-### Lazy Eager Loading
+### Lazy Carga Impaciente
 
 It is also possible to eagerly load related models directly from an already existing model collection. This may be useful when dynamically deciding whether to load related models or not, or in combination with caching.
 
@@ -909,7 +909,7 @@ You may also pass a Closure to set constraints on the query:
 	}]);
 
 <a name="inserting-related-models"></a>
-## Inserting Related Models
+## Insertando Modelos Asociados
 
 #### Attaching A Related Model
 
@@ -945,7 +945,7 @@ When updating a `belongsTo` relationship, you may use the `associate` method. Th
 
 	$user->save();
 
-### Inserting Related Models (Many To Many)
+### Insertando Modelos Asociados (Many To Many)
 
 You may also insert related models when working with many-to-many relations. Let's continue using our `User` and `Role` models as examples. We can easily attach new roles to a user using the `attach` method:
 
@@ -994,7 +994,7 @@ In this example, the new `Role` model will be saved and attached to the user mod
 	User::find(1)->roles()->save($role, ['expires' => $expires]);
 
 <a name="touching-parent-timestamps"></a>
-## Touching Parent Timestamps
+## Actualizando Marcas de Tiempo en Relacioines Padre
 
 When a model `belongsTo` another model, such as a `Comment` which belongs to a `Post`, it is often helpful to update the parent's timestamp when the child model is updated. For example, when a `Comment` model is updated, you may want to automatically touch the `updated_at` timestamp of the owning `Post`. Eloquent makes it easy. Just add a `touches` property containing the names of the relationships to the child model:
 
@@ -1018,7 +1018,7 @@ Now, when you update a `Comment`, the owning `Post` will have its `updated_at` c
 	$comment->save();
 
 <a name="working-with-pivot-tables"></a>
-## Working With Pivot Tables
+## Trabajando con Tablas Pivote
 
 As you have already learned, working with many-to-many relations requires the presence of an intermediate table. Eloquent provides some very helpful ways of interacting with this table. For example, let's assume our `User` object has many `Role` objects that it is related to. After accessing this relationship, we may access the `pivot` table on the models:
 
@@ -1065,7 +1065,7 @@ Laravel also allows you to define a custom Pivot model. To define a custom model
 	}
 
 <a name="collections"></a>
-## Collections
+## Colecciones
 
 All multi-result sets returned by Eloquent, either via the `get` method or a `relationship`, will return a collection object. This object implements the `IteratorAggregate` PHP interface so it can be iterated over like an array. However, this object also has a variety of other helpful methods for working with result sets.
 
@@ -1080,7 +1080,7 @@ For example, we may determine if a result set contains a given primary key using
 		//
 	}
 
-Collections may also be converted to an array or JSON:
+Colecciones may also be converted to an array or JSON:
 
 	$roles = User::find(1)->roles->toArray();
 
@@ -1090,7 +1090,7 @@ If a collection is cast to a string, it will be returned as JSON:
 
 	$roles = (string) User::find(1)->roles;
 
-#### Iterating Collections
+#### Iterating Colecciones
 
 Eloquent collections also contain a few helpful methods for looping and filtering the items they contain:
 
@@ -1099,7 +1099,7 @@ Eloquent collections also contain a few helpful methods for looping and filterin
 		//
 	});
 
-#### Filtering Collections
+#### Filtering Colecciones
 
 When filtering collections, the callback provided will be used as callback for [array_filter](http://php.net/manual/en/function.array-filter.php).
 
@@ -1144,7 +1144,7 @@ Sometimes, you may wish to return a custom Collection object with your own added
 	}
 
 <a name="accessors-and-mutators"></a>
-## Accessors & Mutators
+## Descriptores de Acceso Y Mutadores
 
 #### Defining An Accessor
 
@@ -1175,7 +1175,7 @@ Mutators are declared in a similar fashion:
 	}
 
 <a name="date-mutators"></a>
-## Date Mutators
+## Mutators de Fecha
 
 By default, Eloquent will convert the `created_at` and `updated_at` columns to instances of [Carbon](https://github.com/briannesbitt/Carbon), which provides an assortment of helpful methods, and extends the native PHP `DateTime` class.
 
@@ -1196,7 +1196,7 @@ To totally disable date mutations, simply return an empty array from the `getDat
 	}
 
 <a name="attribute-casting"></a>
-## Attribute Casting
+## Forzando Tipos
 
 If you have some attributes that you want to always convert to another data-type, you may add the attribute to the `casts` property of your model. Otherwise, you will have to define a mutator for each of the attributes, which can be time consuming. Here is an example of using the `casts` property:
 
@@ -1233,7 +1233,7 @@ Now, when you utilize the Eloquent model:
 	$user->options = ['foo' => 'bar'];
 
 <a name="model-events"></a>
-## Model Events
+## Eventos de Modelos
 
 Eloquent models fire several events, allowing you to hook into various points in the model's lifecycle using the following methods: `creating`, `created`, `updating`, `updated`, `saving`, `saved`, `deleting`, `deleted`, `restoring`, `restored`.
 
@@ -1269,7 +1269,7 @@ Your `EventServiceProvider` serves as a convenient place to register your model 
 	}
 
 <a name="model-observers"></a>
-## Model Observers
+## Observadores de Modelos
 
 To consolidate the handling of model events, you may register a model observer. An observer class may have methods that correspond to the various model events. For example, `creating`, `updating`, `saving` methods may be on an observer, in addition to any other model event name.
 
@@ -1294,7 +1294,7 @@ You may register an observer instance using the `observe` method:
 	User::observe(new UserObserver);
 
 <a name="model-url-generation"></a>
-## Model URL Generation
+## Generación de URL para Modelos
 
 When you pass a model to the `route` or `action` methods, it's primary key is inserted into the generated URI. For example:
 
@@ -1310,7 +1310,7 @@ In this example the `$user->id` property will be inserted into the `{user}` plac
 	}
 
 <a name="converting-to-arrays-or-json"></a>
-## Converting To Arrays / JSON
+## Convitirndo a JSON / Arreglos
 
 #### Converting A Model To An Array
 
