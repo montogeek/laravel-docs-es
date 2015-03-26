@@ -156,11 +156,11 @@ La propiedad inversa de `fillable` es `guarded`, y sirve como una "lista negra" 
 
 	}
 
-> **Nota:** Al usar `guarded`, nunca debe pasar `Input::get()` o cualquier arreglo de entrada controlado por el usuario en un método `update` o `save`, por que cualquier columna que este en `guarded` podrán actualizarse.
+> **Nota:** Al usar `guarded`, nunca debe pasar `Input::get()` o cualquier arreglo de entrada controlado por el usuario en un método `update` o `save`, por que cualquier columna que este en `guarded` podrá actualizarse.
 
 #### Bloqueo de Todos los Atributos en Asignación Masiva
 
-En el ejemplo anterior, los atributos `id` password` pueden **no** ser asignan en masa. Todos los otros atributos serán asigables en masa. También puede bloquear **todos** los atributos de la asignación en masa mediante la propiedad `guard`:
+En el ejemplo anterior, los atributos `id` password` pueden **no** ser asignados en masa. Todos los otros atributos serán asigables en masa. También puede bloquear **todos** los atributos de la asignación en masa mediante la propiedad `guard`:
 
 	protected $guarded = ['*'];
 
@@ -179,7 +179,7 @@ Para crear un nuevo registro en la base de datos a partir de un modelo, basta co
 
 > **Nota:** Por lo general, sus modelos Elocuent tendrán llaves de incremento automático. Sin embargo, si desea especificar sus propias llaves, establezca la propiedad `incrementing` en su modelo a `false`.
 
-También puede utilizar el método `create` para guardar un nuevo modelo en una sola línea. La instancia del modelo insertada le será devuelto del método. Sin embargo, antes de hacerlo, tendrá que especificar cualquer atributo `fillable` o `guarded` en el modelo, ya que todos los modelos Elocuent se protegen contra la asignación en masa.
+También puede utilizar el método `create` para guardar un nuevo modelo en una sola línea. La instancia del modelo insertada le será devuelta del método. Sin embargo, antes de hacerlo, tendrá que especificar cualquer atributo `fillable` o `guarded` en el modelo, ya que todos los modelos Elocuent se protegen contra la asignación en masa.
 
 Después de guardar o crear un nuevo modelo que utiliza id de incremento automático, es posible recuperar el ID accediendo al atributo `id` del objeto:
 
@@ -195,7 +195,7 @@ Después de guardar o crear un nuevo modelo que utiliza id de incremento automá
 
 #### Usando el Método "Create" en el Modelo
 
-	// Crear un nievo usuario en la base de datos...
+	// Crear un nuevo usuario en la base de datos...
 	$user = User::create(['name' => 'John']);
 
 	// Recuperar el usuario por los atributos, o crearlo si no existe...
@@ -204,7 +204,7 @@ Después de guardar o crear un nuevo modelo que utiliza id de incremento automá
 	// Recuperar el usuario por los atributos, o una nueva instancia...
 	$user = User::firstOrNew(['name' => 'John']);
 
-#### Actualización Un Modelo Recuperado
+#### Actualización de un Modelo Recuperado
 
 Para actualizar un modelo, es posible recuperarlo, cambiar un atributo, y utilizar el método `save`:
 
@@ -255,7 +255,7 @@ Si desea actualizar simplemente las marcas de tiempo en un modelo, puede utiliza
 <a name="soft-deleting"></a>
 ## Borrado blando
 
-Cuando se borra blandamente un modelo, realmente no se quita de la base de datos. En su lugar, la marca de tiempo `deleted_at` es puesto en el registro. Para habilitar el borrado blando, aplíque `SoftDeletes` al modelo.
+Cuando se borra blandamente un modelo, realmente no se quita de la base de datos. En su lugar, la marca de tiempo `deleted_at` es puesta en el registro. Para habilitar el borrado blando, aplíque `SoftDeletes` al modelo.
 
 	use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -275,7 +275,7 @@ Ahora, cuando llame al método `delete` en el modelo, la columna `deleted_at` se
 
 #### Forzar Modelos con Borrado Suave en los Resultados
 
-Para forzar los modelos con borrado blando a para aparecer en un conjunto de resultados, utilice el método `withTrashed` en la consulta:
+Para forzar los modelos con borrado blando a aparecer en un conjunto de resultados, utilice el método `withTrashed` en la consulta:
 
 	$users = User::withTrashed()->where('account_id', 1)->get();
 
@@ -303,7 +303,7 @@ Si desea eliminar realmente un modelo de la base de datos, puede utilizar el mé
 
 	$user->forceDelete();
 
-El método `forceDelete` también trabajar en las relaciones:
+El método `forceDelete` también trabaja en las relaciones:
 
 	$user->posts()->forceDelete();
 
