@@ -51,7 +51,7 @@ Observe que no se dijo cual tabla se debe usar para el modelo `User`. El nombre 
 
 	}
 
-> **Nota:** Eloquent también asume que cada tabla tiene una columna `id` como llave primaria. Puede definir la propiedad `primaryKey` para cambiar esta convensión. Así mismo,  puede definir la propiedad `connection` para cambiar el nombre de la conexión a labase de datos que se debe usar cuando se use el modelo.
+> **Nota:** Eloquent también asume que cada tabla tiene una columna `id` como llave primaria. Puede definir la propiedad `primaryKey` para cambiar esta convensión. Así mismo,  puede definir la propiedad `connection` para cambiar el nombre de la conexión a la base de datos que se debe usar cuando se use el modelo.
 
 Una vez se define un modelo, ya está listo para comenzar la recuperación y la creación de registros en la tabla. Tenga en cuenta que tendrá que colocar las columnas `updated_at` y `created_at` en su tabla de forma predeterminada. Si no desea que estas columnas sean mantenidas automáticamente, establezca la propiedad `$timestamps` de su modelo en falso.
 
@@ -95,7 +95,7 @@ Para registrar el manejador de errores, escuche por `ModelNotFoundException`
 
 #### Agregados Eloquent
 
-Por supuesto, también puede utilizar las funciones de agregado de generador de consultas.
+Por supuesto, también puede utilizar las funciones de agregado del generador de consultas.
 
 	$count = User::where('votes', '>', 100)->count();
 
@@ -103,7 +103,7 @@ Si usted es incapaz de generar la consulta que necesita a través de la interfaz
 
 	$users = User::whereRaw('age > ? and votes = 100', [25])->get();
 
-#### Resultado en Partes
+#### Resultado en Trozos
 
 Si usted necesita procesar una gran cantidad (miles) de registros Elocuent, usando el comando `chunk` permitirá que usted lo haga sin acabar toda su RAM:
 
@@ -115,11 +115,11 @@ Si usted necesita procesar una gran cantidad (miles) de registros Elocuent, usan
 		}
 	});
 
-El primer argumento pasado al método es el número de registros que desea recibir por "trozo". La Clausura (closure) pasado como segundo argumento se llamará para cada trozo que se extrae de la base de datos.
+El primer argumento pasado al método es el número de registros que desea recibir por "trozos". La Clausura (closure) pasada como segundo argumento se llamará para cada trozo que se extrae de la base de datos.
 
 #### Especificación de la Conexión de Consulta
 
-También puede especificar qué conexión base de datos se debe emplear cuando se ejecuta una consulta Elocuent. Sólo tiene que utilizar el método `on`:
+También puede especificar qué conexión de base de datos se debe emplear cuando se ejecuta una consulta Elocuent. Sólo tiene que utilizar el método `on`:
 
 	$user = User::on('connection-name')->find(1);
 
@@ -144,7 +144,7 @@ La propiedad `fillable` especifica qué atributos puen asignarse en masa. Esto s
 
 	}
 
-En este ejemplo, sólo los tres atributos enumerados serán asignables en mas.
+En este ejemplo, sólo los tres atributos enumerados serán asignables en masa.
 
 #### Definición del atributo `guarded` en un Modelo 
 
@@ -160,7 +160,7 @@ La propiedad inversa de `fillable` es `guarded`, y sirve como una "lista negra" 
 
 #### Bloqueo de Todos los Atributos en Asignación Masiva
 
-En el ejemplo anterior, los atributos `id` password` pueden **no** ser asignados en masa. Todos los otros atributos serán asigables en masa. También puede bloquear **todos** los atributos de la asignación en masa mediante la propiedad `guard`:
+En el ejemplo anterior, los atributos `id` `password` pueden **no** ser asignados en masa. Todos los otros atributos serán asigables en masa. También puede bloquear **todos** los atributos de la asignación en masa mediante la propiedad `guard`:
 
 	protected $guarded = ['*'];
 
@@ -224,7 +224,7 @@ También puede ejecutar actualizaciones como consultas en un conjunto de modelos
 
 	$affectedRows = User::where('votes', '>', 100)->update(['status' => 2]);
 
-> **Nota:** Ningún evento del modelo se disparan cuando se actualiza un conjunto de modelos a través del generador de consultas Elocuent.
+> **Nota:** Ningún evento del modelo se dispara cuando se actualiza un conjunto de modelos a través del generador de consultas Elocuent.
 
 #### Eliminación de un Modelo Existente
 
@@ -246,7 +246,7 @@ Por supuesto, también puede ejecutar una consulta de eliminación en un conjunt
 
 	$affectedRows = User::where('votes', '>', 100)->delete();
 
-#### Actualización Únicamente los Timestamps del Modelo
+#### Actualizando Únicamente los Timestamps del Modelo
 
 Si desea actualizar simplemente las marcas de tiempo en un modelo, puede utilizar el método `touch`:
 
@@ -407,7 +407,7 @@ En primer lugar, vamos a definir un trait. Para este ejemplo, vamos a utilizar `
 
 Si un modelo Elocuent utiliza un trait que tiene un método que coincida con la convención de `bootNameOfTrait`, se llamará el método trait cuando se arranque el modelo Elocuent, dándole la oportunidad de registrar un ámbito global, o hacer cualquier cosa que desee. Un ámbito debe implementar `ScopeInterface`, que especifica dos métodos: `apply` y `remove`.
 
-El método `apply` recibe un objeto `Illuminate\Database\Elocuent\Builder` generador de consultas y el `Modelo` al que se aplica, y es responsable adicionar cualquier clausula `where` adicional que el ámbito desee agregar. El método `remove` también recibe un objeto `Builder` y un `Modelo` y es responsable de la reversar la acción tomada por `apply`. En otras palabras, `remove` debe quitar las cláusulas `where` añadidas (o cualquier otra cláusula). Así, para nuestro `SoftDeletingScope`, los métodos buscan algo como esto:
+El método `apply` recibe un objeto generador de consultas `Illuminate\Database\Elocuent\Builder` y el `Modelo` al que se aplica, y es responsable adicionar cualquier clausula `where` adicional que el ámbito desee agregar. El método `remove` también recibe un objeto `Builder` y un `Modelo` y es responsable de reversar la acción tomada por `apply`. En otras palabras, `remove` debe quitar las cláusulas `where` añadidas (o cualquier otra cláusula). Así, para nuestro `SoftDeletingScope`, los métodos buscan algo como esto:
 
 	/**
 	 * Aplica el ámbito al "query builder" dado.
@@ -438,9 +438,10 @@ El método `apply` recibe un objeto `Illuminate\Database\Elocuent\Builder` gener
 
 		foreach ((array) $query->wheres as $key => $where)
 		{
-		    // Si la cláusula where es una restricción de eliminación de fecha blanda, lo eliminaremos 
-		    // de la consulta y se restableceran las llaves en los wheres. Esto permite al desarrollador
-            // incluir modelos borrado en un conjunto de resultados de la relación que es cargado peresozamente.
+		    // Si la cláusula where es una restricción de eliminación de fecha blanda, 
+		    // lo eliminaremos de la consulta y se restableceran las llaves en los wheres. Esto 
+		    // permite al desarrollador incluir modelos borrado en un conjunto de resultados de la 
+		    // relación que es cargado peresozamente.
 			if ($this->isSoftDeleteConstraint($where, $column))
 			{
 				unset($query->wheres[$key]);
@@ -488,7 +489,7 @@ El SQL realizado por esta declaración será el siguiente:
 
 	select * from phones where user_id = 1
 
-Tenga en cuenta que Elocuent asume la llave externa de la relación basada en el nombre del modelo. En este caso, con modelo `Phone` asume que debe usar la llave externa `user_id`. Si desea anular esta convención, es posible pasar un segundo argumento del método `hasOne`. Además, es posible pasar un tercer argumento al método para especificar qué columna local que se debe utilizar para la asociación:
+Tenga en cuenta que Elocuent asume la llave externa de la relación basada en el nombre del modelo. En este caso, el modelo `Phone` asume que debe usar la llave externa `user_id`. Si desea anular esta convención, es posible pasar un segundo argumento del método `hasOne`. Además, es posible pasar un tercer argumento al método para especificar qué columna local se debe utilizar para la asociación:
 
 	return $this->hasOne('App\Phone', 'foreign_key');
 
@@ -507,7 +508,7 @@ Para definir el inverso de la relación en el modelo `Phone`, utilizamos el mét
 
 	}
 
-En el ejemplo anterior, Elocuent buscará una columna `user_id` sobre la tabla `phones`. Si desea definir una columna para la llave externa diferente, puede pasarla como segundo argumento al método `belongsTo`:
+En el ejemplo anterior, Elocuent buscará una columna `user_id` sobre la tabla `phones`. Si desea definir una columna diferente para la llave externa, puede pasarla como segundo argumento al método `belongsTo`:
 
 	class Phone extends Model {
 
@@ -573,7 +574,7 @@ Para definir el inverso de la relación en el modelo `Comment`, utilizamos el m�
 <a name="many-to-many"></a>
 ### Muchos A Muchos
 
-Las relaciones muchos-a-muchos son un tipo más complicada de relación. Un ejemplo de esta relación es un usuario con muchos roles, donde los roles también son compartidos por otros usuarios. Por ejemplo, muchos usuarios pueden tener el rol de "Admin". Se necesitan tres tablas para esta relación: `users`, `roles`, y` role_user`. La tabla `role_user` se deriva del orden alfabético de los nombres de los modelos relacionados, y debe tener las columnas `user_id` y `role_id`.
+Las relaciones muchos-a-muchos son un tipo más complicado de relación. Un ejemplo de esta relación es un usuario con muchos roles, donde los roles también son compartidos por otros usuarios. Por ejemplo, muchos usuarios pueden tener el rol de "Admin". Se necesitan tres tablas para esta relación: `users`, `roles`, y` role_user`. La tabla `role_user` se deriva del orden alfabético de los nombres de los modelos relacionados, y debe tener las columnas `user_id` y `role_id`.
 
 Podemos definir una relación muchos-a-muchos con el método `belongsToMany`:
 
@@ -612,7 +613,7 @@ Por supuesto, también puede definir el inverso de la relación en el modelo `Ro
 <a name="has-many-through"></a>
 ### Tiene Muchos A Través De
 
-La relación "tiene muchos a través de" proporciona un atajo cómodo para visitar parientes lejanos a través de una relación intermedia. Por ejemplo, un modelo `Country` podría tener muchos `Post` a través de un modelo de `User`. Las tablas de esta relación podría tener este aspecto:
+La relación "tiene muchos a través de" proporciona un atajo cómodo para visitar parientes lejanos a través de una relación intermedia. Por ejemplo, un modelo `Country` podría tener muchos `Post` a través de un modelo `User`. Las tablas de esta relación podría tener este aspecto:
 
 	countries
 		id - integer
@@ -628,7 +629,7 @@ La relación "tiene muchos a través de" proporciona un atajo cómodo para visit
 		user_id - integer
 		title - string
 
-A pesar de que la tabla `posts` no contiene una columna `country_id`, la relación `hasManyThrough` nos permitirá acceder a los post de un país a través de `$country->posts`. Vamos a definir la relación:
+A pesar de que la tabla `posts` no contiene una columna `country_id`, la relación `hasManyThrough` nos permitirá acceder a los posts de un país a través de `$country->posts`. Vamos a definir la relación:
 
 	class Country extends Model {
 
@@ -701,7 +702,7 @@ Sin embargo, la verdadera magia "polimórfica" es cuando se accede al personal u
 
 	$imageable = $photo->imageable;
 
-El relación `imageable` en el modelo `Photo` devolverá una instancia de `Staff` o de `Order`, dependiendo de qué tipo de modelo es propietaria de la foto.
+El relación `imageable` en el modelo `Photo` devolverá una instancia de `Staff` o de `Order`, dependiendo de qué tipo de modelo es propietario de la foto.
 
 #### Estructura De La Tabla De Una Relación Polimórfica
 
