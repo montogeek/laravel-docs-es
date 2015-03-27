@@ -1,9 +1,9 @@
 # ORM Eloquent
 
 - [Introducción](#introduction)
-- [Uso Básico](#basic-usage)
+- [Uso básico](#basic-usage)
 - [Asignación Masiva](#mass-assignment)
-- [Insertar, Actualizar, Borrar](#insert-update-delete)
+- [Insertar, actualizar, borrar](#insert-update-delete)
 - [Borrado blando](#soft-deleting)
 - [Marcas de Tiempo](#timestamps)
 - [Consultas con Ámbito](#query-scopes)
@@ -26,20 +26,20 @@
 <a name="introduction"></a>
 ## Introducción
 
-El ORM Eloquent incluído con Laravel provee una implementación hermosa y sencilla de ActiveRecord para trabajar con su base de datos. Cada tabla de la base de datos tiene un "Modelo" correspondiente que es usado para interactuar con la tabla.
+El ORM Eloquent incluído con Laravel provee una implementación hermosa y sencilla de "ActiveRecord" para trabajar con su base de datos. Cada tabla de la base de datos tiene un "Modelo" correspondiente que es usado para interactuar con la tabla.
 
 Antes de empezar, asegúrase de configurar la conexión a la base de datos en `config/database.php`.
 
 <a name="basic-usage"></a>
-## Uso Básico
+## Uso básico
 
 Para empezar, cree un modelo Eloquent. Generalmente los modelos están en el directorio `app`, pero siéntase en libertad de guardarlos en cualquier directorio que se pueda autocargar a través de su archivo `composer.json`. Todos los modelos Eloquent extienden `Illuminate\Database\Eloquent\Model`.
 
-#### Definición de un Modelo Eloquent
+#### Definir un modelo Eloquent
 
 	class User extends Model {}
 
-También puede general los modelos Eloquent usando el commando `make:model`:
+También puede generar los modelos Eloquent usando el comando `make:model`:
 
 	php artisan make:model User
 
@@ -55,11 +55,11 @@ Observe que no se dijo cual tabla se debe usar para el modelo `User`. El nombre 
 
 Una vez se define un modelo, ya está listo para comenzar la recuperación y la creación de registros en la tabla. Tenga en cuenta que tendrá que colocar las columnas `updated_at` y `created_at` en su tabla de forma predeterminada. Si no desea que estas columnas sean mantenidas automáticamente, establezca la propiedad `$timestamps` de su modelo en falso.
 
-#### Obtener Todos Los Modelos
+#### Obtener todos los modelos
 
 	$users = User::all();
 
-#### Obtener Un Registro Por Llave Primaria
+#### Obtener un registro por llave primaria
 
 	$user = User::find(1);
 
@@ -67,9 +67,9 @@ Una vez se define un modelo, ya está listo para comenzar la recuperación y la 
 
 > **Nota:** Todos los métodos disponibles en el [generador de consultas](/docs/queries) también están disponibles al consultar modelos Elocuent.
 
-#### Obtener Un Registro Por Llave Primaria o Generar Excepción
+#### Obtener un registro por llave primaria o generar una excepción
 
-A veces es posible que desee lanzar una excepción si no se encuentra un modelo, lo que le permite capturar las excepciones utilizando un manejador `App::error` y mostrar una página 404.
+A veces es posible que desee lanzar una excepción si no se encuentra un registro, lo que le permite capturar las excepciones utilizando el manejador `App::error` y mostrar una página 404.
 
 	$model = User::findOrFail(1);
 
@@ -84,7 +84,7 @@ Para registrar el manejador de errores, escuche por `ModelNotFoundException`
 		return Response::make('Not Found', 404);
 	});
 
-#### Consultas Usando Modelos Eloquent
+#### Consultas usando modelos Eloquent
 
 	$users = User::where('votes', '>', 100)->take(10)->get();
 
@@ -103,7 +103,7 @@ Si usted es incapaz de generar la consulta que necesita a través de la interfaz
 
 	$users = User::whereRaw('age > ? and votes = 100', [25])->get();
 
-#### Resultado en Trozos
+#### Resultado en trozos
 
 Si usted necesita procesar una gran cantidad (miles) de registros Elocuent, usando el comando `chunk` permitirá que usted lo haga sin acabar toda su RAM:
 
@@ -117,7 +117,7 @@ Si usted necesita procesar una gran cantidad (miles) de registros Elocuent, usan
 
 El primer argumento pasado al método es el número de registros que desea recibir por "trozos". La Clausura (closure) pasada como segundo argumento se llamará para cada trozo que se extrae de la base de datos.
 
-#### Especificación de la Conexión de Consulta
+#### Especificar una conexión de consulta
 
 También puede especificar qué conexión de base de datos se debe emplear cuando se ejecuta una consulta Elocuent. Sólo tiene que utilizar el método `on`:
 
@@ -128,13 +128,13 @@ Si utiliza [conexiones lectura/escritura](/5.0/database#read-write-connections),
 	$user = User::onWriteConnection()->find(1);
 
 <a name="mass-assignment"></a>
-## Asignación Masiva 
+## Asignación masiva 
 
 Al crear un nuevo modelo, puede pasar un arreglo de atributos al constructor del modelo. Estos atributos se asignan al modelo a través de la asignación masiva. Esto es conveniente; Sin embargo, puede ser un **grave** problema de seguridad al pasar ciegamente la entrada del usuario en un modelo. Si la entrada del usuario se pasa a ciegas a un modelo, el usuario es libre de modificar **cualquier** o **todos** los atributos del modelo. Por esta razón, todos los modelos Elocuent por omisión se protegen contra la asignación masiva.
 
 Para empezar, establezca la propiedad `fillable` o  `guarded` en su modelo.
 
-#### Definición del atributo `fillable` en un Modelo 
+#### Definir el atributo `fillable` en un modelo 
 
 La propiedad `fillable` especifica qué atributos puen asignarse en masa. Esto se puede configurar a nivel de clase o instancia.
 
@@ -146,7 +146,7 @@ La propiedad `fillable` especifica qué atributos puen asignarse en masa. Esto s
 
 En este ejemplo, sólo los tres atributos enumerados serán asignables en masa.
 
-#### Definición del atributo `guarded` en un Modelo 
+#### Definir el atributo `guarded` en un modelo 
 
 La propiedad inversa de `fillable` es `guarded`, y sirve como una "lista negra" en lugar de una "lista blanca":
 
@@ -158,18 +158,18 @@ La propiedad inversa de `fillable` es `guarded`, y sirve como una "lista negra" 
 
 > **Nota:** Al usar `guarded`, nunca debe pasar `Input::get()` o cualquier arreglo de entrada controlado por el usuario en un método `update` o `save`, por que cualquier columna que este en `guarded` podrá actualizarse.
 
-#### Bloqueo de Todos los Atributos en Asignación Masiva
+#### Bloquear todos los atributos para asignación masiva
 
-En el ejemplo anterior, los atributos `id` `password` pueden **no** ser asignados en masa. Todos los otros atributos serán asigables en masa. También puede bloquear **todos** los atributos de la asignación en masa mediante la propiedad `guard`:
+En el ejemplo anterior, los atributos `id` y `password` **no** serán asignados en masa. Todos los otros atributos serán asigables en masa. También puede bloquear **todos** los atributos de la asignación en masa mediante la propiedad `guard`:
 
 	protected $guarded = ['*'];
 
 <a name="insert-update-delete"></a>
-## Insertar, Actualizar, Borrar
+## Insertar, actualizar, borrar
 
 Para crear un nuevo registro en la base de datos a partir de un modelo, basta con crear una nueva instancia del modelo y llamar al método `save`.
 
-#### Guardar un Nuevo Modelo
+#### Guardar un nuevo modelo
 
 	$user = new User;
 
@@ -185,7 +185,7 @@ Después de guardar o crear un nuevo modelo que utiliza id de incremento automá
 
 	$insertedId = $user->id;
 
-#### Configuración del atributo `guarded` en el Modelo
+#### Configuración del atributo `guarded` en el modelo
 
 	class User extends Model {
 
@@ -193,7 +193,7 @@ Después de guardar o crear un nuevo modelo que utiliza id de incremento automá
 
 	}
 
-#### Usando el Método "Create" en el Modelo
+#### Usando el método "create" en el modelo
 
 	// Crear un nuevo usuario en la base de datos...
 	$user = User::create(['name' => 'John']);
@@ -204,7 +204,7 @@ Después de guardar o crear un nuevo modelo que utiliza id de incremento automá
 	// Recuperar el usuario por los atributos, o una nueva instancia...
 	$user = User::firstOrNew(['name' => 'John']);
 
-#### Actualización de un Modelo Recuperado
+#### Actualización de un modelo recuperado
 
 Para actualizar un modelo, es posible recuperarlo, cambiar un atributo, y utilizar el método `save`:
 
@@ -214,7 +214,7 @@ Para actualizar un modelo, es posible recuperarlo, cambiar un atributo, y utiliz
 
 	$user->save();
 
-#### Guardando un modelo y Las relaciones
+#### Guardando un modelo y las relaciones
 
 A veces es posible que desee no sólo salvar un modelo sino también todas sus relaciones. Para ello, puede utilizar el método `push`:
 
@@ -226,7 +226,7 @@ También puede ejecutar actualizaciones como consultas en un conjunto de modelos
 
 > **Nota:** Ningún evento del modelo se dispara cuando se actualiza un conjunto de modelos a través del generador de consultas Elocuent.
 
-#### Eliminación de un Modelo Existente
+#### Eliminar un modelo existente
 
 Para borrar un modelo, simplemente llame al método `delete` en la instancia:
 
@@ -234,7 +234,7 @@ Para borrar un modelo, simplemente llame al método `delete` en la instancia:
 
 	$user->delete();
 
-#### Eliminación de un Modelo Existente por Llave
+#### Eliminar un modelo existente por llave
 
 	User::destroy(1);
 
@@ -246,7 +246,7 @@ Por supuesto, también puede ejecutar una consulta de eliminación en un conjunt
 
 	$affectedRows = User::where('votes', '>', 100)->delete();
 
-#### Actualizando Únicamente los Timestamps del Modelo
+#### Actualizando únicamente los timestamps del modelo
 
 Si desea actualizar simplemente las marcas de tiempo en un modelo, puede utilizar el método `touch`:
 
@@ -273,7 +273,7 @@ Para agregar una columna `deleted_at` a su tabla, puede utilizar el método` sof
 
 Ahora, cuando llame al método `delete` en el modelo, la columna `deleted_at` se establecerá en la fecha y hora actual. Cuando se consulta un modelo que utiliza borrados suaves, no se incluirán los modelos "borrados" en los resultados de la consulta.
 
-#### Forzar Modelos con Borrado Suave en los Resultados
+#### Forzar modelos con borrado suave en los resultados
 
 Para forzar los modelos con borrado blando a aparecer en un conjunto de resultados, utilice el método `withTrashed` en la consulta:
 
@@ -315,11 +315,11 @@ Para determinar si una instancia del modelo en cuestión se ha borrado blandamen
 	}
 
 <a name="timestamps"></a>
-## Marcas de Tiempo
+## Marcas de tiempo
 
-Por defecto, Eloquent mantendrá las columnas `created_at` y `updated_at` en la tabla de su base de datos de forma automática. Sólo añada estas columnas `timestamp` a su tabla y Eloquent se hará cargo del resto. Si usted no desea que Eloquent mantenga estas columnas, agrege la siguiente propiedad a su modelo:
+Por omisión, Eloquent mantendrá las columnas `created_at` y `updated_at` en la tabla de su base de datos de forma automática. Sólo añada estas columnas `timestamp` a su tabla y Eloquent se hará cargo del resto. Si usted no desea que Eloquent mantenga estas columnas, agrege la siguiente propiedad a su modelo:
 
-#### Desactivación de Timestamps Automáticos
+#### Desactivar de timestamps automáticos
 
 	class User extends Model {
 
@@ -329,7 +329,7 @@ Por defecto, Eloquent mantendrá las columnas `created_at` y `updated_at` en la 
 
 	}
 
-#### Proporcionando un Formato Personalizado para Timestamp
+#### Proporcionar un formato personalizado para las marcas de tiempo
 
 Si desea personalizar el formato de sus marcas de tiempo, puede reemplazar el método `getDateFormat` en su modelo:
 
@@ -343,9 +343,9 @@ Si desea personalizar el formato de sus marcas de tiempo, puede reemplazar el m�
 	}
 
 <a name="query-scopes"></a>
-## Consultas con Ámbito
+## Consultas con ámbito
 
-#### Definir una Consulta con Ámbito
+#### Definir una consulta con ámbito
 
 Los ámbitos le permiten reutilizar fácilmente la lógica de consultas en sus modelos. Para definir un ámbito, simplemente anteponga `scope` al método del modelo:
 
@@ -363,11 +363,11 @@ Los ámbitos le permiten reutilizar fácilmente la lógica de consultas en sus m
 
 	}
 
-#### Utilizando Consultas con Ámbito
+#### Utilizar consultas con ámbito
 
 	$users = User::popular()->women()->orderBy('created_at')->get();
 
-#### Ámbitos Dinámicos
+#### Ámbitos dinámicos
 
 A veces es posible que desee definir un ámbito que acepta parámetros. Sólo tiene que añadir sus parámetros a la función de ámbito:
 
@@ -385,7 +385,7 @@ Luego pase el parámetro a la llamada ámbito:
 	$users = User::ofType('member')->get();
 
 <a name="global-scopes"></a>
-## Consultas Globales con Ámbito
+## Consultas globales con ámbito
 
 A veces es posible que desee definir un ámbito que se aplica a todas las consultas realizadas en un modelo. En esencia, se trata de cómo funciona "borrado blando", una característica própia de Elocuent. Los ámbitos globales se definen usando una combinación de traits de PHP y una implementación de `Illuminate\Database\Eloquent\ScopeInterface`.
 
@@ -394,7 +394,7 @@ En primer lugar, vamos a definir un trait. Para este ejemplo, vamos a utilizar `
 	trait SoftDeletes {
 
 		/**
-		 * Boot the soft deleting trait for a model.
+		 * Iniciar el trait "borrado suave" para un modelo.
 		 *
 		 * @return void
 		 */
@@ -405,7 +405,7 @@ En primer lugar, vamos a definir un trait. Para este ejemplo, vamos a utilizar `
 
 	}
 
-Si un modelo Elocuent utiliza un trait que tiene un método que coincida con la convención de `bootNameOfTrait`, se llamará el método trait cuando se arranque el modelo Elocuent, dándole la oportunidad de registrar un ámbito global, o hacer cualquier cosa que desee. Un ámbito debe implementar `ScopeInterface`, que especifica dos métodos: `apply` y `remove`.
+Si un modelo Elocuent utiliza un trait que tiene un método que coincida con la convención de `bootNameOfTrait`, se llamará el método trait cuando se inicie el modelo Elocuent, dándole la oportunidad de registrar un ámbito global, o hacer cualquier cosa que desee. Un ámbito debe implementar `ScopeInterface`, que especifica dos métodos: `apply` y `remove`.
 
 El método `apply` recibe un objeto generador de consultas `Illuminate\Database\Elocuent\Builder` y el `Modelo` al que se aplica, y es responsable adicionar cualquier clausula `where` adicional que el ámbito desee agregar. El método `remove` también recibe un objeto `Builder` y un `Modelo` y es responsable de reversar la acción tomada por `apply`. En otras palabras, `remove` debe quitar las cláusulas `where` añadidas (o cualquier otra cláusula). Así, para nuestro `SoftDeletingScope`, los métodos buscan algo como esto:
 
@@ -440,8 +440,8 @@ El método `apply` recibe un objeto generador de consultas `Illuminate\Database\
 		{
 		    // Si la cláusula where es una restricción de eliminación de fecha blanda, 
 		    // lo eliminaremos de la consulta y se restableceran las llaves en los wheres. Esto 
-		    // permite al desarrollador incluir modelos borrado en un conjunto de resultados de la 
-		    // relación que es cargado peresozamente.
+		    // permite al desarrollador incluir modelos borrados en un conjunto de resultados de la 
+		    // relación que es cargada posteriormente.
 			if ($this->isSoftDeleteConstraint($where, $column))
 			{
 				unset($query->wheres[$key]);
@@ -452,21 +452,21 @@ El método `apply` recibe un objeto generador de consultas `Illuminate\Database\
 	}
 
 <a name="relationships"></a>
-## Las Relaciones
+## Las relaciones
 
 Por supuesto, las tablas en la base de datos probablemente están relacionados entre sí. Por ejemplo, una entrada de blog puede tener muchos comentarios, o una orden podría estar relacionada con el usuario que la colocó. Eloquent hace que la gestión y el trabajo con estas relaciones sea fácil. Laravel soporta muchos tipos de relaciones:
 
-- [Uno A Uno](#one-to-one)
-- [Uno A Muchos](#one-to-many)
-- [Muchos A Muchos](#many-to-many)
-- [Tiene Muchos a Través de](#has-many-through)
-- [Relaciones Polimórficas](#polymorphic-relations)
-- [Relaciones Polimórficas Muchos a Muchos](#many-to-many-polymorphic-relations)
+- [Uno a uno](#one-to-one)
+- [Uno a muchos](#one-to-many)
+- [Muchos a muchos](#many-to-many)
+- [Tiene muchos a través de](#has-many-through)
+- [Relaciones polimórficas](#polymorphic-relations)
+- [Relaciones polimórficas muchos a muchos](#many-to-many-polymorphic-relations)
 
 <a name="one-to-one"></a>
-### Uno A Uno
+### Uno a uno
 
-#### Definición de una Relación Uno A Uno
+#### Definir una relación uno a uno
 
 Una relación uno-a-uno es una relación muy básica. Por ejemplo, un modelo `User` podría tener un `Phone`. Podemos definir esta relación en Elocuent:
 
@@ -479,7 +479,7 @@ Una relación uno-a-uno es una relación muy básica. Por ejemplo, un modelo `Us
 
 	}
 
-El primer argumento pasado al método `hasOne` es el nombre del modelo relacionado. Una vez definida la relación, podemos recuperarla usando [propiedades dinámicas](#dynamic-properties) de Elocuent:
+El primer argumento pasado al método `hasOne` es el nombre del modelo relacionado. Una vez definida la relación, podemos recuperarla usando las [propiedades dinámicas](#dynamic-properties) de Elocuent:
 
 	$phone = User::find(1)->phone;
 
@@ -491,11 +491,11 @@ El SQL realizado por esta declaración será el siguiente:
 
 Tenga en cuenta que Elocuent asume la llave externa de la relación basada en el nombre del modelo. En este caso, el modelo `Phone` asume que debe usar la llave externa `user_id`. Si desea anular esta convención, es posible pasar un segundo argumento del método `hasOne`. Además, es posible pasar un tercer argumento al método para especificar qué columna local se debe utilizar para la asociación:
 
-	return $this->hasOne('App\Phone', 'foreign_key');
+	return $this->hasOne('App\Phone', 'llave_externa');
 
-	return $this->hasOne('App\Phone', 'foreign_key', 'local_key');
+	return $this->hasOne('App\Phone', 'llave_externa', 'llave_local');
 
-#### Definición del Inverso de una Relación
+#### Definir del Inverso de una Relación
 
 Para definir el inverso de la relación en el modelo `Phone`, utilizamos el método `belongsTo`:
 
@@ -514,7 +514,7 @@ En el ejemplo anterior, Elocuent buscará una columna `user_id` sobre la tabla `
 
 		public function user()
 		{
-			return $this->belongsTo('App\User', 'local_key');
+			return $this->belongsTo('App\User', 'llave_local');
 		}
 
 	}
@@ -525,13 +525,13 @@ Además, puede pasar un tercer parámetro que especifica el nombre de la columna
 
 		public function user()
 		{
-			return $this->belongsTo('App\User', 'local_key', 'parent_key');
+			return $this->belongsTo('App\User', 'llave_local', 'llave_padre');
 		}
 
 	}
 
 <a name="one-to-many"></a>
-### Uno a Muchos
+### Uno a muchos
 
 Un ejemplo de una relación uno-a-muchos es un blog que "tiene muchos" comentarios. Podemos modelar esta relación, así:
 
@@ -554,11 +554,11 @@ Si necesita añadir más restricciones a los comentarios que se recuperan, puede
 
 Una vez más, es posible anular la llave externa convencional pasando un segundo argumento del método `hasMany`. Y, como en la relación `hasOne`, la columna local puede también ser especificada:
 
-	return $this->hasMany('App\Comment', 'foreign_key');
+	return $this->hasMany('App\Comment', 'llave_externa');
 
-	return $this->hasMany('App\Comment', 'foreign_key', 'local_key');
+	return $this->hasMany('App\Comment', 'llave_externa', 'llave_local');
 
-#### Definición del Inverso de la Relación
+#### Definir inverso de la relación
 
 Para definir el inverso de la relación en el modelo `Comment`, utilizamos el método `belongsTo`:
 
@@ -572,7 +572,7 @@ Para definir el inverso de la relación en el modelo `Comment`, utilizamos el m�
 	}
 
 <a name="many-to-many"></a>
-### Muchos A Muchos
+### Muchos a muchos
 
 Las relaciones muchos-a-muchos son un tipo más complicado de relación. Un ejemplo de esta relación es un usuario con muchos roles, donde los roles también son compartidos por otros usuarios. Por ejemplo, muchos usuarios pueden tener el rol de "Admin". Se necesitan tres tablas para esta relación: `users`, `roles`, y` role_user`. La tabla `role_user` se deriva del orden alfabético de los nombres de los modelos relacionados, y debe tener las columnas `user_id` y `role_id`.
 
@@ -611,7 +611,7 @@ Por supuesto, también puede definir el inverso de la relación en el modelo `Ro
 	}
 
 <a name="has-many-through"></a>
-### Tiene Muchos A Través De
+### Tiene muchos a través de
 
 La relación "tiene muchos a través de" proporciona un atajo cómodo para visitar parientes lejanos a través de una relación intermedia. Por ejemplo, un modelo `Country` podría tener muchos `Post` a través de un modelo `User`. Las tablas de esta relación podría tener este aspecto:
 
@@ -652,9 +652,9 @@ Si desea especificar manualmente las llaves de la relación, puede pasarlas como
 	}
 
 <a name="polymorphic-relations"></a>
-### Relaciones Polimórficas
+### Relaciones polimórficas
 
-Las relaciones polimórficas permiten a un modelo pertenecer a más de un modelo, en una sola asociación. Por ejemplo, usted podría tener un modelo de foto que pertenece tanto a un modelo de personal o un modelo de orden. Queremos definir esta relación, así:
+Las relaciones polimórficas permiten a un modelo pertenecer a más de un modelo, en una sola asociación. Por ejemplo, usted podría tener un modelo de foto que pertenece tanto a un modelo de personal o a un modelo de orden. Queremos definir esta relación, así:
 
 	class Photo extends Model {
 
@@ -683,7 +683,7 @@ Las relaciones polimórficas permiten a un modelo pertenecer a más de un modelo
 
 	}
 
-#### Obtener Una Relación Polimórfica
+#### Obtener una relación polimórfica
 
 Ahora, podemos recuperar las fotos, ya sea para un miembro del personal o una orden:
 
@@ -694,7 +694,7 @@ Ahora, podemos recuperar las fotos, ya sea para un miembro del personal o una or
 		//
 	}
 
-#### Obtener El Propietario De Una Relación Polimórfica
+#### Obtener el propietario de una relación polimórfica
 
 Sin embargo, la verdadera magia "polimórfica" es cuando se accede al personal u orden del modelo `Photo`:
 
@@ -704,7 +704,7 @@ Sin embargo, la verdadera magia "polimórfica" es cuando se accede al personal u
 
 El relación `imageable` en el modelo `Photo` devolverá una instancia de `Staff` o de `Order`, dependiendo de qué tipo de modelo es propietario de la foto.
 
-#### Estructura De La Tabla De Una Relación Polimórfica
+#### Estructura de la tabla en una relación polimórfica
 
 Para ayudar a entender cómo funciona esto, vamos a explorar la estructura de base de datos para una relación polimórfica:
 
@@ -780,7 +780,7 @@ El modelo `Tag` puede definir un método para cada uno de sus relaciones:
 
 #### Consulta de relaciones a la hora de seleccionar
 
-Al acceder a los registros de un modelo, es posible que desee limitar sus resultados sobre la base de la existencia de una relación. Por ejemplo, usted desea halar todos los posts de blogs que tienen al menos un comentario. Para ello, puede utilizar el método `has`:
+Al acceder a los registros de un modelo, es posible que desee limitar sus resultados sobre la base de la existencia de una relación. Por ejemplo, usted desea recuperar todos los posts de blogs que tienen al menos un comentario. Para ello, puede utilizar el método `has`:
 
 	$posts = Post::has('comments')->get();
 
@@ -829,7 +829,7 @@ Puede ser simplificado a simplemente::
 <a name="eager-loading"></a>
 ## Carga impaciente
 
-Existe la carga impaciente para aliviar el problema de ls consulta N + 1. Por ejemplo, considere un modelo `Book` que se relaciona con `author`. La relación se define de este modo:
+Existe la carga impaciente para aliviar el problema de la consulta N + 1. Por ejemplo, considere un modelo `Book` que se relaciona con `author`. La relación se define de este modo:
 
 	class Book extends Model {
 
@@ -847,7 +847,7 @@ Ahora, considere el siguiente código:
 		echo $book->author->name;
 	}
 
-Este bucle se ejecutará 1 consulta para recuperar todos los libros de la tabla, y luego otra consulta para cada libro para recuperar el autor. Por lo tanto, si tenemos 25 libros, este bucle se ejecutaría 26 consultas.
+En este bucle se ejecutará 1 consulta para recuperar todos los libros de la tabla, y luego otra consulta para cada libro para recuperar el autor. Por lo tanto, si tenemos 25 libros, este bucle se ejecutaría 26 consultas.
 
 Afortunadamente, podemos utilizar la carga impaciente para reducir drásticamente el número de consultas. Las relaciones que se deben cargar impacientemente se pueden especificar mediante el método `with`:
 
@@ -872,11 +872,11 @@ Es posible que cargar impacientemente relaciones anidadas:
 
 	$books = Book::with('author.contacts')->get();
 
-En el ejemplo anterior, la relación `author` será cargada impacientemente, y también será cargado la relación `contacts` del autor.
+En el ejemplo anterior, la relación `author` será cargada impacientemente, y también será cargada la relación `contacts` del autor.
 
-### Restricciones en la carga impaciente
+### Restringir la carga impaciente
 
-A veces es posible que desee cargar impacientemente una relación, sino que también puede especificar una condición para la carga impaciente. He aquí un ejemplo:
+A veces es posible que desee cargar impacientemente una relación, pero también puede especificar una condición para la carga impaciente. He aquí un ejemplo:
 
 	$users = User::with(['posts' => function($query)
 	{
@@ -956,7 +956,7 @@ También puede insertar modelos relacionados cuando se trabaja con ralciones muc
 
 	$user->roles()->attach(1);
 
-También puede pasar un arreglo de atributos que se deben almacenar en la tabla dinámica de la relación:
+También puede pasar un arreglo de atributos que se deben almacenar en la tabla pivote de la relación:
 
 	$user->roles()->attach(1, ['expires' => $expires]);
 
@@ -978,7 +978,7 @@ También puede utilizar el método `sync` para adjuntar modelos relacionados. El
 
 	$user->roles()->sync([1, 2, 3]);
 
-#### Añadir datos pivore cuando se sincroniza
+#### Añadir datos pivote cuando se sincroniza
 
 También puede asociar otros valores a la tabla pivote con los IDs dados:
 
@@ -997,7 +997,7 @@ En este ejemplo, el nuevo modelo `Role` se guardará y se vincula al modelo de u
 <a name="touching-parent-timestamps"></a>
 ## Actualizar marcas de tiempo en el padre
 
-Cuando un modelo `belongsTo` otro modelo, como un `Comment` que pertenece a una `Post`, a menudo es útil actualizar la marca de tiempo del padre cuando se actualiza el modelo hijo. Por ejemplo, cuando se actualiza un modelo `Comment`, es posible que desee actualizar automáticamente el "timestamp" `updated_at` del dueño `Post`. Eloquent lo hace fácil. Sólo tiene que añadir la propiedad `touches` que contiene los nombres de las relaciones con el modelo hijo:
+Cuando un modelo pertence a otro modelo, como un `Comment` que pertenece a un `Post`, a menudo es útil actualizar la marca de tiempo del padre cuando se actualiza el modelo hijo. Por ejemplo, cuando se actualiza un modelo `Comment`, es posible que desee actualizar automáticamente el "timestamp" `updated_at` del padre `Post`. Eloquent lo hace fácil. Sólo tiene que añadir la propiedad `touches` que contiene los nombres de las relaciones con el modelo hijo:
 
 	class Comment extends Model {
 
@@ -1010,7 +1010,7 @@ Cuando un modelo `belongsTo` otro modelo, como un `Comment` que pertenece a una 
 
 	}
 
-Ahora, cuando se actualiza un `Comment`, el `Post` propietario tendrá actualizada su columna `updated_at`:
+Ahora, cuando se actualiza un `Comment`, el `Post` padre tendrá actualizada su columna `updated_at`:
 
 	$comment = Comment::find(1);
 
@@ -1021,7 +1021,7 @@ Ahora, cuando se actualiza un `Comment`, el `Post` propietario tendrá actualiza
 <a name="working-with-pivot-tables"></a>
 ## Trabajar tablas pivote
 
-Como ya ha aprendido, trabajando con relaciones muchos-a-muchos requiere la presencia de una tabla intermedia. Elocuent ofrece algunas maneras muy útiles de interactuar con esta tabla. Por ejemplo, supongamos que nuestro objeto `User` tiene muchos objetos `Role` relacionados. Después de acceder a esta relación, podemos acceder a la tabla `pivot` en los modelos:
+Como ya ha aprendido, trabajar con relaciones muchos-a-muchos requiere la presencia de una tabla intermedia. Elocuent ofrece algunas maneras muy útiles de interactuar con esta tabla. Por ejemplo, supongamos que nuestro objeto `User` tiene muchos objetos `Role` relacionados. Después de acceder a esta relación, podemos acceder a la tabla `pivot` en los modelos:
 
 	$user = User::find(1);
 
@@ -1032,7 +1032,7 @@ Como ya ha aprendido, trabajando con relaciones muchos-a-muchos requiere la pres
 
 Observe que a cada modelo `Role` recuperado se le asigna automáticamente un atributo `pivot`. Este atributo contiene un modelo que representa la tabla intermedia, y puede ser utilizado como cualquier otro modelo Elocuent.
 
-Por omisión, sólo las llaves estarán presentes en el objeto `pivot`. Si su tabla dinámica contiene atributos adicionales, debe especificarlos en la definición de la relación:
+Por omisión, sólo las llaves estarán presentes en el objeto `pivot`. Si su tabla pivote contiene atributos adicionales, debe especificarlos en la definición de la relación:
 
 	return $this->belongsToMany('App\Role')->withPivot('foo', 'bar');
 
@@ -1044,21 +1044,21 @@ Si desea que la tabla pivote mantenga automáticamente las marcas de tiempo `cre
 
 #### Borrar registros en una tabla pivote
 
-Para borrar todos los registros de la tabla dinámica para un modelo, puede utilizar el método `detach`:
+Para borrar todos los registros de la tabla pivote para un modelo, puede utilizar el método `detach`:
 
 	User::find(1)->roles()->detach();
 
-Tenga en cuenta que esta operación no elimina los registros de la tabla `roles`, sólo de la tabla dinámica.
+Tenga en cuenta que esta operación no elimina los registros de la tabla `roles`, sólo de la tabla pivote.
 
 #### Actualizar un registro en una tabla pivote
 
-A veces puede que tenga que actualizar su tabla pivote sin desvincularla. Si desea actualizar su tabla pivote allí mismo puede usar el método `updateExistingPivot` de este modo:
+A veces puede que tenga que actualizar su tabla pivote sin desvincularla. Si desea actualizar su tabla pivote ahí mismo puede usar el método `updateExistingPivot` de este modo:
 
 	User::find(1)->roles()->updateExistingPivot($roleId, $attributes);
 
-#### Definición de uno modelo pivote personalizado
+#### Definir de uno modelo pivote personalizado
 
-Laravel también le permite definir un modelo pivote personalizado. Para definir un modelo personalizado, primero debe crear su propia clase de modelo "Base" que se extiende `Eloquent`. En sus otros modelos Elocuente, extender este modelo personalizado en lugar de la base predeterminada `Eloquent`. En el modelo base, agregue la siguiente función que devuelve una instancia de su modelo pivote personalizado:
+Laravel también le permite definir un modelo pivote personalizado. Para definir un modelo personalizado, primero debe crear su propia clase de modelo "Base" que se extiende `Eloquent`. En sus otros modelos Eloquent, extienda este modelo personalizado en lugar de la base predeterminada `Eloquent`. En el modelo base, agregue la siguiente función que devuelve una instancia de su modelo pivote personalizado:
 
 	public function newPivot(Model $parent, array $attributes, $table, $exists)
 	{
@@ -1091,7 +1091,7 @@ Si una colección se forza a cadena, se devuelve como JSON:
 
 	$roles = (string) User::find(1)->roles;
 
-#### Iterar Colecciones
+#### Iterar colecciones
 
 Las colecciones Eloquent también contienen algunos métodos útiles para bucles y para filtrar los elementos que contengan:
 
@@ -1100,7 +1100,7 @@ Las colecciones Eloquent también contienen algunos métodos útiles para bucles
 		//
 	});
 
-#### Filtrar Colecciones
+#### Filtrar colecciones
 
 Al filtrar colecciones, la retrollamada proporcionada será utilizada como llamada de retorno para [array_filter] (http://php.net/manual/en/function.array-filter.php).
 
@@ -1131,7 +1131,7 @@ Al filtrar colecciones, la retrollamada proporcionada será utilizada como llama
 
 	$roles = $roles->sortBy('created_at');
 
-#### Returning A Custom Collection Type
+#### Retirnar un tipo personalizado de colección
 
 A veces, es posible que desee devolver un objeto Colección personalizado con sus propios métodos añadidos. Puede especificar esto en su modelo Elocuent reemplazando el método `newCollection`:
 
@@ -1176,7 +1176,7 @@ Los mutators se declaran de forma similar:
 	}
 
 <a name="date-mutators"></a>
-## Mutadores de Fecha
+## Mutadores de fecha
 
 Por omisión, Eloquent convertirá las columnas `created_at` y `updated_at` a instancias de [Carbon](https://github.com/briannesbitt/Carbon), que ofrece una variedad de métodos útiles, y extiende la clase la nativa de PHP `DateTime`.
 
@@ -1187,7 +1187,7 @@ Puede personalizar qué campos se mutan de forma automática, y desactivar inclu
 		return ['created_at'];
 	}
 
-Cuando una columna se considera una fecha, es posible fijar su valor a una marca de tiempo UNIX, cadena de fecha (`Y-m-d`), cadena de fecha y hora, y por supuesto un instancia `DateTime`/ `instancia Carbon`.
+Cuando una columna se considera una fecha, es posible fijar su valor a una marca de tiempo UNIX, cadena de fecha (`Y-m-d`), cadena de fecha y hora, y por supuesto a una instancia `DateTime`/ `Carbon`.
 
 Para deshabilitar totalmente las mutaciones de fecha, devuelva una arreglo vacío del método `getDates`:
 
@@ -1202,7 +1202,7 @@ Para deshabilitar totalmente las mutaciones de fecha, devuelva una arreglo vací
 Si usted tiene algunos atributos que desea convertir siempre a otro tipo de datos, usted puede añadir el atributo a la propiedad `casts` de su modelo. De lo contrario, tendrá que definir un mutador para cada uno de los atributos, esto puede consumir bastante tiempo. He aquí un ejemplo del uso de la propiedad `casts`:
 
 	/**
-	 * Los atributos que deben ser forzados a tipos nativos..
+	 * Los atributos que deben ser forzados a tipos nativos.
 	 *
 	 * @var array
 	 */
