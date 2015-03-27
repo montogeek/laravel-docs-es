@@ -2,26 +2,26 @@
 
 - [Introducción](#introduction)
 - [Uso básico](#basic-usage)
-- [Asignación Masiva](#mass-assignment)
+- [Asignación masiva](#mass-assignment)
 - [Insertar, actualizar, borrar](#insert-update-delete)
 - [Borrado blando](#soft-deleting)
-- [Marcas de Tiempo](#timestamps)
-- [Consultas con Ámbito](#query-scopes)
-- [Consultas Globales con Ámbito](#global-scopes)
+- [Marcas de tiempo](#timestamps)
+- [Consultas con ámbito](#query-scopes)
+- [Consultas globales con ámbito](#global-scopes)
 - [Relaciones](#relationships)
-- [Consulta de Relaciones](#querying-relations)
+- [Consulta de relaciones](#querying-relations)
 - [Carga impaciente](#eager-loading)
-- [Insertando Modelos Asociados](#inserting-related-models)
-- [Actualizando Marcas de Tiempo en Relacioines Padre](#touching-parent-timestamps)
-- [Trabajando con Tablas Pivote](#working-with-pivot-tables)
+- [Inserta modelos asociados](#inserting-related-models)
+- [Actualizar marcas de tiempo en relacioines padre](#touching-parent-timestamps)
+- [Trabajar con tablas pivote](#working-with-pivot-tables)
 - [Colecciones](#collections)
-- [Descriptores de Acceso Y Mutadores](#accessors-and-mutators)
-- [Mutators de Fecha](#date-mutators)
-- [Forzando Tipos](#attribute-casting)
-- [Eventos de Modelos](#model-events)
-- [Observadores de Modelos](#model-observers)
-- [Generación de URL para Modelos](#model-url-generation)
-- [Convitirndo a JSON / Arreglos](#converting-to-arrays-or-json)
+- [Accesores y mutadores](#accessors-and-mutators)
+- [Mutadores de fecha](#date-mutators)
+- [Forzar tipos](#attribute-casting)
+- [Eventos de modelos](#model-events)
+- [Observadores de modelos](#model-observers)
+- [Generar URL para modelos](#model-url-generation)
+- [Convertir a json / arreglos](#converting-to-arrays-or-json)
 
 <a name="introduction"></a>
 ## Introducción
@@ -246,7 +246,7 @@ Por supuesto, también puede ejecutar una consulta de eliminación en un conjunt
 
 	$affectedRows = User::where('votes', '>', 100)->delete();
 
-#### Actualizando únicamente los timestamps del modelo
+#### Actualizar únicamente los timestamps del modelo
 
 Si desea actualizar simplemente las marcas de tiempo en un modelo, puede utilizar el método `touch`:
 
@@ -1102,7 +1102,7 @@ Las colecciones Eloquent también contienen algunos métodos útiles para bucles
 
 #### Filtrar colecciones
 
-Al filtrar colecciones, la retrollamada proporcionada será utilizada como llamada de retorno para [array_filter] (http://php.net/manual/en/function.array-filter.php).
+Al filtrar colecciones, la llamada de retorno proporcionada será utilizada como llamada de retorno para [array_filter] (http://php.net/manual/en/function.array-filter.php).
 
 	$users = $users->filter(function($user)
 	{
@@ -1238,7 +1238,7 @@ Ahora, cuando usted utiliza el modelo Eloquent:
 
 Los modelos de Eloquent disparan varios eventos, lo que le permite conectarse en varios puntos en el ciclo de vida del modelo utilizando los siguientes métodos: `creating`, `created`, `updating`, `updated`, `saving`, `saved`, `deleting`, `deleted`, `restoring`, `restored`.
 
-Cada vez que un nuevo modelo se guarda por primera vez, se dispararán los eventos `creating` y `created`. Si un modelo no es nuevo el método `save` se llama, los métodos `updating`/`updated` se disparan. En ambos casos, los métodos `saving`/`saved` se disparará.
+Cada vez que un nuevo modelo se guarda por primera vez, se dispararán los eventos `creating` y `created`. Si un modelo no es nuevo el método `save` se llama, los métodos `updating`/`updated` se disparan. En ambos casos, los métodos `saving`/`saved` se dispararán.
 
 #### Cancelar la operaciones de guardado vía eventos
 
@@ -1270,11 +1270,11 @@ Su `EventServiceProvider` sirve como un lugar conveniente para registrar sus enl
 	}
 
 <a name="model-observers"></a>
-## Observadores de mOdelos
+## Observadores de modelos
 
-Para consolidar el manejo de eventos del modelo, es posible registrar un modelo de observador. Una clase observador puede tener métodos que corresponden a los diversos eventos del modelo. Por ejemplo, los métodos `creating`, `updating`, `saving` pueden estar en un observador, además de cualquier otro nombre del evento del modelo.
+Para consolidar el manejo de eventos del modelo, es posible registrar un observador de modelo. Una clase observador puede tener métodos que corresponden a los diversos eventos del modelo. Por ejemplo, los métodos `creating`, `updating`, `saving` pueden estar en un observador, además de cualquier otro nombre del evento del modelo.
 
-Así, por ejemplo, un modelo de observador podría tener este aspecto:
+Así, por ejemplo, un observador de modelo podría tener este aspecto:
 
 	class UserObserver {
 
