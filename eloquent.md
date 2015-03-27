@@ -10,7 +10,7 @@
 - [Consultas globales con ámbito](#global-scopes)
 - [Relaciones](#relationships)
 - [Consulta de relaciones](#querying-relations)
-- [Carga impaciente](#eager-loading)
+- [Carga diligente](#eager-loading)
 - [Inserta modelos asociados](#inserting-related-models)
 - [Actualizar marcas de tiempo en relacioines padre](#touching-parent-timestamps)
 - [Trabajar con tablas pivote](#working-with-pivot-tables)
@@ -827,9 +827,9 @@ Puede ser simplificado a simplemente::
 > **Nota:** Las relaciones que devuelven varios resultados devolverán una instancia de la classe `Illuminate\Database\Eloquent\Collection`.
 
 <a name="eager-loading"></a>
-## Carga impaciente
+## Carga diligente
 
-Existe la carga impaciente para aliviar el problema de la consulta N + 1. Por ejemplo, considere un modelo `Book` que se relaciona con `author`. La relación se define de este modo:
+Existe la carga diligente para aliviar el problema de la consulta N + 1. Por ejemplo, considere un modelo `Book` que se relaciona con `author`. La relación se define de este modo:
 
 	class Book extends Model {
 
@@ -849,7 +849,7 @@ Ahora, considere el siguiente código:
 
 En este bucle se ejecutará 1 consulta para recuperar todos los libros de la tabla, y luego otra consulta para cada libro para recuperar el autor. Por lo tanto, si tenemos 25 libros, este bucle se ejecutaría 26 consultas.
 
-Afortunadamente, podemos utilizar la carga impaciente para reducir drásticamente el número de consultas. Las relaciones que se deben cargar impacientemente se pueden especificar mediante el método `with`:
+Afortunadamente, podemos utilizar la carga diligente para reducir drásticamente el número de consultas. Las relaciones que se deben cargar diligentemente se pueden especificar mediante el método `with`:
 
 	foreach (Book::with('author')->get() as $book)
 	{
@@ -862,21 +862,21 @@ En el bucle anterior, se ejecutarán sólo dos consultas:
 
 	select * from authors where id in (1, 2, 3, 4, 5, ...)
 
-El uso racional de la carga impaciente puede aumentar drásticamente el rendimiento de la aplicación.
+El uso racional de la carga diligente puede aumentar drásticamente el rendimiento de la aplicación.
 
-Por supuesto, usted puede cargar impacientemente múltiples relaciones a la vez:
+Por supuesto, usted puede cargar diligentemente múltiples relaciones a la vez:
 
 	$books = Book::with('author', 'publisher')->get();
 
-Es posible que cargar impacientemente relaciones anidadas:
+Es posible que cargar diligentemente relaciones anidadas:
 
 	$books = Book::with('author.contacts')->get();
 
-En el ejemplo anterior, la relación `author` será cargada impacientemente, y también será cargada la relación `contacts` del autor.
+En el ejemplo anterior, la relación `author` será cargada diligentemente, y también será cargada la relación `contacts` del autor.
 
-### Restringir la carga impaciente
+### Restringir la carga diligente
 
-A veces es posible que desee cargar impacientemente una relación, pero también puede especificar una condición para la carga impaciente. He aquí un ejemplo:
+A veces es posible que desee cargar diligentemente una relación, pero también puede especificar una condición para la carga diligente. He aquí un ejemplo:
 
 	$users = User::with(['posts' => function($query)
 	{
@@ -884,9 +884,9 @@ A veces es posible que desee cargar impacientemente una relación, pero también
 
 	}])->get();
 
-En este ejemplo, estamos cargando impacientement los mensajes del usuario, pero sólo si la columna de título del post contiene la palabra "first".
+En este ejemplo, estamos cargando diligentement los mensajes del usuario, pero sólo si la columna de título del post contiene la palabra "first".
 
-Por supuesto, los closures de carga impaciente no se limitan a "restricciones". Usted también puede ordenarlas:
+Por supuesto, los closures de carga diligente no se limitan a "restricciones". Usted también puede ordenarlas:
 
 	$users = User::with(['posts' => function($query)
 	{
@@ -894,9 +894,9 @@ Por supuesto, los closures de carga impaciente no se limitan a "restricciones". 
 
 	}])->get();
 
-### Carga impaciente tardía
+### Carga diligente tardía
 
-También es posible cargar impacientemente modelos relacionados directamente de un modelo en una colección ya existente. Esto puede ser útil al momento de decidir si se debe cargan dinámicamente modelos relacionados o no, o en combinación con el almacenamiento en el caché.
+También es posible cargar diligentemente modelos relacionados directamente de un modelo en una colección ya existente. Esto puede ser útil al momento de decidir si se debe cargan dinámicamente modelos relacionados o no, o en combinación con el almacenamiento en el caché.
 
 	$books = Book::all();
 
