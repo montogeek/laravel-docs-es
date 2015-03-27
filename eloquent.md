@@ -317,9 +317,9 @@ Para determinar si una instancia del modelo en cuestión se ha borrado blandamen
 <a name="timestamps"></a>
 ## Marcas de Tiempo
 
-By default, Eloquent will maintain the `created_at` and `updated_at` columns on your database table automatically. Simply add these `timestamp` columns to your table and Eloquent will take care of the rest. If you do not wish for Eloquent to maintain these columns, add the following property to your model:
+Por defecto, Eloquent mantendrá las columnas `created_at` y `updated_at` en la tabla de su base de datos de forma automática. Sólo añada estas columnas `timestamp` a su tabla y Eloquent se hará cargo del resto. Si usted no desea que Eloquent mantenga estas columnas, agrege la siguiente propiedad a su modelo:
 
-#### Disabling Auto Marcas de Tiempo
+#### Desactivación de Timestamps Automáticos
 
 	class User extends Model {
 
@@ -329,9 +329,9 @@ By default, Eloquent will maintain the `created_at` and `updated_at` columns on 
 
 	}
 
-#### Providing A Custom Timestamp Format
+#### Proporcionando un Formato Personalizado para Timestamp
 
-If you wish to customize the format of your timestamps, you may override the `getDateFormat` method in your model:
+Si desea personalizar el formato de sus marcas de tiempo, puede reemplazar el método `getDateFormat` en su modelo:
 
 	class User extends Model {
 
@@ -345,9 +345,9 @@ If you wish to customize the format of your timestamps, you may override the `ge
 <a name="query-scopes"></a>
 ## Consultas con Ámbito
 
-#### Defining A Consultas con Ámbito
+#### Definir una Consulta con Ámbito
 
-Scopes allow you to easily re-use query logic in your models. To define a scope, simply prefix a model method with `scope`:
+Los ámbitos le permiten reutilizar fácilmente la lógica de consultas en sus modelos. Para definir un ámbito, simplemente anteponga `scope` al método del modelo:
 
 	class User extends Model {
 
@@ -363,13 +363,13 @@ Scopes allow you to easily re-use query logic in your models. To define a scope,
 
 	}
 
-#### Utilizing A Consultas con Ámbito
+#### Utilizando Consultas con Ámbito
 
 	$users = User::popular()->women()->orderBy('created_at')->get();
 
-#### Dynamic Scopes
+#### Ámbitos Dinámicos
 
-Sometimes you may wish to define a scope that accepts parameters. Just add your parameters to your scope function:
+A veces es posible que desee definir un ámbito que acepta parámetros. Sólo tiene que añadir sus parámetros a la función de ámbito:
 
 	class User extends Model {
 
@@ -380,16 +380,16 @@ Sometimes you may wish to define a scope that accepts parameters. Just add your 
 
 	}
 
-Then pass the parameter into the scope call:
+Luego pase el parámetro a la llamada ámbito:
 
 	$users = User::ofType('member')->get();
 
 <a name="global-scopes"></a>
 ## Consultas Globales con Ámbito
 
-Sometimes you may wish to define a scope that applies to all queries performed on a model. In essence, this is how Eloquent's own "soft delete" feature works. Global scopes are defined using a combination of PHP traits and an implementation of `Illuminate\Database\Eloquent\ScopeInterface`.
+A veces es posible que desee definir un ámbito que se aplica a todas las consultas realizadas en un modelo. En esencia, se trata de cómo funciona "borrado blando", una característica própia de Elocuent. Los ámbitos globales se definen usando una combinación de traits de PHP y una implementación de `Illuminate\Database\Eloquent\ScopeInterface`.
 
-First, let's define a trait. For this example, we'll use the `SoftDeletes` that ships with Laravel:
+En primer lugar, vamos a definir un trait. Para este ejemplo, vamos a utilizar `SoftDeletes` que se incluye con Laravel:
 
 	trait SoftDeletes {
 
@@ -405,12 +405,12 @@ First, let's define a trait. For this example, we'll use the `SoftDeletes` that 
 
 	}
 
-If an Eloquent model uses a trait that has a method matching the `bootNameOfTrait` naming convention, that trait method will be called when the Eloquent model is booted, giving you an opportunity to register a global scope, or do anything else you want. A scope must implement `ScopeInterface`, which specifies two methods: `apply` and `remove`.
+Si un modelo Elocuent utiliza un trait que tiene un método que coincida con la convención de `bootNameOfTrait`, se llamará el método trait cuando se arranque el modelo Elocuent, dándole la oportunidad de registrar un ámbito global, o hacer cualquier cosa que desee. Un ámbito debe implementar `ScopeInterface`, que especifica dos métodos: `apply` y `remove`.
 
-The `apply` method receives an `Illuminate\Database\Eloquent\Builder` query builder object and the `Model` it's applied to, and is responsible for adding any additional `where` clauses that the scope wishes to add. The `remove` method also receives a `Builder` object and `Model` and is responsible for reversing the action taken by `apply`. In other words, `remove` should remove the `where` clause (or any other clause) that was added. So, for our `SoftDeletingScope`, the methods look something like this:
+El método `apply` recibe un objeto `Illuminate\Database\Elocuent\Builder` generador de consultas y el `Modelo` al que se aplica, y es responsable adicionar cualquier clausula `where` adicional que el ámbito desee agregar. El método `remove` también recibe un objeto `Builder` y un `Modelo` y es responsable de la reversar la acción tomada por `apply`. En otras palabras, `remove` debe quitar las cláusulas `where` añadidas (o cualquier otra cláusula). Así, para nuestro `SoftDeletingScope`, los métodos buscan algo como esto:
 
 	/**
-	 * Apply the scope to a given Eloquent query builder.
+	 * Aplica el ámbito al "query builder" dado.
 	 *
 	 * @param  \Illuminate\Database\Eloquent\Builder  $builder
 	 * @param  \Illuminate\Database\Eloquent\Model  $model
@@ -424,7 +424,7 @@ The `apply` method receives an `Illuminate\Database\Eloquent\Builder` query buil
 	}
 
 	/**
-	 * Remove the scope from the given Eloquent query builder.
+	 * Elimina el ámbito del "query builder" dado.
 	 *
 	 * @param  \Illuminate\Database\Eloquent\Builder  $builder
 	 * @param  \Illuminate\Database\Eloquent\Model  $model
@@ -438,9 +438,9 @@ The `apply` method receives an `Illuminate\Database\Eloquent\Builder` query buil
 
 		foreach ((array) $query->wheres as $key => $where)
 		{
-			// If the where clause is a soft delete date constraint, we will remove it from
-			// the query and reset the keys on the wheres. This allows this developer to
-			// include deleted model in a relationship result set that is lazy loaded.
+		    // Si la cláusula where es una restricción de eliminación de fecha blanda, lo eliminaremos 
+		    // de la consulta y se restableceran las llaves en los wheres. Esto permite al desarrollador
+            // incluir modelos borrado en un conjunto de resultados de la relación que es cargado peresozamente.
 			if ($this->isSoftDeleteConstraint($where, $column))
 			{
 				unset($query->wheres[$key]);
@@ -451,23 +451,23 @@ The `apply` method receives an `Illuminate\Database\Eloquent\Builder` query buil
 	}
 
 <a name="relationships"></a>
-## Relaciones
+## Las Relaciones
 
-Of course, your database tables are probably related to one another. For example, a blog post may have many comments, or an order could be related to the user who placed it. Eloquent makes managing and working with these relationships easy. Laravel supports many types of relationships:
+Por supuesto, las tablas en la base de datos probablemente están relacionados entre sí. Por ejemplo, una entrada de blog puede tener muchos comentarios, o una orden podría estar relacionada con el usuario que la colocó. Eloquent hace que la gestión y el trabajo con estas relaciones sea fácil. Laravel soporta muchos tipos de relaciones:
 
-- [One To One](#one-to-one)
-- [One To Many](#one-to-many)
-- [Many To Many](#many-to-many)
-- [Has Many Through](#has-many-through)
-- [Polymorphic Relations](#polymorphic-relations)
-- [Many To Many Polymorphic Relations](#many-to-many-polymorphic-relations)
+- [Uno A Uno](#one-to-one)
+- [Uno A Muchos](#one-to-many)
+- [Muchos A Muchos](#many-to-many)
+- [Tiene Muchos a Través de](#has-many-through)
+- [Relaciones Polimórficas](#polymorphic-relations)
+- [Relaciones Polimórficas Muchos a Muchos](#many-to-many-polymorphic-relations)
 
 <a name="one-to-one"></a>
-### One To One
+### Uno A Uno
 
-#### Defining A One To One Relation
+#### Definición de una Relación Uno A Uno
 
-A one-to-one relationship is a very basic relation. For example, a `User` model might have one `Phone`. We can define this relation in Eloquent:
+Una relación uno-a-uno es una relación muy básica. Por ejemplo, un modelo `User` podría tener un `Phone`. Podemos definir esta relación en Elocuent:
 
 	class User extends Model {
 
@@ -478,25 +478,25 @@ A one-to-one relationship is a very basic relation. For example, a `User` model 
 
 	}
 
-The first argument passed to the `hasOne` method is the name of the related model. Once the relationship is defined, we may retrieve it using Eloquent's [dynamic properties](#dynamic-properties):
+El primer argumento pasado al método `hasOne` es el nombre del modelo relacionado. Una vez definida la relación, podemos recuperarla usando [propiedades dinámicas] de Elocuent(#dynamic-properties):
 
 	$phone = User::find(1)->phone;
 
-The SQL performed by this statement will be as follows:
+El SQL realizado por esta declaración será el siguiente:
 
 	select * from users where id = 1
 
 	select * from phones where user_id = 1
 
-Take note that Eloquent assumes the foreign key of the relationship based on the model name. In this case, `Phone` model is assumed to use a `user_id` foreign key. If you wish to override this convention, you may pass a second argument to the `hasOne` method. Furthermore, you may pass a third argument to the method to specify which local column that should be used for the association:
+Tome en cuenta que Elocuent asume la llave externa de la relación basada en el nombre del modelo. En este caso, con modelo `Phone` asume que debe usar la llave externa `user_id`. Si desea anular esta convención, es posible pasar un segundo argumento del método `hasOne`. Además, es posible pasar un tercer argumento al método para especificar qué columna local que se debe utilizar para la asociación:
 
 	return $this->hasOne('App\Phone', 'foreign_key');
 
 	return $this->hasOne('App\Phone', 'foreign_key', 'local_key');
 
-#### Defining The Inverse Of A Relation
+#### Definición del Inverso de una Relación
 
-To define the inverse of the relationship on the `Phone` model, we use the `belongsTo` method:
+Para definir el inverso de la relación en el modelo `Phone`, utilizamos el método `belongsTo`:
 
 	class Phone extends Model {
 
@@ -507,7 +507,7 @@ To define the inverse of the relationship on the `Phone` model, we use the `belo
 
 	}
 
-In the example above, Eloquent will look for a `user_id` column on the `phones` table. If you would like to define a different foreign key column, you may pass it as the second argument to the `belongsTo` method:
+En el ejemplo anterior, Elocuent buscará una columna `user_id` sobre la table `phones`. Si desea definir una columna de llave externa diferente, puede pasar como segundo argumento al método `belongsTo`:
 
 	class Phone extends Model {
 
@@ -518,7 +518,7 @@ In the example above, Eloquent will look for a `user_id` column on the `phones` 
 
 	}
 
-Additionally, you pass a third parameter which specifies the name of the associated column on the parent table:
+Además, puede pasar a un tercer parámetro que especifica el nombre de la columna asociada en la tabla padre:
 
 	class Phone extends Model {
 
@@ -530,9 +530,9 @@ Additionally, you pass a third parameter which specifies the name of the associa
 	}
 
 <a name="one-to-many"></a>
-### One To Many
+### Uno a Muchos
 
-An example of a one-to-many relation is a blog post that "has many" comments. We can model this relation like so:
+Un ejemplo de una relación uno-a-muchos es un blog que "tiene muchos" comentarios. Podemos modelar esta relación, así:
 
 	class Post extends Model {
 
@@ -543,23 +543,23 @@ An example of a one-to-many relation is a blog post that "has many" comments. We
 
 	}
 
-Now we can access the post's comments through the [dynamic property](#dynamic-properties):
+Ahora podemos acceder a los comentarios del blog a través de la [propiedad dinámica](#dynamic-properties):
 
 	$comments = Post::find(1)->comments;
 
-If you need to add further constraints to which comments are retrieved, you may call the `comments` method and continue chaining conditions:
+Si necesita añadir más restricciones a los comentarios que se recuperan, puede llamar al método `comments` y seguir encadenando condiciones:
 
 	$comments = Post::find(1)->comments()->where('title', '=', 'foo')->first();
 
-Again, you may override the conventional foreign key by passing a second argument to the `hasMany` method. And, like the `hasOne` relation, the local column may also be specified:
+Una vez más, es posible anular la llave externa convencional pasando un segundo argumento del método `hasMany`. Y, como en la relación `hasOne`, la columna local puede también ser especificado:
 
 	return $this->hasMany('App\Comment', 'foreign_key');
 
 	return $this->hasMany('App\Comment', 'foreign_key', 'local_key');
 
-#### Defining The Inverse Of A Relation
+#### Definición del Inverso de la Relación
 
-To define the inverse of the relationship on the `Comment` model, we use the `belongsTo` method:
+Para definir el inverso de la relación en el modelo `Comment`, utilizamos el método `belongsTo`:
 
 	class Comment extends Model {
 
@@ -571,11 +571,11 @@ To define the inverse of the relationship on the `Comment` model, we use the `be
 	}
 
 <a name="many-to-many"></a>
-### Many To Many
+### Muchos A Muchos
 
-Many-to-many relations are a more complicated relationship type. An example of such a relationship is a user with many roles, where the roles are also shared by other users. For example, many users may have the role of "Admin". Three database tables are needed for this relationship: `users`, `roles`, and `role_user`. The `role_user` table is derived from the alphabetical order of the related model names, and should have `user_id` and `role_id` columns.
+Las relaciones muchos-a-muchos son un tipo más complicada de relación. Un ejemplo de esta relación es un usuario con muchos roles, donde los roles también son compartidos por otros usuarios. Por ejemplo, muchos usuarios pueden tener el rol de "Admin". Se necesitan tres tablas para esta relación: `users`, `roles`, y` role_user`. La tabla `role_user` se deriva del orden alfabético de los nombres de los modelos relacionados, y debe tener las columnas `user_id` y `role_id`.
 
-We can define a many-to-many relation using the `belongsToMany` method:
+Podemos definir una relación muchos-a-muchos con el método `belongsToMany`:
 
 	class User extends Model {
 
@@ -586,19 +586,19 @@ We can define a many-to-many relation using the `belongsToMany` method:
 
 	}
 
-Now, we can retrieve the roles through the `User` model:
+Ahora, podemos recuperar los roles a través del modelo `User`:
 
 	$roles = User::find(1)->roles;
 
-If you would like to use an unconventional table name for your pivot table, you may pass it as the second argument to the `belongsToMany` method:
+Si desea utilizar un nombre de tabla no convencional para su tabla pivote, puede pasarlo como segundo argumento al método `belongsToMany`:
 
 	return $this->belongsToMany('App\Role', 'user_roles');
 
-You may also override the conventional associated keys:
+También puede cambiar las llaves asociadas convencionales:
 
 	return $this->belongsToMany('App\Role', 'user_roles', 'user_id', 'foo_id');
 
-Of course, you may also define the inverse of the relationship on the `Role` model:
+Por supuesto, también puede definir el inverso de la relación en el modelo `Role`:
 
 	class Role extends Model {
 
@@ -610,9 +610,9 @@ Of course, you may also define the inverse of the relationship on the `Role` mod
 	}
 
 <a name="has-many-through"></a>
-### Has Many Through
+### Tiene Muchos A Través De
 
-The "has many through" relation provides a convenient short-cut for accessing distant relations via an intermediate relation. For example, a `Country` model might have many `Post` through a `User` model. The tables for this relationship would look like this:
+La relación "tiene muchos a través de" proporciona un atajo cómodo para visitar parientes lejanos a través de una relación intermedia. Por ejemplo, un modelo `Country` podría tener muchos `Post` a través de un modelo de `User`. Las tablas de esta relación podría tener este aspecto:
 
 	countries
 		id - integer
@@ -628,7 +628,7 @@ The "has many through" relation provides a convenient short-cut for accessing di
 		user_id - integer
 		title - string
 
-Even though the `posts` table does not contain a `country_id` column, the `hasManyThrough` relation will allow us to access a country's posts via `$country->posts`. Let's define the relationship:
+A pesar de que la tabla `posts` no contiene una columna `country_id`, la relación `hasManyThrough` nos permitirá acceder a los pst de un país a través de `$country->posts`. Vamos a definir la relación:
 
 	class Country extends Model {
 
@@ -639,7 +639,7 @@ Even though the `posts` table does not contain a `country_id` column, the `hasMa
 
 	}
 
-If you would like to manually specify the keys of the relationship, you may pass them as the third and fourth arguments to the method:
+Si desea especificar manualmente las llaves de la relación, puede pasarlas como el tercer y cuarto argumentos del método:
 
 	class Country extends Model {
 
@@ -651,9 +651,9 @@ If you would like to manually specify the keys of the relationship, you may pass
 	}
 
 <a name="polymorphic-relations"></a>
-### Polymorphic Relations
+### Relaciones Polimórficas
 
-Polymorphic relations allow a model to belong to more than one other model, on a single association. For example, you might have a photo model that belongs to either a staff model or an order model. We would define this relation like so:
+Las relaciones polimórficas permiten a un modelo pertenecer a más de un modelo, en una sola asociación. Por ejemplo, usted podría tener un modelo de foto que pertenece tanto a un modelo de personal o un modelo de orden. Queremos definir esta relación, así:
 
 	class Photo extends Model {
 
@@ -682,9 +682,9 @@ Polymorphic relations allow a model to belong to more than one other model, on a
 
 	}
 
-#### Retrieving A Polymorphic Relation
+#### Recuperando Una Relación Polimórfica
 
-Now, we can retrieve the photos for either a staff member or an order:
+Ahora, podemos recuperar las fotos, ya sea para un miembro del personal o una orden:
 
 	$staff = Staff::find(1);
 
@@ -693,19 +693,19 @@ Now, we can retrieve the photos for either a staff member or an order:
 		//
 	}
 
-#### Retrieving The Owner Of A Polymorphic Relation
+#### Recuperando El Propietario De Una Relación Polimórfica
 
-However, the true "polymorphic" magic is when you access the staff or order from the `Photo` model:
+Sin embargo, la verdadera magia "polimórfica" es cuando se accede al personal u orden del modelo `Photo`:
 
 	$photo = Photo::find(1);
 
 	$imageable = $photo->imageable;
 
-The `imageable` relation on the `Photo` model will return either a `Staff` or `Order` instance, depending on which type of model owns the photo.
+El relación `imageable` en el modelo `Photo` devolverá una instancia de `Staff` o de `Order`, dependiendo de qué tipo de modelo es propietaria de la foto.
 
-#### Polymorphic Relation Table Structure
+#### Estructura De La Tabla De Una Relación Polimórfica
 
-To help understand how this works, let's explore the database structure for a polymorphic relation:
+Para ayudar a entender cómo funciona esto, vamos a explorar la estructura de base de datos para una relación polimórfica:
 
 	staff
 		id - integer
@@ -721,7 +721,7 @@ To help understand how this works, let's explore the database structure for a po
 		imageable_id - integer
 		imageable_type - string
 
-The key fields to notice here are the `imageable_id` and `imageable_type` on the `photos` table. The ID will contain the ID value of, in this example, the owning staff or order, while the type will contain the class name of the owning model. This is what allows the ORM to determine which type of owning model to return when accessing the `imageable` relation.
+Los campos clave para notar aquí son `imageable_id` y `imageable_type` sobre la tabla `photos`. El ID contendrá el valor del ID de, en este ejemplo, el personal o la orden dueños, mientras que el tipo contendrá el nombre de la clase del modelo propietario. Esto es lo que permite que el ORM pueda determinar qué tipo debe ser el dueño del modelo para volver al acceder a la relación `imageable`.
 
 <a name="many-to-many-polymorphic-relations"></a>
 ### Many To Many Polymorphic Relations
