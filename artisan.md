@@ -130,6 +130,14 @@ Let's look at a few more scheduling examples:
 	$schedule->command('foo')->saturdays();
 	$schedule->command('foo')->sundays();
 
+#### Prevenir Jobs se sobreescriban
+
+De forma predeterminada, jobs programados se ejecutaran incluso si la instancia previa del job aun esta coriendo. Para prevenir esto, puedes usar el metodo `withoutOverLapping`:
+
+	$schedule->command('foo')->withoutOverLapping();
+
+En este ejemplo, el comando `foo` se ejecutara cada minuto si ya no esta corriendo.
+
 #### Job ejecutado en un entorno específico
 
 	$schedule->command('foo')->monthly()->environments('production');
