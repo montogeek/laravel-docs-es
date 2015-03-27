@@ -478,7 +478,7 @@ Una relación uno-a-uno es una relación muy básica. Por ejemplo, un modelo `Us
 
 	}
 
-El primer argumento pasado al método `hasOne` es el nombre del modelo relacionado. Una vez definida la relación, podemos recuperarla usando [propiedades dinámicas] de Elocuent(#dynamic-properties):
+El primer argumento pasado al método `hasOne` es el nombre del modelo relacionado. Una vez definida la relación, podemos recuperarla usando [propiedades dinámicas](#dynamic-properties) de Elocuent:
 
 	$phone = User::find(1)->phone;
 
@@ -488,7 +488,7 @@ El SQL realizado por esta declaración será el siguiente:
 
 	select * from phones where user_id = 1
 
-Tome en cuenta que Elocuent asume la llave externa de la relación basada en el nombre del modelo. En este caso, con modelo `Phone` asume que debe usar la llave externa `user_id`. Si desea anular esta convención, es posible pasar un segundo argumento del método `hasOne`. Además, es posible pasar un tercer argumento al método para especificar qué columna local que se debe utilizar para la asociación:
+Tenga en cuenta que Elocuent asume la llave externa de la relación basada en el nombre del modelo. En este caso, con modelo `Phone` asume que debe usar la llave externa `user_id`. Si desea anular esta convención, es posible pasar un segundo argumento del método `hasOne`. Además, es posible pasar un tercer argumento al método para especificar qué columna local que se debe utilizar para la asociación:
 
 	return $this->hasOne('App\Phone', 'foreign_key');
 
@@ -507,7 +507,7 @@ Para definir el inverso de la relación en el modelo `Phone`, utilizamos el mét
 
 	}
 
-En el ejemplo anterior, Elocuent buscará una columna `user_id` sobre la table `phones`. Si desea definir una columna de llave externa diferente, puede pasar como segundo argumento al método `belongsTo`:
+En el ejemplo anterior, Elocuent buscará una columna `user_id` sobre la tabla `phones`. Si desea definir una columna para la llave externa diferente, puede pasarla como segundo argumento al método `belongsTo`:
 
 	class Phone extends Model {
 
@@ -518,7 +518,7 @@ En el ejemplo anterior, Elocuent buscará una columna `user_id` sobre la table `
 
 	}
 
-Además, puede pasar a un tercer parámetro que especifica el nombre de la columna asociada en la tabla padre:
+Además, puede pasar un tercer parámetro que especifica el nombre de la columna asociada en la tabla padre:
 
 	class Phone extends Model {
 
@@ -543,7 +543,7 @@ Un ejemplo de una relación uno-a-muchos es un blog que "tiene muchos" comentari
 
 	}
 
-Ahora podemos acceder a los comentarios del blog a través de la [propiedad dinámica](#dynamic-properties):
+Ahora podemos acceder a los comentarios del blog a través de las [propiedades dinámicas](#dynamic-properties):
 
 	$comments = Post::find(1)->comments;
 
@@ -551,7 +551,7 @@ Si necesita añadir más restricciones a los comentarios que se recuperan, puede
 
 	$comments = Post::find(1)->comments()->where('title', '=', 'foo')->first();
 
-Una vez más, es posible anular la llave externa convencional pasando un segundo argumento del método `hasMany`. Y, como en la relación `hasOne`, la columna local puede también ser especificado:
+Una vez más, es posible anular la llave externa convencional pasando un segundo argumento del método `hasMany`. Y, como en la relación `hasOne`, la columna local puede también ser especificada:
 
 	return $this->hasMany('App\Comment', 'foreign_key');
 
@@ -628,7 +628,7 @@ La relación "tiene muchos a través de" proporciona un atajo cómodo para visit
 		user_id - integer
 		title - string
 
-A pesar de que la tabla `posts` no contiene una columna `country_id`, la relación `hasManyThrough` nos permitirá acceder a los pst de un país a través de `$country->posts`. Vamos a definir la relación:
+A pesar de que la tabla `posts` no contiene una columna `country_id`, la relación `hasManyThrough` nos permitirá acceder a los post de un país a través de `$country->posts`. Vamos a definir la relación:
 
 	class Country extends Model {
 
@@ -721,7 +721,7 @@ Para ayudar a entender cómo funciona esto, vamos a explorar la estructura de ba
 		imageable_id - integer
 		imageable_type - string
 
-Los campos clave para notar aquí son `imageable_id` y `imageable_type` sobre la tabla `photos`. El ID contendrá el valor del ID de, en este ejemplo, el personal o la orden dueños, mientras que el tipo contendrá el nombre de la clase del modelo propietario. Esto es lo que permite que el ORM pueda determinar qué tipo debe ser el dueño del modelo para volver al acceder a la relación `imageable`.
+Los campos clave para notar aquí son `imageable_id` y `imageable_type` sobre la tabla `photos`. El ID contendrá el valor del ID de, en este ejemplo, el personal o la orden propietarios, mientras que el tipo contendrá el nombre de la clase del modelo propietario. Esto es lo que permite que el ORM pueda determinar qué tipo debe ser el dueño del modelo para volver al acceder a la relación `imageable`.
 
 <a name="many-to-many-polymorphic-relations"></a>
 ### Many To Many Polymorphic Relations
