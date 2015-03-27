@@ -1321,7 +1321,7 @@ Cuando construye API de JSON, es posible que a menudo necesite convertir sus mod
 
 	return $user->toArray();
 
-Tenga en cuenta que las colecciones de modelos enteras también pueden ser convertidas a arrays:
+Tenga en cuenta que las colecciones de modelos enteras también pueden ser convertidas a arreglos:
 
 	return User::all()->toArray();
 
