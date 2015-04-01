@@ -4,3 +4,5 @@ Repositorio con la documentación de Laravel PHP Framework en Español, actualme
 
 Puedes verla funcionando en:
 http://laravel.montogeek.co/
+
+[![Build Status](https://snap-ci.com/montogeek/laravel-docs-es/branch/master/build_image)](https://snap-ci.com/montogeek/laravel-docs-es/branch/master)
