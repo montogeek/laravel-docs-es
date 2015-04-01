@@ -1,7 +1,8 @@
-# Documentación de Laravel 4.* y 5 en Español
+# Documentación de Laravel en Español
 
-Chatea con el equipo en
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/montogeek/laravel-docs-es?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Repositorio con la documentación de Laravel PHP Framework en Español, actualmente se soporta la versión 4.1 y 5.0.
 
-Deploys automáticos gracias a
-[![Deployment status from dploy.io](https://laravel-docs-es.dploy.io/badge/13023223951836/13813.png)](http://dploy.io)
+[![Build Status](https://snap-ci.com/montogeek/laravel-docs-es/branch/4.1/build_image)](https://snap-ci.com/montogeek/laravel-docs-es/branch/4.1)
+
+Puedes verla funcionando en:
+http://laravel.montogeek.co/
