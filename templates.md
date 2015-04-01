@@ -2,7 +2,6 @@
 
 - [Blade Templating](#blade-templating)
 - [Other Blade Control Structures](#other-blade-control-structures)
-- [Extending Blade](#extending-blade)
 
 <a name="blade-templating"></a>
 ## Blade Templating
@@ -101,9 +100,9 @@ If you don't want the data to be escaped, you may use the following syntax:
 	@endforeach
 
 	@forelse($users as $user)
-	  	<li>{{ $user->name }}</li>
+		<li>{{ $user->name }}</li>
 	@empty
-	  	<p>No users</p>
+		<p>No users</p>
 	@endforelse
 
 	@while (true)
@@ -137,21 +136,3 @@ To overwrite a section entirely, you may use the `overwrite` statement:
 #### Comments
 
 	{{-- This comment will not be in the rendered HTML --}}
-
-<a name="extending-blade"></a>
-## Extending Blade
-
-Blade even allows you to define your own custom control structures. When a Blade file is compiled, each custom extension is called with the view contents, allowing you to do anything from simple `str_replace` manipulations to more complex regular expressions.
-
-The Blade compiler comes with the helper methods `createMatcher` and `createPlainMatcher`, which generate the expression you need to build your own custom directives.
-
-The `createPlainMatcher` method is used for directives with no arguments like `@endif` and `@stop`, while `createMatcher` is used for directives with arguments.
-
-The following example creates a `@datetime($var)` directive which simply calls `->format()` on `$var`:
-
-	Blade::extend(function($view, $compiler)
-	{
-		$pattern = $compiler->createOpenMatcher('datetime');
-
-		return preg_replace($pattern, '$1<?php echo $2->format(\'m/d/Y H:i\')); ?>', $view);
-	});
