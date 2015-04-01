@@ -224,7 +224,7 @@ Sometimes many of your routes will share common requirements such as URL segment
 
 Shared attributes are specified in an array format as the first parameter to the `Route::group` method.
 
-<a name="route-group-middleware">
+<a name="route-group-middleware"></a>
 ### Middleware
 
 Middleware is applied to all routes within the group by defining the list of middleware with the `middleware` parameter on the group attribute array. Middleware will be executed in the order you define this array:
@@ -243,7 +243,7 @@ Middleware is applied to all routes within the group by defining the list of mid
 
 	});
 
-<a name="route-group-namespace">
+<a name="route-group-namespace"></a>
 ### Namespaces
 
 You may use the `namespace` parameter in your group attribute array to specify the namespace for all controllers within the group:
