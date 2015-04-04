@@ -21,7 +21,7 @@ You will define most of the routes for your application in the `app/Http/routes.
 		return 'Hello World';
 	});
 
-#### Other Basic Routes Route
+#### Other Basic Routes
 
 	Route::post('foo/bar', function()
 	{
@@ -254,7 +254,7 @@ You may use the `namespace` parameter in your group attribute array to specify t
 
 		Route::group(['namespace' => 'User'], function()
 		{
-			// Controllers Within The "App\Http\Controllers\Admin" Namespace
+			// Controllers Within The "App\Http\Controllers\Admin\User" Namespace
 		});
 	});
 
