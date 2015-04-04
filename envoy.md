@@ -12,7 +12,7 @@
 <a name="introduction"></a>
 ## Introduction
 
-Laravel Envoy provides a clean, minimal syntax for defining common tasks you run on your remote servers. Using a Blade style syntax, you can easily setup tasks for deployment, Artisan commands, and more.
+[Laravel Envoy](https://github.com/laravel/envoy) provides a clean, minimal syntax for defining common tasks you run on your remote servers. Using a Blade style syntax, you can easily setup tasks for deployment, Artisan commands, and more.
 
 > **Note:** Envoy requires PHP version 5.4 or greater, and only runs on Mac / Linux operating systems.
 
@@ -73,6 +73,16 @@ You may use the ```@setup``` directive to declare variables and do general PHP w
 You may also use ```@include``` to include any PHP files:
 
     @include('vendor/autoload.php');
+
+#### Confirming Tasks Before Running
+
+If you would like to be prompted for confirmation before running a given task on your servers, you may use the `confirm` directive:
+
+    @task('deploy', ['on' => 'web', 'confirm' => true])
+        cd site
+        git pull origin {{ $branch }}
+        php artisan migrate
+    @endtask
 
 <a name="envoy-multiple-servers"></a>
 ## Multiple Servers

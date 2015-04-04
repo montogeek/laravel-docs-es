@@ -73,7 +73,7 @@ elixir(function(mix) {
 });
 ```
 
-This assumes that your Sass files are stored in `resources/assets/sass`. The `sass` method may only be called once. If you would like to compile multiple Sass files, pass an array to the `sass` method.
+This assumes that your Sass files are stored in `resources/assets/sass`.
 
 By default, Elixir, underneath the hood, uses the LibSass library for compilation. In some instances, it might prove advantageous to instead leverage the Ruby version, which, though slower, is more feature rich. Assuming that you have both Ruby and the Sass gem installed (`gem install sass`), you may enable Ruby-mode, like so:
 
@@ -251,6 +251,18 @@ elixir(function(mix) {
     mix.copy('vendor/package/views', 'resources/views');
 });
 ```
+
+#### Trigger Browserify
+
+```javascript
+elixir(function(mix) {
+    mix.browserify('index.js');
+});
+```
+
+Want to require modules in the browser? Hoping to use EcmaScript 6 sooner than later? Need a built-in JSX transformer? If so, [Browserify](http://browserify.org/), along with the `browserify` Elixir task, will handle the job nicely.
+
+This task assumes that your scripts are stored in `resources/js`, though you're free to override the default.
 
 #### Method Chaining
 
