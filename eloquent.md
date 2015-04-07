@@ -69,20 +69,27 @@ Una vez se define un modelo, ya está listo para comenzar la recuperación y la 
 
 #### Obtener un registro por llave primaria o generar una excepción
 
-A veces es posible que desee lanzar una excepción si no se encuentra un registro, lo que le permite capturar las excepciones utilizando el manejador `App::error` y mostrar una página 404.
+A veces es posible que desee lanzar una excepción si no se encuentra un registro. Para hacerlo, puedes usar el metodo `firstOrFail`:
 
 	$model = User::findOrFail(1);
 
 	$model = User::where('votes', '>', 100)->firstOrFail();
 
-Para registrar el manejador de errores, escuche por `ModelNotFoundException`
+Hacer esto te permitira capturar la excepción, asi puedes registrar el error y mostrar una pagina de error de ser necesario. Para capturar la excepción `ModelNotFoundException` agrega algo de lógica al archivo `app/Exceptions/Handler.php`:
 
 	use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-	App::error(function(ModelNotFoundException $e)
-	{
-		return Response::make('Not Found', 404);
-	});
+	class Handler extends ExceptionHandler {
+
+	    public function render($request, Exception $e)
+	    {
+	        if ($e instanceof ModelNotFoundException) {
+	            // Custom logic for model not found...
+	        }
+
+	        return parent::render($request, $e);
+	    }
+	}
 
 #### Consultas usando modelos Eloquent
 
@@ -128,13 +135,13 @@ Si utiliza [conexiones lectura/escritura](/5.0/database#read-write-connections),
 	$user = User::onWriteConnection()->find(1);
 
 <a name="mass-assignment"></a>
-## Asignación masiva 
+## Asignación masiva
 
 Al crear un nuevo modelo, puede pasar un arreglo de atributos al constructor del modelo. Estos atributos se asignan al modelo a través de la asignación masiva. Esto es conveniente; Sin embargo, puede ser un **grave** problema de seguridad al pasar ciegamente la entrada del usuario en un modelo. Si la entrada del usuario se pasa a ciegas a un modelo, el usuario es libre de modificar **cualquier** o **todos** los atributos del modelo. Por esta razón, todos los modelos Elocuent por omisión se protegen contra la asignación masiva.
 
 Para empezar, establezca la propiedad `fillable` o  `guarded` en su modelo.
 
-#### Definir el atributo `fillable` en un modelo 
+#### Definir el atributo `fillable` en un modelo
 
 La propiedad `fillable` especifica qué atributos puen asignarse en masa. Esto se puede configurar a nivel de clase o instancia.
 
@@ -146,7 +153,7 @@ La propiedad `fillable` especifica qué atributos puen asignarse en masa. Esto s
 
 En este ejemplo, sólo los tres atributos enumerados serán asignables en masa.
 
-#### Definir el atributo `guarded` en un modelo 
+#### Definir el atributo `guarded` en un modelo
 
 La propiedad inversa de `fillable` es `guarded`, y sirve como una "lista negra" en lugar de una "lista blanca":
 
@@ -438,9 +445,9 @@ El método `apply` recibe un objeto generador de consultas `Illuminate\Database\
 
 		foreach ((array) $query->wheres as $key => $where)
 		{
-		    // Si la cláusula where es una restricción de eliminación de fecha blanda, 
-		    // lo eliminaremos de la consulta y se restableceran las llaves en los wheres. Esto 
-		    // permite al desarrollador incluir modelos borrados en un conjunto de resultados de la 
+		    // Si la cláusula where es una restricción de eliminación de fecha blanda,
+		    // lo eliminaremos de la consulta y se restableceran las llaves en los wheres. Esto
+		    // permite al desarrollador incluir modelos borrados en un conjunto de resultados de la
 		    // relación que es cargada posteriormente.
 			if ($this->isSoftDeleteConstraint($where, $column))
 			{
@@ -727,7 +734,7 @@ Los campos clave para notar aquí son `imageable_id` y `imageable_type` sobre la
 <a name="many-to-many-polymorphic-relations"></a>
 ### Relación polimórfica muchos a muchos
 
-#### Estructura de la tabla para relaciones polimórficas muchos a muchos 
+#### Estructura de la tabla para relaciones polimórficas muchos a muchos
 
 Además de las relaciones polimórficas tradicionales, también puede especificar relaciones polimórficas muchos-a-muchos. Por ejemplo, un modelo blog `Post` y un modelo `Video` podrían compartir una relación polimórfica a un modelo `tag`. En primer lugar, vamos a examinar la estructura de la tabla:
 
@@ -1162,7 +1169,7 @@ Eloquent proporciona una manera conveniente para transformar los atributos del m
 
 En el ejemplo anterior, la columna `first_name` tiene un accesor. Tenga en cuenta que el valor del atributo se pasa al accesor.
 
-#### Definir un mutador 
+#### Definir un mutador
 
 Los mutators se declaran de forma similar:
 
