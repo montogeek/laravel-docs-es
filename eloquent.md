@@ -43,7 +43,7 @@ También puede generar los modelos Eloquent usando el comando `make:model`:
 
 	php artisan make:model User
 
-Observe que no se dijo cual tabla se debe usar para el modelo `User`. El nombre de la clase en mínusculas se usará para el nombre de la tabla a menos que explícitamente se especifique uno diferente. Entonces, en este caso Eloquent asume que el modelo `User` almacena los registroes en la tabla `users`. Puede personalizar el nombre de la tabla con la propiedad `table` en su modelo.
+Observe que no se dijo cual tabla se debe usar para el modelo `User`. El nombre de la clase en plural y en mínusculas se usará para el nombre de la tabla a menos que explícitamente se especifique uno diferente. Entonces, en este caso Eloquent asume que el modelo `User` almacena los registroes en la tabla `users`. Puede personalizar el nombre de la tabla con la propiedad `table` en su modelo.
 
 	class User extends Model {
 
