@@ -55,7 +55,7 @@ Observe que no se dijo cual tabla se debe usar para el modelo `User`. El nombre 
 
 Una vez se define un modelo, ya está listo para comenzar la recuperación y la creación de registros en la tabla. Tenga en cuenta que tendrá que colocar las columnas `updated_at` y `created_at` en su tabla de forma predeterminada. Si no desea que estas columnas sean mantenidas automáticamente, establezca la propiedad `$timestamps` de su modelo en falso.
 
-#### Obtener todos los modelos
+#### Obtener todos los registros
 
 	$users = User::all();
 
