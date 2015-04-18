@@ -1134,9 +1134,16 @@ Al filtrar colecciones, la llamada de retorno proporcionada será utilizada como
 		return $role->created_at;
 	});
 
+	$roles = $roles->sortByDesc(function($role)
+	{
+		return $role->created_at;
+	});
+
 #### Ordenar una collecion por valor
 
 	$roles = $roles->sortBy('created_at');
+
+	$roles = $roles->sortByDesc('created_at');
 
 #### Retirnar un tipo personalizado de colección
 
