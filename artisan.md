@@ -166,3 +166,7 @@ En este ejemplo, el comando `foo` se ejecutara cada minuto si ya no esta corrien
 #### Ping una URL cuando el Job se ejecute
 
 	$schedule->command('foo')->thenPing($url);
+
+Usar la función `thenPing($url)` requere la libreria Guzzle 5 HTTP instalada en tu aplicación. Puedes hacer agregando la siguiente linea a tu archivo `composer.json`:
+
+	"guzzlehttp/guzzle": "~5.0"
