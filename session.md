@@ -17,6 +17,8 @@ Before using Redis sessions with Laravel, you will need to install the `predis/p
 
 > **Note:** If you need all stored session data to be encrypted, set the `encrypt` configuration option to `true`.
 
+> **Note:** When using the `cookie` session driver, you should **never** remove the `EncryptCookie` middleware from your HTTP kernel. If you remove this middleware, your application will be vulnerable to remote code injection.
+
 #### Reserved Keys
 
 The Laravel framework uses the `flash` session key internally, so you should not add an item to the session by that name.
@@ -24,9 +26,15 @@ The Laravel framework uses the `flash` session key internally, so you should not
 <a name="session-usage"></a>
 ## Session Usage
 
+The session may be accessed in several ways, via the HTTP request's `session` method, the `Session` facade, or the `session` helper function. When the `session` helper is called without arguments, it will return the entire session object. For example:
+
+	session()->regenerate();
+
 #### Storing An Item In The Session
 
 	Session::put('key', 'value');
+
+	session(['key' => 'value']);
 
 #### Push A Value Onto An Array Session Value
 
@@ -35,6 +43,8 @@ The Laravel framework uses the `flash` session key internally, so you should not
 #### Retrieving An Item From The Session
 
 	$value = Session::get('key');
+
+	$value = session('key');
 
 #### Retrieving An Item Or Returning A Default Value
 
