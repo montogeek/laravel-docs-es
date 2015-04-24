@@ -109,7 +109,7 @@ Sometimes a middleware may need to do some work after the HTTP response has alre
 
 	class StartSession implements TerminableMiddleware {
 
-		public function handle($request, $next)
+		public function handle($request, Closure $next)
 		{
 			return $next($request);
 		}
