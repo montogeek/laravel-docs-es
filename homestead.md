@@ -33,7 +33,7 @@ Homestead is currently built and tested using Vagrant 1.7.
 - Redis
 - Memcached
 - Beanstalkd
-- [Laravel Envoy](/5.0/envoy)
+- [Laravel Envoy](/docs/5.0/envoy)
 - [Blackfire Profiler](#blackfire-profiler)
 
 <a name="installation-and-setup"></a>
@@ -63,7 +63,7 @@ You may install Homestead manually by simply cloning the repository. Consider cl
 
 	git clone https://github.com/laravel/homestead.git Homestead
 
-Once you have installed the Homestead CLI tool, run the `bash init.sh` command to create the `Homestead.yaml` configuration file:
+Once you have cloned the Homestead repository, run the `bash init.sh` command from the Homestead directory to create the `Homestead.yaml` configuration file:
 
 	bash init.sh
 
