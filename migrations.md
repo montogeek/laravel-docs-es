@@ -1,73 +1,73 @@
-# Migrations & Seeding
+# Migraciones y Semillas (Migrations & Seeding)
 
-- [Introduction](#introduction)
-- [Creating Migrations](#creating-migrations)
-- [Running Migrations](#running-migrations)
-- [Rolling Back Migrations](#rolling-back-migrations)
-- [Database Seeding](#database-seeding)
+- [Introducción](#introduction)
+- [Creando Migraciones](#creating-migrations)
+- [Ejecutando Migraciones](#running-migrations)
+- [Deshaciendo Migraciones](#rolling-back-migrations)
+- [Poblado de la Base de Datos](#database-seeding)
 
 <a name="introduction"></a>
-## Introduction
+## Introducción
 
-Migrations are a type of version control for your database. They allow a team to modify the database schema and stay up to date on the current schema state. Migrations are typically paired with the [Schema Builder](/5.0/schema) to easily manage your application's schema.
+Las migraciones son un tipo de control de versiones para tu base de datos. Permiten que un equipo modifique la estructura de la base de datos y permanecer actualizados con el estado de la estructura actual. Las migraciones están enlazadas habitualmente con el [Constructor de Esquemas](/5.0/schema) para gestionar con facilidad el esquema de tu aplicación.
 
 <a name="creating-migrations"></a>
-## Creating Migrations
+## Creando Migraciones
 
-To create a migration, you may use the `make:migration` command on the Artisan CLI:
+Para crear una migración, puedes usar el comando `make:migration` de la línea de comandos de Artisan:
 
 	php artisan make:migration create_users_table
 
-The migration will be placed in your `database/migrations` folder, and will contain a timestamp which allows the framework to determine the order of the migrations.
+La migración será colocada en tu directorio `database/migrations`, y contendrá una marca de tiempo que permitirá al framework determinar el orden de las migraciones.
 
-You may also specify a `--path` option when creating the migration. The path should be relative to the root directory of your installation:
+Cuando creas una migración, también puedes especificar la opción `--path`. La ruta debería ser relativa al directorio raíz de tu instalación:
 
 	php artisan make:migration foo --path=app/migrations
 
-The `--table` and `--create` options may also be used to indicate the name of the table, and whether the migration will be creating a new table:
+También puedes usar las opciones `--table` y `--create` para indicar el nombre de la tabla, y si la migración creará una nueva tabla:
 
 	php artisan make:migration add_votes_to_user_table --table=users
 
 	php artisan make:migration create_users_table --create=users
 
 <a name="running-migrations"></a>
-## Running Migrations
+## Ejecutando Migraciones
 
-#### Running All Outstanding Migrations
+#### Ejecutando Todas las Migraciones Pendientes
 
 	php artisan migrate
 
-> **Note:** If you receive a "class not found" error when running migrations, try running the `composer dump-autoload` command.
+> **Nota:** Si recibes un error "class not found" ('clase no encontrada'), inténtalo ejecutando el comando `composer dump-autoload`.
 
-### Forcing Migrations In Production
+### Forzar las Migraciones en Producción.
 
-Some migration operations are destructive, meaning they may cause you to lose data. In order to protect you from running these commands against your production database, you will be prompted for confirmation before these commands are executed. To force the commands to run without a prompt, use the `--force` flag:
+Algunas operaciones de migración son destructivas, es decir, pueden causar pérdida de datos. Para protegerte de ejecutar esos comandos contra tu base de datos de producción, se te pedirá confirmación antes de ejecutar esos comandos. Para forzar que los comandos se ejecuten sin preguntar, usa el flag `--force`:
 
 	php artisan migrate --force
 
 <a name="rolling-back-migrations"></a>
-## Rolling Back Migrations
+## Deshaciendo Migraciones
 
-#### Rollback The Last Migration Operation
+#### Deshacer la Última Operación de Migración (Rollback)
 
 	php artisan migrate:rollback
 
-#### Rollback all migrations
+#### Deshaciendo todas las migraciones
 
 	php artisan migrate:reset
 
-#### Rollback all migrations and run them all again
+#### Deshaciendo todas las migraciones y ejecutándolas otra vez.
 
 	php artisan migrate:refresh
 
 	php artisan migrate:refresh --seed
 
 <a name="database-seeding"></a>
-## Database Seeding
+## Poblado de la Base de Datos
 
-Laravel also includes a simple way to seed your database with test data using seed classes. All seed classes are stored in `database/seeds`. Seed classes may have any name you wish, but probably should follow some sensible convention, such as `UserTableSeeder`, etc. By default, a `DatabaseSeeder` class is defined for you. From this class, you may use the `call` method to run other seed classes, allowing you to control the seeding order.
+Laravel incluye también un sencillo método para llenar tus bases de datos con datos de prueba usando clases 'seed'. Todas las clases para el poblado de datos son almacenadas en `database/seeds`. Estas clases pueden tener cualquier nombre que quieras. Pero, probablemente, deberían seguir algunas convenciones como `UserTableSeeder` (`LLenarTablaUsuarios`), etc.. Por defecto, se define una clase `DatabaseSeeder` por tí. Desde esta clase, puedes usar el método `call` para ejecutar otras clases de poblado de datos. Permitiéndote controlar el orden en el que se producte ese poblado de datos.
 
-#### Example Database Seed Class
+#### Ejemplo de Clase de Poblado de Datos  
 
 	class DatabaseSeeder extends Seeder {
 
@@ -91,14 +91,18 @@ Laravel also includes a simple way to seed your database with test data using se
 
 	}
 
-To seed your database, you may use the `db:seed` command on the Artisan CLI:
+Para llenar de datos tu base de datos, puedes usar el comando `db:seed` de la línea de comandos de Artisan:
 
 	php artisan db:seed
 
-By default, the `db:seed` command runs the `DatabaseSeeder` class, which may be used to call other seed classes. However, you may use the `--class` option to specify a specific seeder class to run individually:
+Por defecto, el comando `db:seed` ejecuta la clase `DatabaseSeeder`, la cual puede ser usada para llamar a otras clases de poblado de datos. Sin embargo, puedes usar la opción `--class` para espeficiar que una clase de poblado de datos concreta se ejecute individualmente:
 
 	php artisan db:seed --class=UserTableSeeder
 
-You may also seed your database using the `migrate:refresh` command, which will also rollback and re-run all of your migrations:
+También puedes poblar tus bases de datos usando el comando `migrate:refresh`, que deshará (rollback) y volverá a ejecutar todas tus migraciones:
 
 	php artisan migrate:refresh --seed
+
+**Notas de la traducción:
+
+`foo` es un término que se usa habitualmente en inglés para referirse a cualquier variable o representación informática con un nombre genérico que podría traducirse por 'cualquier nombre', 'cualquier texto', etc... Por sí misma, la palabra foo no tiene un significado preciso; Se usa como nombre genérico. En castellano sería como decir 'fulanito' o 'menganito'.
