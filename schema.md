@@ -1,4 +1,4 @@
-# Schema Builder
+# Constructor de esquemas
 
 - [Introduction](#introduction)
 - [Creating & Dropping Tables](#creating-and-dropping-tables)

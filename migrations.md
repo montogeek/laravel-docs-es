@@ -1,15 +1,15 @@
-# Migraciones y Semillas (Migrations & Seeding)
+# Migraciones y Semillas
 
 - [Introducción](#introduction)
-- [Creando Migraciones](#creating-migrations)
-- [Ejecutando Migraciones](#running-migrations)
-- [Deshaciendo Migraciones](#rolling-back-migrations)
-- [Poblado de la Base de Datos](#database-seeding)
+- [Creando migraciones](#creating-migrations)
+- [Ejecutando migraciones](#running-migrations)
+- [Deshacer migraciones](#rolling-back-migrations)
+- [Poblado de la base de datos](#database-seeding)
 
 <a name="introduction"></a>
 ## Introducción
 
-Las migraciones son un tipo de control de versiones para tu base de datos. Permiten que un equipo modifique la estructura de la base de datos y permanecer actualizados con el estado de la estructura actual. Las migraciones están enlazadas habitualmente con el [Constructor de Esquemas](/5.0/schema) para gestionar con facilidad el esquema de tu aplicación.
+Las migraciones son un tipo de control de versiones para tu base de datos. Permiten que un equipo modifique la estructura de la base de datos y permanecer actualizados con el estado de la estructura actual. Las migraciones están enlazadas habitualmente con el [Constructor de esquemas](/5.0/schema) para gestionar con facilidad el esquema de tu aplicación.
 
 <a name="creating-migrations"></a>
 ## Creando Migraciones
@@ -46,28 +46,28 @@ Algunas operaciones de migración son destructivas, es decir, pueden causar pér
 	php artisan migrate --force
 
 <a name="rolling-back-migrations"></a>
-## Deshaciendo Migraciones
+## Deshacer Migraciones
 
 #### Deshacer la Última Operación de Migración (Rollback)
 
 	php artisan migrate:rollback
 
-#### Deshaciendo todas las migraciones
+#### Deshacer todas las migraciones
 
 	php artisan migrate:reset
 
-#### Deshaciendo todas las migraciones y ejecutándolas otra vez.
+#### Deshacer todas las migraciones y ejecutándolas otra vez.
 
 	php artisan migrate:refresh
 
 	php artisan migrate:refresh --seed
 
 <a name="database-seeding"></a>
-## Poblado de la Base de Datos
+## Poblado de la base de datos
 
 Laravel incluye también un sencillo método para llenar tus bases de datos con datos de prueba usando clases 'seed'. Todas las clases para el poblado de datos son almacenadas en `database/seeds`. Estas clases pueden tener cualquier nombre que quieras. Pero, probablemente, deberían seguir algunas convenciones como `UserTableSeeder` (`LLenarTablaUsuarios`), etc.. Por defecto, se define una clase `DatabaseSeeder` por tí. Desde esta clase, puedes usar el método `call` para ejecutar otras clases de poblado de datos. Permitiéndote controlar el orden en el que se producte ese poblado de datos.
 
-#### Ejemplo de Clase de Poblado de Datos  
+#### Ejemplo de Clase de Poblado de Datos
 
 	class DatabaseSeeder extends Seeder {
 
@@ -95,14 +95,14 @@ Para llenar de datos tu base de datos, puedes usar el comando `db:seed` de la l�
 
 	php artisan db:seed
 
-Por defecto, el comando `db:seed` ejecuta la clase `DatabaseSeeder`, la cual puede ser usada para llamar a otras clases de poblado de datos. Sin embargo, puedes usar la opción `--class` para espeficiar que una clase de poblado de datos concreta se ejecute individualmente:
+Por defecto, el comando `db:seed` ejecuta la clase `DatabaseSeeder`, la cual puede ser usada para llamar a otras clases de poblado de datos. Sin embargo, puedes usar la opción `--class` para especificar que una clase de poblado de datos concreta se ejecute individualmente:
 
 	php artisan db:seed --class=UserTableSeeder
 
-También puedes poblar tus bases de datos usando el comando `migrate:refresh`, que deshará (rollback) y volverá a ejecutar todas tus migraciones:
+También puedes poblar tus bases de datos usando el comando `migrate:refresh`, que deshace (rollback) y volverá a ejecutar todas tus migraciones:
 
 	php artisan migrate:refresh --seed
 
-**Notas de la traducción:
+** Notas de la traducción:
 
 `foo` es un término que se usa habitualmente en inglés para referirse a cualquier variable o representación informática con un nombre genérico que podría traducirse por 'cualquier nombre', 'cualquier texto', etc... Por sí misma, la palabra foo no tiene un significado preciso; Se usa como nombre genérico. En castellano sería como decir 'fulanito' o 'menganito'.
