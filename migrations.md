@@ -20,7 +20,7 @@ Para crear una migración, puedes usar el comando `make:migration` de la línea 
 
 La migración será colocada en tu directorio `database/migrations`, y contendrá una marca de tiempo que permitirá al framework determinar el orden de las migraciones.
 
-Cuando creas una migración, también puedes especificar la opción `--path`. La ruta debería ser relativa al directorio raíz de tu instalación:
+Cuando creas una migración, también puedes especificar la opción `--path`. La ruta debería ser relativa al directorio raíz de tu instalación: <sup>[1](#nota1)</sup>
 
 	php artisan make:migration foo --path=app/migrations
 
@@ -65,7 +65,7 @@ Algunas operaciones de migración son destructivas, es decir, pueden causar pér
 <a name="database-seeding"></a>
 ## Poblado de la base de datos
 
-Laravel incluye también un sencillo método para llenar tus bases de datos con datos de prueba usando clases 'seed'. Todas las clases para el poblado de datos son almacenadas en `database/seeds`. Estas clases pueden tener cualquier nombre que quieras. Pero, probablemente, deberían seguir algunas convenciones como `UserTableSeeder` (`LLenarTablaUsuarios`), etc.. Por defecto, se define una clase `DatabaseSeeder` por tí. Desde esta clase, puedes usar el método `call` para ejecutar otras clases de poblado de datos. Permitiéndote controlar el orden en el que se producte ese poblado de datos.
+Laravel incluye también un sencillo método para llenar tus bases de datos con datos de prueba usando clases 'seed'. Todas las clases para el poblado de datos son almacenadas en `database/seeds`. Estas clases pueden tener cualquier nombre que quieras. Pero, probablemente, deberían seguir algunas convenciones como `UserTableSeeder` (`PobladorDeTablaUsuarios`), etc.. Por defecto, se define una clase `DatabaseSeeder` por ti. Desde esta clase, puedes usar el método `call` para ejecutar otras clases de poblado de datos. Permitiéndote controlar el orden en el que se produce ese poblado de datos.
 
 #### Ejemplo de Clase de Poblado de Datos
 
@@ -99,10 +99,11 @@ Por defecto, el comando `db:seed` ejecuta la clase `DatabaseSeeder`, la cual pue
 
 	php artisan db:seed --class=UserTableSeeder
 
-También puedes poblar tus bases de datos usando el comando `migrate:refresh`, que deshace (rollback) y volverá a ejecutar todas tus migraciones:
+También puedes poblar tus bases de datos usando el comando `migrate:refresh`, que deshace (rollback) y vuelve a ejecutar todas tus migraciones:
 
 	php artisan migrate:refresh --seed
 
+<br />
 ** Notas de la traducción:
 
-`foo` es un término que se usa habitualmente en inglés para referirse a cualquier variable o representación informática con un nombre genérico que podría traducirse por 'cualquier nombre', 'cualquier texto', etc... Por sí misma, la palabra foo no tiene un significado preciso; Se usa como nombre genérico. En castellano sería como decir 'fulanito' o 'menganito'.
+<a name="nota1">[1]</a> `foo` es un término que se usa habitualmente en inglés para referirse a cualquier variable o representación informática con un nombre genérico que podría traducirse por 'cualquier nombre', 'cualquier texto', etc... Por sí misma, la palabra foo no tiene un significado preciso; Se usa como nombre genérico. En castellano sería como decir 'fulanito' o 'menganito'.
