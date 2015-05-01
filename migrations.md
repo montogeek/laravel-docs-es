@@ -33,13 +33,13 @@ También puedes usar las opciones `--table` y `--create` para indicar el nombre 
 <a name="running-migrations"></a>
 ## Ejecutando Migraciones
 
-#### Ejecutando Todas las Migraciones Pendientes
+#### Ejecutando todas las migraciones pendientes
 
 	php artisan migrate
 
 > **Nota:** Si recibes un error "class not found" ('clase no encontrada'), inténtalo ejecutando el comando `composer dump-autoload`.
 
-### Forzar las Migraciones en Producción.
+### Forzar las migraciones en producción.
 
 Algunas operaciones de migración son destructivas, es decir, pueden causar pérdida de datos. Para protegerte de ejecutar esos comandos contra tu base de datos de producción, se te pedirá confirmación antes de ejecutar esos comandos. Para forzar que los comandos se ejecuten sin preguntar, usa el flag `--force`:
 
@@ -48,7 +48,7 @@ Algunas operaciones de migración son destructivas, es decir, pueden causar pér
 <a name="rolling-back-migrations"></a>
 ## Deshacer Migraciones
 
-#### Deshacer la Última Operación de Migración (Rollback)
+#### Deshacer la última operación de migración (Rollback)
 
 	php artisan migrate:rollback
 
@@ -67,7 +67,7 @@ Algunas operaciones de migración son destructivas, es decir, pueden causar pér
 
 Laravel incluye también un sencillo método para llenar tus bases de datos con datos de prueba usando clases 'seed'. Todas las clases para el poblado de datos son almacenadas en `database/seeds`. Estas clases pueden tener cualquier nombre que quieras. Pero, probablemente, deberían seguir algunas convenciones como `UserTableSeeder` (`PobladorDeTablaUsuarios`), etc.. Por defecto, se define una clase `DatabaseSeeder` por ti. Desde esta clase, puedes usar el método `call` para ejecutar otras clases de poblado de datos. Permitiéndote controlar el orden en el que se produce ese poblado de datos.
 
-#### Ejemplo de Clase de Poblado de Datos
+#### Ejemplo de clase de poblado de datos
 
 	class DatabaseSeeder extends Seeder {
 
