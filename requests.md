@@ -225,6 +225,14 @@ The `Request` class provides many methods for examining the HTTP request for you
 
 	$uri = Request::path();
 
+#### Determine If The Request Is Using AJAX
+
+	if (Request::ajax())
+	{
+		//
+	}
+
+
 #### Retrieving The Request Method
 
 	$method = Request::method();
