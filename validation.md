@@ -1,17 +1,17 @@
-# Validación
+# Validation
 
-- [Uso básico](#basic-usage)
-- [Validación en el controlador](#controller-validation)
-- [Validación de formularios](#form-request-validation)
-- [Trabajar con mensajes de error](#working-with-error-messages)
-- [Mensajes de error en vistas](#error-messages-and-views)
-- [Reglas de validación disponibles](#available-validation-rules)
-- [Agregar reglas condicionalmente](#conditionally-adding-rules)
-- [Mensajes de error personalizados](#custom-error-messages)
-- [Reglas de validación personalizadas](#custom-validation-rules)
+- [Basic Usage](#basic-usage)
+- [Controller Validation](#controller-validation)
+- [Form Request Validation](#form-request-validation)
+- [Working With Error Messages](#working-with-error-messages)
+- [Error Messages & Views](#error-messages-and-views)
+- [Available Validation Rules](#available-validation-rules)
+- [Conditionally Adding Rules](#conditionally-adding-rules)
+- [Custom Error Messages](#custom-error-messages)
+- [Custom Validation Rules](#custom-validation-rules)
 
 <a name="basic-usage"></a>
-## Uso básico
+## Basic Usage
 
 Laravel ships with a simple, convenient facility for validating data and retrieving validation error messages via the `Validation` class.
 
@@ -89,7 +89,7 @@ The validator also allows you to attach callbacks to be run after validation is 
 You may add as many `after` callbacks to a validator as needed.
 
 <a name="controller-validation"></a>
-## Validación en el controlador
+## Controller Validation
 
 Of course, manually creating and checking a `Validator` instance each time you do validation is a headache. Don't worry, you have other options! The base `App\Http\Controllers\Controller` class included with Laravel uses a `ValidatesRequests` trait. This trait provides a single, convenient method for validating incoming HTTP requests. Here's what it looks like:
 
@@ -149,7 +149,7 @@ If you wish to customize the format of the validation errors that are flashed to
 	}
 
 <a name="form-request-validation"></a>
-## Validación de formularios
+## Form Request Validation
 
 For more complex validation scenarios, you may wish to create a "form request". Form requests are custom request classes that contain validation logic. To create a form request class, use the `make:request` Artisan CLI command:
 
@@ -235,7 +235,7 @@ If you wish to customize the format of the validation errors that are flashed to
 	}
 
 <a name="working-with-error-messages"></a>
-## Trabajar con mensajes de error
+## Working With Error Messages
 
 After calling the `messages` method on a `Validator` instance, you will receive a `MessageBag` instance, which has a variety of convenient methods for working with error messages.
 
@@ -278,7 +278,7 @@ After calling the `messages` method on a `Validator` instance, you will receive 
 	}
 
 <a name="error-messages-and-views"></a>
-## Mensajes de error en vistas
+## Error Messages & Views
 
 Once you have performed validation, you will need an easy way to get the error messages back to your views. This is conveniently handled by Laravel. Consider the following routes as an example:
 
@@ -318,7 +318,7 @@ You may then access the named `MessageBag` instance from the `$errors` variable:
 	<?php echo $errors->login->first('email'); ?>
 
 <a name="available-validation-rules"></a>
-## Reglas de validación disponibles
+## Available Validation Rules
 
 Below is a list of all available validation rules and their function:
 
@@ -533,7 +533,7 @@ The field under validation must be present in the input data.
 <a name="rule-required-if"></a>
 #### required_if:_field_,_value_,...
 
-The field under validation must be present if the _field_ field is equal to any _value_.
+The field under validation must be present if the _field_ is equal to any _value_.
 
 <a name="rule-required-with"></a>
 #### required_with:_foo_,_bar_,...
@@ -566,7 +566,7 @@ The given _field_ must match the field under validation.
 The field under validation must have a size matching the given _value_. For string data, _value_ corresponds to the number of characters. For numeric data, _value_ corresponds to a given integer value. For files, _size_ corresponds to the file size in kilobytes.
 
 <a name="rule-string"></a>
-#### string:
+#### string
 
 The field under validation must be a string type.
 
@@ -622,7 +622,7 @@ The field under validation must be formatted as an URL.
 > **Note:** This function uses PHP's `filter_var` method.
 
 <a name="conditionally-adding-rules"></a>
-## Agregar reglas condicionalmente
+## Conditionally Adding Rules
 
 In some situations, you may wish to run validation checks against a field **only** if that field is present in the input array. To quickly accomplish this, add the `sometimes` rule to your rule list:
 
@@ -658,7 +658,7 @@ The first argument passed to the `sometimes` method is the name of the field we 
 > **Note:** The `$input` parameter passed to your `Closure` will be an instance of `Illuminate\Support\Fluent` and may be used as an object to access your input and files.
 
 <a name="custom-error-messages"></a>
-## Mensajes de error personalizados
+## Custom Error Messages
 
 If needed, you may use custom error messages for validation instead of the defaults. There are several ways to specify custom messages.
 
@@ -701,7 +701,7 @@ In some cases, you may wish to specify your custom messages in a language file i
 	],
 
 <a name="custom-validation-rules"></a>
-## Reglas de validación personalizadas
+## Custom Validation Rules
 
 #### Registering A Custom Validation Rule
 
