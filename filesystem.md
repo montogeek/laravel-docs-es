@@ -1,4 +1,4 @@
-# Filesystem / Cloud Storage
+# Sistema de archivos / Guardado en la nube
 
 - [Introduction](#introduction)
 - [Configuration](#configuration)
