@@ -1,12 +1,12 @@
 # HTTP Controllers
 
-- [Introduction](#introduction)
-- [Basic Controllers](#basic-controllers)
+- [Introduccion](#introduction)
+- [Controladores basicos](#basic-controllers)
 - [Controller Middleware](#controller-middleware)
-- [Implicit Controllers](#implicit-controllers)
+- [Controladores implicitos](#implicit-controllers)
 - [RESTful Resource Controllers](#restful-resource-controllers)
-- [Dependency Injection & Controllers](#dependency-injection-and-controllers)
-- [Route Caching](#route-caching)
+- [Controladores e Inyeccion de dependencias](#dependency-injection-and-controllers)
+- [Cache de rutas](#route-caching)
 
 <a name="introduction"></a>
 ## Introduction
