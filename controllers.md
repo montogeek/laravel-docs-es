@@ -1,4 +1,4 @@
-# HTTP Controllers
+# Controladores HTTP
 
 - [Introduccion](#introduction)
 - [Controladores basicos](#basic-controllers)
@@ -9,12 +9,12 @@
 - [Cache de rutas](#route-caching)
 
 <a name="introduction"></a>
-## Introduction
+## Introduccion
 
 Instead of defining all of your request handling logic in a single `routes.php` file, you may wish to organize this behavior using Controller classes. Controllers can group related HTTP request handling logic into a class. Controllers are typically stored in the `app/Http/Controllers` directory.
 
 <a name="basic-controllers"></a>
-## Basic Controllers
+## Controladores basicos
 
 Here is an example of a basic controller class:
 
@@ -102,7 +102,7 @@ Additionally, you may specify middleware within your controller's constructor:
 	}
 
 <a name="implicit-controllers"></a>
-## Implicit Controllers
+## Controladores implicitos
 
 Laravel allows you to easily define a single route to handle every action in a controller. First, define the route using the `Route::controller` method:
 
@@ -216,7 +216,7 @@ If it becomes necessary to add additional routes to a resource controller beyond
 	Route::resource('photos', 'PhotoController');
 
 <a name="dependency-injection-and-controllers"></a>
-## Dependency Injection & Controllers
+## Controladores e Inyeccion de dependencias]
 
 #### Constructor Injection
 
@@ -301,7 +301,7 @@ If your controller method is also expecting input from a route parameter, simply
 > **Note:** Method injection is fully compatible with [model binding](/5.0/routing#route-model-binding). The container will intelligently determine which arguments are model bound and which arguments should be injected.
 
 <a name="route-caching"></a>
-## Route Caching
+## Cache de rutas
 
 If your application is exclusively using controller routes, you may take advantage of Laravel's route cache. Using the route cache will drastically decrease the amount of time it take to register all of your application's routes. In some cases, your route registration may even be up to 100x faster! To generate a route cache, just execute the `route:cache` Artisan command:
 
