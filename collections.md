@@ -1,10 +1,10 @@
-# Collections
+# Colecciones
 
-- [Introduction](#introduction)
-- [Basic Usage](#basic-usage)
+- [Introduccion](#introduction)
+- [Uso basico](#basic-usage)
 
 <a name="introduction"></a>
-## Introduction
+## Introduccion
 
 The `Illuminate\Support\Collection` class provides a fluent, convenient wrapper for working with arrays of data. For example, check out the following code. We'll use the `collect` helper to create a new collection instance from the array:
 
@@ -21,7 +21,7 @@ The `Illuminate\Support\Collection` class provides a fluent, convenient wrapper 
 As you can see, the `Collection` class allows you to chain its methods to perform fluent mapping and reducing of the underlying array. In general, every `Collection` method returns an entirely new `Collection` instance. To dig in further, keep reading!
 
 <a name="basic-usage"></a>
-## Basic Usage
+## Uso basico
 
 #### Creating Collections
 
