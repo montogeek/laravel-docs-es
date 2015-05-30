@@ -6,7 +6,7 @@
 <a name="introduction"></a>
 ## Introduccion
 
-The `Illuminate\Support\Collection` class provides a fluent, convenient wrapper for working with arrays of data. For example, check out the following code. We'll use the `collect` helper to create a new collection instance from the array:
+La clase `Illuminate\Support\Collection` provee una forma conviniene y fluida para trabajar con arrays de datos. Por ejemplo, revisa el siguiente codigo. Se usa el metodo `collect` para crear una nueva instancia de una coleccion a partir de un array:
 
   $collection = collect(['taylor', 'abigail', null])->map(function($name)
   {
@@ -18,21 +18,21 @@ The `Illuminate\Support\Collection` class provides a fluent, convenient wrapper 
   });
 
 
-As you can see, the `Collection` class allows you to chain its methods to perform fluent mapping and reducing of the underlying array. In general, every `Collection` method returns an entirely new `Collection` instance. To dig in further, keep reading!
+Como puedes ver, la clase `Collection` te permite encadenar sus metodos para ejecutar mapeos o reducciones sobre el array. En general, cada metodo de `Collection` retorna una completa nueva instancia de `Colecction`. Aprende mas a continuacion!
 
 <a name="basic-usage"></a>
 ## Uso basico
 
-#### Creating Collections
+#### Crear colecciones
 
-As mentioned above, the `collect` helper will return a new `Illuminate\Support\Collection` instance for the given array. You may also use the `make` command on the `Collection` class:
+Como se menciono anteriormente, el metodo `collect` retornara una nueva instancia de `Illuminate\Support\Collection` dado un array. Tambien puedes usar el metodo `make` de la clase `Collection`
 
   $collection = collect([1, 2, 3]);
 
   $collection = Collection::make([1, 2, 3]);
 
-Of course, collections of [Eloquent](/5.0/eloquent) objects are always returned as `Collection` instances; however, you should feel free to use the `Collection` class wherever it is convenient for your application.
+Por supuesto, colecciones de los objetos de [Eloquent](/5.0/eloquent) siempre son retornados como instancias de `Collection`, sin embargo, usa la clase `Collection` donde sea que la necesites en tu aplicacion.
 
-#### Explore The Collection
+#### Explorar la coleccion
 
-Instead of listing all of the methods (there are a lot) the Collection makes available, check out the [API documentation for the class](http://laravel.com/api/master/Illuminate/Support/Collection.html)!
+En vez de listar todos los metodos (son muchos) que la clase Collection provee, verifica la [documentacion en la API](http://laravel.com/api/master/Illuminate/Support/Collection.html)!
