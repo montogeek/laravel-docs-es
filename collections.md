@@ -1,26 +1,23 @@
 # Colecciones
 
-- [Introduccion](#introduction)
+- [Introducción](#introduction)
 - [Uso basico](#basic-usage)
 
 <a name="introduction"></a>
-## Introduccion
+## Introducción
 
-La clase `Illuminate\Support\Collection` provee una forma conviniene y fluida para trabajar con arrays de datos. Por ejemplo, revisa el siguiente codigo. Se usa el metodo `collect` para crear una nueva instancia de una coleccion a partir de un array:
+La clase `Illuminate\Support\Collection` provee una forma conveniente y fluida para trabajar con arrays de datos. Por ejemplo, revisa el siguiente codigo. Se usa el metodo `collect` para crear una nueva instancia de una colección a partir de un array:
 
-```php
-$collection = collect(['taylor', 'abigail', null])->map(function($name)
-{
-  return strtoupper($name);
-})
-->reject(function($name)
-{
-  return empty($value);
-});
-```
+  $collection = collect(['taylor', 'abigail', null])->map(function($name)
+  {
+    return strtoupper($name);
+  })
+  ->reject(function($name)
+  {
+    return empty($value);
+  });
 
-
-Como puedes ver, la clase `Collection` te permite encadenar sus metodos para ejecutar mapeos o reducciones sobre el array. En general, cada metodo de `Collection` retorna una completa nueva instancia de `Colecction`. Aprende mas a continuacion!
+Como puedes ver, la clase `Collection` te permite encadenar sus metodos para ejecutar mapeos o reducciones sobre el array. En general, cada metodo de `Collection` retorna una completa nueva instancia de `Colecction`. Aprende mas a continuación!
 
 <a name="basic-usage"></a>
 ## Uso basico
