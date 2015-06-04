@@ -1,20 +1,20 @@
 # Laravel Elixir
 
-- [Introduction](#introduction)
-- [Installation & Setup](#installation)
-- [Usage](#usage)
+- [Introducción](#introduction)
+- [Instalación y configuración](#installation)
+- [Uso](#usage)
 - [Gulp](#gulp)
-- [Extensions](#extensions)
+- [Extensiones](#extensions)
 
 <a name="introduction"></a>
-## Introduction
+## Introducción
 
 Laravel Elixir provides a clean, fluent API for defining basic [Gulp](http://gulpjs.com) tasks for your Laravel application. Elixir supports several common CSS and JavaScript pre-processors, and even testing tools.
 
 If you've ever been confused about how to get started with Gulp and asset compilation, you will love Laravel Elixir!
 
 <a name="installation"></a>
-## Installation & Setup
+## Instalación y configuración
 
 ### Installing Node
 
@@ -37,7 +37,7 @@ The only remaining step is to install Elixir! With a new install of Laravel, you
     npm install
 
 <a name="usage"></a>
-## Usage
+## Uso
 
 Now that you've installed Elixir, you'll be compiling and concatenating in no time! The `gulpfile.js` file in your project's root directory contains all of your Elixir tasks.
 
@@ -302,7 +302,7 @@ Now that you've told Elixir which tasks to execute, you only need to trigger Gul
 > **Note:** All tasks will assume a development environment, and will exclude minification. For production, use `gulp --production`.
 
 <a name="extensions"></a>
-## Custom Tasks and Extensions
+## Extensiones y tareas personalizadas
 
 Sometimes, you'll want to hook your own Gulp tasks into Elixir. Perhaps you have a special bit of functionality that you'd like Elixir to mix and watch for you. No problem!
 
