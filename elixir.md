@@ -16,7 +16,7 @@ If you've ever been confused about how to get started with Gulp and asset compil
 <a name="installation"></a>
 ## Instalación y configuración
 
-### Installing Node
+### Instalar NodeJS
 
 Before triggering Elixir, you must first ensure that Node.js is installed on your machine.
 
@@ -24,7 +24,7 @@ Before triggering Elixir, you must first ensure that Node.js is installed on you
 
 By default, Laravel Homestead includes everything you need; however, if you aren't using Vagrant, then you can easily install Node by visiting [their download page](http://nodejs.org/download/). Don't worry, it's quick and easy!
 
-### Gulp
+### Instalar Gulp
 
 Next, you'll want to pull in [Gulp](http://gulpjs.com) as a global NPM package like so:
 
@@ -41,7 +41,7 @@ The only remaining step is to install Elixir! With a new install of Laravel, you
 
 Now that you've installed Elixir, you'll be compiling and concatenating in no time! The `gulpfile.js` file in your project's root directory contains all of your Elixir tasks.
 
-#### Compile Less
+#### Compilar LESS
 
 ```javascript
 elixir(function(mix) {
@@ -51,7 +51,7 @@ elixir(function(mix) {
 
 In the example above, Elixir assumes that your Less files are stored in `resources/assets/less`.
 
-#### Compile Multiple Less Files
+#### Compilar multiples archivos LESS
 
 ```javascript
 elixir(function(mix) {
@@ -62,7 +62,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Compile Sass
+#### Compilar SASS
 
 ```javascript
 elixir(function(mix) {
@@ -80,7 +80,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Compile Without Source Maps
+#### Compilar sin Source Maps
 
 ```javascript
 elixir.config.sourcemaps = false;
@@ -92,7 +92,7 @@ elixir(function(mix) {
 
 Source maps are enabled out of the box. As such, for each file that is compiled, you'll find a companion `*.css.map` file in the same directory. This mapping allows you to, when debugging, trace your compiled stylesheet selectors  back to your original Sass or Less partials! Should you need to disable this functionality, however, the code sample above will do the trick.
 
-#### Compile CoffeeScript
+#### Compilar CoffeeScript
 
 ```javascript
 elixir(function(mix) {
@@ -102,7 +102,7 @@ elixir(function(mix) {
 
 This assumes that your CoffeeScript files are stored in `resources/assets/coffee`.
 
-#### Compile All Less and CoffeeScript
+#### Compilar LESS y CoffeeScript
 
 ```javascript
 elixir(function(mix) {
@@ -111,7 +111,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Trigger PHPUnit Tests
+#### Ejecutar test de PHPUnit
 
 ```javascript
 elixir(function(mix) {
@@ -119,7 +119,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Trigger PHPSpec Tests
+#### Ejecutar tests de PHPSpec
 
 ```javascript
 elixir(function(mix) {
@@ -127,7 +127,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Combine Stylesheets
+#### Combinar hojas de estilo
 
 ```javascript
 elixir(function(mix) {
@@ -140,7 +140,7 @@ elixir(function(mix) {
 
 Paths passed to this method are relative to the `resources/assets/css` directory.
 
-#### Combine Stylesheets and Save to a Custom Directory
+#### Combinar hojas de estilo y guardarlas en un directorio
 
 ```javascript
 elixir(function(mix) {
@@ -151,7 +151,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Combine Stylesheets From A Custom Base Directory
+#### Combinar hojas de estilo de un directorio personalizado
 
 ```javascript
 elixir(function(mix) {
@@ -164,7 +164,7 @@ elixir(function(mix) {
 
 The third argument to both the `styles` and `scripts` methods determines the relative directory for all paths passed to the methods.
 
-#### Combine All Styles in a Directory
+#### Combinar todas las hojas de estilo en un directorio
 
 ```javascript
 elixir(function(mix) {
@@ -172,7 +172,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Combine Scripts
+#### Combinar Scripts
 
 ```javascript
 elixir(function(mix) {
@@ -185,7 +185,7 @@ elixir(function(mix) {
 
 Again, this assumes all paths are relative to the `resources/assets/js` directory.
 
-#### Combine All Scripts in a Directory
+#### Combinar todos los Scripts en un directorio
 
 ```javascript
 elixir(function(mix) {
