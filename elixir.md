@@ -185,7 +185,7 @@ elixir(function(mix) {
 
 Again, this assumes all paths are relative to the `resources/assets/js` directory.
 
-#### Combinar todos los Scripts en un directorio
+#### Combinar todos los scripts en un directorio
 
 ```javascript
 elixir(function(mix) {
@@ -193,7 +193,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Combine Multiple Sets of Scripts
+#### Combinar multiples archivos de JavaScript
 
 ```javascript
 elixir(function(mix) {
@@ -202,7 +202,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Version / Hash A File
+#### Versionar un archivo
 
 ```javascript
 elixir(function(mix) {
@@ -233,7 +233,7 @@ elixir(function(mix) {
 <script src="{{ elixir("js/app.js") }}"></script>
 ```
 
-#### Copy a File to a New Location
+#### Copiar una carpeta a otro lugar
 
 ```javascript
 elixir(function(mix) {
@@ -241,7 +241,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Copy an Entire Directory to a New Location
+#### Copiar un directorio a otro lugar
 
 ```javascript
 elixir(function(mix) {
@@ -249,7 +249,7 @@ elixir(function(mix) {
 });
 ```
 
-#### Trigger Browserify
+#### Ejecutar Browserify
 
 ```javascript
 elixir(function(mix) {
@@ -261,7 +261,7 @@ Want to require modules in the browser? Hoping to use EcmaScript 6 sooner than l
 
 This task assumes that your scripts are stored in `resources/assets/js`, though you're free to override the default.
 
-#### Method Chaining
+#### Encadenamiento de metodos
 
 Of course, you may chain almost all of Elixir's methods together to build your recipe:
 
@@ -279,23 +279,23 @@ elixir(function(mix) {
 
 Now that you've told Elixir which tasks to execute, you only need to trigger Gulp from the command line.
 
-#### Execute All Registered Tasks Once
+#### Ejecutar todas las tareas una vez
 
     gulp
 
-#### Watch Assets For Changes
+#### Monitorizar recursos por cambios
 
     gulp watch
 
-#### Only Compile Scripts
+#### Solo compitar scripts
 
     gulp scripts
 
-#### Only Compile Styles
+#### Solo compilar estilos
 
     gulp styles
 
-#### Watch Tests And PHP Classes for Changes
+#### Monitorizar tests y clases de PHP
 
     gulp tdd
 
