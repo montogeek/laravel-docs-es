@@ -38,7 +38,7 @@ Homestead is currently built and tested using Vagrant 1.7.
 - Redis
 - Memcached
 - Beanstalkd
-- [Laravel Envoy](/docs/{{version}}/envoy)
+- [Laravel Envoy](/{{version}}/envoy)
 - [Blackfire Profiler](#blackfire-profiler)
 
 <a name="installation-and-setup"></a>

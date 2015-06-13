@@ -34,7 +34,7 @@ First, add the Cashier package to your `composer.json` file and run the `compose
 
 #### Service Provider
 
-Next, register the `Laravel\Cashier\CashierServiceProvider` [service provider](/docs/{{version}}/providers) in your `app` configuration file.
+Next, register the `Laravel\Cashier\CashierServiceProvider` [service provider](/{{version}}/providers) in your `app` configuration file.
 
 #### Migration
 
@@ -115,7 +115,7 @@ Once a user is subscribed to your application, you may easily check their subscr
 		//
 	}
 
-The `subscribed` method also makes a great candidate for a [route middleware](/docs/{{version}}/middleware), allowing you to filter access to routes and controllers based on the user's subscription status:
+The `subscribed` method also makes a great candidate for a [route middleware](/{{version}}/middleware), allowing you to filter access to routes and controllers based on the user's subscription status:
 
 	public function handle($request, Closure $next)
 	{
@@ -240,7 +240,7 @@ What if a customer's credit card expires? No worries - Cashier includes a Webhoo
 
 That's it! Failed payments will be captured and handled by the controller. The controller will cancel the customer's subscription when Stripe determines the subscription has failed (normally after three failed payment attempts). Don't forget: you will need to configure the webhook URI in your Stripe control panel settings.
 
-Since Stripe webhooks need to bypass Laravel's [CSRF verification](/docs/{{version}}/routing#csrf-protection), be sure to list the URI an exception in your `VerifyCsrfToken` middleware:
+Since Stripe webhooks need to bypass Laravel's [CSRF verification](/{{version}}/routing#csrf-protection), be sure to list the URI an exception in your `VerifyCsrfToken` middleware:
 
 	protected $except = [
 		'stripe/*',

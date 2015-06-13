@@ -9,7 +9,7 @@
 <a name="introduction"></a>
 ## Introduction
 
-Laravel makes connecting with databases and running queries extremely simple across a variety of database back-ends using either raw SQL, the [fluent query builder](/docs/{{version}}/queries), and the [Eloquent ORM](/docs/{{version}}/eloquent). Currently, Laravel supports four database systems:
+Laravel makes connecting with databases and running queries extremely simple across a variety of database back-ends using either raw SQL, the [fluent query builder](/{{version}}/queries), and the [Eloquent ORM](/{{version}}/eloquent). Currently, Laravel supports four database systems:
 
 - MySQL
 - Postgres
@@ -21,7 +21,7 @@ Laravel makes connecting with databases and running queries extremely simple acr
 
 Laravel makes connecting with databases and running queries extremely simple. The database configuration for your application is located at `config/database.php`. In this file you may define all of your database connections, as well as specify which connection should be used by default. Examples for all of the supported database systems are provided in this file.
 
-By default, Laravel's sample [environment configuration](/docs/{{version}}/installation#environment-configuration) is ready to use with [Laravel Homestead](/docs/{{version}}/homestead), which is a convenient virtual machine for doing Laravel development on your local machine. Of course, you are free to modify this configuration as needed for your local database.
+By default, Laravel's sample [environment configuration](/{{version}}/installation#environment-configuration) is ready to use with [Laravel Homestead](/{{version}}/homestead), which is a convenient virtual machine for doing Laravel development on your local machine. Of course, you are free to modify this configuration as needed for your local database.
 
 <a name="read-write-connections"></a>
 #### Read / Write Connections
@@ -122,7 +122,7 @@ Some database statements should not return any value. For these types of operati
 <a name="listening-for-query-events"></a>
 ### Listening For Query Events
 
-If you would like to receive each SQL query executed by your application, you may use the `listen` method. This method is useful for logging queries or debugging. You may register your query listener in a [service provider](/docs/{{version}}/providers):
+If you would like to receive each SQL query executed by your application, you may use the `listen` method. This method is useful for logging queries or debugging. You may register your query listener in a [service provider](/{{version}}/providers):
 
 	<?php
 
@@ -181,7 +181,7 @@ Lastly, you can commit a transaction via the `commit` method:
 
 	DB::commit();
 
-> **Note:** Using the `DB` facade's transaction methods also controls transactions for the [query builder](/docs/{{version}}/queries) and [Eloquent ORM](/docs/{{version}}/eloquent).
+> **Note:** Using the `DB` facade's transaction methods also controls transactions for the [query builder](/{{version}}/queries) and [Eloquent ORM](/{{version}}/eloquent).
 
 <a name="accessing-connections"></a>
 ## Using Multiple Database Connections

@@ -55,7 +55,7 @@ You may also set the `host` option to a UNIX socket path. If you do this, the `p
 
 Before using a Redis cache with Laravel, you will need to install the `predis/predis` package (~1.0) via Composer.
 
-For more information on configuring Redis, consult its [Laravel documentation page](/docs/{{version}}/redis#configuration).
+For more information on configuring Redis, consult its [Laravel documentation page](/{{version}}/redis#configuration).
 
 <a name="cache-usage"></a>
 ## Cache Usage
@@ -63,7 +63,7 @@ For more information on configuring Redis, consult its [Laravel documentation pa
 <a name="obtaining-a-cache-instance"></a>
 ### Obtaining A Cache Instance
 
-The `Illuminate\Contracts\Cache\Factory` and `Illuminate\Contracts\Cache\Repository` [contracts](/docs/{{version}}/contracts) provide access to Laravel's cache services. The `Factory` contract provides access to all cache drivers defined for your application. The `Repository` contract is typically an implementation of the default cache driver for your application as specified by your `cache` configuration file.
+The `Illuminate\Contracts\Cache\Factory` and `Illuminate\Contracts\Cache\Repository` [contracts](/{{version}}/contracts) provide access to Laravel's cache services. The `Factory` contract provides access to all cache drivers defined for your application. The `Repository` contract is typically an implementation of the default cache driver for your application as specified by your `cache` configuration file.
 
 However, you may also use the `Cache` facade, which is what we will use throughout this documentation. The `Cache` facade provides convenient, terse access to the underlying implementations of the Laravel cache contracts.
 
@@ -188,7 +188,7 @@ You may remove items from the cache using the `forget` method on the `Cache` fac
 <a name="adding-custom-cache-drivers"></a>
 ## Adding Custom Cache Drivers
 
-To extend the Laravel cache with a custom driver, we will use the `extend` method on the `Cache` facade, which is used to bind a custom driver resolver to the manager. Typically, this is done within a [service provider](/docs/{{version}}/providers).
+To extend the Laravel cache with a custom driver, we will use the `extend` method on the `Cache` facade, which is used to bind a custom driver resolver to the manager. Typically, this is done within a [service provider](/{{version}}/providers).
 
 For example, to register a new cache driver named "mongo":
 
@@ -225,11 +225,11 @@ For example, to register a new cache driver named "mongo":
 		}
 	}
 
-The first argument passed to the `extend` method is the name of the driver. This will correspond to your `driver` option in the `config/cache.php` configuration file. The second argument is a Closure that should return an `Illuminate\Cache\Repository` instance. The Closure will be passed an `$app` instance, which is an instance of the [service container](/docs/{{version}}/container).
+The first argument passed to the `extend` method is the name of the driver. This will correspond to your `driver` option in the `config/cache.php` configuration file. The second argument is a Closure that should return an `Illuminate\Cache\Repository` instance. The Closure will be passed an `$app` instance, which is an instance of the [service container](/{{version}}/container).
 
 The call to `Cache::extend` could be done in the `boot` method of the default `App\Providers\AppServiceProvider` that ships with fresh Laravel applications, or you may create your own service provider to house the extension - just don't forget to register the provider in the `config/app.php` provider array.
 
-To create our custom cache driver, we first need to implement the `Illuminate\Contracts\Cache\Store` [contract](/docs/{{version}}/contracts) contract. So, our MongoDB cache implementation would look something like this:
+To create our custom cache driver, we first need to implement the `Illuminate\Contracts\Cache\Store` [contract](/{{version}}/contracts) contract. So, our MongoDB cache implementation would look something like this:
 
 	<?php
 

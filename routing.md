@@ -42,7 +42,7 @@ You will define most of the routes for your application in the `app/Http/routes.
 
 #### Registering A Route For Multiple Verbs
 
-Sometimes you may need to register a route that responds to multiple HTTP verbs. You may do so using the `match` method on the `Route` [facade](/docs/{{version}}/facades):
+Sometimes you may need to register a route that responds to multiple HTTP verbs. You may do so using the `match` method on the `Route` [facade](/{{version}}/facades):
 
 	Route::match(['get', 'post'], '/', function () {
 		return 'Hello World';
@@ -265,11 +265,11 @@ The `csrf_field` helper function generates the following HTML:
 
 	<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 
-Of course, using the Blade [templating engine](/docs/{{version}}/blade):
+Of course, using the Blade [templating engine](/{{version}}/blade):
 
 	{!! csrf_field() !!}
 
-You do not need to manually verify the CSRF token on POST, PUT, or DELETE requests. The `VerifyCsrfToken` [HTTP middleware](/docs/{{version}}/middleware) will verify token in the request input matches the token stored in the session.
+You do not need to manually verify the CSRF token on POST, PUT, or DELETE requests. The `VerifyCsrfToken` [HTTP middleware](/{{version}}/middleware) will verify token in the request input matches the token stored in the session.
 
 <a name="csrf-excluding-uris"></a>
 ### Excluding URIs From CSRF Protection
@@ -335,4 +335,4 @@ There are two ways to manually trigger a 404 error from a route. First, you may 
 
 Secondly, you may manually throw an instance of `Symfony\Component\HttpKernel\Exception\NotFoundHttpException`.
 
-More information on handling 404 exceptions and using custom responses for these errors may be found in the [errors](/docs/{{version}}/errors#http-exceptions) section of the documentation.
+More information on handling 404 exceptions and using custom responses for these errors may be found in the [errors](/{{version}}/errors#http-exceptions) section of the documentation.

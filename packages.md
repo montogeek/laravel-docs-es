@@ -22,16 +22,16 @@ On the other hand, other packages are specifically intended for use with Laravel
 <a name="service-providers"></a>
 ## Service Providers
 
-[Service providers](/docs/{{version}}/providers) are the connection points between your package and Laravel. A service provider is responsible for binding things into Laravel's [service container](/docs/{{version}}/container) and informing Laravel where to load package resources such as views, configuration, and localization files.
+[Service providers](/{{version}}/providers) are the connection points between your package and Laravel. A service provider is responsible for binding things into Laravel's [service container](/{{version}}/container) and informing Laravel where to load package resources such as views, configuration, and localization files.
 
 A service provider extends the `Illuminate\Support\ServiceProvider` class and contains two methods: `register` and `boot`. The base `ServiceProvider` class is located in the `illuminate/support` Composer package, which you should add to your own package's dependencies.
 
-To learn more about the structure and purpose of service providers, check out [their documentation](/docs/{{version}}/providers).
+To learn more about the structure and purpose of service providers, check out [their documentation](/{{version}}/providers).
 
 <a name="routing"></a>
 ## Routing
 
-To define routes for your package, simply `require` the routes file from within your package service provider's `boot` method. From within your routes file, you may use the `Route` facade to [register routes](/docs/{{version}}/routing) just as you would within a typical Laravel application:
+To define routes for your package, simply `require` the routes file from within your package service provider's `boot` method. From within your routes file, you may use the `Route` facade to [register routes](/{{version}}/routing) just as you would within a typical Laravel application:
 
 	/**
 	 * Perform post-registration booting of services.
@@ -51,7 +51,7 @@ To define routes for your package, simply `require` the routes file from within 
 <a name="views"></a>
 ### Views
 
-To register your package's [views](/docs/{{version}}/views) with Laravel, you need to tell Laravel where the views are located. You may do this using the service provider's `loadViewsFrom` method. The `loadViewsFrom` method accepts two arguments: the path to your view templates and your package's name. For example, if your package name is "courier", add the following to your service provider's `boot` method:
+To register your package's [views](/{{version}}/views) with Laravel, you need to tell Laravel where the views are located. You may do this using the service provider's `loadViewsFrom` method. The `loadViewsFrom` method accepts two arguments: the path to your view templates and your package's name. For example, if your package name is "courier", add the following to your service provider's `boot` method:
 
 	/**
 	 * Perform post-registration booting of services.
@@ -96,7 +96,7 @@ Now, when users of your package execute Laravel's `vendor:publish` Artisan comma
 <a name="translations"></a>
 ### Translations
 
-If your package contains [translation files](/docs/{{version}}/localization), you may use the `loadTranslationsFrom` method to inform Laravel how to load them. For example, if your package is named "courier", you should add the following to your service provider's `boot` method:
+If your package contains [translation files](/{{version}}/localization), you may use the `loadTranslationsFrom` method to inform Laravel how to load them. For example, if your package is named "courier", you should add the following to your service provider's `boot` method:
 
 	/**
 	 * Perform post-registration booting of services.

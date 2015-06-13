@@ -42,7 +42,7 @@ Once your command is generated, you should fill out the `signature` and `descrip
 
 The `handle` method will be called when your command is executed. You may place any command logic in this method. Let's take a look at an example command.
 
-Note that we are able to inject any dependencies we need into the command's constructor. The Laravel [service container](/docs/{{version}}/container) will automatically inject all dependencies type-hinted in the constructor. For greater code reusability, it is good practice to keep your console commands light and let them defer to application services to accomplish their tasks.
+Note that we are able to inject any dependencies we need into the command's constructor. The Laravel [service container](/{{version}}/container) will automatically inject all dependencies type-hinted in the constructor. For greater code reusability, it is good practice to keep your console commands light and let them defer to application services to accomplish their tasks.
 
     <?php
 
@@ -292,7 +292,7 @@ For more advanced options, check out the [Symfony Progress Bar component documen
 
 Once your command is finished, you need to register it with Artisan so it will be available for use. This is done within the `app/Console/Kernel.php` file.
 
-Within this file, you will find a list of commands in the `commands` property. To register your command, simply add the class name to the list. When Artisan boots, all the commands listed in this property will be resolved by the [service container](/docs/{{version}}/container) and registered with Artisan:
+Within this file, you will find a list of commands in the `commands` property. To register your command, simply add the class name to the list. When Artisan boots, all the commands listed in this property will be resolved by the [service container](/{{version}}/container) and registered with Artisan:
 
     protected $commands = [
         'App\Console\Commands\SendEmails'
@@ -311,7 +311,7 @@ Sometimes you may wish to execute an Artisan command outside of the CLI. For exa
         //
     });
 
-Using the `queue` method on the `Artisan` facade, you may even queue Artisan commands so they are processed in the background by your [queue workers](/docs/{{version}}/queues):
+Using the `queue` method on the `Artisan` facade, you may even queue Artisan commands so they are processed in the background by your [queue workers](/{{version}}/queues):
 
     Route::get('/foo', function () {
         Artisan::queue('email:send', [

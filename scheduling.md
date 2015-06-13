@@ -60,7 +60,7 @@ You may define all of your scheduled tasks in the `schedule` method of the `App\
 	    }
 	}
 
-In addition to scheduling `Closure` calls, you may also schedule [Artisan commands](/docs/{{version}}/artisan) and operating system commands. For example, you may use the `command` method to schedule an Artisan command:
+In addition to scheduling `Closure` calls, you may also schedule [Artisan commands](/{{version}}/artisan) and operating system commands. For example, you may use the `command` method to schedule an Artisan command:
 
     $schedule->command('emails:send --force')->daily();
 
@@ -122,7 +122,7 @@ By default, scheduled tasks will be run even if the previous instance of the tas
 
 	$schedule->command('emails:send')->withoutOverlapping();
 
-In this example, the `emails:send` [Artisan command](/docs/{{version}}/artisan) will be run every minute if it is not already running. The `withoutOverlapping` method is especially useful if you have tasks that vary drastically in their execution time, preventing you from predicting exactly how long a given task will take.
+In this example, the `emails:send` [Artisan command](/{{version}}/artisan) will be run every minute if it is not already running. The `withoutOverlapping` method is especially useful if you have tasks that vary drastically in their execution time, preventing you from predicting exactly how long a given task will take.
 
 <a name="task-output"></a>
 ## Task Output
@@ -133,7 +133,7 @@ The Laravel scheduler provides several convenient methods for working with the o
 			 ->daily()
 			 ->sendOutputTo($filePath);
 
-Using the `emailOutputTo` method, you may e-mail the output to an e-mail address of your choice. Note that the output must first be sent to a file using the `sendOutputTo` method. Also, before e-mailing the output of a task, you should configure Laravel's [e-mail services](/docs/{{version}}/mail):
+Using the `emailOutputTo` method, you may e-mail the output to an e-mail address of your choice. Note that the output must first be sent to a file using the `sendOutputTo` method. Also, before e-mailing the output of a task, you should configure Laravel's [e-mail services](/{{version}}/mail):
 
 	$schedule->command('foo')
 			 ->daily()

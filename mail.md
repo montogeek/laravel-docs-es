@@ -52,9 +52,9 @@ Next, set the `driver` option in your `config/mail.php` configuration file to `s
 <a name="sending-mail"></a>
 ## Sending Mail
 
-Laravel allows you to store your e-mail messages in [views](/docs/{{version}}/views). For example, to organize your e-mails, you could create an `emails` directory within your `resources/views` directory:
+Laravel allows you to store your e-mail messages in [views](/{{version}}/views). For example, to organize your e-mails, you could create an `emails` directory within your `resources/views` directory:
 
-To send a message, use the `send` method on the `Mail` [facade](/docs/{{version}}/facades). The `send` method accepts three arguments. First, the name of a [view](/docs/{{version}}/views) that contains the e-mail message. Secondly, an array of data you wish to pass to the view. Lastly, a `Closure` callback which receives a message instance, allowing you to customize the recipients, subject, and other aspects of the mail message:
+To send a message, use the `send` method on the `Mail` [facade](/{{version}}/facades). The `send` method accepts three arguments. First, the name of a [view](/{{version}}/views) that contains the e-mail message. Secondly, an array of data you wish to pass to the view. Lastly, a `Closure` callback which receives a message instance, allowing you to customize the recipients, subject, and other aspects of the mail message:
 
 	<?php
 
@@ -181,13 +181,13 @@ If you already have a raw data string you wish to embed into an e-mail message, 
 
 #### Queueing A Mail Message
 
-Since sending e-mail messages can drastically lengthen the response time of your application, many developers choose to queue e-mail messages for background sending. Laravel makes this easy using its built-in [unified queue API](/docs/{{version}}/queues). To queue a mail message, use the `queue` method on the `Mail` facade:
+Since sending e-mail messages can drastically lengthen the response time of your application, many developers choose to queue e-mail messages for background sending. Laravel makes this easy using its built-in [unified queue API](/{{version}}/queues). To queue a mail message, use the `queue` method on the `Mail` facade:
 
 	Mail::queue('emails.welcome', $data, function ($message) {
 		//
 	});
 
-This method will automatically take care of pushing a job onto the queue to send the mail message in the background. Of course, you will need to [configure your queues](/docs/{{version}}/queues) before using this feature.
+This method will automatically take care of pushing a job onto the queue to send the mail message in the background. Of course, you will need to [configure your queues](/{{version}}/queues) before using this feature.
 
 #### Delayed Message Queueing
 
@@ -216,7 +216,7 @@ When developing an application that sends e-mail, you probably don't want to act
 
 #### Log Driver
 
-One solution is to use the `log` mail driver during local development. This driver will write all e-mail messages to your log files for inspection. For more information on configuring your application per environment, check out the [configuration documentation](/docs/{{version}}/installation#environment-configuration).
+One solution is to use the `log` mail driver during local development. This driver will write all e-mail messages to your log files for inspection. For more information on configuring your application per environment, check out the [configuration documentation](/{{version}}/installation#environment-configuration).
 
 #### Universal To
 

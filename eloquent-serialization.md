@@ -15,13 +15,13 @@ When building JSON APIs, you will often need to convert your models and relation
 
 #### Converting A Model To An Array
 
-To convert a model and its loaded [relationships](/docs/{{version}}/eloquent-relationships) to an array, you may use the `toArray` method. This method is recursive, so all attributes and all relations (including the relations of relations) will be converted to arrays:
+To convert a model and its loaded [relationships](/{{version}}/eloquent-relationships) to an array, you may use the `toArray` method. This method is recursive, so all attributes and all relations (including the relations of relations) will be converted to arrays:
 
 	$user = App\User::with('roles')->first();
 
 	return $user->toArray();
 
-You may also convert [collections](/docs/{{version}}/eloquent-collections) to arrays:
+You may also convert [collections](/{{version}}/eloquent-collections) to arrays:
 
 	$users = App\User::all();
 
@@ -91,7 +91,7 @@ Alternatively, you may use the `visible` property to define a white-list of attr
 <a name="appending-values-to-json"></a>
 ## Appending Values To JSON
 
-Occasionally, you may need to add array attributes that do not have a corresponding column in your database. To do so, first define an [accessor](/docs/{{version}}/eloquent-mutators) for the value:
+Occasionally, you may need to add array attributes that do not have a corresponding column in your database. To do so, first define an [accessor](/{{version}}/eloquent-mutators) for the value:
 
 	<?php
 

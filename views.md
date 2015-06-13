@@ -93,7 +93,7 @@ Occasionally, you may need to share a piece of data with all views that are rend
 
 View composers are callbacks or class methods that are called when a view is rendered. If you have data that you want to be bound to a view each time that view is rendered, a view composer can help you organize that logic into a single location.
 
-Let's register our view composers within a [service provider](/docs/{{version}}/providers). We'll use the `view` helper to access the underlying `Illuminate\Contracts\View\Factory` contract implementation. Remember, Laravel does not include a default directory for view composers. You are free to organize them however you wish. For example, you could create an `App\Http\ViewComposers` directory:
+Let's register our view composers within a [service provider](/{{version}}/providers). We'll use the `view` helper to access the underlying `Illuminate\Contracts\View\Factory` contract implementation. Remember, Laravel does not include a default directory for view composers. You are free to organize them however you wish. For example, you could create an `App\Http\ViewComposers` directory:
 
 	<?php
 
@@ -178,7 +178,7 @@ Now that we have registered the composer, the `ProfileComposer@compose` method w
 
 Just before the view is rendered, the composer's `compose` method is called with the `Illuminate\Contracts\View\View` instance. You may use the `with` method to bind data to the view.
 
-> **Note:** All view composers are resolved via the [service container](/docs/{{version}}/container), so you may type-hint any dependencies you need within a composer's constructor.
+> **Note:** All view composers are resolved via the [service container](/{{version}}/container), so you may type-hint any dependencies you need within a composer's constructor.
 
 #### Attaching A Composer To Multiple Views
 

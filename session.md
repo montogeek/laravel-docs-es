@@ -24,7 +24,7 @@ The session `driver` defines where session data will be stored for each request.
 - `array` - sessions are stored in a simple PHP array and will not be persisted across requests.
 </div>
 
-> **Note:** The array driver is typically used for running [tests](/docs/{{version}}/testing) to prevent session data from persisting.
+> **Note:** The array driver is typically used for running [tests](/{{version}}/testing) to prevent session data from persisting.
 
 ### Driver Prerequisites
 
@@ -61,7 +61,7 @@ If you need all stored session data to be encrypted, set the `encrypt` configura
 
 #### Accessing The Session
 
-First, let's access the session. We can access the session instance via the HTTP request, which can be type-hinted on a controller method. Remember, controller method dependencies are injected via the Laravel [service container](/docs/{{version}}/container):
+First, let's access the session. We can access the session instance via the HTTP request, which can be type-hinted on a controller method. Remember, controller method dependencies are injected via the Laravel [service container](/{{version}}/container):
 
 	<?php
 
@@ -165,7 +165,7 @@ If you need to keep your flash data around for even more requests, you may use t
 <a name="adding-custom-session-drivers"></a>
 ## Adding Custom Session Drivers
 
-To add additional drivers to Laravel's session back-end, you may use the `extend` method on the `Session` [facade](/docs/{{version}}/session). You can call the `extend` method from the `boot` method of a [service provider](/docs/{{version}}/providers):
+To add additional drivers to Laravel's session back-end, you may use the `extend` method on the `Session` [facade](/{{version}}/session). You can call the `extend` method from the `boot` method of a [service provider](/{{version}}/providers):
 
     <?php
 

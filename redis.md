@@ -38,7 +38,7 @@ If your Redis server requires authentication, you may supply a password by addin
 <a name="basic-usage"></a>
 ## Basic Usage
 
-You may interact with Redis by calling various methods on the `Redis` [facade](/docs/{{version}}/facades). The `Redis` facade supports dynamic methods, meaning you may call any [Redis command](http://redis.io/commands) on the facade and the command will be passed directly to Redis. In this example, we will call the `GET` command on Redis by calling the `get` method on the `Redis` facade:
+You may interact with Redis by calling various methods on the `Redis` [facade](/{{version}}/facades). The `Redis` facade supports dynamic methods, meaning you may call any [Redis command](http://redis.io/commands) on the facade and the command will be passed directly to Redis. In this example, we will call the `GET` command on Redis by calling the `get` method on the `Redis` facade:
 
 	<?php
 
@@ -99,7 +99,7 @@ Pipelining should be used when you need to send many commands to the server in o
 
 Laravel also provides a convenient interface to the Redis `publish` and `subscribe` commands. These Redis commands allow you to listen for messages on a given "channel". You may publish messages to the channel from another application, or even using another programming language, allowing easy communication between applications / processes.
 
-First, let's setup a listener on a channel via Redis using the `subscribe` method. We will place this method call within an [Artisan command](/docs/{{version}}/commands) since calling the `subscribe` method begins a long-running process:
+First, let's setup a listener on a channel via Redis using the `subscribe` method. We will place this method call within an [Artisan command](/{{version}}/commands) since calling the `subscribe` method begins a long-running process:
 
 	<?php
 

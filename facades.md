@@ -7,7 +7,7 @@
 <a name="introduction"></a>
 ## Introduction
 
-Facades provide a "static" interface to classes that are available in the application's [service container](/docs/{{version}}/container). Laravel ships with many facades, and you have probably been using them without even knowing it! Laravel "facades" serve as "static proxies" to underlying classes in the service container, providing the benefit of a terse, expressive syntax while maintaining more testability and flexibility than traditional static methods.
+Facades provide a "static" interface to classes that are available in the application's [service container](/{{version}}/container). Laravel ships with many facades, and you have probably been using them without even knowing it! Laravel "facades" serve as "static proxies" to underlying classes in the service container, providing the benefit of a terse, expressive syntax while maintaining more testability and flexibility than traditional static methods.
 
 <a name="using-facades"></a>
 ## Using Facades
@@ -56,12 +56,12 @@ If we look at that `Illuminate\Support\Facades\Cache` class, you'll see that the
 
 	}
 
-Instead, the `Cache` facade extends the base `Facade` class and defines the method `getFacadeAccessor()`. Remember, this method's job is to return the name of a service container binding. When a user references any static method on the `Cache` facade, Laravel resolves the `cache` binding from the [service container](/docs/{{version}}/container) and runs the requested method (in this case, `get`) against that object.
+Instead, the `Cache` facade extends the base `Facade` class and defines the method `getFacadeAccessor()`. Remember, this method's job is to return the name of a service container binding. When a user references any static method on the `Cache` facade, Laravel resolves the `cache` binding from the [service container](/{{version}}/container) and runs the requested method (in this case, `get`) against that object.
 
 <a name="facade-class-reference"></a>
 ## Facade Class Reference
 
-Below you will find every facade and its underlying class. This is a useful tool for quickly digging into the API documentation for a given facade root. The [service container binding](/docs/{{version}}/container) key is also included where applicable.
+Below you will find every facade and its underlying class. This is a useful tool for quickly digging into the API documentation for a given facade root. The [service container binding](/{{version}}/container) key is also included where applicable.
 
 Facade  |  Class  |  Service Container Binding
 ------------- | ------------- | -------------

@@ -21,7 +21,7 @@ In this overview you will learn how to write your own service providers and regi
 <a name="writing-service-providers"></a>
 ## Writing Service Providers
 
-All service providers extend the `Illuminate\Support\ServiceProvider` class. This abstract class requires that you define at least one method on your provider: `register`. Within the `register` method, you should **only bind things into the [service container](/docs/{{version}}/container)**. You should never attempt to register any event listeners, routes, or any other piece of functionality within the `register` method.
+All service providers extend the `Illuminate\Support\ServiceProvider` class. This abstract class requires that you define at least one method on your provider: `register`. Within the `register` method, you should **only bind things into the [service container](/{{version}}/container)**. You should never attempt to register any event listeners, routes, or any other piece of functionality within the `register` method.
 
 The Artisan CLI can easily generate a new provider via the `make:provider` command:
 
@@ -30,7 +30,7 @@ The Artisan CLI can easily generate a new provider via the `make:provider` comma
 <a name="the-register-method"></a>
 ### The Register Method
 
-As mentioned previously, within the `register` method, you should only bind things into the [service container](/docs/{{version}}/container). You should never attempt to register any event listeners, routes, or any other piece of functionality within the `register` method. Otherwise, you may accidently use a service that is provided by a service provider which has not loaded yet.
+As mentioned previously, within the `register` method, you should only bind things into the [service container](/{{version}}/container). You should never attempt to register any event listeners, routes, or any other piece of functionality within the `register` method. Otherwise, you may accidently use a service that is provided by a service provider which has not loaded yet.
 
 Now, let's take a look at a basic service provider:
 
@@ -56,7 +56,7 @@ Now, let's take a look at a basic service provider:
 		}
 	}
 
-This service provider only defines a `register` method, and uses that method to define an implementation of `Riak\Contracts\Connection` in the service container. If you don't understand how the service container works, check out [its documentation](/docs/{{version}}/container).
+This service provider only defines a `register` method, and uses that method to define an implementation of `Riak\Contracts\Connection` in the service container. If you don't understand how the service container works, check out [its documentation](/{{version}}/container).
 
 <a name="the-boot-method"></a>
 ### The Boot Method
@@ -96,7 +96,7 @@ So, what if we need to register a view composer within our service provider? Thi
 
 #### Boot Method Dependency Injection
 
-We are able to type-hint dependencies for our `boot` method. The [service container](/docs/{{version}}/container) will automatically inject any dependencies you need:
+We are able to type-hint dependencies for our `boot` method. The [service container](/{{version}}/container) will automatically inject any dependencies you need:
 
 	use Illuminate\Contracts\Routing\ResponseFactory;
 
@@ -123,7 +123,7 @@ To register your provider, simply add it to the array:
 <a name="deferred-providers"></a>
 ## Deferred Providers
 
-If your provider is **only** registering bindings in the [service container](/docs/{{version}}/container), you may choose to defer its registration until one of the registered bindings is actually needed. Deferring the loading of such a provider will improve the performance of your application, since it is not loaded from the filesystem on every request.
+If your provider is **only** registering bindings in the [service container](/{{version}}/container), you may choose to defer its registration until one of the registered bindings is actually needed. Deferring the loading of such a provider will improve the performance of your application, since it is not loaded from the filesystem on every request.
 
 To defer the loading of a provider, set the `defer` property to `true` and define a `provides` method. The `provides` method returns the service container bindings that the provider registers:
 

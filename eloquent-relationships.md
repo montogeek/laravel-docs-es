@@ -30,7 +30,7 @@ Database tables are often related to one another. For example, a blog post may h
 <a name="defining-relationships"></a>
 ## Defining Relationships
 
-Eloquent relationships are defined as functions on your Eloquent model classes. Since, like Eloquent models themselves, relationships also serve as powerful [query builders](/docs/{{version}}/queries), defining relationships as functions provides powerful method chaining and querying capabilities. For example:
+Eloquent relationships are defined as functions on your Eloquent model classes. Since, like Eloquent models themselves, relationships also serve as powerful [query builders](/{{version}}/queries), defining relationships as functions provides powerful method chaining and querying capabilities. For example:
 
 	$user->posts()->where('active', 1)->get();
 
@@ -519,7 +519,7 @@ You may also retrieve the owner of a polymorphic relation from the polymorphic m
 <a name="querying-relations"></a>
 ## Querying Relations
 
-Since all types of Eloquent relationships are defined via functions, you may call those functions to obtain an instance of the relationship without actually executing the relationship queries. In addition, all types of Eloquent relationships also serve as [query builders](/docs/{{version}}/queries), allowing you to continue to chain constraints onto the relationship query before finally executing the SQL against your database.
+Since all types of Eloquent relationships are defined via functions, you may call those functions to obtain an instance of the relationship without actually executing the relationship queries. In addition, all types of Eloquent relationships also serve as [query builders](/{{version}}/queries), allowing you to continue to chain constraints onto the relationship query before finally executing the SQL against your database.
 
 For example, imagine a blog system in which a `User` model has many associated `Post` models:
 
@@ -546,7 +546,7 @@ You may query the `posts` relationship and add additional constraints to the rel
 
 	$user->posts()->where('active', 1)->get();
 
-Note that you are able to use any of the [query builder](/docs/{{version}}/queries) on the relationship!
+Note that you are able to use any of the [query builder](/{{version}}/queries) on the relationship!
 
 #### Relationship Methods Vs. Dynamic Properties
 
@@ -652,7 +652,7 @@ Sometimes you may wish to eager load a relationship, but also specify additional
 
 	}])->get();
 
-In this example, Eloquent will only eager load posts that if the post's `title` column contains the word `first`. Of course, you may call other [query builder](/docs/{{version}}/queries) to further customize the eager loading operation:
+In this example, Eloquent will only eager load posts that if the post's `title` column contains the word `first`. Of course, you may call other [query builder](/{{version}}/queries) to further customize the eager loading operation:
 
 	$users = App\User::with(['posts' => function ($query) {
 		$query->orderBy('created_at', 'desc');
@@ -716,7 +716,7 @@ In addition to the `save` and `saveMany` methods, you may also use the `create` 
 		'message' => 'A new comment.',
 	]);
 
-Before using the `create` method, be sure to review the documentation on attribute [mass assignment](/docs/{{version}}/eloquent#mass-assignment).
+Before using the `create` method, be sure to review the documentation on attribute [mass assignment](/{{version}}/eloquent#mass-assignment).
 
 <a name="inserting-many-to-many-relationships"></a>
 ### Many To Many Relationships

@@ -7,7 +7,7 @@
 <a name="introduction"></a>
 ## Introduction
 
-All multi-result sets returned by Eloquent are an instance of the `Illuminate\Database\Eloquent\Collection` object, including results retrieved via the `get` method or accessed via a relationship. The Eloquent collection object extends the Laravel [base collection](/docs/{{version}}/collections), so it naturally inherits dozens of methods used to fluently work with the underlying array of Eloquent models.
+All multi-result sets returned by Eloquent are an instance of the `Illuminate\Database\Eloquent\Collection` object, including results retrieved via the `get` method or accessed via a relationship. The Eloquent collection object extends the Laravel [base collection](/{{version}}/collections), so it naturally inherits dozens of methods used to fluently work with the underlying array of Eloquent models.
 
 Of course, all collections also serve as iterators, allowing you to loop over them as if they were simple PHP arrays:
 
@@ -33,7 +33,7 @@ However, collections are much more powerful than arrays and expose a variety of 
 
 ### The Base Collection
 
-All Eloquent collections extend the base [Laravel collection](/docs/{{version}}/collections) object; therefore, they inherit all of the powerful methods provided by the base collection class:
+All Eloquent collections extend the base [Laravel collection](/{{version}}/collections) object; therefore, they inherit all of the powerful methods provided by the base collection class:
 
 <style>
 	#collection-method-list > p {
@@ -47,58 +47,58 @@ All Eloquent collections extend the base [Laravel collection](/docs/{{version}}/
 </style>
 
 <div id="collection-method-list" markdown="1">
-[all](/docs/{{version}}/collections#method-all)
-[chunk](/docs/{{version}}/collections#method-chunk)
-[collapse](/docs/{{version}}/collections#method-collapse)
-[contains](/docs/{{version}}/collections#method-contains)
-[count](/docs/{{version}}/collections#method-count)
-[diff](/docs/{{version}}/collections#method-diff)
-[each](/docs/{{version}}/collections#method-each)
-[filter](/docs/{{version}}/collections#method-filter)
-[first](/docs/{{version}}/collections#method-first)
-[flatten](/docs/{{version}}/collections#method-flatten)
-[flip](/docs/{{version}}/collections#method-flip)
-[forget](/docs/{{version}}/collections#method-forget)
-[forPage](/docs/{{version}}/collections#method-forpage)
-[get](/docs/{{version}}/collections#method-get)
-[groupBy](/docs/{{version}}/collections#method-groupby)
-[has](/docs/{{version}}/collections#method-has)
-[implode](/docs/{{version}}/collections#method-implode)
-[intersect](/docs/{{version}}/collections#method-intersect)
-[isEmpty](/docs/{{version}}/collections#method-isempty)
-[keyBy](/docs/{{version}}/collections#method-keyby)
-[keys](/docs/{{version}}/collections#method-keys)
-[last](/docs/{{version}}/collections#method-last)
-[map](/docs/{{version}}/collections#method-map)
-[merge](/docs/{{version}}/collections#method-merge)
-[pluck](/docs/{{version}}/collections#method-pluck)
-[pop](/docs/{{version}}/collections#method-pop)
-[prepend](/docs/{{version}}/collections#method-prepend)
-[pull](/docs/{{version}}/collections#method-pull)
-[push](/docs/{{version}}/collections#method-push)
-[put](/docs/{{version}}/collections#method-put)
-[random](/docs/{{version}}/collections#method-random)
-[reduce](/docs/{{version}}/collections#method-reduce)
-[reject](/docs/{{version}}/collections#method-reject)
-[reverse](/docs/{{version}}/collections#method-reverse)
-[search](/docs/{{version}}/collections#method-search)
-[shift](/docs/{{version}}/collections#method-shift)
-[shuffle](/docs/{{version}}/collections#method-shuffle)
-[slice](/docs/{{version}}/collections#method-slice)
-[sort](/docs/{{version}}/collections#method-sort)
-[sortBy](/docs/{{version}}/collections#method-sortby)
-[sortByDesc](/docs/{{version}}/collections#method-sortbydesc)
-[splice](/docs/{{version}}/collections#method-splice)
-[sum](/docs/{{version}}/collections#method-sum)
-[take](/docs/{{version}}/collections#method-take)
-[toArray](/docs/{{version}}/collections#method-toarray)
-[toJson](/docs/{{version}}/collections#method-tojson)
-[transform](/docs/{{version}}/collections#method-transform)
-[unique](/docs/{{version}}/collections#method-unique)
-[values](/docs/{{version}}/collections#method-values)
-[where](/docs/{{version}}/collections#method-where)
-[whereLoose](/docs/{{version}}/collections#method-whereloose)
-[zip](/docs/{{version}}/collections#method-zip)
+[all](/{{version}}/collections#method-all)
+[chunk](/{{version}}/collections#method-chunk)
+[collapse](/{{version}}/collections#method-collapse)
+[contains](/{{version}}/collections#method-contains)
+[count](/{{version}}/collections#method-count)
+[diff](/{{version}}/collections#method-diff)
+[each](/{{version}}/collections#method-each)
+[filter](/{{version}}/collections#method-filter)
+[first](/{{version}}/collections#method-first)
+[flatten](/{{version}}/collections#method-flatten)
+[flip](/{{version}}/collections#method-flip)
+[forget](/{{version}}/collections#method-forget)
+[forPage](/{{version}}/collections#method-forpage)
+[get](/{{version}}/collections#method-get)
+[groupBy](/{{version}}/collections#method-groupby)
+[has](/{{version}}/collections#method-has)
+[implode](/{{version}}/collections#method-implode)
+[intersect](/{{version}}/collections#method-intersect)
+[isEmpty](/{{version}}/collections#method-isempty)
+[keyBy](/{{version}}/collections#method-keyby)
+[keys](/{{version}}/collections#method-keys)
+[last](/{{version}}/collections#method-last)
+[map](/{{version}}/collections#method-map)
+[merge](/{{version}}/collections#method-merge)
+[pluck](/{{version}}/collections#method-pluck)
+[pop](/{{version}}/collections#method-pop)
+[prepend](/{{version}}/collections#method-prepend)
+[pull](/{{version}}/collections#method-pull)
+[push](/{{version}}/collections#method-push)
+[put](/{{version}}/collections#method-put)
+[random](/{{version}}/collections#method-random)
+[reduce](/{{version}}/collections#method-reduce)
+[reject](/{{version}}/collections#method-reject)
+[reverse](/{{version}}/collections#method-reverse)
+[search](/{{version}}/collections#method-search)
+[shift](/{{version}}/collections#method-shift)
+[shuffle](/{{version}}/collections#method-shuffle)
+[slice](/{{version}}/collections#method-slice)
+[sort](/{{version}}/collections#method-sort)
+[sortBy](/{{version}}/collections#method-sortby)
+[sortByDesc](/{{version}}/collections#method-sortbydesc)
+[splice](/{{version}}/collections#method-splice)
+[sum](/{{version}}/collections#method-sum)
+[take](/{{version}}/collections#method-take)
+[toArray](/{{version}}/collections#method-toarray)
+[toJson](/{{version}}/collections#method-tojson)
+[transform](/{{version}}/collections#method-transform)
+[unique](/{{version}}/collections#method-unique)
+[values](/{{version}}/collections#method-values)
+[where](/{{version}}/collections#method-where)
+[whereLoose](/{{version}}/collections#method-whereloose)
+[zip](/{{version}}/collections#method-zip)
 </div>
 
 <a name="custom-collections"></a>

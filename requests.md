@@ -11,7 +11,7 @@
 <a name="accessing-the-request"></a>
 ## Accessing The Request
 
-To obtain an instance of the current HTTP request via dependency injection, you should type-hint the `Illuminate\Http\Request` class on your controller constructor or method. The current request instance will automatically be injected by the [service container](/docs/{{version}}/container):
+To obtain an instance of the current HTTP request via dependency injection, you should type-hint the `Illuminate\Http\Request` class on your controller constructor or method. The current request instance will automatically be injected by the [service container](/{{version}}/container):
 
 	<?php
 
@@ -156,11 +156,11 @@ If you need to retrieve a sub-set of the input data, you may use the `only` and 
 <a name="old-input"></a>
 ### Old Input
 
-Laravel allows you to keep input from one request during the next request. This feature is particularly useful for re-populating forms after detecting validation errors. However, if you are using Laravel's included [validation services](/docs/{{version}}/validation), it is unlikely you will need to manually use these methods, as some of Laravel's built-in validation facilities will call them automatically.
+Laravel allows you to keep input from one request during the next request. This feature is particularly useful for re-populating forms after detecting validation errors. However, if you are using Laravel's included [validation services](/{{version}}/validation), it is unlikely you will need to manually use these methods, as some of Laravel's built-in validation facilities will call them automatically.
 
 #### Flashing Input To The Session
 
-The `flash` method on the `Illuminate\Http\Request` instance will flash the current input to the [session](/docs/{{version}}/session) so that it is available during the user's next request to the application:
+The `flash` method on the `Illuminate\Http\Request` instance will flash the current input to the [session](/{{version}}/session) so that it is available during the user's next request to the application:
 
 	$request->flash();
 
@@ -180,11 +180,11 @@ Since you often will want to flash input in association with a redirect to the p
 
 #### Retrieving Old Data
 
-To retrieve flashed input from the previous request, use the `old` method on the `Request` instance. The `old` method provides a convenient helper for pulling the flashed input data out of the [session](/docs/{{version}}/session):
+To retrieve flashed input from the previous request, use the `old` method on the `Request` instance. The `old` method provides a convenient helper for pulling the flashed input data out of the [session](/{{version}}/session):
 
 	$username = $request->old('username');
 
-Laravel also provides a global `old` helper function. If you are displaying old input within a [Blade template](/docs/{{version}}/blade), it is more convenient to use the `old` helper:
+Laravel also provides a global `old` helper function. If you are displaying old input within a [Blade template](/{{version}}/blade), it is more convenient to use the `old` helper:
 
 	{{ old('username') }}
 

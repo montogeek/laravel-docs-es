@@ -6,7 +6,7 @@
 <a name="introduction"></a>
 ## Introduction
 
-The Laravel `Hash` [facade](/docs/{{version}}/facades) provides secure Bcrypt hashing for storing user passwords. If you are using the `AuthController` controller that is included with your Laravel application, it will automatically use Bcrypt for registration and authentication.
+The Laravel `Hash` [facade](/{{version}}/facades) provides secure Bcrypt hashing for storing user passwords. If you are using the `AuthController` controller that is included with your Laravel application, it will automatically use Bcrypt for registration and authentication.
 
 Bcrypt is a great choice for hashing passwords because its "work factor" is adjustable, which means that the time it takes to generate a hash can be increased as hardware power increases.
 
@@ -50,7 +50,7 @@ Alternatively, you may also use the global `bcrypt` helper function:
 
 #### Verifying A Password Against A Hash
 
-The `check` method allows you to verify that a given plain-text string corresponds to a given hash. However, if you are using the `AuthController` [included with Laravel](/docs/{{version}}/authentication), you will probably not need to use this directly, as the included authentication controller automatically calls this method:
+The `check` method allows you to verify that a given plain-text string corresponds to a given hash. However, if you are using the `AuthController` [included with Laravel](/{{version}}/authentication), you will probably not need to use this directly, as the included authentication controller automatically calls this method:
 
 	if (Hash::check('plain-text', $hashedPassword)) {
 		// The passwords match...

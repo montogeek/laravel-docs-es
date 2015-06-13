@@ -262,7 +262,7 @@ elixir(function(mix) {
 });
 ```
 
-After generating the versioned file, you may use Laravel's global `elixir` PHP helper function within your [views](/docs/{{version}}/views) to load the appropriately hashed asset. The `elixir` function will automatically determine the name of the hashed file:
+After generating the versioned file, you may use Laravel's global `elixir` PHP helper function within your [views](/{{version}}/views) to load the appropriately hashed asset. The `elixir` function will automatically determine the name of the hashed file:
 
 	<link rel="stylesheet" href="{{ elixir('css/all.css') }}">
 

@@ -14,7 +14,7 @@
 
 ### Server Requirements
 
-The Laravel framework has a few system requirements. Of course, all of these requirements are satisfied by the [Laravel Homestead](/docs/{{version}}/homestead) virtual machine:
+The Laravel framework has a few system requirements. Of course, all of these requirements are satisfied by the [Laravel Homestead](/{{version}}/homestead) virtual machine:
 
 <div class="content-list" markdown="1">
 - PHP >= 5.5.9
@@ -56,7 +56,7 @@ All of the configuration files for the Laravel framework are stored in the `conf
 
 #### Directory Permissions
 
-After installing Laravel, you may need to configure some permissions. Directories within the `storage` and the `bootstrap/cache` directories should be writable by your web server. If you are using the [Homestead](/docs/{{version}}/homestead) virtual machine, these permissions should already be set.
+After installing Laravel, you may need to configure some permissions. Directories within the `storage` and the `bootstrap/cache` directories should be writable by your web server. If you are using the [Homestead](/{{version}}/homestead) virtual machine, these permissions should already be set.
 
 #### Application Key
 
@@ -68,11 +68,11 @@ Laravel needs almost no other configuration out of the box. You are free to get 
 
 You may also want to configure a few additional components of Laravel, such as:
 
-- [Cache](/docs/{{version}}/cache#configuration)
-- [Database](/docs/{{version}}/database#configuration)
-- [Session](/docs/{{version}}/session#configuration)
+- [Cache](/{{version}}/cache#configuration)
+- [Database](/{{version}}/database#configuration)
+- [Session](/{{version}}/session#configuration)
 
-Once Laravel is installed, you should also [configure your local environment](/docs/{{version}}/installation#environment-configuration).
+Once Laravel is installed, you should also [configure your local environment](/{{version}}/installation#environment-configuration).
 
 <a name="pretty-urls"></a>
 #### Pretty URLs
@@ -98,7 +98,7 @@ On Nginx, the following directive in your site configuration will allow "pretty"
 		try_files $uri $uri/ /index.php?$query_string;
 	}
 
-Of course, when using [Homestead](/docs/{{version}}/homestead), pretty URLs will be configured automatically.
+Of course, when using [Homestead](/{{version}}/homestead), pretty URLs will be configured automatically.
 
 <a name="environment-configuration"></a>
 ### Environment Configuration
@@ -181,4 +181,4 @@ The default template for maintenance mode responses is located in `resources/vie
 
 ### Maintenance Mode & Queues
 
-While your application is in maintenance mode, no [queued jobs](/docs/{{version}}/queues) will be handled. The jobs will continue to be handled as normal once the application is out of maintenance mode.
+While your application is in maintenance mode, no [queued jobs](/{{version}}/queues) will be handled. The jobs will continue to be handled as normal once the application is out of maintenance mode.

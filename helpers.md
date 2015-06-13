@@ -514,7 +514,7 @@ The `studly_case` function converts the given string to `StudlyCase`:
 <a name="method-trans"></a>
 #### `trans()` {#collection-method}
 
-The `trans` function translates the given language line using your [localization files](/docs/{{version}}/localization):
+The `trans` function translates the given language line using your [localization files](/{{version}}/localization):
 
 	echo trans('validation.required'):
 
@@ -574,7 +574,7 @@ The `config` function gets the value of a configuration variable. The configurat
 <a name="method-csrf-field"></a>
 #### `csrf_field()` {#collection-method}
 
-The `csrf_field` function generates an HTML `hidden` input field containing the value of the CSRF token. For example, using [Blade syntax](/docs/{{version}}/blade):
+The `csrf_field` function generates an HTML `hidden` input field containing the value of the CSRF token. For example, using [Blade syntax](/{{version}}/blade):
 
 	{!! csrf_field() !!}
 
@@ -595,7 +595,7 @@ The `dd` function dumps the given variable and ends execution of the script:
 <a name="method-elixir"></a>
 #### `elixir()` {#collection-method}
 
-The `elixir` function gets the path to the versioned [Elixir](/docs/{{version}}/elixir) file:
+The `elixir` function gets the path to the versioned [Elixir](/{{version}}/elixir) file:
 
 	elixir($file);
 
@@ -612,14 +612,14 @@ The `env` function gets the value of an environment variable or returns a defaul
 <a name="method-event"></a>
 #### `event()` {#collection-method}
 
-The `event` function dispatches the given [event](/docs/{{version}}/events) to its listeners:
+The `event` function dispatches the given [event](/{{version}}/events) to its listeners:
 
 	event(new UserRegistered($user));
 
 <a name="method-response"></a>
 #### `response()` {#collection-method}
 
-The `response` function creates a [response](/docs/{{version}}/responses) instance or obtains an instance of the response factory:
+The `response` function creates a [response](/{{version}}/responses) instance or obtains an instance of the response factory:
 
 	return response('Hello World', 200, $headers);
 
@@ -635,7 +635,7 @@ The `value` function's behavior will simply return the value it is given. Howeve
 <a name="method-view"></a>
 #### `view()` {#collection-method}
 
-The `view` function retrieves a [view](/docs/{{version}}/views) instance:
+The `view` function retrieves a [view](/{{version}}/views) instance:
 
 	return view('auth.login');
 

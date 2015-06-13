@@ -73,7 +73,7 @@ You may also use the `route` helper to generate a URL to a named controller rout
 <a name="controller-middleware"></a>
 ## Controller Middleware
 
-[Middleware](/docs/{{version}}/middleware) may be assigned to the controller's routes like so:
+[Middleware](/{{version}}/middleware) may be assigned to the controller's routes like so:
 
 	Route::get('profile', [
 		'middleware' => 'auth',
@@ -237,7 +237,7 @@ As you can see in the example above, `index` methods will respond to the root UR
 
 #### Assigning Route Names
 
-If you would like to [name](/docs/{{version}}/routing#named-routes) some of the routes on the controller, you may pass an array of names as the third argument to the `controller` method:
+If you would like to [name](/{{version}}/routing#named-routes) some of the routes on the controller, you may pass an array of names as the third argument to the `controller` method:
 
 	Route::controller('users', 'UserController', [
 		'getShow' => 'user.show',
@@ -248,7 +248,7 @@ If you would like to [name](/docs/{{version}}/routing#named-routes) some of the 
 
 #### Constructor Injection
 
-The Laravel [service container](/docs/{{version}}/container) is used to resolve all Laravel controllers. As a result, you are able to type-hint any dependencies your controller may need in its constructor. The dependencies will automatically be resolved and injected into the controller instance:
+The Laravel [service container](/{{version}}/container) is used to resolve all Laravel controllers. As a result, you are able to type-hint any dependencies your controller may need in its constructor. The dependencies will automatically be resolved and injected into the controller instance:
 
 	<?php
 
@@ -276,7 +276,7 @@ The Laravel [service container](/docs/{{version}}/container) is used to resolve 
 		}
 	}
 
-Of course, you may also type-hint any [Laravel contract](/docs/{{version}}/contracts). If the container can resolve it, you can type-hint it.
+Of course, you may also type-hint any [Laravel contract](/{{version}}/contracts). If the container can resolve it, you can type-hint it.
 
 #### Method Injection
 
