@@ -234,16 +234,16 @@ El método `anticipate` puede ser usado para proveeer una lista posible de opcio
 
     $name = $this->anticipate('What is your name?', ['Taylor', 'Dayle']);
 
-If you need to give the user a predefined set of choices, you may use the `choice` method. The user chooses the index of the answer, but the value of the answer will be returned to you. You may set the default value to be returned if nothing is chosen:
+Para proveer una lista de opciones predefinida, debe utilizar el método `choice`. El usuario escoge el índice de la respuesta, pero el valor de la respuesta será retornado para ser usado. Puede setear el valor retornado por defecto en caso de que el usuario no escoge nada:
 
     $name = $this->choice('What is your name?', ['Taylor', 'Dayle'], false);
 
 <a name="writing-output"></a>
-### Writing Output
+### Escribir salidas en la consola
 
-To send output to the console, use the `info`, `comment`, `question` and `error` methods. Each of these methods will use the appropriate ANSI colors for their purpose.
+Para enviar informaciones a la consola, utilice los métodos `info`, `comment`, `question` y `error`. Cada uno de esos métodos imprimirá información en color, por ejemplo rojo para `error`.
 
-To display an information message to the user, use the `info` method. Typically, this will display in the console as green text:
+Para mostrar un mensaje de tipo informativo al usuario, utilice el método `info`. Generalmente, la información tendrá el color verde en la consola:
 
     /**
      * Execute the console command.
@@ -255,13 +255,13 @@ To display an information message to the user, use the `info` method. Typically,
         $this->info('Display this on the screen');
     }
 
-To display an error message, use the `error` method. Error message text is typically displayed in red:
+Para mostrar un mensaje de tipo error al usuario, utilice el método `error`. Generalmente, la información tendrá el color rojo en la consola:
 
     $this->error('Something went wrong!');
 
 #### Table Layouts
 
-The `table` method makes it easy to correctly format multiple rows / columns of data. Just pass in the headers and rows to the method. The width and height will be dynamically calculated based on the given data:
+El método `table` permite presentar informaciones en forma tabular. Lo único que tiene que hacer, es pasar las cabeceras y las filas al método. El ancho y el alto serán calculados dinamicamente dependiendo en la información pasada al método:
 
     $headers = ['Name', 'Email'];
 
@@ -269,9 +269,9 @@ The `table` method makes it easy to correctly format multiple rows / columns of 
 
     $this->table($headers, $users);
 
-#### Progress Bars
+#### Barras de progreso
 
-For long running tasks, it could be helpful to show a progress indicator. Using the output object, we can start, advance and stop the Progress Bar. You have to define the number of steps when you start the progress, then advance the Progress Bar after each step:
+Para tareas muy pesadas, es conveniente presentar un indicador de progreso. Usando el objeto output, podemos iniciar, adelantar y parar la barra de progreso. Usted debe definir la cantidad de pasos cuando el indicativo de progreso se inicia, y luego avanzarlo después de cada paso:
 
     $users = App\User::all();
 
@@ -285,23 +285,23 @@ For long running tasks, it could be helpful to show a progress indicator. Using 
 
     $this->output->progressFinish();
 
-For more advanced options, check out the [Symfony Progress Bar component documentation](http://symfony.com/doc/2.7/components/console/helpers/progressbar.html).
+Para mas informaciones, ver la documentación sobre en componente [Barra de progreso de Symfony](http://symfony.com/doc/2.7/components/console/helpers/progressbar.html).
 
 <a name="registering-commands"></a>
-## Registering Commands
+## Registrar comandos
 
-Once your command is finished, you need to register it with Artisan so it will be available for use. This is done within the `app/Console/Kernel.php` file.
+Una vez definido el comando, es necesario regirtarlo con Artisan antes de poder utilizarlo. Eso se hace en el archivo `app/Console/Kernel.php`.
 
-Within this file, you will find a list of commands in the `commands` property. To register your command, simply add the class name to the list. When Artisan boots, all the commands listed in this property will be resolved by the [service container](/{{version}}/container) and registered with Artisan:
+Dentro de ese archivo, encontrarás una lista de comando en la propriedad `commands`. Para registrar el comando, simplemente agregar la clase a la lista. Cuando Artisan se arranca, todos los comandos en esa propriedad serán instanciados por el [contenedor de servicio](/{{version}}/container) y regristrado con Artisan:
 
     protected $commands = [
         'App\Console\Commands\SendEmails'
     ];
 
 <a name="calling-commands-via-code"></a>
-## Calling Commands Via Code
+## Llamar comandos vía programación
 
-Sometimes you may wish to execute an Artisan command outside of the CLI. For example, you may wish to fire an Artisan command from an route or controller. You may use the `call` method on the `Artisan` facade to accomplish this. The `call` method accepts the name of the command as the first argument, and an array of command parameters as the second argument. The exit code will be returned:
+Quizá algunas veces usted necesitará ejecutar un comando fuera del interpretador de línea de comando (CLI). Por ejemplo, quiere ejecutar un comando Artisa desde una ruta o un controlador. Puede utilizar el método `call` desde el facade `Artisan`. El método `call`accepta el nombre del comando como el primer argumento, y un arreglo de parámetros de comando como el segundo argumento. El código de terminación será retornado:
 
     Route::get('/foo', function () {
         $exitCode = Artisan::call('email:send', [
@@ -311,7 +311,7 @@ Sometimes you may wish to execute an Artisan command outside of the CLI. For exa
         //
     });
 
-Using the `queue` method on the `Artisan` facade, you may even queue Artisan commands so they are processed in the background by your [queue workers](/{{version}}/queues):
+Utilizando el método `queue` del facade `Artisan`, puede hasta agregar sus comandos Artisan para que pueden ser ejecutados en segundo plano por sus [ejecutadores de cola](/{{version}}/queues):
 
     Route::get('/foo', function () {
         Artisan::queue('email:send', [
@@ -321,9 +321,9 @@ Using the `queue` method on the `Artisan` facade, you may even queue Artisan com
         //
     });
 
-### Calling Commands From Other Commands
+### Llamar comandos desde otros comandos
 
-Sometimes you may wish to call other commands from an existing Artisan command. You may do so using the `call` method. This `call` method accepts the command name and an array of command parameters:
+Algunas veces querrá llamar otros comandos desde un comando Artisan existente. Puede usar el método `call` method .Ese método toma en parámetros el nombre del comando y un arreglo de parámetros de comando:
 
     /**
      * Execute the console command.
@@ -339,7 +339,7 @@ Sometimes you may wish to call other commands from an existing Artisan command. 
         //
     }
 
-If you would like to call another console command and suppress all of its output, you may use the `callSilent` method. The `callSilent` method has the same signature as the `call` method:
+Si desea llamar otro comando de consola y eliminar todos sus informaciones de salida, puede utilizar el método `callSilent`. Ese método tiene la misma signatura que el método `call`:
 
     $this->callSilent('email:send', [
         'user' => 1, '--queue' => 'default'
