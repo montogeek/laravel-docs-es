@@ -1,15 +1,15 @@
-# Artisan Console
+# Consola Artisan
 
-- [Introduction](#introduction)
-- [Writing Commands](#writing-commands)
-    - [Command Structure](#command-structure)
-- [Command I/O](#command-io)
-    - [Defining Input Expectations](#defining-input-expectations)
-    - [Retrieving Input](#retrieving-input)
-    - [Prompting For Input](#prompting-for-input)
-    - [Writing Output](#writing-output)
-- [Registering Commands](#registering-commands)
-- [Calling Commands Via Code](#calling-commands-via-code)
+- [Introducción](#introduction)
+- [Crear Commandos](#writing-commands)
+    - [Estructura de un comando](#command-structure)
+- [I/O (Entrada/Salida) de Comando](#command-io)
+    - [Definiendo entradas](#defining-input-expectations)
+    - [Recuperar entradas](#retrieving-input)
+    - [Solicitar entradas](#prompting-for-input)
+    - [Escribir salidas en la consola](#writing-output)
+- [Registrar comandos](#registering-commands)
+- [Llamar comandos vía programación](#calling-commands-via-code)
 
 <a name="introduction"></a>
 ## Introduction
