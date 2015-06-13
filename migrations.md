@@ -1,109 +1,337 @@
-# Migraciones y Semillas
+# Database: Migrations
 
-- [Introducción](#introduction)
-- [Creando migraciones](#creating-migrations)
-- [Ejecutando migraciones](#running-migrations)
-- [Deshacer migraciones](#rolling-back-migrations)
-- [Poblado de la base de datos](#database-seeding)
+- [Introduction](#introduction)
+- [Generating Migrations](#generating-migrations)
+- [Migration Structure](#migration-structure)
+- [Running Migrations](#running-migrations)
+	- [Rolling Back Migrations](#rolling-back-migrations)
+- [Writing Migrations](#writing-migrations)
+	- [Creating Tables](#creating-tables)
+	- [Renaming / Dropping Tables](#renaming-and-dropping-tables)
+	- [Creating Columns](#creating-columns)
+	- [Modifying Columns](#modifying-columns)
+	- [Dropping Columns](#dropping-columns)
+	- [Creating Indexes](#creating-indexes)
+	- [Dropping Indexes](#dropping-indexes)
+	- [Foreign Key Constraints](#foreign-key-constraints)
 
 <a name="introduction"></a>
-## Introducción
+## Introduction
 
-Las migraciones son un tipo de control de versiones para tu base de datos. Permiten que un equipo modifique la estructura de la base de datos y permanecer actualizados con el estado de la estructura actual. Las migraciones están enlazadas habitualmente con el [Constructor de esquemas](/5.0/schema) para gestionar con facilidad el esquema de tu aplicación.
+Migrations are like version control for your database, allowing a team to easily modify and share the application's database schema. Migrations are typically paired with Laravel's schema builder to easily build your application's database schema.
 
-<a name="creating-migrations"></a>
-## Creando Migraciones
+The Laravel `Schema` [facade](/docs/{{version}}/facades) provides database agnostic support for creating and manipulating tables. It shares the same expressive, fluent API across all of Laravel's supported database systems.
 
-Para crear una migración, puedes usar el comando `make:migration` de la línea de comandos de Artisan:
+<a name="generating-migrations"></a>
+## Generating Migrations
+
+To create a migration, use the `make:migration` [Artisan command](/docs/{{version}}/artisan):
 
 	php artisan make:migration create_users_table
 
-La migración será colocada en tu directorio `database/migrations`, y contendrá una marca de tiempo que permitirá al framework determinar el orden de las migraciones.
+The new migration will be placed in your `database/migrations` directory. Each migration file name contains a timestamp which allows Laravel to determine the order of the migrations.
 
-Cuando creas una migración, también puedes especificar la opción `--path`. La ruta debería ser relativa al directorio raíz de tu instalación: <sup>[1](#nota1)</sup>
+The `--table` and `--create` options may also be used to indicate the name of the table and whether the migration will be creating a new table. These options simply pre-fill the generated migration stub file with the specified table:
 
-	php artisan make:migration foo --path=app/migrations
-
-También puedes usar las opciones `--table` y `--create` para indicar el nombre de la tabla, y si la migración creará una nueva tabla:
-
-	php artisan make:migration add_votes_to_user_table --table=users
+	php artisan make:migration add_votes_to_users_table --table=users
 
 	php artisan make:migration create_users_table --create=users
 
-<a name="running-migrations"></a>
-## Ejecutando Migraciones
+<a name="migration-structure"></a>
+## Migration Structure
 
-#### Ejecutando todas las migraciones pendientes
+A migration class contains two methods: `up` and `down`. The `up` method is used to add new tables, columns, or indexes to your database, while the `down` method should simply reverse the operations performed by the `up` method.
+
+Within both of these methods you may use the Laravel schema builder to expressively create and modify tables. To learn about all of the methods available on the `Schema` builder, [check out its documentation](#creating-tables). For example, let's look at a sample migration that creates a `flights` table:
+
+	<?php
+
+	use Illuminate\Database\Schema\Blueprint;
+	use Illuminate\Database\Migrations\Migration;
+
+	class CreateFlightsTable extends Migration
+	{
+	    /**
+	     * Run the migrations.
+	     *
+	     * @return void
+	     */
+	    public function up()
+	    {
+	        Schema::create('flights', function (Blueprint $table) {
+	            $table->increments('id');
+	            $table->string('name');
+	            $table->string('airline');
+	            $table->timestamps();
+	        });
+	    }
+
+	    /**
+	     * Reverse the migrations.
+	     *
+	     * @return void
+	     */
+	    public function down()
+	    {
+	        Schema::drop('flights');
+	    }
+	}
+
+
+<a name="running-migrations"></a>
+## Running Migrations
+
+To run all outstanding migrations for your application, use the `migrate` Artisan command. If you are using the [Homestead virtual machine](/docs/{{version}}/homestead), you should run this command from within your VM:
 
 	php artisan migrate
 
-> **Nota:** Si recibes un error "class not found" ('clase no encontrada'), inténtalo ejecutando el comando `composer dump-autoload`.
+If you receive a "class not found" error when running migrations, try running the `composer dump-autoload` command and re-issuing the migrate command.
 
-### Forzar las migraciones en producción.
+#### Forcing Migrations To Run In Production
 
-Algunas operaciones de migración son destructivas, es decir, pueden causar pérdida de datos. Para protegerte de ejecutar esos comandos contra tu base de datos de producción, se te pedirá confirmación antes de ejecutar esos comandos. Para forzar que los comandos se ejecuten sin preguntar, usa el flag `--force`:
+Some migration operations are destructive, meaning they may cause you to lose data. In order to protect you from running these commands against your production database, you will be prompted for confirmation before these commands are executed. To force the commands to run without a prompt, use the `--force` flag:
 
 	php artisan migrate --force
 
 <a name="rolling-back-migrations"></a>
-## Deshacer Migraciones
+### Rolling Back Migrations
 
-#### Deshacer la última operación de migración (Rollback)
+To rollback the latest migration "operation", you may use the `rollback` command. Note that this rolls back the last "batch" of migrations that ran, which may include multiple migration files:
 
 	php artisan migrate:rollback
 
-#### Deshacer todas las migraciones
+The `migrate:reset` command will roll back all of your application's migrations:
 
 	php artisan migrate:reset
 
-#### Deshacer todas las migraciones y ejecutándolas otra vez.
+#### Rollback / Migrate In Single Command
+
+The `migrate:refresh` command will first roll back all of your database migrations, and then run the `migrate` command. This command effectively re-creates your entire database:
 
 	php artisan migrate:refresh
 
 	php artisan migrate:refresh --seed
 
-<a name="database-seeding"></a>
-## Poblado de la base de datos
+<a name="writing-migrations"></a>
+## Writing Migrations
 
-Laravel incluye también un sencillo método para llenar tus bases de datos con datos de prueba usando clases 'seed'. Todas las clases para el poblado de datos son almacenadas en `database/seeds`. Estas clases pueden tener cualquier nombre que quieras. Pero, probablemente, deberían seguir algunas convenciones como `UserTableSeeder` (`PobladorDeTablaUsuarios`), etc.. Por defecto, se define una clase `DatabaseSeeder` por ti. Desde esta clase, puedes usar el método `call` para ejecutar otras clases de poblado de datos. Permitiéndote controlar el orden en el que se produce ese poblado de datos.
+<a name="creating-tables"></a>
+### Creating Tables
 
-#### Ejemplo de clase de poblado de datos
+To create a new database table, use the `create` method on the `Schema` facade. The `create` method accepts two arguments. The first is the name of the table, while the second is a `Closure` which receives a `Blueprint` object used to define the new table:
 
-	class DatabaseSeeder extends Seeder {
+	Schema::create('users', function ($table) {
+		$table->increments('id');
+	});
 
-		public function run()
-		{
-			$this->call('UserTableSeeder');
+Of course, when creating the table, you may use any of the schema builder's [column methods](#creating-columns) to define the table's columns.
 
-			$this->command->info('User table seeded!');
-		}
+#### Checking For Table / Column Existence
 
+You may easily check for the existence of a table or column using the `hasTable` and `hasColumn` methods:
+
+	if (Schema::hasTable('users')) {
+		//
 	}
 
-	class UserTableSeeder extends Seeder {
-
-		public function run()
-		{
-			DB::table('users')->delete();
-
-			User::create(array('email' => 'foo@bar.com'));
-		}
-
+	if (Schema::hasColumn('users', 'email')) {
+		//
 	}
 
-Para llenar de datos tu base de datos, puedes usar el comando `db:seed` de la línea de comandos de Artisan:
+#### Connection & Storage Engine
 
-	php artisan db:seed
+If you want to perform a schema operation on a database connection that is not your default connection, use the `connection` method:
 
-Por defecto, el comando `db:seed` ejecuta la clase `DatabaseSeeder`, la cual puede ser usada para llamar a otras clases de poblado de datos. Sin embargo, puedes usar la opción `--class` para especificar que una clase de poblado de datos concreta se ejecute individualmente:
+	Schema::connection('foo')->create('users', function ($table) {
+		$table->increments('id');
+	});
 
-	php artisan db:seed --class=UserTableSeeder
+To set the storage engine for a table, set the `engine` property on the schema builder:
 
-También puedes poblar tus bases de datos usando el comando `migrate:refresh`, que deshace (rollback) y vuelve a ejecutar todas tus migraciones:
+	Schema::create('users', function ($table) {
+		$table->engine = 'InnoDB';
 
-	php artisan migrate:refresh --seed
+		$table->increments('id');
+	});
 
-<br />
-** Notas de la traducción:
+<a name="renaming-and-dropping-tables"></a>
+### Renaming / Dropping Tables
 
-<a name="nota1">[1]</a> `foo` es un término que se usa habitualmente en inglés para referirse a cualquier variable o representación informática con un nombre genérico que podría traducirse por 'cualquier nombre', 'cualquier texto', etc... Por sí misma, la palabra foo no tiene un significado preciso; Se usa como nombre genérico. En castellano sería como decir 'fulanito' o 'menganito'.
+To rename an existing database table, use the `rename` method:
+
+	Schema::rename($from, $to);
+
+To drop an existing table, you may use the `drop` or `dropIfExists` methods:
+
+	Schema::drop('users');
+
+	Schema::dropIfExists('users');
+
+<a name="creating-columns"></a>
+### Creating Columns
+
+To update an existing table, we will use the `table` method on the `Schema` facade. Like the `create` method, the `table` method accepts two arguments: the name of the table and a `Closure` that receives a `Blueprint` instance we can use to add columns to the table:
+
+	Schema::table('users', function ($table) {
+		$table->string('email');
+	});
+
+#### Available Column Types
+
+Of course, the schema builder contains a variety of column types that you may use when building your tables:
+
+Command  | Description
+------------- | -------------
+`$table->bigIncrements('id');`  |  Incrementing ID using a "big integer" equivalent.
+`$table->bigInteger('votes');`  |  BIGINT equivalent for the database.
+`$table->binary('data');`  |  BLOB equivalent for the database.
+`$table->boolean('confirmed');`  |  BOOLEAN equivalent for the database.
+`$table->char('name', 4);`  |  CHAR equivalent with a length.
+`$table->date('created_at');`  |  DATE equivalent for the database.
+`$table->dateTime('created_at');`  |  DATETIME equivalent for the database.
+`$table->decimal('amount', 5, 2);`  |  DECIMAL equivalent with a precision and scale.
+`$table->double('column', 15, 8);`  |  DOUBLE equivalent with precision, 15 digits in total and 8 after the decimal point.
+`$table->enum('choices', ['foo', 'bar']);` | ENUM equivalent for the database.
+`$table->float('amount');`  |  FLOAT equivalent for the database.
+`$table->increments('id');`  |  Incrementing ID for the database (primary key).
+`$table->integer('votes');`  |  INTEGER equivalent for the database.
+`$table->json('options');`  |  JSON equivalent for the database.
+`$table->jsonb('options');`  |  JSONB equivalent for the database.
+`$table->longText('description');`  |  LONGTEXT equivalent for the database.
+`$table->mediumInteger('numbers');`  |  MEDIUMINT equivalent for the database.
+`$table->mediumText('description');`  |  MEDIUMTEXT equivalent for the database.
+`$table->morphs('taggable');`  |  Adds INTEGER `taggable_id` and STRING `taggable_type`.
+`$table->nullableTimestamps();`  |  Same as `timestamps()`, except allows NULLs.
+`$table->rememberToken();`  |  Adds `remember_token` as VARCHAR(100) NULL.
+`$table->smallInteger('votes');`  |  SMALLINT equivalent for the database.
+`$table->softDeletes();`  |  Adds `deleted_at` column for soft deletes.
+`$table->string('email');`  |  VARCHAR equivalent column.
+`$table->string('name', 100);`  |  VARCHAR equivalent with a length.
+`$table->text('description');`  |  TEXT equivalent for the database.
+`$table->time('sunrise');`  |  TIME equivalent for the database.
+`$table->tinyInteger('numbers');`  |  TINYINT equivalent for the database.
+`$table->timestamp('added_on');`  |  TIMESTAMP equivalent for the database.
+`$table->timestamps();`  |  Adds `created_at` and `updated_at` columns.
+
+#### Column Modifiers
+
+In addition to the column types listed above, there are several other column "modifiers" which you may use while adding the column. For example, to make the column "nullable", you may use the `nullable` method:
+
+	Schema::table('users', function ($table) {
+		$table->string('email')->nullable();
+	});
+
+Below is a list of all the available column modifiers. This list does not include the [index modifiers](#adding-indexes):
+
+Modifier  | Description
+------------- | -------------
+`->after('column')`  |  Place the column "after" another column (MySQL Only)
+`->nullable()`  |  Allow NULL values to be inserted into the column
+`->default($value)`  |  Specify a "default" value for the column
+`->unsigned()`  |  Set `integer` columns to `UNSIGNED`
+
+<a name="changing-columns"></a>
+<a name="modifying-columns"></a>
+### Modifying Columns
+
+#### Prerequisites
+
+Before modifying a column, be sure to add the `doctrine/dbal` dependency to your `composer.json` file. The Doctrine DBAL library is used to determine the current state of the column and create the SQL queries needed to make the specified adjustments to the column.
+
+#### Updating Column Attributes
+
+The `change` method allows you to modify an existing column to a new type, or modify the column's attributes. For example, you may wish to increase the size of a string column. To see the `change` method in action, let's increase the size of the `name` column from 25 to 50:
+
+	Schema::table('users', function ($table) {
+		$table->string('name', 50)->change();
+	});
+
+We could also modify a column to be nullable:
+
+	Schema::table('users', function ($table) {
+		$table->string('name', 50)->nullable()->change();
+	});
+
+<a name="renaming-columns"></a>
+#### Renaming Columns
+
+To rename a column, you may use the `renameColumn` method on the Schema builder. Before renaming a column, be sure to add the `doctrine/dbal` dependency to your `composer.json` file:
+
+	Schema::table('users', function ($table) {
+		$table->renameColumn('from', 'to');
+	});
+
+> **Note:** Renaming columns in a table with a `enum` column is not currently supported.
+
+<a name="dropping-columns"></a>
+### Dropping Columns
+
+To drop a column, use the `dropColumn` method on the Schema builder:
+
+	Schema::table('users', function ($table) {
+		$table->dropColumn('votes');
+	});
+
+You may drop multiple columns from a table by passing an array of column names to the `dropColumn` method:
+
+	Schema::table('users', function ($table) {
+		$table->dropColumn(['votes', 'avatar', 'location']);
+	});
+
+> **Note:** Before dropping columns from a SQLite database, you will need to add the `doctrine/dbal` dependency to your `composer.json` file and run the `composer update` command in your terminal to install the library.
+
+<a name="creating-indexes"></a>
+### Creating Indexes
+
+The schema builder supports several types of indexes. First, let's look at an example that specifies a column's values should be unique. To create the index, we can simply chain the `unique` method onto the column definition:
+
+	$table->string('email')->unique();
+
+Alternatively, you may create the index after defining the column. For example:
+
+	$table->unique('email');
+
+You may even pass an array of columns to an index method to create a compound index:
+
+	$table->index(['account_id', 'created_at']);
+
+#### Available Index Types
+
+Command  | Description
+------------- | -------------
+`$table->primary('id');`  |  Add a primary key.
+`$table->primary(['first', 'last']);`  |  Add composite keys.
+`$table->unique('email');`  |  Add a unique index.
+`$table->index('state');`  |  Add a basic index.
+
+<a name="dropping-indexes"></a>
+### Dropping Indexes
+
+To drop an index, you must specify the index's name. By default, Laravel automatically assigns a reasonable name to the indexes. Simply concatenate the table name, the names of the column in the index, and the index type. Here are some examples:
+
+Command  | Description
+------------- | -------------
+`$table->dropPrimary('users_id_primary');`  |  Drop a primary key from the "users" table.
+`$table->dropUnique('users_email_unique');`  |  Drop a unique index from the "users" table.
+`$table->dropIndex('geo_state_index');`  |  Drop a basic index from the "geo" table.
+
+<a name="foreign-key-constraints"></a>
+### Foreign Key Constraints
+
+Laravel also provides support for creating foreign key constraints, which are used to force referential integrity at the database level. For example, let's define a `user_id` column on the `posts` table that references the `id` column on a `users` table:
+
+	Schema::table('posts', function ($table) {
+		$table->integer('user_id')->unsigned();
+
+		$table->foreign('user_id')->references('id')->on('users');
+	});
+
+You may also specify the desired action for the "on delete" and "on update" properties of the constraint:
+
+	$table->foreign('user_id')
+          ->references('id')->on('users')
+          ->onDelete('cascade');
+
+To drop a foreign key, you may use the `dropForeign` method. Foreign key constraints use the same naming convention as indexes. So, we will concatenate the table name and the columns in the constraint then suffix the name with "_foreign":
+
+	$table->dropForeign('posts_user_id_foreign');
