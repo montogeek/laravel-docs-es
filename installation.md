@@ -1,4 +1,4 @@
-# Installation
+# Instalación
 
 - [Instalación](#installation)
 - [Configuración](#configuration)
