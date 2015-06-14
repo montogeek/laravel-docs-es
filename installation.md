@@ -60,7 +60,7 @@ Después de instalar a Laravel, es posible que necesitará configurar algunos pe
 
 #### Código de la Aplicación
 
-Los siguiente que tiene que hacer después de la instalación es configurar el código aleatorio de su aplicación. Si instaló Laravel vía Composer o el Instalador de Laravel, el código viene configirado por el comando `key:generate`. Generalmente, el código es una cadena de 32 carácteres. El código puede ser seteado en el archivo de configuración de entorno `.env`. Si todavía usted no ha renombrado el archivo `.env.example` a `.env`, debe hacerlo ahora. **Si la aplicación no cuenta con un código, las sessiones y otras informaciones encriptadas no serán seguras!**
+Lo siguiente que tiene que hacer después de la instalación es configurar el código aleatorio de su aplicación. Si instaló Laravel vía Composer o el Instalador de Laravel, el código viene configirado por el comando `key:generate`. Generalmente, el código es una cadena de 32 carácteres. El código puede ser seteado en el archivo de configuración de entorno `.env`. Si todavía usted no ha renombrado el archivo `.env.example` a `.env`, debe hacerlo ahora. **Si la aplicación no cuenta con un código, las sessiones y otras informaciones encriptadas no serán seguras!**
 
 #### Configuraciones adicionales
 
