@@ -1,5 +1,8 @@
-# Laravel Documentation
+# Documentación de Laravel en Español
 
-## Contribution Guidelines
+Repositorio con la documentación de Laravel PHP Framework en Español, actualmente se soporta la versión 4.1, 5.0 y 5.1.
 
-If you are submitting documentation for the **current stable release**, submit it to the corresponding branch. For example, documentation for Laravel 5.0 would be submitted to the `5.0` branch. Documentation intended for the next release of Laravel should be submitted to the `master` branch.
+Puedes verla funcionando en:
+http://laravel.montogeek.co/
+
+[![Build Status](https://snap-ci.com/montogeek/laravel-docs-es/branch/master/build_image)](https://snap-ci.com/montogeek/laravel-docs-es/branch/master)
