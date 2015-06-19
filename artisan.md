@@ -9,7 +9,7 @@
     - [Solicitar entradas](#prompting-for-input)
     - [Escribir salidas en la consola](#writing-output)
 - [Registrar comandos](#registering-commands)
-- [Llamar comandos vía programación](#calling-commands-via-code)
+- [Ejecutar comandos con programacion](#calling-commands-via-code)
 
 <a name="introduction"></a>
 ## Introducción
@@ -299,7 +299,7 @@ Dentro de ese archivo, encontrarás una lista de comando en la propriedad `comma
     ];
 
 <a name="calling-commands-via-code"></a>
-## Llamar comandos vía programación
+## Ejecutar comandos con programación
 
 Quizá algunas veces usted necesitará ejecutar un comando fuera del interpretador de línea de comando (CLI). Por ejemplo, quiere ejecutar un comando Artisa desde una ruta o un controlador. Puede utilizar el método `call` desde el facade `Artisan`. El método `call`accepta el nombre del comando como el primer argumento, y un arreglo de parámetros de comando como el segundo argumento. El código de terminación será retornado:
 
