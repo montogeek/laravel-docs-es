@@ -45,7 +45,8 @@ Notice that near the top of the file we are "importing" the `Cache` facade. This
 
 If we look at that `Illuminate\Support\Facades\Cache` class, you'll see that there is no static method `get`:
 
-	class Cache extends Facade {
+	class Cache extends Facade
+	{
 
 		/**
 		 * Get the registered name of the component.

@@ -2,6 +2,7 @@
     - [Release Notes](/{{version}}/releases)
     - [Upgrade Guide](/{{version}}/upgrade)
     - [Contribution Guide](/{{version}}/contributions)
+    - [API Documentation](http://laravel.com/api/{{version}}/)
 - Setup
     - [Installation](/{{version}}/installation)
     - [Homestead](/{{version}}/homestead)
