@@ -19,6 +19,7 @@ El framework Laravel exige algunos requerimientos. Desde luego, todos esos reque
 <div class="content-list" markdown="1">
 - PHP >= 5.5.9
 - OpenSSL PHP Extension
+- PDO PHP Extension
 - Mbstring PHP Extension
 - Tokenizer PHP Extension
 </div>
