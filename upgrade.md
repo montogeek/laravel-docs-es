@@ -119,6 +119,10 @@ Likewise, the `app/Handlers` directory has been renamed to `app/Listeners` and n
 
 By providing backwards compatibility for the Laravel 5.0 folder structure, you may upgrade your applications to Laravel 5.1 and slowly upgrade your events and commands to their new locations when it is convenient for you or your team.
 
+### Blade
+
+The `createMatcher`, `createOpenMatcher`, and `createPlainMatcher` methods have been removed from the Blade compiler. Use the new `directive` method to create custom directives for Blade in Laravel 5.1. Consult the [extending blade](/{{version}}/blade#extending-blade) documentation for more information.
+
 ### Tests
 
 Add the protected `$baseUrl` property to the `tests/TestCase.php` file:
@@ -332,7 +336,7 @@ You may move your Sass, Less, or CoffeeScript to any location you wish. The `res
 
 ### Form & HTML Helpers
 
-If you're using Form or HTML helpers, you will see an error stating `class 'Form' not found` or `class 'Html' not found`. The Form and HTML helpers have been deprecated in Laravel 5.0; however, there are community-driven replacements such as those maintained by the [Laravel Collective](http://laravelcollective.com/{{version}}/html).
+If you're using Form or HTML helpers, you will see an error stating `class 'Form' not found` or `class 'Html' not found`. The Form and HTML helpers have been deprecated in Laravel 5.0; however, there are community-driven replacements such as those maintained by the [Laravel Collective](http://laravelcollective.com/docs/{{version}}/html).
 
 For example, you may add `"laravelcollective/html": "~5.0"` to your `composer.json` file's `require` section.
 
