@@ -28,7 +28,7 @@ Una vez instalado, el comando `laravel new` creará una nueva instalación de La
 
 Puedes instalar Laravel usando el comando `create-project` de Composer en tu terminal:
 
-	composer create-project laravel/laravel --prefer-dist
+composer create-project laravel/laravel {directory} 5.0 --prefer-dist
 
 ### Scaffolding
 
