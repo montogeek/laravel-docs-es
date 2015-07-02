@@ -125,6 +125,10 @@ When a user is successfully authenticated, they will be redirected to the `/home
 
     protected $redirectPath = '/dashboard';
 
+When a user is not successfully authenticated, they will be redirected to the `/auth/login` URI. You can customize the failed post-authentication redirect location by defining a `loginPath` property on the `AuthController`:
+
+    protected $loginPath = '/login';
+
 #### Customizations
 
 To modify the form fields that are required when a new user registers with your application, or to customize how new user records are inserted into your database, you may modify the `AuthController` class. This class is responsible for validating and creating new users of your application.
@@ -331,7 +335,9 @@ If you are using PHP FastCGI, HTTP Basic authentication may not work correctly o
 
 You may also use HTTP Basic Authentication without setting a user identifier cookie in the session, which is particularly useful for API authentication. To do so, [define a middleware](/{{version}}/middleware) that calls the `onceBasic` method. If no response is returned by the `onceBasic` method, the request may be passed further into the application:
 
-    <?php namespace Illuminate\Auth\Middleware;
+    <?php
+
+    namespace Illuminate\Auth\Middleware;
 
     use Auth;
     use Closure;
@@ -607,7 +613,9 @@ The `Illuminate\Contracts\Auth\UserProvider` implementations are only responsibl
 
 Let's take a look at the `Illuminate\Contracts\Auth\UserProvider` contract:
 
-    <?php namespace Illuminate\Contracts\Auth;
+    <?php
+
+    namespace Illuminate\Contracts\Auth;
 
     interface UserProvider {
 
@@ -633,7 +641,9 @@ The `validateCredentials` method should compare the given `$user` with the `$cre
 
 Now that we have explored each of the methods on the `UserProvider`, let's take a look at the `Authenticatable`. Remember, the provider should return implementations of this interface from the `retrieveById` and `retrieveByCredentials` methods:
 
-    <?php namespace Illuminate\Contracts\Auth;
+    <?php
+
+    namespace Illuminate\Contracts\Auth;
 
     interface Authenticatable {
 
