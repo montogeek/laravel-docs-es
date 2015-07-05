@@ -115,7 +115,7 @@ If your HTTP request contains "nested" parameters, you may specify them in your 
 <a name="quick-displaying-the-validation-errors"></a>
 ### Displaying The Validation Errors
 
-So, what if the incoming request parameters do not pass the given validation rules? As mentioned previously, Laravel will automatically redirect the user back to their previous location. In addition, all of the validation errors will automatically be [flashed to the session](/docs/{{version}}/session#flash-data).
+So, what if the incoming request parameters do not pass the given validation rules? As mentioned previously, Laravel will automatically redirect the user back to their previous location. In addition, all of the validation errors will automatically be [flashed to the session](/{{version}}/session#flash-data).
 
 Again, notice that we did not have to explicitly bind the error messages to the view in our `GET` route. This is because Laravel will always check for errors in the session data, and automatically bind them to the view if they are available. **So, it is important to note that an `$errors` variable will always be available in all of your views on every request**, allowing you to conveniently assume the `$errors` variable is always defined and can be safely used. The `$errors` variable will be an instance of `Illuminate\Support\MessageBag`. For more information on working with this object, [check out its documentation](#working-with-error-messages).
 
@@ -175,7 +175,7 @@ In this example, we used a traditional form to send data to the application. How
 <a name="manually-creating-validators"></a>
 ### Manually Creating Validators
 
-If you do not want to use the `ValidatesRequests` trait's `validate` method, you may create a validator instance manually using the `Validator` [facade](/docs/{{version}}/facades). The `make` method on the facade generates a new validator instance:
+If you do not want to use the `ValidatesRequests` trait's `validate` method, you may create a validator instance manually using the `Validator` [facade](/{{version}}/facades). The `make` method on the facade generates a new validator instance:
 
     <?php
 
@@ -481,7 +481,13 @@ The field under validation must be a valid URL according to the `checkdnsrr` PHP
 <a name="rule-after"></a>
 #### after:_date_
 
-The field under validation must be a value after a given date. The dates will be passed into the `strtotime` PHP function.
+The field under validation must be a value after a given date. The dates will be passed into the `strtotime` PHP function:
+
+    'start_date' => 'required|date|after:tomorrow'
+
+Instead of passing a date string to be evaluated by `strtotime`, you may specify another field to compare against the date:
+
+    'finish_date' => 'required|date|after:start_date'
 
 <a name="rule-alpha"></a>
 #### alpha
@@ -531,7 +537,7 @@ The field under validation must be a valid date according to the `strtotime` PHP
 <a name="rule-date-format"></a>
 #### date_format:_format_
 
-The field under validation must match the given _format_. The format will be evaluated using the PHP `date_parse_from_format` function.
+The field under validation must match the given _format_. The format will be evaluated using the PHP `date_parse_from_format` function. You should use **either** `date` or `date_format` when validating a field, not both.
 
 <a name="rule-different"></a>
 #### different:_field_
@@ -751,7 +757,7 @@ The first argument passed to the `sometimes` method is the name of the field we 
 <a name="custom-validation-rules"></a>
 ## Custom Validation Rules
 
-Laravel provides a variety of helpful validation rules; however, you may wish to specify some of your own. One method of registering custom validation rules is using the `extend` method on the `Validator` [facade](/docs/{{version}}/facades). Let's use this method within a [service provider](/docs/{{version}}/providers) to register a custom validation rule:
+Laravel provides a variety of helpful validation rules; however, you may wish to specify some of your own. One method of registering custom validation rules is using the `extend` method on the `Validator` [facade](/{{version}}/facades). Let's use this method within a [service provider](/{{version}}/providers) to register a custom validation rule:
 
     <?php
 
@@ -801,7 +807,7 @@ You will also need to define an error message for your custom rule. You can do s
 
     // The rest of the validation error messages...
 
-When creating a custom validation rule, you may sometimes need to define custom place-holder replacements for error messages. You may do so by creating a custom Validator as described above then making a call to the `replacer` method on the `Validator` facade. You may do this within the `boot` method of a [service provider](/docs/{{version}}/providers):
+When creating a custom validation rule, you may sometimes need to define custom place-holder replacements for error messages. You may do so by creating a custom Validator as described above then making a call to the `replacer` method on the `Validator` facade. You may do this within the `boot` method of a [service provider](/{{version}}/providers):
 
     /**
      * Bootstrap any application services.

@@ -321,6 +321,12 @@ Utilizando el método `queue` del facade `Artisan`, puede hasta agregar sus coma
         //
     });
 
+Si necesitas especificar el valor de una option que no acepta valores como cadenas, tal como la opción '--force' del comando `migrate:refresh`, puedes pasar un valor booleano `true` o `false`:
+
+    $exitCode = Artisan::call('migrate:refresh', [
+        '--force' => true,
+    ]);
+
 ### Llamar comandos desde otros comandos
 
 Algunas veces querrá llamar otros comandos desde un comando Artisan existente. Puede usar el método `call` method .Ese método toma en parámetros el nombre del comando y un arreglo de parámetros de comando:
