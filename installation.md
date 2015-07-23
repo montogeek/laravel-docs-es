@@ -137,9 +137,9 @@ También puede utilizar el métdo rápido `app` en lugar del facade:
 <a name="configuration-caching"></a>
 ### Configuración de caché
 
-Para dar a la aplicación un empujoncito en cuanto a la velocidad, debe meter en caché todos sus archivos de configuración usando el comando Artisan `config:cache`. Eso resultará en la combinación de todas las opciones en un sólo archivo que Laravel pueda carga más rápido.
+Para dar a la aplicación una mejora de rendimiento, debe meter en caché todos sus archivos de configuración usando el comando Artisan `config:cache`. Eso resultará en la combinación de todas las opciones en un sólo archivo que Laravel pueda carga más rápido.
 
-Usted debe adquirir el costumbre de ejecutar el comando `config:cache` como parte de su rutina de despliegue de su aplicación.
+Usted debe adquirir el costumbre de ejecutar el comando `config:cache` como parte de su rutina de despliegue de su aplicación. El comando no debería ser ejecutado durante el desarrollo de tu aplicación ya que configuración tiende a cambiar bastante durante esta etapa.
 
 <a name="accessing-configuration-values"></a>
 ### Accesando a variables de configuraciones
