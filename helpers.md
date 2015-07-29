@@ -445,6 +445,8 @@ The `e` function runs `htmlentities` over the given string:
 
     echo e('<html>foo</html>');
 
+    // &lt;html&gt;foo&lt;/html&gt;
+
 <a name="method-ends-with"></a>
 #### `ends_with()` {#collection-method}
 
@@ -654,6 +656,10 @@ The `config` function gets the value of a configuration variable. The configurat
 
     $value = config('app.timezone', $default);
 
+The `config` helper may also be used to set configuration variables at runtime by passing an array of key / value pairs:
+
+    config(['app.debug' => true]);
+
 <a name="method-csrf-field"></a>
 #### `csrf_field()` {#collection-method}
 
@@ -718,7 +724,7 @@ The `method_field` function generates an HTML `hidden` input field containing th
 <a name="method-old"></a>
 #### `old()` {#collection-method}
 
-The `old` function [retrieves](/{{version}}/requests#retrieving-input) an old input value flashed into the session.:
+The `old` function [retrieves](/{{version}}/requests#retrieving-input) an old input value flashed into the session:
 
     $value = old('value');
 
