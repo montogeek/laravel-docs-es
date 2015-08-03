@@ -13,6 +13,7 @@
     - [Browserify](#browserify)
     - [Babel](#babel)
     - [Scripts](#javascript)
+- [Copying Files & Directories](#copying-files-and-directories)
 - [Versioning / Cache Busting](#versioning-and-cache-busting)
 - [Calling Existing Gulp Tasks](#calling-existing-gulp-tasks)
 - [Writing Elixir Extensions](#writing-elixir-extensions)
@@ -268,6 +269,21 @@ If you need to combine all of the scripts in a given directory, you may use the 
 ```javascript
 elixir(function(mix) {
     mix.scriptsIn('public/js/some/directory');
+});
+```
+
+<a name="copying-files-and-directories"></a>
+## Copying Files & Directories
+
+The `copy` method may be used to copy files and directories to new locations. All operations are relative to the project's root directory:
+
+```javascript
+elixir(function(mix) {
+    mix.copy('vendor/foo/bar.css', 'public/css/bar.css');
+});
+
+elixir(function(mix) {
+    mix.copy('vendor/package/views', 'resources/views');
 });
 ```
 
