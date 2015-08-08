@@ -440,14 +440,17 @@ Here is a sample password reset form to get you started:
         <input type="hidden" name="token" value="{{ $token }}">
 
         <div>
+            Email
             <input type="email" name="email" value="{{ old('email') }}">
         </div>
 
         <div>
+            Password
             <input type="password" name="password">
         </div>
 
         <div>
+            Confirm Password
             <input type="password" name="password_confirmation">
         </div>
 
@@ -495,9 +498,9 @@ Also, add the `Socialite` facade to the `aliases` array in your `app` configurat
 You will also need to add credentials for the OAuth services your application utilizes. These credentials should be placed in your `config/services.php` configuration file, and should use the key `facebook`, `twitter`, `linkedin`, `google`, `github` or `bitbucket`, depending on the providers your application requires. For example:
 
     'github' => [
-        'client_id'     => 'your-github-app-id',
+        'client_id' => 'your-github-app-id',
         'client_secret' => 'your-github-app-secret',
-        'redirect'      => 'http://your-callback-url',
+        'redirect' => 'http://your-callback-url',
     ],
 
 ### Basic Usage
@@ -543,7 +546,6 @@ The `redirect` method takes care of sending the user to the OAuth provider, whil
 
 Of course, you will need to define routes to your controller methods:
 
-        // Github Authentication routes...
         Route::get('auth/github', 'Auth\AuthController@redirectToProvider');
         Route::get('auth/github/callback', 'Auth\AuthController@handleProviderCallback');
 

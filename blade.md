@@ -1,3 +1,4 @@
+
 # Blade Templates
 
 - [Introduction](#introduction)
@@ -48,7 +49,7 @@ Now that we have defined a layout for our application, let's define a child page
 
 When defining a child page, you may use the Blade `@extends` directive to specify which layout the child page should "inherit". Views which `@extends` a Blade layout may inject content into the layout's sections using `@section` directives. Remember, as seen in the example above, the contents of these sections will be displayed in the layout using `@yield`:
 
-	<!-- Stored in resources/views/layouts/child.blade.php -->
+	<!-- Stored in resources/views/child.blade.php -->
 
 	@extends('layouts.master')
 
