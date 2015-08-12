@@ -271,9 +271,9 @@ If you're wondering where to put your custom cache driver code, consider making 
 
 Cache tags allow you to tag related items in the cache and then flush all cached values that assigned a given tag. You may access a tagged cache by passing in an ordered array of tag names. For example, let's access a tagged cache and `put` value in the cache:
 
-	Cache::tags(['people', 'artists'])->put('John', $john, $minutes);
+    Cache::tags(['people', 'artists'])->put('John', $john, $minutes);
 
-	Cache::tags(['people', 'authors'])->put('Anne', $anne, $minutes);
+    Cache::tags(['people', 'authors'])->put('Anne', $anne, $minutes);
 
 However, you are not limited to the `put` method. You may use any cache storage method while working with tags.
 
@@ -282,17 +282,17 @@ However, you are not limited to the `put` method. You may use any cache storage 
 
 To retrieve a tagged cache item, pass the same ordered list of tags to the `tags` method:
 
-	$john = Cache::tags(['people', 'artists'])->get('John');
+    $john = Cache::tags(['people', 'artists'])->get('John');
 
     $anne = Cache::tags(['people', 'authors'])->get('Anne');
 
 You may flush all items that are assigned a tag or list of tags. For example, this statement would remove all caches tagged with either `people`, `authors`, or both. So, both `Anne` and `John` would be removed from the cache:
 
-	Cache::tags(['people', 'authors'])->flush();
+    Cache::tags(['people', 'authors'])->flush();
 
-In contrast, this statement would remove only caches tagged with `authors`, so `John` would be removed, but not `Anne`.
+In contrast, this statement would remove only caches tagged with `authors`, so `Anne` would be removed, but not `John`.
 
-	Cache::tags('authors')->flush();
+    Cache::tags('authors')->flush();
 
 <a name="cache-events"></a>
 ## Cache Events
