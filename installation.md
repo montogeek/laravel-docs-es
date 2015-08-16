@@ -1,94 +1,96 @@
-# Instalación
+# Installation
 
-- [Instalar Composer](#install-composer)
-- [Instalar Laravel](#install-laravel)
-- [Requerimientos del servidor](#server-requirements)
+- [Install Composer](#install-composer)
+- [Install Laravel](#install-laravel)
+- [Server Requirements](#server-requirements)
 
 <a name="install-composer"></a>
-## Instalar Composer
+## Install Composer
 
-Laravel utiliza [Composer](http://getcomposer.org) para administrar sus dependencias. Antes de usar Laravel, asegúrate de tener instalado Composer en tu sistema.
+Laravel utilizes [Composer](http://getcomposer.org) to manage its dependencies. So, before using Laravel, you will need to make sure you have Composer installed on your machine.
 
 <a name="install-laravel"></a>
-## Instalar Laravel
+## Install Laravel
 
-### Instalador de Laravel
+### Via Laravel Installer
 
-Primero, descarga el instalador de Laravel utilizando Composer.
+First, download the Laravel installer using Composer.
 
-	composer global require "laravel/installer=~1.1"
+  composer global require "laravel/installer=~1.1"
 
-Asegúrate de agregar el directorio `~/.composer/vendor/bin` a tu variable de entorno PATH, así tu sistema podrá localizar el archivo ejecutable `laravel`.
+Make sure to place the `~/.composer/vendor/bin` directory in your PATH so the `laravel` executable can be located by your system.
 
-Una vez instalado, el comando `laravel new` creará una nueva instalación de Laravel en el directorio especificado. Por ejemplo, `laravel new blog` creará un directorio llamado `blog`, el cual contiene una nueva instalación de Laravel con todas sus dependencias. Este método de instalación es mucho más rápido que instalar Laravel utilizando Composer:
+Once installed, the simple `laravel new` command will create a fresh Laravel installation in the directory you specify. For instance, `laravel new blog` would create a directory named `blog` containing a fresh Laravel installation with all dependencies installed. This method of installation is much faster than installing via Composer:
 
-	laravel new blog
+  laravel new blog
 
-### Composer Create-Project
+### Via Composer Create-Project
 
-Puedes instalar Laravel usando el comando `create-project` de Composer en tu terminal:
+You may also install Laravel by issuing the Composer `create-project` command in your terminal:
 
-composer create-project laravel/laravel {directory} 5.0 --prefer-dist
+  composer create-project laravel/laravel {directory} "~5.0.0" --prefer-dist
+
+Once installed, you should upgrade to the latest packages. First, remove `{directory}/vendor/compiled.php` file then change your current directory to `{directory}` and issue `composer update` command.
 
 ### Scaffolding
 
 Laravel ships with scaffolding for user registration and authentication. If you would like to remove this scaffolding, use the `fresh` Artisan command:
 
-    php artisan fresh
+  php artisan fresh
 
 <a name="server-requirements"></a>
-## Requerimientos del servidor
+## Server Requirements
 
-Laravel tiene algunos requerimientos:
+The Laravel framework has a few system requirements:
 
 - PHP >= 5.4
-- Extensión Mcrypt PHP
-- Extensión OpenSSL PHP
-- Extensión Mbstring PHP
-- Extensión Tokenizer PHP
+- Mcrypt PHP Extension
+- OpenSSL PHP Extension
+- Mbstring PHP Extension
+- Tokenizer PHP Extension
 
-En PHP 5.5, algunos sistemas operativos requieren que instales manualmente la extensión PHP JSON. Si usas Ubuntu, lo puedes instalar con el comando `apt-get install php5-json`.
+As of PHP 5.5, some OS distributions may require you to manually install the PHP JSON extension. When using Ubuntu, this can be done via `apt-get install php5-json`.
 
 <a name="configuration"></a>
-## Configuración
+## Configuration
 
-Lo primero que debes hacer despues de instalar Laravel es establecer la llave de tu aplicacion. Si instalaste Laravel a traves de Composer, esta llave probablemente ya fue establecida por ti por el comando `key:generate`.
+The first thing you should do after installing Laravel is set your application key to a random string. If you installed Laravel via Composer, this key has probably already been set for you by the `key:generate` command.
 
-Normalmente, esta cadena debe tener una longitud de 32 caracteres. Esta llave puede ser establecida en el archivo de configuracion `config/app.php`. **Si la llave no establecida, las sesiones de usuarios y otra informacion encriptada no sera segura!**
+Typically, this string should be 32 characters long. The key can be set in the `.env` environment file. **If the application key is not set, your user sessions and other encrypted data will not be secure!**
 
-Laravel no necesita mas configuracion para funcionar. Eres libre para empezar a desarrollar! Sin embargo, puedes revisar el archivo `config/app.php` y su documentacion, contiene multiples opciones como `timezone` y `locale` que seguro necesitaras cambiar de acuerdo a tu aplicacion.
+Laravel needs almost no other configuration out of the box. You are free to get started developing! However, you may wish to review the `config/app.php` file and its documentation. It contains several options such as `timezone` and `locale` that you may wish to change according to your application.
 
-Una vez Laravel este instalado, puedes [configurar tu entorno local](/5.0/configuration#environment-configuration).
+Once Laravel is installed, you should also [configure your local environment](/{{version}}/configuration#environment-configuration).
 
-> **Nota:** Jamas deberias establecer la opcion `app.debug` en `true` para tu aplicacion en produccion.
+> **Note:** You should never have the `app.debug` configuration option set to `true` for a production application.
 
 <a name="permissions"></a>
-### Permisos
+### Permissions
 
-Laravel podria requerir permisos para ser configurado: las carpetas de `storage` y `vendor` requieren permisos de escritura por el servidor web.
+Laravel may require some permissions to be configured: folders within `storage` and `vendor` require write access by the web server.
 
 <a name="pretty-urls"></a>
-## URLs amigables
+## Pretty URLs
 
 ### Apache
 
-El framework viene con un archivo `public/.htaccess` que es usado para permitir URLs sin el prefijo `index.php`. Si usas Apache para servir tu aplicacion, asegurate de tener habilitado el modulo `mod_rewrite`.
+The framework ships with a `public/.htaccess` file that is used to allow URLs without `index.php`. If you use Apache to serve your Laravel application, be sure to enable the `mod_rewrite` module.
 
-Si el archivo `.htaccess` que viene con Laravel no funciona con tu instalacion de Apache, prueba con este:
+If the `.htaccess` file that ships with Laravel does not work with your Apache installation, try this one:
 
-	Options +FollowSymLinks
-	RewriteEngine On
+  Options +FollowSymLinks
+  RewriteEngine On
 
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule ^ index.php [L]
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^ index.php [L]
 
 ### Nginx
 
-Con Nginx, la siguiente directiva en la configuracion de tu sitio permitira URLS "bonitas":
+On Nginx, the following directive in your site configuration will allow "pretty" URLs:
 
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
+  location / {
+    try_files $uri $uri/ /index.php?$query_string;
+  }
 
-Por supuesto, usando [Homestead](/5.0/homestead) obtendras URLs bonitas automaticamente.
+Of course, when using [Homestead](/{{version}}/homestead), pretty URLs will be configured automatically.
