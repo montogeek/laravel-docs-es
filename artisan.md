@@ -275,15 +275,15 @@ Para tareas muy pesadas, es conveniente presentar un indicador de progreso. Usan
 
     $users = App\User::all();
 
-    $this->output->progressStart(count($users));
+    $bar = $this->output->createProgressBar(count($users));
 
     foreach ($users as $user) {
         $this->performTask($user);
 
-        $this->output->progressAdvance();
+        $bar->advance();
     }
 
-    $this->output->progressFinish();
+    $bar->finish();
 
 Para mas informaciones, ver la documentación sobre en componente [Barra de progreso de Symfony](http://symfony.com/doc/2.7/components/console/helpers/progressbar.html).
 
