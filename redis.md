@@ -1,12 +1,12 @@
 # Redis
 
-- [Introduction](#introduction)
-- [Basic Usage](#basic-usage)
+- [Introducción](#introduction)
+- [Uso basico](#basic-usage)
 	- [Pipelining Commands](#pipelining-commands)
 - [Pub / Sub](#pubsub)
 
 <a name="introduction"></a>
-## Introduction
+## Introducción
 
 [Redis](http://redis.io) is an open source, advanced key-value store. It is often referred to as a data structure server since keys can contain [strings](http://redis.io/topics/data-types#strings), [hashes](http://redis.io/topics/data-types#hashes), [lists](http://redis.io/topics/data-types#lists), [sets](http://redis.io/topics/data-types#sets), and [sorted sets](http://redis.io/topics/data-types#sorted-sets). Before using Redis with Laravel, you will need to install the `predis/predis` package (~1.0) via Composer.
 
@@ -38,7 +38,7 @@ If your Redis server requires authentication, you may supply a password by addin
 > **Note:** If you have the Redis PHP extension installed via PECL, you will need to rename the alias for Redis in your `config/app.php` file.
 
 <a name="basic-usage"></a>
-## Basic Usage
+## Uso basico
 
 You may interact with Redis by calling various methods on the `Redis` [facade](/{{version}}/facades). The `Redis` facade supports dynamic methods, meaning you may call any [Redis command](http://redis.io/commands) on the facade and the command will be passed directly to Redis. In this example, we will call the `GET` command on Redis by calling the `get` method on the `Redis` facade:
 
