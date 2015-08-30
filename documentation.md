@@ -23,6 +23,7 @@
     - [Facades](/{{version}}/facades)
 - Services
     - [Authentication](/{{version}}/authentication)
+    - [Authorization](/docs/{{version}}/authorization)
     - [Artisan Console](/{{version}}/artisan)
     - [Billing](/{{version}}/billing)
     - [Cache](/{{version}}/cache)
