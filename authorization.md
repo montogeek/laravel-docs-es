@@ -56,7 +56,19 @@ Note that we did not check if the given `$user` is not `NULL`. The `Gate` will a
 
 In addition to registering `Closures` as authorization callbacks, you may register class methods by passing a string containing the class name and the method. When needed, the class will be resolved via the [service container](/{{version}}/container):
 
-    $gate->define('update-post', 'PostPolicy@update');
+    $gate->define('update-post', 'Class@method');
+
+#### Intercepting All Checks
+
+Sometimes, you may wish to grant all abilities to a specific user. For this situation, use the `before` method to define a callback that is run before all other authorization checks:
+
+    $gate->before(function ($user, $ability) {
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
+    });
+
+If the `before` callback returns a non-null result that result will be considered the result of the check.
 
 <a name="checking-abilities"></a>
 ## Checking Abilities
@@ -263,6 +275,19 @@ You may continue to define additional methods on the policy as needed for the va
 
 > **Note:** All policies are resolved via the Laravel [service container](/{{version}}/container), meaning you may type-hint any needed dependencies in the policy's constructor and they will be automatically injected.
 
+#### Intercepting All Checks
+
+Sometimes, you may wish to grant all abilities to a specific user on a policy. For this situation, define a `before` method on the policy. This method will be run before all other authorization checks on the policy:
+
+    public function before($user, $ability)
+    {
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
+    }
+
+If the `before` method returns a non-null result that result will be considered the result of the check.
+
 <a name="checking-policies"></a>
 ### Checking Policies
 
@@ -361,7 +386,7 @@ The `authorize` method shares the same signature as the various other authorizat
         }
     }
 
-If the action is authorized, the controller will continue executing normally; however, if the `authorize` method determines that the action is not authorized, a `HttpException` will automatically be thrown which generates a HTTP response with a `403 Not Authorized` status code. As you can see, the `authorize` method is a convenient, fast way to authorize an action or throw an exception with a single linde of code.
+If the action is authorized, the controller will continue executing normally; however, if the `authorize` method determines that the action is not authorized, a `HttpException` will automatically be thrown which generates a HTTP response with a `403 Not Authorized` status code. As you can see, the `authorize` method is a convenient, fast way to authorize an action or throw an exception with a single line of code.
 
 The `AuthorizesRequests` trait also provides the `authorizeForUser` method to authorize an action on a user that is not the currently authenticated user:
 
