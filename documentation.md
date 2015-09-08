@@ -1,12 +1,12 @@
-- Prologue
+- Inicio
     - [Release Notes](/{{version}}/releases)
     - [Upgrade Guide](/{{version}}/upgrade)
     - [Contribution Guide](/{{version}}/contributions)
     - [API Documentation](http://laravel.com/api/{{version}}/)
-- Setup
+- Configuracion
     - [Installation](/{{version}}/installation)
     - [Homestead](/{{version}}/homestead)
-- The Basics
+- Basico
     - [Routing](/{{version}}/routing)
     - [Middleware](/{{version}}/middleware)
     - [Controllers](/{{version}}/controllers)
@@ -14,14 +14,14 @@
     - [Responses](/{{version}}/responses)
     - [Views](/{{version}}/views)
     - [Blade Templates](/{{version}}/blade)
-- Architecture Foundations
+- Fundaciones de arquitectura
     - [Request Lifecycle](/{{version}}/lifecycle)
     - [Application Structure](/{{version}}/structure)
     - [Service Providers](/{{version}}/providers)
     - [Service Container](/{{version}}/container)
     - [Contracts](/{{version}}/contracts)
     - [Facades](/{{version}}/facades)
-- Services
+- Servicios
     - [Authentication](/{{version}}/authentication)
     - [Authorization](/{{version}}/authorization)
     - [Artisan Console](/{{version}}/artisan)
@@ -46,7 +46,7 @@
     - [Task Scheduling](/{{version}}/scheduling)
     - [Testing](/{{version}}/testing)
     - [Validation](/{{version}}/validation)
-- Database
+- Base de datos
     - [Getting Started](/{{version}}/database)
     - [Query Builder](/{{version}}/queries)
     - [Migrations](/{{version}}/migrations)
