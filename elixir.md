@@ -1,766 +1,402 @@
-# Helper Functions
+# Laravel Elixir
 
 - [Introduction](#introduction)
-- [Available Methods](#available-methods)
+- [Installation & Setup](#installation)
+- [Running Elixir](#running-elixir)
+- [Working With Stylesheets](#working-with-stylesheets)
+    - [Less](#less)
+    - [Sass](#sass)
+    - [Plain CSS](#plain-css)
+    - [Source Maps](#css-source-maps)
+- [Working With Scripts](#working-with-scripts)
+    - [CoffeeScript](#coffeescript)
+    - [Browserify](#browserify)
+    - [Babel](#babel)
+    - [Scripts](#javascript)
+- [Copying Files & Directories](#copying-files-and-directories)
+- [Versioning / Cache Busting](#versioning-and-cache-busting)
+- [Calling Existing Gulp Tasks](#calling-existing-gulp-tasks)
+- [Writing Elixir Extensions](#writing-elixir-extensions)
 
 <a name="introduction"></a>
 ## Introduction
 
-Laravel includes a variety of "helper" PHP functions. Many of these functions are used by the framework itself; however, you are free to use them in your own applications if you find them convenient.
+Laravel Elixir provides a clean, fluent API for defining basic [Gulp](http://gulpjs.com) tasks for your Laravel application. Elixir supports several common CSS and JavaScript pre-processors, and even testing tools. Using method chaining, Elixir allows you to fluently define your asset pipeline. For example:
 
-<a name="available-methods"></a>
-## Available Methods
+```javascript
+elixir(function(mix) {
+    mix.sass('app.scss')
+       .coffee('app.coffee');
+});
+```
 
-<style>
-    .collection-method-list > p {
-        column-count: 3; -moz-column-count: 3; -webkit-column-count: 3;
-        column-gap: 2em; -moz-column-gap: 2em; -webkit-column-gap: 2em;
-    }
+If you've ever been confused about how to get started with Gulp and asset compilation, you will love Laravel Elixir. However, you are not required to use it while developing your application. You are free to use any asset pipeline tool you wish, or even none at all.
 
-    .collection-method-list a {
-        display: block;
-    }
-</style>
+<a name="installation"></a>
+## Installation & Setup
 
-### Arrays
+### Installing Node
 
-<div class="collection-method-list" markdown="1">
-[array_add](#method-array-add)
-[array_divide](#method-array-divide)
-[array_dot](#method-array-dot)
-[array_except](#method-array-except)
-[array_first](#method-array-first)
-[array_flatten](#method-array-flatten)
-[array_forget](#method-array-forget)
-[array_get](#method-array-get)
-[array_only](#method-array-only)
-[array_pluck](#method-array-pluck)
-[array_pull](#method-array-pull)
-[array_set](#method-array-set)
-[array_sort](#method-array-sort)
-[array_sort_recursive](#method-array-recursive)
-[array_where](#method-array-where)
-[head](#method-head)
-[last](#method-last)
-</div>
+Before triggering Elixir, you must first ensure that Node.js is installed on your machine.
 
-### Paths
+    node -v
 
-<div class="collection-method-list" markdown="1">
-[app_path](#method-app-path)
-[base_path](#method-base-path)
-[config_path](#method-config-path)
-[database_path](#method-database-path)
-[elixir](#method-elixir)
-[public_path](#method-public-path)
-[storage_path](#method-storage-path)
-</div>
+By default, Laravel Homestead includes everything you need; however, if you aren't using Vagrant, then you can easily install Node by visiting [their download page](http://nodejs.org/download/).
 
-### Strings
+### Gulp
 
-<div class="collection-method-list" markdown="1">
-[camel_case](#method-camel-case)
-[class_basename](#method-class-basename)
-[e](#method-e)
-[ends_with](#method-ends-with)
-[snake_case](#method-snake-case)
-[str_limit](#method-str-limit)
-[starts_with](#method-starts-with)
-[str_contains](#method-str-contains)
-[str_finish](#method-str-finish)
-[str_is](#method-str-is)
-[str_plural](#method-str-plural)
-[str_random](#method-str-random)
-[str_singular](#method-str-singular)
-[str_slug](#method-str-slug)
-[studly_case](#method-studly-case)
-[trans](#method-trans)
-[trans_choice](#method-trans-choice)
-</div>
+Next, you'll want to pull in [Gulp](http://gulpjs.com) as a global NPM package:
 
-### URLs
+    npm install --global gulp
 
-<div class="collection-method-list" markdown="1">
-[action](#method-action)
-[asset](#method-asset)
-[secure_asset](#method-secure-asset)
-[route](#method-route)
-[url](#method-url)
-</div>
+### Laravel Elixir
 
-### Miscellaneous
+The only remaining step is to install Elixir! Within a fresh installation of Laravel, you'll find a `package.json` file in the root. Think of this like your `composer.json` file, except it defines Node dependencies instead of PHP. You may install the dependencies it references by running:
 
-<div class="collection-method-list" markdown="1">
-[auth](#method-auth)
-[back](#method-back)
-[bcrypt](#method-bcrypt)
-[config](#method-config)
-[csrf_field](#method-csrf-field)
-[csrf_token](#method-csrf-token)
-[dd](#method-dd)
-[env](#method-env)
-[event](#method-event)
-[factory](#method-factory)
-[method_field](#method-method-field)
-[old](#method-old)
-[redirect](#method-redirect)
-[response](#method-response)
-[value](#method-value)
-[view](#method-view)
-[with](#method-with)
-</div>
+    npm install
 
-<a name="method-listing"></a>
-## Method Listing
+If you are developing on a Windows system, you may need to run the `npm install` command with the `--no-bin-links` switch enabled:
 
-<style>
-    #collection-method code {
-        font-size: 14px;
-    }
+    npm install --no-bin-links
 
-    #collection-method:not(.first-collection-method) {
-        margin-top: 50px;
-    }
-</style>
+<a name="running-elixir"></a>
+## Running Elixir
 
-<a name="arrays"></a>
-## Arrays
+Elixir is built on top of [Gulp](http://gulpjs.com), so to run your Elixir tasks you only need to run the `gulp` command in your terminal. Adding the `--production` flag to the command will instruct Elixir to minify your CSS and JavaScript files:
 
-<a name="method-array-add"></a>
-#### `array_add()` {#collection-method .first-collection-method}
+    // Run all tasks...
+    gulp
 
-The `array_add` function adds a given key / value pair to the array if the given key doesn't already exist in the array:
+    // Run all tasks and minify all CSS and JavaScript...
+    gulp --production
 
-    $array = array_add(['name' => 'Desk'], 'price', 100);
+#### Watching Assets For Changes
 
-    // ['name' => 'Desk', 'price' => 100]
+Since it is inconvenient to run the `gulp` command on your terminal after every change to your assets, you may use the `gulp watch` command. This command will continue running in your terminal and watch your assets for any changes. When changes occur, new files will automatically be compiled:
 
-<a name="method-array-divide"></a>
-#### `array_divide()` {#collection-method}
+    gulp watch
 
-The `array_divide` function returns two arrays, one containing the keys, and the other containing the values of the original array:
+<a name="working-with-stylesheets"></a>
+## Working With Stylesheets
 
-    list($keys, $values) = array_divide(['name' => 'Desk']);
+The `gulpfile.js` file in your project's root directory contains all of your Elixir tasks. Elixir tasks can be chained together to define exactly how your assets should be compiled.
 
-    // $keys: ['name']
+<a name="less"></a>
+### Less
 
-    // $values: ['Desk']
+To compile [Less](http://lesscss.org/) into CSS, you may use the `less` method. The `less` method assumes that your Less files are stored in `resources/assets/less`. By default, the task will place the compiled CSS for this example in `public/css/app.css`:
 
-<a name="method-array-dot"></a>
-#### `array_dot()` {#collection-method}
+```javascript
+elixir(function(mix) {
+    mix.less('app.less');
+});
+```
 
-The `array_dot` function flattens a multi-dimensional array into a single level array that uses "dot" notation to indicate depth:
+You may also combine multiple Less files into a single CSS file. Again, the resulting CSS will be placed in `public/css/app.css`:
 
-    $array = array_dot(['foo' => ['bar' => 'baz']]);
+```javascript
+elixir(function(mix) {
+    mix.less([
+        'app.less',
+        'controllers.less'
+    ]);
+});
+```
 
-    // ['foo.bar' => 'baz'];
+If you wish to customize the output location of the compiled CSS, you may pass a second argument to the `less` method:
 
-<a name="method-array-except"></a>
-#### `array_except()` {#collection-method}
+```javascript
+elixir(function(mix) {
+    mix.less('app.less', 'public/stylesheets');
+});
 
-The `array_except` method removes the given key / value pairs from the array:
+// Specifying a specific output filename...
+elixir(function(mix) {
+    mix.less('app.less', 'public/stylesheets/style.css');
+});
+```
 
-    $array = ['name' => 'Desk', 'price' => 100];
+<a name="sass"></a>
+### Sass
 
-    $array = array_except($array, ['price']);
+The `sass` method allows you to compile [Sass](http://sass-lang.com/) into CSS. Assuming your Sass files are stored at `resources/assets/sass`, you may use the method like so:
 
-    // ['name' => 'Desk']
+```javascript
+elixir(function(mix) {
+    mix.sass('app.scss');
+});
+```
 
-<a name="method-array-first"></a>
-#### `array_first()` {#collection-method}
+Again, like the `less` method, you may compile multiple scripts into a single CSS file, and even customize the output directory of the resulting CSS:
 
-The `array_first` method returns the first element of an array passing a given truth test:
+```javascript
+elixir(function(mix) {
+    mix.sass([
+        'app.scss',
+        'controllers.scss'
+    ], 'public/assets/css');
+});
+```
 
-    $array = [100, 200, 300];
+<a name="plain-css"></a>
+### Plain CSS
 
-    $value = array_first($array, function ($key, $value) {
-        return $value >= 150;
+If you would just like to combine some plain CSS stylesheets into a single file, you may use the `styles` method. Paths passed to this method are relative to the `resources/assets/css` directory and the resulting CSS will be placed in `public/css/all.css`:
+
+```javascript
+elixir(function(mix) {
+    mix.styles([
+        'normalize.css',
+        'main.css'
+    ]);
+});
+```
+
+Of course, you may also output the resulting file to a custom location by passing a second argument to the `styles` method:
+
+```javascript
+elixir(function(mix) {
+    mix.styles([
+        'normalize.css',
+        'main.css'
+    ], 'public/assets/css');
+});
+```
+
+<a name="css-source-maps"></a>
+### Source Maps
+
+Source maps are enabled out of the box. So, for each file that is compiled you will find a companion `*.css.map` file in the same directory. This mapping allows you to trace your compiled stylesheet selectors back to your original Sass or Less while debugging in your browser.
+
+If you do not want source maps generated for your CSS, you may disable them using a simple configuration option:
+
+```javascript
+elixir.config.sourcemaps = false;
+
+elixir(function(mix) {
+    mix.sass('app.scss');
+});
+```
+
+<a name="working-with-scripts"></a>
+## Working With Scripts
+
+Elixir also provides several functions to help you work with your JavaScript files, such as compiling ECMAScript 6, compiling CoffeeScript, Browserify, minification, and simply concatenating plain JavaScript files.
+
+<a name="coffeescript"></a>
+### CoffeeScript
+
+The `coffee` method may be used to compile [CoffeeScript](http://coffeescript.org/) into plain JavaScript. The `coffee` function accepts a string or array of CoffeeScript files relative to the `resources/assets/coffee` directory and generates a single `app.js` file in the `public/js` directory:
+
+```javascript
+elixir(function(mix) {
+    mix.coffee(['app.coffee', 'controllers.coffee']);
+});
+```
+
+<a name="browserify"></a>
+### Browserify
+
+Elixir also ships with a `browserify` method, which gives you all the benefits of requiring modules in the browser and using ECMAScript 6.
+
+This task assumes that your scripts are stored in `resources/assets/js` and will place the resulting file in `public/js/main.js`:
+
+```javascript
+elixir(function(mix) {
+    mix.browserify('main.js');
+});
+```
+
+While Browserify ships with the Partialify and Babelify transformers, you're free to install and add more if you wish:
+
+    npm install vueify --save-dev
+
+```javascript
+elixir.config.js.browserify.transformers.push({
+    name: 'vueify',
+    options: {}
+});
+
+elixir(function(mix) {
+    mix.browserify('main.js');
+});
+```
+
+<a name="babel"></a>
+### Babel
+
+The `babel` method may be used to compile [ECMAScript 6 and 7](https://babeljs.io/docs/learn-es2015/) into plain JavaScript. This function accepts an array of files relative to the `resources/assets/js` directory, and generates a single `all.js` file in the `public/js` directory:
+
+```javascript
+elixir(function(mix) {
+    mix.babel([
+        'order.js',
+        'product.js'
+    ]);
+});
+```
+
+To choose a different output location, simply specify your desired path as the second argument. The signature and functionality of this method are identical to `mix.scripts()`, excluding the Babel compilation.
+
+
+<a name="javascript"></a>
+### Scripts
+
+If you have multiple JavaScript files that you would like to combine into a single file, you may use the `scripts` method.
+
+The `scripts` method assumes all paths are relative to the `resources/assets/js` directory, and will place the resulting JavaScript in `public/js/all.js` by default:
+
+```javascript
+elixir(function(mix) {
+    mix.scripts([
+        'jquery.js',
+        'app.js'
+    ]);
+});
+```
+
+If you need to combine multiple sets of scripts into different files, you may make multiple calls to the `scripts` method. The second argument given to the method determines the resulting file name for each concatenation:
+
+```javascript
+elixir(function(mix) {
+    mix.scripts(['app.js', 'controllers.js'], 'public/js/app.js')
+       .scripts(['forum.js', 'threads.js'], 'public/js/forum.js');
+});
+```
+
+If you need to combine all of the scripts in a given directory, you may use the `scriptsIn` method. The resulting JavaScript will be placed in `public/js/all.js`:
+
+```javascript
+elixir(function(mix) {
+    mix.scriptsIn('public/js/some/directory');
+});
+```
+
+<a name="copying-files-and-directories"></a>
+## Copying Files & Directories
+
+The `copy` method may be used to copy files and directories to new locations. All operations are relative to the project's root directory:
+
+```javascript
+elixir(function(mix) {
+    mix.copy('vendor/foo/bar.css', 'public/css/bar.css');
+});
+
+elixir(function(mix) {
+    mix.copy('vendor/package/views', 'resources/views');
+});
+```
+
+<a name="versioning-and-cache-busting"></a>
+## Versioning / Cache Busting
+
+Many developers suffix their compiled assets with a timestamp or unique token to force browsers to load the fresh assets instead of serving stale copies of the code. Elixir can handle this for you using the `version` method.
+
+The `version` method accepts a file name relative to the `public` directory, and will append a unique hash to the filename, allowing for cache-busting. For example, the generated file name will look something like: `all-16d570a7.css`:
+
+```javascript
+elixir(function(mix) {
+    mix.version('css/all.css');
+});
+```
+
+After generating the versioned file, you may use Laravel's global `elixir` PHP helper function within your [views](/{{version}}/views) to load the appropriately hashed asset. The `elixir` function will automatically determine the name of the hashed file:
+
+    <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
+
+#### Versioning Multiple Files
+
+You may pass an array to the `version` method to version multiple files:
+
+```javascript
+elixir(function(mix) {
+    mix.version(['css/all.css', 'js/app.js']);
+});
+```
+
+Once the files have been versioned, you may use the `elixir` helper function to generate links to the proper hashed files. Remember, you only need to pass the name of the un-hashed file to the `elixir` helper function. The helper will use the un-hashed name to determine the current hashed version of the file:
+
+    <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
+
+    <script src="{{ elixir('js/app.js') }}"></script>
+
+<a name="calling-existing-gulp-tasks"></a>
+## Calling Existing Gulp Tasks
+
+If you need to call an existing Gulp task from Elixir, you may use the `task` method. As an example, imagine that you have a Gulp task that simply speaks a bit of text when called:
+
+```javascript
+gulp.task('speak', function() {
+    var message = 'Tea...Earl Grey...Hot';
+
+    gulp.src('').pipe(shell('say ' + message));
+});
+```
+
+If you wish to call this task from Elixir, use the `mix.task` method and pass the name of the task as the only argument to the method:
+
+```javascript
+elixir(function(mix) {
+    mix.task('speak');
+});
+```
+
+#### Custom Watchers
+
+If you need to register a watcher to run your custom task each time some files are modified, pass a regular expression as the second argument to the `task` method:
+
+```javascript
+elixir(function(mix) {
+    mix.task('speak', 'app/**/*.php');
+});
+```
+
+<a name="writing-elixir-extensions"></a>
+## Writing Elixir Extensions
+
+If you need more flexibility than Elixir's `task` method can provide, you may create custom Elixir extensions. Elixir extensions allow you to pass arguments to your custom tasks. For example, you could write an extension like so:
+
+```javascript
+// File: elixir-extensions.js
+
+var gulp = require('gulp');
+var shell = require('gulp-shell');
+var Elixir = require('laravel-elixir');
+
+var Task = Elixir.Task;
+
+Elixir.extend('speak', function(message) {
+
+    new Task('speak', function() {
+        return gulp.src('').pipe(shell('say ' + message));
     });
 
-    // 200
+});
 
-A default value may also be passed as the third parameter to the method. This value will be returned if no value passes the truth test:
+// mix.speak('Hello World');
+```
 
-    $value = array_first($array, $callback, $default);
+That's it! Notice that your Gulp-specific logic should be placed within the function passed as the second argument to the `Task` constructor. You may either place this at the top of your Gulpfile, or instead extract it to a custom tasks file. For example, if you place your extensions in `elixir-extensions.js`, you may require the file from your main `Gulpfile` like so:
 
-<a name="method-array-flatten"></a>
-#### `array_flatten()` {#collection-method}
+```javascript
+// File: Gulpfile.js
 
-The `array_flatten` method will flatten a multi-dimensional array into a single level.
+var elixir = require('laravel-elixir');
 
-    $array = ['name' => 'Joe', 'languages' => ['PHP', 'Ruby']];
+require('./elixir-extensions')
 
-    $array = array_flatten($array);
+elixir(function(mix) {
+    mix.speak('Tea, Earl Grey, Hot');
+});
+```
 
-    // ['Joe', 'PHP', 'Ruby'];
+#### Custom Watchers
 
-<a name="method-array-forget"></a>
-#### `array_forget()` {#collection-method}
+If you would like your custom task to be re-triggered while running `gulp watch`, you may register a watcher:
 
-The `array_forget` method removes a given key / value pair from a deeply nested array using "dot" notation:
-
-    $array = ['products' => ['desk' => ['price' => 100]]];
-
-    array_forget($array, 'products.desk');
-
-    // ['products' => []]
-
-<a name="method-array-get"></a>
-#### `array_get()` {#collection-method}
-
-The `array_get` method retrieves a value from a deeply nested array using "dot" notation:
-
-    $array = ['products' => ['desk' => ['price' => 100]]];
-
-    $value = array_get($array, 'products.desk');
-
-    // ['price' => 100]
-
-The `array_get` function also accepts a default value, which will be returned if the specific key is not found:
-
-    $value = array_get($array, 'names.john', 'default');
-
-<a name="method-array-only"></a>
-#### `array_only()` {#collection-method}
-
-The `array_only` method will return only the specified key / value pairs from the given array:
-
-    $array = ['name' => 'Desk', 'price' => 100, 'orders' => 10];
-
-    $array = array_only($array, ['name', 'price']);
-
-    // ['name' => 'Desk', 'price' => 100]
-
-<a name="method-array-pluck"></a>
-#### `array_pluck()` {#collection-method}
-
-The `array_pluck` method will pluck a list of the given key / value pairs from the array:
-
-    $array = [
-        ['developer' => ['name' => 'Taylor']],
-        ['developer' => ['name' => 'Abigail']]
-    ];
-
-    $array = array_pluck($array, 'developer.name');
-
-    // ['Taylor', 'Abigail'];
-
-<a name="method-array-pull"></a>
-#### `array_pull()` {#collection-method}
-
-The `array_pull` method returns and removes a key / value pair from the array:
-
-    $array = ['name' => 'Desk', 'price' => 100];
-
-    $name = array_pull($array, 'name');
-
-    // $name: Desk
-
-    // $array: ['price' => 100]
-
-<a name="method-array-set"></a>
-#### `array_set()` {#collection-method}
-
-The `array_set` method sets a value within a deeply nested array using "dot" notation:
-
-    $array = ['products' => ['desk' => ['price' => 100]]];
-
-    array_set($array, 'products.desk.price', 200);
-
-    // ['products' => ['desk' => ['price' => 200]]]
-
-<a name="method-array-sort"></a>
-#### `array_sort()` {#collection-method}
-
-The `array_sort` method sorts the array by the results of the given Closure:
-
-    $array = [
-        ['name' => 'Desk'],
-        ['name' => 'Chair'],
-    ];
-
-    $array = array_values(array_sort($array, function ($value) {
-        return $value['name'];
-    }));
-
-    /*
-        [
-            ['name' => 'Chair'],
-            ['name' => 'Desk'],
-        ]
-    */
-
-<a name="method-array-sort-recursive"></a>
-#### `array_sort_recursive()` {#collection-method}
-
-The `array_sort_recursive` function recursively sorts the array using the `sort` function:
-
-    $array = [
-        [
-            'Roman',
-            'Taylor',
-            'Li',
-        ],
-        [
-            'PHP',
-            'Ruby',
-            'JavaScript',
-        ],
-    ];
-
-    $array = array_sort_recursive($array);
-
-    /*
-        [
-            [
-                'Li',
-                'Roman',
-                'Taylor',
-            ],
-            [
-                'JavaScript',
-                'PHP',
-                'Ruby',
-            ]
-        ];
-    */
-
-<a name="method-array-where"></a>
-#### `array_where()` {#collection-method}
-
-The `array_where` function filters the array using the given Closure:
-
-    $array = [100, '200', 300, '400', 500];
-
-    $array = array_where($array, function ($key, $value) {
-        return is_string($value);
-    });
-
-    // [1 => 200, 3 => 400]
-
-<a name="method-head"></a>
-#### `head()` {#collection-method}
-
-The `head` function simply returns the first element in the given array:
-
-    $array = [100, 200, 300];
-
-    $first = head($array);
-
-    // 100
-
-<a name="method-last"></a>
-#### `last()` {#collection-method}
-
-The `last` function returns the last element in the given array:
-
-    $array = [100, 200, 300];
-
-    $last = last($array);
-
-    // 300
-
-<a name="paths"></a>
-## Paths
-
-<a name="method-app-path"></a>
-#### `app_path()` {#collection-method}
-
-The `app_path` function returns the fully qualified path to the `app` directory:
-
-    $path = app_path();
-
-You may also use the `app_path` function to generate a fully qualified path to a given file relative to the application directory:
-
-    $path = app_path('Http/Controllers/Controller.php');
-
-<a name="method-base-path"></a>
-#### `base_path()` {#collection-method}
-
-The `base_path` function returns the fully qualified path to the project root:
-
-    $path = base_path();
-
-You may also use the `base_path` function to generate a fully qualified path to a given file relative to the application directory:
-
-    $path = base_path('vendor/bin');
-
-<a name="method-config-path"></a>
-#### `config_path()` {#collection-method}
-
-The `config_path` function returns the fully qualified path to the application configuration directory:
-
-    $path = config_path();
-
-<a name="method-database-path"></a>
-#### `database_path()` {#collection-method}
-
-The `database_path` function returns the fully qualified path to the application's database directory:
-
-    $path = database_path();
-
-<a name="method-elixir"></a>
-#### `elixir()` {#collection-method}
-
-The `elixir` function gets the path to the versioned [Elixir](/{{version}}/elixir) file:
-
-    elixir($file);
-
-<a name="method-public-path"></a>
-#### `public_path()` {#collection-method}
-
-The `public_path` function returns the fully qualified path to the `public` directory:
-
-    $path = public_path();
-
-<a name="method-storage-path"></a>
-#### `storage_path()` {#collection-method}
-
-The `storage_path` function returns the fully qualified path to the `storage` directory:
-
-    $path = storage_path();
-
-You may also use the `storage_path` function to generate a fully qualified path to a given file relative to the storage directory:
-
-    $path = storage_path('app/file.txt');
-
-<a name="strings"></a>
-## Strings
-
-<a name="method-camel-case"></a>
-#### `camel_case()` {#collection-method}
-
-The `camel_case` function converts the given string to `camelCase`:
-
-    $camel = camel_case('foo_bar');
-
-    // fooBar
-
-<a name="method-class-basename"></a>
-#### `class_basename()` {#collection-method}
-
-The `class_basename` returns the class name of the given class with the class' namespace removed:
-
-    $class = class_basename('Foo\Bar\Baz');
-
-    // Baz
-
-<a name="method-e"></a>
-#### `e()` {#collection-method}
-
-The `e` function runs `htmlentities` over the given string:
-
-    echo e('<html>foo</html>');
-
-    // &lt;html&gt;foo&lt;/html&gt;
-
-<a name="method-ends-with"></a>
-#### `ends_with()` {#collection-method}
-
-The `ends_with` function determines if the given string ends with the given value:
-
-    $value = ends_with('This is my name', 'name');
-
-    // true
-
-<a name="method-snake-case"></a>
-#### `snake_case()` {#collection-method}
-
-The `snake_case` function converts the given string to `snake_case`:
-
-    $snake = snake_case('fooBar');
-
-    // foo_bar
-
-<a name="method-str-limit"></a>
-#### `str_limit()` {#collection-method}
-
-The `str_limit` function limits the number of characters in a string. The function accepts a string as its first argument and the maximum number of resulting characters as its second argument:
-
-    $value = str_limit('The PHP framework for web artisans.', 7);
-
-    // The PHP...
-
-<a name="method-starts-with"></a>
-#### `starts_with()` {#collection-method}
-
-The `starts_with` function determines if the given string begins with the given value:
-
-    $value = starts_with('This is my name', 'This');
-
-    // true
-
-<a name="method-str-contains"></a>
-#### `str_contains()` {#collection-method}
-
-The `str_contains` function determines if the given string contains the given value:
-
-    $value = str_contains('This is my name', 'my');
-
-    // true
-
-<a name="method-str-finish"></a>
-#### `str_finish()` {#collection-method}
-
-The `str_finish` function adds a single instance of the given value to a string:
-
-    $string = str_finish('this/string', '/');
-
-    // this/string/
-
-<a name="method-str-is"></a>
-#### `str_is()` {#collection-method}
-
-The `str_is` function determines if a given string matches a given pattern. Asterisks may be used to indicate wildcards:
-
-    $value = str_is('foo*', 'foobar');
-
-    // true
-
-    $value = str_is('baz*', 'foobar');
-
-    // false
-
-<a name="method-str-plural"></a>
-#### `str_plural()` {#collection-method}
-
-The `str_plural` function converts a string to its plural form. This function currently only supports the English language:
-
-    $plural = str_plural('car');
-
-    // cars
-
-    $plural = str_plural('child');
-
-    // children
-
-<a name="method-str-random"></a>
-#### `str_random()` {#collection-method}
-
-The `str_random` function generates a random string of the specified length:
-
-    $string = str_random(40);
-
-<a name="method-str-singular"></a>
-#### `str_singular()` {#collection-method}
-
-The `str_singular` function converts a string to its singular form. This function currently only supports the English language:
-
-    $singular = str_singular('cars');
-
-    // car
-
-<a name="method-str-slug"></a>
-#### `str_slug()` {#collection-method}
-
-The `str_slug` function generates a URL friendly "slug" from the given string:
-
-    $title = str_slug("Laravel 5 Framework", "-");
-
-    // laravel-5-framework
-
-<a name="method-studly-case"></a>
-#### `studly_case()` {#collection-method}
-
-The `studly_case` function converts the given string to `StudlyCase`:
-
-    $value = studly_case('foo_bar');
-
-    // FooBar
-
-<a name="method-trans"></a>
-#### `trans()` {#collection-method}
-
-The `trans` function translates the given language line using your [localization files](/{{version}}/localization):
-
-    echo trans('validation.required'):
-
-<a name="method-trans-choice"></a>
-#### `trans_choice()` {#collection-method}
-
-The `trans_choice` function translates the given language line with inflection:
-
-    $value = trans_choice('foo.bar', $count);
-
-<a name="urls"></a>
-## URLs
-
-<a name="method-action"></a>
-#### `action()` {#collection-method}
-
-The `action` function generates a URL for the given controller action. You do not need to pass the full namespace to the controller. Instead, pass the controller class name relative to the `App\Http\Controllers` namespace:
-
-    $url = action('HomeController@getIndex');
-
-If the method accepts route parameters, you may pass them as the second argument to the method:
-
-    $url = action('UserController@profile', ['id' => 1]);
-
-<a name="method-asset"></a>
-#### `asset()` {#collection-method}
-
-Generate a URL for an asset using the current scheme of the request (HTTP or HTTPS):
-
-    $url = asset('img/photo.jpg');
-
-<a name="method-secure-asset"></a>
-#### `secure_asset()` {#collection-method}
-
-Generate a URL for an asset using HTTPS:
-
-    echo secure_asset('foo/bar.zip', $title, $attributes = []);
-
-<a name="method-route"></a>
-#### `route()` {#collection-method}
-
-The `route` function generates a URL for the given named route:
-
-    $url = route('routeName');
-
-If the route accepts parameters, you may pass them as the second argument to the method:
-
-    $url = route('routeName', ['id' => 1]);
-
-<a name="method-url"></a>
-#### `url()` {#collection-method}
-
-The `url` function generates a fully qualified URL to the given path:
-
-    echo url('user/profile');
-
-    echo url('user/profile', [1]);
-
-<a name="miscellaneous"></a>
-## Miscellaneous
-
-<a name="method-auth"></a>
-#### `auth()` {#collection-method}
-
-The `auth` function return an authenticator instance. You may use it instead of the `Auth` facade for convenience:
-
-    $user = auth()->user();
-
-<a name="method-back"></a>
-#### `back()` {#collection-method}
-
-The `back()` function generates a redirect response to the user's previous location:
-
-    return back();
-
-<a href="method-bcrypt"></a>
-#### `bcrypt()` {#collection-method}
-
-The `bcrypt` function hashes the given value using Bcrypt. You may use it as an alternative to the `Hash` facade:
-
-    $password = bcrypt('my-secret-password');
-
-<a name="method-config"></a>
-#### `config()` {#collection-method}
-
-The `config` function gets the value of a configuration variable. The configuration values may be accessed using "dot" syntax, which includes the name of the file and the option you wish to access. A default value may be specified and is returned if the configuration option does not exist:
-
-    $value = config('app.timezone');
-
-    $value = config('app.timezone', $default);
-
-The `config` helper may also be used to set configuration variables at runtime by passing an array of key / value pairs:
-
-    config(['app.debug' => true]);
-
-<a name="method-csrf-field"></a>
-#### `csrf_field()` {#collection-method}
-
-The `csrf_field` function generates an HTML `hidden` input field containing the value of the CSRF token. For example, using [Blade syntax](/{{version}}/blade):
-
-    {!! csrf_field() !!}
-
-<a name="method-csrf-token"></a>
-#### `csrf_token()` {#collection-method}
-
-The `csrf_token` function retrieves the value of the current CSRF token:
-
-    $token = csrf_token();
-
-<a name="method-dd"></a>
-#### `dd()` {#collection-method}
-
-The `dd` function dumps the given variable and ends execution of the script:
-
-    dd($value);
-
-<a name="method-env"></a>
-#### `env()` {#collection-method}
-
-The `env` function gets the value of an environment variable or returns a default value:
-
-    $env = env('APP_ENV');
-
-    // Return a default value if the variable doesn't exist...
-    $env = env('APP_ENV', 'production');
-
-<a name="method-event"></a>
-#### `event()` {#collection-method}
-
-The `event` function dispatches the given [event](/{{version}}/events) to its listeners:
-
-    event(new UserRegistered($user));
-
-<a name="method-factory"></a>
-#### `factory()` {#collection-method}
-
-The `factory` function creates a model factory builder for a given class, name, and amount. It can be used while [testing](/{{version}}/testing#model-factories) or [seeding](/{{version}}/seeding#using-model-factories):
-
-    $user = factory('App\User')->make();
-
-<a name="method-method-field"></a>
-#### `method_field()` {#collection-method}
-
-The `method_field` function generates an HTML `hidden` input field containing the spoofed value of the form's HTTP verb. For example, using [Blade syntax](/{{version}}/blade):
-
-    <form method="POST">
-        {!! method_field('delete') !!}
-    </form>
-
-<a name="method-old"></a>
-#### `old()` {#collection-method}
-
-The `old` function [retrieves](/{{version}}/requests#retrieving-input) an old input value flashed into the session:
-
-    $value = old('value');
-
-<a name="method-redirect"></a>
-#### `redirect()` {#collection-method}
-
-The `redirect` function return an instance of the redirector to do [redirects](/{{version}}/responses#redirects):
-
-    return redirect('/home');
-
-<a name="method-response"></a>
-#### `response()` {#collection-method}
-
-The `response` function creates a [response](/{{version}}/responses) instance or obtains an instance of the response factory:
-
-    return response('Hello World', 200, $headers);
-
-    return response()->json(['foo' => 'bar'], 200, $headers);
-
-<a name="method-value"></a>
-#### `value()` {#collection-method}
-
-The `value` function's behavior will simply return the value it is given. However, if you pass a `Closure` to the function, the `Closure` will be executed then its result will be returned:
-
-    $value = value(function() { return 'bar'; });
-
-<a name="method-view"></a>
-#### `view()` {#collection-method}
-
-The `view` function retrieves a [view](/{{version}}/views) instance:
-
-    return view('auth.login');
-
-<a name="method-with"></a>
-#### `with()` {#collection-method}
-
-The `with` function return the value it is given. This function is primarily useful for method chaining where it would otherwise be impossible:
-
-    $value = with(new Foo)->work();
+```javascript
+new Task('speak', function() {
+    return gulp.src('').pipe(shell('say ' + message));
+})
+.watch('./app/**');
+```

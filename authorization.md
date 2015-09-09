@@ -58,6 +58,7 @@ In addition to registering `Closures` as authorization callbacks, you may regist
 
     $gate->define('update-post', 'Class@method');
 
+<a name="intercepting-all-checks"></a>
 #### Intercepting All Checks
 
 Sometimes, you may wish to grant all abilities to a specific user. For this situation, use the `before` method to define a callback that is run before all other authorization checks:
@@ -229,7 +230,6 @@ Once the policy exists, we need to register it with the `Gate` class. The `AuthS
 
   use App\Post;
   use App\Policies\PostPolicy;
-  use Illuminate\Contracts\Auth\Access\Gate as GateContract;
   use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
   class AuthServiceProvider extends ServiceProvider
@@ -242,6 +242,17 @@ Once the policy exists, we need to register it with the `Gate` class. The `AuthS
       protected $policies = [
           Post::class => PostPolicy::class,
       ];
+
+      /**
+       * Register any application authentication / authorization services.
+       *
+       * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
+       * @return void
+       */
+      public function boot(GateContract $gate)
+      {
+          parent::registerPolicies($gate);
+      }
   }
 
 <a name="writing-policies"></a>
@@ -275,7 +286,6 @@ You may continue to define additional methods on the policy as needed for the va
 
 > **Note:** All policies are resolved via the Laravel [service container](/{{version}}/container), meaning you may type-hint any needed dependencies in the policy's constructor and they will be automatically injected.
 
-<a name="intercepting-all-checks"></a>
 #### Intercepting All Checks
 
 Sometimes, you may wish to grant all abilities to a specific user on a policy. For this situation, define a `before` method on the policy. This method will be run before all other authorization checks on the policy:
