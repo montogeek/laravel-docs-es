@@ -24,41 +24,41 @@
 <a name="introduction"></a>
 ## Introduction
 
-Laravel makes implementing authentication very simple. In fact, almost everything is configured for you out of the box. The authentication configuration file is located at `config/auth.php`, which contains several well documented options for tweaking the behavior of the authentication services.
+Laravel hace que implementar la autenticación de tu aplicación sea muy fácil. De hecho, casi todo es configurado por ti desde el inicio. El archivo de configuración de la autenticación se encuentra en `config/auth.php`, el cual contiene varias opciones muy bien documentadas para personalizar el comportamiento de los servicios de autenticación.
 
-### Database Considerations
+### Consideración de la base de datos
 
-By default, Laravel includes an `App\User` [Eloquent model](/{{version}}/eloquent) in your `app` directory. This model may be used with the default Eloquent authentication driver. If your application is not using Eloquent, you may use the `database` authentication driver which uses the Laravel query builder.
+De forma predeterminada, Laravel incluye el [modelo](//{{version}}/eloquent) de Eloquent `App\User` en la carpeta `app`. Este model puede ser usado con el driver predeterminado de Eloqeunt. Si tu aplicación no esta usando Eloquent, puedes usar el driver de autenticación `database` el cual usa el constructor de consultas de Laravel.
 
-When building the database schema for the `App\User` model, make sure the password column is at least 60 characters in length.
+Mientras estes definiendo el esquema de base de datos para el modelo `App\User`, asegúrate que la columna de la contraseña tenga al menos 60 carácteres de longitud.
 
-Also, you should verify that your `users` (or equivalent) table contains a nullable, string `remember_token` column of 100 characters. This column will be used to store a token for "remember me" sessions being maintained by your application. This can be done by using `$table->rememberToken();` in a migration.
+Además, debes verificar que tu tabla `users` (o equivalente) contenga una columna `remember_token` tipo string, permita valores nulos y una longitud de 100 carácteres. Ésta columna será usada para guardar el token para "recordar" las sesiones de tu aplicación. Esta columna puede ser creada en las migraciones usando `$table->rememberToken();`.
 
 <a name="authentication-quickstart"></a>
-## Authentication Quickstart
+## Guía de inicio rápido de autenticación
 
-Laravel ships with two authentication controllers out of the box, which are located in the `App\Http\Controllers\Auth` namespace. The `AuthController` handles new user registration and authentication, while the `PasswordController` contains the logic to help existing users reset their forgotten passwords. Each of these controllers uses a trait to include their necessary methods. For many applications, you will not need to modify these controllers at all.
+Laravel incluye 2 controladores de autenticación de forma predeterminada, los cuales están localizados en el namespace `App\Http\Controller\Auth`. El controlador `AuthController` se encarga de manejar el registro de nuevos usuarios y su autenticación, mientras el controlador `PasswordController` contiene la lógica para resetear la contraseña de usuarios existentes. Cada uno de esos controladores usan un `trait` para incluir sus métodos necesarios. Para muchas aplicaciones, no necesitarás modificar estos controladores.
 
 <a name="included-routing"></a>
-### Routing
+### Rutas
 
-By default, no [routes](/{{version}}/routing) are included to point requests to the authentication controllers. You may manually add them to your `app/Http/routes.php` file:
+De forma predeterminada, no hay [rutas](/{{version}}/routing) para dirigir las peticiones a los controladores de autenticación. Puedes agregarlas manualmente a tu archivo `app/Http/routes.php`:
 
-    // Authentication routes...
+    // Rutas de autenticación...
     Route::get('auth/login', 'Auth\AuthController@getLogin');
     Route::post('auth/login', 'Auth\AuthController@postLogin');
     Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-    // Registration routes...
+    // Rutas de registro...
     Route::get('auth/register', 'Auth\AuthController@getRegister');
     Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 <a name="included-views"></a>
-### Views
+### Vistas
 
-Though the authentication controllers are included with the framework, you will need to provide [views](/{{version}}/views) that these controllers can render. The views should be placed in the `resources/views/auth` directory. You are free to customize these views however you wish. The login view should be placed at `resources/views/auth/login.blade.php`, and the registration view should be placed at `resources/views/auth/register.blade.php`.
+Aunque los controladores de autenticación están incluídos en el framework, necesitas proveer las [vistas](/{{version}}/views) que esos controladores van a mostrar. Las vistas deben estar en la carpeta `resources/views/auth`. Eres libre de personalizarlas como necesites. La vista de inicio de sesión debe estar en `resources/views/auth/login.blade.php`, y la vista de registro debe estar en `resources/views/auth/register.blade.php`.
 
-#### Sample Authentication Form
+#### Ejemplo de formulario de autenticación
 
     <!-- resources/views/auth/login.blade.php -->
 
@@ -84,7 +84,7 @@ Though the authentication controllers are included with the framework, you will 
         </div>
     </form>
 
-#### Sample Registration Form
+#### Ejemplo de formulario de registro
 
     <!-- resources/views/auth/register.blade.php -->
 
@@ -117,36 +117,36 @@ Though the authentication controllers are included with the framework, you will 
     </form>
 
 <a name="included-authenticating"></a>
-### Authenticating
+### Autenticar
 
-Now that you have routes and views setup for the included authentication controllers, you are ready to register and authenticate new users for your application. You may simply access your defined routes in a browser. The authentication controllers already contain the logic (via their traits) to authenticate existing users and store new users in the database.
+Ahora que tienes tus rutas y vistas configuradas para los controladores de autenticación, estas listo para registrar y autenticar nuevos usuarios en tu aplicación. Puedes simplemente acceder a las rutas desde tu navegador. Los controladores de autenticación ya contienen la lógica (a través de los traits) para autenticar usuarios existentes y guardar los nuevos en la base de datos.
 
-When a user is successfully authenticated, they will be redirected to the `/home` URI, which you will need to register a route to handle. You can customize the post-authentication redirect location by defining a `redirectPath` property on the `AuthController`:
+Cuando un usuario se autentica correctamente, serán redirigidos a la URI `/home`, la cual necesitas registrar como ruta. Puedes personalizar la redirección después de autenticar definiendo la propiedad `redirectPath` en el controlador `AuthController`:
 
     protected $redirectPath = '/dashboard';
 
-When a user is not successfully authenticated, they will be redirected to the `/auth/login` URI. You can customize the failed post-authentication redirect location by defining a `loginPath` property on the `AuthController`:
+Cuando un usuario no se autentica correctamente, serán redirigidos a la URI `/auth/login`. Puedes personalizar esta dirección definiendo la propiedad `loginPath` en el controlador `AuthController`:
 
     protected $loginPath = '/login';
 
-The `loginPath` will not change where a user is bounced if they try to access a protected route. That is controlled by the `App\Http\Middleware\Authenticate` middleware's `handle` method.
+La propiedad `loginPath` no cambiará cuando un usuario trata de acceder una ruta protegida. Eso es controlado por el método `handle` en el middleware `App\Http\Middleware\Authenticate`.
 
-#### Customizations
+#### Personalización
 
-To modify the form fields that are required when a new user registers with your application, or to customize how new user records are inserted into your database, you may modify the `AuthController` class. This class is responsible for validating and creating new users of your application.
+Para modificar los campos del formulario que son requeridos cuando un nuevo usuario se registra en tu aplicación, o personalizar como se guardan los registro de nuevos usuarios en la base de datos, necesitas modificar el controlador `AuthController`. Esta clase es responsable de validar y crear nuevos usuarios en tu aplicación.
 
-The `validator` method of the `AuthController` contains the validation rules for new users of the application. You are free to modify this method as you wish.
+El método `validator` del controlador `AuthController` contiene las reglas de validación de nuevos usuarios para tu aplicación. Eres libre de modificar éste método como creas conveniente.
 
-The `create` method of the `AuthController` is responsible for creating new `App\User` records in your database using the [Eloquent ORM](/{{version}}/eloquent). You are free to modify this method according to the needs of your database.
+El método `create` del controlador `AuthController` es responsable de crear nuevos registros `App\User` en tu base de datos usando el [ORM Eloquent](/{{version}}/eloquent). Eres libre de modificar éste método como creas mas conveniente.
 
 <a name="retrieving-the-authenticated-user"></a>
-### Retrieving The Authenticated User
+### Obtener el usuario autenticado
 
-You may access the authenticated user via the `Auth` facade:
+Puedes acceder al usuario autenticado a través del facade `Auth`:
 
     $user = Auth::user();
 
-Alternatively, once a user is authenticated, you may access the authenticated user via an `Illuminate\Http\Request` instance:
+Alternativamente, una vez el usuario se encuentre autenticado, puedes acceder al usuario usando una instancia de `Illuminate\Http\Request`:
 
     <?php
 
@@ -171,20 +171,20 @@ Alternatively, once a user is authenticated, you may access the authenticated us
         }
     }
 
-#### Determining If The Current User Is Authenticated
+#### Determinar si el usuario actual esta autenticado
 
-To determine if the user is already logged into your application, you may use the `check` method on the `Auth` facade, which will return `true` if the user is authenticated:
+Para determinar si el usuario ya se encuentra autenticado en tu aplicación, puedes usar el método `check` del facade `Auth`, el cual retornará `true` si el usuario está autenticado:
 
     if (Auth::check()) {
         // The user is logged in...
     }
 
-However, you may use middleware to verify that the user is authenticated before allowing the user access to certain routes / controllers. To learn more about this, check out the documentation on [protecting routes](/{{version}}/authentication#protecting-routes).
+Sin embargo, puedes usar un middleware para verificar que el usuario esta autenticado antes de permitirle acceder a ciertas rutas o controladores. Para aprender más sobre esto, mira la documentación sobre [protección de rutas](/{{version}}/authentication#protecting-routes).
 
 <a name="protecting-routes"></a>
-### Protecting Routes
+### Proteger rutas
 
-[Route middleware](/{{version}}/middleware) can be used to allow only authenticated users to access a given route. Laravel ships with the `auth` middleware, which is defined in `app\Http\Middleware\Authenticate.php`. All you need to do is attach the middleware to a route definition:
+[Rutas middleware](/{{version}}/middleware) pueden ser usadas para permitir solamente usuarios autenticados acceder a ciertas rutas. Laravel incluye el middleware `auth`, el cual esta definido en `app\Http\Middleware\Authenticate.php`. Todo lo que necesitas es agregar el middleware a la definición de la ruta:
 
     // Using A Route Closure...
 
@@ -199,7 +199,7 @@ However, you may use middleware to verify that the user is authenticated before 
         'uses' => 'ProfileController@show'
     ]);
 
-Of course, if you are using [controller classes](/{{version}}/controllers), you may call the `middleware` method from the controller's constructor instead of attaching it in the route definition directly:
+Por supuesto, si estas usando [controladores](/{{version}}/controllers), puedes llamar al método `middleware` desde el constructor del controlador en vez de agregar a la definiciòn de la ruta:
 
     public function __construct()
     {
@@ -207,9 +207,9 @@ Of course, if you are using [controller classes](/{{version}}/controllers), you 
     }
 
 <a name="authentication-throttling"></a>
-### Authentication Throttling
+### Regular autenticación
 
-If you are using Laravel's built-in `AuthController` class, the `Illuminate\Foundation\Auth\ThrottlesLogins` trait may be used to throttle login attempts to your application. By default, the user will not be able to login for one minute if they fail to provide the correct credentials after several attempts. The throttling is unique to the user's username / e-mail address and their IP address:
+Si estas usando la clase `AuthController` que viene con Laravel, el trait `Illuminate\Foundatio\Auth\ThrottlesLogins` puede ser usado para regular los intentos de inicio de sesión en tu aplicación. De forma predeterminada, el usuario no podrá iniciar sesión por un minuto si falla en ingresar los datos correctos varias veces. La regulación es única para cada combinación usuario/email y si dirección IP.
 
     <?php
 
