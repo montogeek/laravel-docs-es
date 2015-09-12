@@ -22,7 +22,7 @@
 - [Agregar métodos de autenticación personalizados](#adding-custom-authentication-drivers)
 
 <a name="introduction"></a>
-## Introduction
+## Introducción
 
 Laravel hace que implementar la autenticación de tu aplicación sea muy fácil. De hecho, casi todo es configurado por ti desde el inicio. El archivo de configuración de la autenticación se encuentra en `config/auth.php`, el cual contiene varias opciones muy bien documentadas para personalizar el comportamiento de los servicios de autenticación.
 
