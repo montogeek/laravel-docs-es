@@ -1,13 +1,12 @@
+# Paginación
 
-# Pagination
-
-- [Introduction](#introduction)
-- [Basic Usage](#basic-usage)
-	- [Paginating Query Builder Results](#paginating-query-builder-results)
-	- [Paginating Eloquent Results](#paginating-eloquent-results)
-	- [Manually Creating A Paginator](#manually-creating-a-paginator)
-- [Displaying Results In A View](#displaying-results-in-a-view)
-- [Converting Results To JSON](#converting-results-to-json)
+- [Introducción](#introduction)
+- [Uso básico](#basic-usage)
+	- [Paginar resultado de una consulta](#paginating-query-builder-results)
+	- [Paginar resultados de Eloquent](#paginating-eloquent-results)
+	- [Paginar manualmente](#manually-creating-a-paginator)
+- [Mostrando resultado en una vista](#displaying-results-in-a-view)
+- [Convertir resultados a JSON](#converting-results-to-json)
 
 <a name="introduction"></a>
 ## Introduction
