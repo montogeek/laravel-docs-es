@@ -104,6 +104,7 @@ Laravel includes a variety of "helper" PHP functions. Many of these functions ar
 [method_field](#method-method-field)
 [old](#method-old)
 [redirect](#method-redirect)
+[request](#method-request)
 [response](#method-response)
 [value](#method-value)
 [view](#method-view)
@@ -710,7 +711,7 @@ The `event` function dispatches the given [event](/{{version}}/events) to its li
 
 The `factory` function creates a model factory builder for a given class, name, and amount. It can be used while [testing](/{{version}}/testing#model-factories) or [seeding](/{{version}}/seeding#using-model-factories):
 
-    $user = factory('App\User')->make();
+    $user = factory(App\User::class)->make();
 
 <a name="method-method-field"></a>
 #### `method_field()` {#collection-method}
@@ -734,6 +735,15 @@ The `old` function [retrieves](/{{version}}/requests#retrieving-input) an old in
 The `redirect` function return an instance of the redirector to do [redirects](/{{version}}/responses#redirects):
 
     return redirect('/home');
+
+<a name="method-request"></a>
+#### `request()` {#collection-method}
+
+The `request` function returns the current [request](/{{version}}/requests) instance or obtains an input item:
+
+    $request = request();
+
+    $value = request('key', $default = null)
 
 <a name="method-response"></a>
 #### `response()` {#collection-method}
