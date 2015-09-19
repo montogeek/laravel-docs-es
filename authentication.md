@@ -229,7 +229,7 @@ Si estas usando la clase `AuthController` que viene con Laravel, el trait `Illum
     }
 
 <a name="authenticating-users"></a>
-## Manually Authenticating Users
+## Autenticando usuarios manualmente
 
 Of course, you are not required to use the authentication controllers included with Laravel. If you choose to remove these controllers, you will need to manage user authentication using the Laravel authentication classes directly. Don't worry, it's a cinch!
 
@@ -277,7 +277,7 @@ To log users out of your application, you may use the `logout` method on the `Au
 > **Note:** In these examples, `email` is not a required option, it is merely used as an example. You should use whatever column name corresponds to a "username" in your database.
 
 <a name="remembering-users"></a>
-## Remembering Users
+## Recordar usuarios
 
 If you would like to provide "remember me" functionality in your application, you may pass a boolean value as the second argument to the `attempt` method, which will keep the user authenticated indefinitely, or until they manually logout. Of course, your `users` table must include the string `remember_token` column, which will be used to store the "remember me" token.
 
@@ -292,21 +292,21 @@ If you are "remembering" users, you may use the `viaRemember` method to determin
     }
 
 <a name="other-authentication-methods"></a>
-### Other Authentication Methods
+### Otros métodos de autenticación
 
-#### Authenticate A User Instance
+#### Autenticar una instancia de usuario
 
 If you need to log an existing user instance into your application, you may call the `login` method with the user instance. The given object must be an implementation of the `Illuminate\Contracts\Auth\Authenticatable` [contract](/{{version}}/contracts). Of course, the `App\User` model included with Laravel already implements this interface:
 
     Auth::login($user);
 
-#### Authenticate A User By ID
+#### Autenticar un usuario por ID
 
 To log a user into the application by their ID, you may use the `loginUsingId` method. This method simply accepts the primary key of the user you wish to authenticate:
 
     Auth::loginUsingId(1);
 
-#### Authenticate A User Once
+#### Autenticar un usuario una sola vez
 
 You may use the `once` method to log a user into the application for a single request. No sessions or cookies will be utilized, which may be helpful when building a stateless API. The `once` method has the same signature as the `attempt` method:
 
@@ -315,7 +315,7 @@ You may use the `once` method to log a user into the application for a single re
     }
 
 <a name="http-basic-authentication"></a>
-## HTTP Basic Authentication
+## Autenticación básica HTTP
 
 [HTTP Basic Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication) provides a quick way to authenticate users of your application without setting up a dedicated "login" page. To get started, attach the `auth.basic` [middleware](/{{version}}/middleware) to your route. The `auth.basic` middleware is included with the Laravel framework, so you do not need to define it:
 
@@ -325,7 +325,7 @@ You may use the `once` method to log a user into the application for a single re
 
 Once the middleware has been attached to the route, you will automatically be prompted for credentials when accessing the route in your browser. By default, the `auth.basic` middleware will use the `email` column on the user record as the "username".
 
-#### A Note On FastCGI
+#### Nota sobre FastCGI
 
 If you are using PHP FastCGI, HTTP Basic authentication may not work correctly out of the box. The following lines should be added to your `.htaccess` file:
 
@@ -333,7 +333,7 @@ If you are using PHP FastCGI, HTTP Basic authentication may not work correctly o
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 <a name="stateless-http-basic-authentication"></a>
-### Stateless HTTP Basic Authentication
+### Autenticación básica HTTP sin estado
 
 You may also use HTTP Basic Authentication without setting a user identifier cookie in the session, which is particularly useful for API authentication. To do so, [define a middleware](/{{version}}/middleware) that calls the `onceBasic` method. If no response is returned by the `onceBasic` method, the request may be passed further into the application:
 
@@ -367,23 +367,23 @@ Next, [register the route middleware](/{{version}}/middleware#registering-middle
     }]);
 
 <a name="resetting-passwords"></a>
-## Resetting Passwords
+## Resetear contraseñas
 
 <a name="resetting-database"></a>
-### Database Considerations
+### Consideración de la base de datos
 
 Most web applications provide a way for users to reset their forgotten passwords. Rather than forcing you to re-implement this on each application, Laravel provides convenient methods for sending password reminders and performing password resets.
 
 To get started, verify that your `App\User` model implements the `Illuminate\Contracts\Auth\CanResetPassword` contract. Of course, the `App\User` model included with the framework already implements this interface, and uses the `Illuminate\Auth\Passwords\CanResetPassword` trait to include the methods needed to implement the interface.
 
-#### Generating The Reset Token Table Migration
+#### Generar la tabla para los tokens de reseteo
 
 Next, a table must be created to store the password reset tokens. The migration for this table is included with Laravel out of the box, and resides in the `database/migrations` directory. So, all you need to do is migrate:
 
     php artisan migrate
 
 <a name="resetting-routing"></a>
-### Routing
+### Rutas
 
 Laravel includes an `Auth\PasswordController` that contains the logic necessary to reset user passwords. However, you will need to define routes to point requests to this controller:
 
@@ -396,11 +396,11 @@ Laravel includes an `Auth\PasswordController` that contains the logic necessary 
     Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 <a name="resetting-views"></a>
-### Views
+### Vistas
 
 In addition to defining the routes for the `PasswordController`, you will need to provide views that can be returned by this controller. Don't worry, we will provide sample views to help you get started. Of course, you are free to style your forms however you wish.
 
-#### Sample Password Reset Link Request Form
+#### Ejemplo de formulario para solicitar reseteo de contraseña
 
 You will need to provide an HTML view for the password reset request form. This view should be placed at `resources/views/auth/password.blade.php`. This form provides a single field for the user's e-mail address, allowing them to request a password reset link:
 
@@ -427,7 +427,7 @@ When a user submits a request to reset their password, they will receive an e-ma
 
     Click here to reset your password: {{ url('password/reset/'.$token) }}
 
-#### Sample Password Reset Form
+#### Ejemplo formulario reseteo de contraseña
 
 When the user clicks the e-mailed link to reset their password, they will be presented with a password reset form. This view should be placed at `resources/views/auth/reset.blade.php`.
 
@@ -462,7 +462,7 @@ Here is a sample password reset form to get you started:
     </form>
 
 <a name="after-resetting-passwords"></a>
-### After Resetting Passwords
+### Después de resetear contraseña
 
 Once you have defined the routes and views to reset your user's passwords, you may simply access the routes in your browser. The `PasswordController` included with the framework already includes the logic to send the password reset link e-mails as well as update passwords in the database.
 
@@ -473,7 +473,7 @@ After the password is reset, the user will automatically be logged into the appl
 > **Note:** By default, password reset tokens expire after one hour. You may change this via the `reminder.expire` option in your `config/auth.php` file.
 
 <a name="social-authentication"></a>
-## Social Authentication
+## Autenticación Social
 
 In addition to typical, form based authentication, Laravel also provides a simple, convenient way to authenticate with OAuth providers using [Laravel Socialite](https://github.com/laravel/socialite). Socialite currently supports authentication with Facebook, Twitter, LinkedIn, Google, GitHub and Bitbucket.
 
@@ -481,7 +481,7 @@ To get started with Socialite, add to your `composer.json` file as a dependency:
 
     composer require laravel/socialite
 
-### Configuration
+### Configuración
 
 After installing the Socialite library, register the `Laravel\Socialite\SocialiteServiceProvider` in your `config/app.php` configuration file:
 
@@ -503,7 +503,7 @@ You will also need to add credentials for the OAuth services your application ut
         'redirect' => 'http://your-callback-url',
     ],
 
-### Basic Usage
+### Uso básico
 
 Next, you are ready to authenticate users! You will need two routes: one for redirecting the user to the OAuth provider, and another for receiving the callback from the provider after authentication. We will access Socialite using the `Socialite` [facade](/{{version}}/facades):
 
@@ -554,7 +554,7 @@ A number of OAuth providers support optional parameters in the redirect request.
     return Socialite::driver('google')
                 ->with(['hd' => 'example.com'])->redirect();
 
-#### Retrieving User Details
+#### Obtener detalles de usuario
 
 Once you have a user instance, you can grab a few more details about the user:
 
@@ -575,7 +575,7 @@ Once you have a user instance, you can grab a few more details about the user:
     $user->getAvatar();
 
 <a name="adding-custom-authentication-drivers"></a>
-## Adding Custom Authentication Drivers
+## Agregar drivers de autenticación personalizados
 
 If you are not using a traditional relational database to store your users, you will need to extend Laravel with your own authentication driver. We will use the `extend` method on the `Auth` facade to define a custom driver. You should place this call to `extend` within a [service provider](/{{version}}/providers):
 
