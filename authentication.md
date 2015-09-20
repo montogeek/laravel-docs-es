@@ -231,9 +231,9 @@ Si estas usando la clase `AuthController` que viene con Laravel, el trait `Illum
 <a name="authenticating-users"></a>
 ## Autenticando usuarios manualmente
 
-Of course, you are not required to use the authentication controllers included with Laravel. If you choose to remove these controllers, you will need to manage user authentication using the Laravel authentication classes directly. Don't worry, it's a cinch!
+Por supuesto, no estas obligado a usar los controladores de autenticación de Laravel. Si decides eliminar esos controladores, necesitarás manejar la autenticación de usuarios usando las clases de autenticación de Laravel directamente. No te preocupes, es muy sencillo:
 
-We will access Laravel's authentication services via the `Auth` [facade](/{{version}}/facades), so we'll need to make sure to import the `Auth` facade at the top of the class. Next, let's check out the `attempt` method:
+Vamos a hacer uso de los servicios de autenticación de Laravel a través del [facade](/{{version}}/facades) `Auth`, asegúrate de importar el facade `Auth` al inicio de la clase. A continuación, revisemos el método `attempt`:
 
     <?php
 
@@ -258,9 +258,9 @@ We will access Laravel's authentication services via the `Auth` [facade](/{{vers
         }
     }
 
-The `attempt` method accepts an array of key / value pairs as its first argument. The values in the array will be used to find the user in your database table. So, in the example above, the user will be retrieved by the value of the `email` column. If the user is found, the hashed password stored in the database will be compared with the hashed `password` value passed to the method via the array. If the two hashed passwords match an authenticated session will be started for the user.
+El método `attempt` accepta un array de pares llaves/valores como primer argumento. Los valores en el array serán usados para encontrar el usuario en la tabla de tu base de datos. En el ejemplo anterior, el usuario será consultado por el valor de la columna `email`. Si el usuario es encontrado, la contraseña cifrada guardada en la base de datos será comparada con el valor cifrado de `password` en el array. Si las dos contraseñas cifradas concuerdan una sesión de autenticación se creará para el usuario.
 
-The `attempt` method will return `true` if authentication was successful. Otherwise, `false` will be returned.
+El método `attempt` retornará `true` si la autenticación fue satisfactoria. Si no, retornará `false`.
 
 The `intended` method on the redirector will redirect the user to the URL they were attempting to access before being caught by the authentication filter. A fallback URI may be given to this method in case the intended destination is not available.
 
