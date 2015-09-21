@@ -262,30 +262,30 @@ El método `attempt` accepta un array de pares llaves/valores como primer argume
 
 El método `attempt` retornará `true` si la autenticación fue satisfactoria. Si no, retornará `false`.
 
-The `intended` method on the redirector will redirect the user to the URL they were attempting to access before being caught by the authentication filter. A fallback URI may be given to this method in case the intended destination is not available.
+El método `intended` en el redireccionador redireccionará el usuario a la URL que estaban tratando de acceder antes de ser filtrados por la autenticación. Una URI puede ser usada como respaldo en este método en el caso que el destino final no este disponible.
 
-If you wish, you also may add extra conditions to the authentication query in addition to the user's e-mail and password. For example, we may verify that user is marked as "active":
+Si lo deseas, puedes agregar condiciones extras a la consulta de autenticación de usuario y contraseña. Por ejemplo, puedes verificar que el usuario quede como "activo" en la aplicación:
 
     if (Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1])) {
         // The user is active, not suspended, and exists.
     }
 
-To log users out of your application, you may use the `logout` method on the `Auth` facade. This will clear the authentication information in the user's session:
+Para cerrar la sesión de un usuario en tu aplicación, puedes usar el método `logout` del facade `Auth`. Esto limpiará la información de autenticación del usuario de la sesión:
 
     Auth::logout();
 
-> **Note:** In these examples, `email` is not a required option, it is merely used as an example. You should use whatever column name corresponds to a "username" in your database.
+> **Nota:** En estos ejemplos, `email` no es una opción requerida, es usada como ejemplo. Debes usar cualquier columna que corresponda con el "usuario" de tu aplicación.
 
 <a name="remembering-users"></a>
 ## Recordar usuarios
 
-If you would like to provide "remember me" functionality in your application, you may pass a boolean value as the second argument to the `attempt` method, which will keep the user authenticated indefinitely, or until they manually logout. Of course, your `users` table must include the string `remember_token` column, which will be used to store the "remember me" token.
+Si quieres proveer la funcionalidad "Recordarme" en tu aplicación, puedes pasar un valor booleano como el segundo parametro del método `attempt`, el cual mantendrá el usuario autenticado indefinidamente, o hasta que cierre sesión manualmente. Por supuesto, tu tabla `users` debe incluir una columna tipo `string` llamada `remember_token`, la cual será usada para guardar el token "recordarme".
 
     if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
         // The user is being remembered...
     }
 
-If you are "remembering" users, you may use the `viaRemember` method to determine if the user was authenticated using the "remember me" cookie:
+Si eras "recordando" usuarios, puedes usar el método `viaRemember` para determinar si el usuario se autenticó con esa opción:
 
     if (Auth::viaRemember()) {
         //
