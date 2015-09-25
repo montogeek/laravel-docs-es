@@ -296,19 +296,19 @@ Si eras "recordando" usuarios, puedes usar el método `viaRemember` para determi
 
 #### Autenticar una instancia de usuario
 
-If you need to log an existing user instance into your application, you may call the `login` method with the user instance. The given object must be an implementation of the `Illuminate\Contracts\Auth\Authenticatable` [contract](/{{version}}/contracts). Of course, the `App\User` model included with Laravel already implements this interface:
+Si necesitas autenticar una instancia existente de un usuario en tu aplicación, puedes ejecutar el método `login` con la instancia del usuario. El objeto dado debe ser una implementación del [contrato](/{{version}}/contracts) `Illuminate\Contracts\Auth\Authenticatable`. Por supuesto, el modelo `App\User` incluído por Laravel ya implementa esta interface:
 
     Auth::login($user);
 
 #### Autenticar un usuario por ID
 
-To log a user into the application by their ID, you may use the `loginUsingId` method. This method simply accepts the primary key of the user you wish to authenticate:
+Para autenticar un usuario en tu aplicación por su ID, puedes usar el método `loginUsingId`. Este método simplemente acepta la llave primaria del usuario que deseas autenticar:
 
     Auth::loginUsingId(1);
 
 #### Autenticar un usuario una sola vez
 
-You may use the `once` method to log a user into the application for a single request. No sessions or cookies will be utilized, which may be helpful when building a stateless API. The `once` method has the same signature as the `attempt` method:
+Puedes usar el método `once` para autenticar el usuario durante una sola petición. No se usarán sesiones o cookies, algo muy útil cuando estas construyendo una API sin estado. El método `once` recibe los mismos argumentos que `attempt`:
 
     if (Auth::once($credentials)) {
         //
@@ -317,17 +317,17 @@ You may use the `once` method to log a user into the application for a single re
 <a name="http-basic-authentication"></a>
 ## Autenticación básica HTTP
 
-[HTTP Basic Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication) provides a quick way to authenticate users of your application without setting up a dedicated "login" page. To get started, attach the `auth.basic` [middleware](/{{version}}/middleware) to your route. The `auth.basic` middleware is included with the Laravel framework, so you do not need to define it:
+[Autenticación básica HTTP](http://en.wikipedia.org/wiki/Basic_access_authentication) provee una forma rápida para autenticar usuarios en tu aplicación sin configurar una página de inicio de sesión. Para iniciar, incluye el [middleware](/{{version}}/middleware) `auth.basic` a tu ruta. El middleware `auth.basic` viene incluido con Laravel, asi que no necesitas definirlo:
 
     Route::get('profile', ['middleware' => 'auth.basic', function() {
         // Only authenticated users may enter...
     }]);
 
-Once the middleware has been attached to the route, you will automatically be prompted for credentials when accessing the route in your browser. By default, the `auth.basic` middleware will use the `email` column on the user record as the "username".
+Una vez el middleware este incluido en la ruta, automaticamente se te solicitará las credenciales de acceso cuando trates de acceder a la ruta. De forma predeterminada, el middleware `auth.basic` usará la columna `email` del registro de usuario como "nombre de usuario".
 
 #### Nota sobre FastCGI
 
-If you are using PHP FastCGI, HTTP Basic authentication may not work correctly out of the box. The following lines should be added to your `.htaccess` file:
+Si estás usando PHP FastCGI, la autenticación básica HTTP puede no funcionar correctamente. Las siguientes lineas deberián ser agregadas a tu archivo `.htaccess`:
 
     RewriteCond %{HTTP:Authorization} ^(.+)$
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
