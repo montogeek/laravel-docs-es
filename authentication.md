@@ -13,7 +13,7 @@
     - [Otros métodos de autenticación](#other-authentication-methods)
 - [Authenticación Básica HTTP](#http-basic-authentication)
      - [Authenticación Básica HTTP sin estado](#stateless-http-basic-authentication)
-- [Resetear contraseñas](#resetting-passwords)
+- [Restablecer contraseñas](#resetting-passwords)
     - [Consideraciones en la BD](#resetting-database)
     - [Rutas](#resetting-routing)
     - [Vistas](#resetting-views)
@@ -335,7 +335,7 @@ Si estás usando PHP FastCGI, la autenticación básica HTTP puede no funcionar 
 <a name="stateless-http-basic-authentication"></a>
 ### Autenticación básica HTTP sin estado
 
-You may also use HTTP Basic Authentication without setting a user identifier cookie in the session, which is particularly useful for API authentication. To do so, [define a middleware](/{{version}}/middleware) that calls the `onceBasic` method. If no response is returned by the `onceBasic` method, the request may be passed further into the application:
+Puedes usar la Autenticación básica HTTP sin configurar una cookie para identificar el usuario en la sesión, algo particularmente útil para autenticación de APIs. Para hacerlo, debes definir un [middleware](/{{version}}/middleware) que llame al método `onceBasic`. Si ninguna respuesta es retornado por el método `onceBasic`, la petición se aceptará en la aplicación:
 
     <?php
 
@@ -360,32 +360,32 @@ You may also use HTTP Basic Authentication without setting a user identifier coo
 
     }
 
-Next, [register the route middleware](/{{version}}/middleware#registering-middleware) and attach it to a route:
+A continuación, se debe [registrar el middleware de la ruta](/{{version}}/middleware#registering-middleware) y agregarla a la ruta:
 
     Route::get('api/user', ['middleware' => 'auth.basic.once', function() {
         // Only authenticated users may enter...
     }]);
 
 <a name="resetting-passwords"></a>
-## Resetear contraseñas
+## Restablecer contraseñas
 
 <a name="resetting-database"></a>
 ### Consideración de la base de datos
 
-Most web applications provide a way for users to reset their forgotten passwords. Rather than forcing you to re-implement this on each application, Laravel provides convenient methods for sending password reminders and performing password resets.
+La mayoría de aplicaciones web proveen una forma para que sus usuarios restablezcan sus contraseñas. En vez de hacerte reimplementar esta funcionalidad en cada aplicación, Laravel provee método convenientes para enviar recordatorios de contraseñas y restablecerlas.
 
-To get started, verify that your `App\User` model implements the `Illuminate\Contracts\Auth\CanResetPassword` contract. Of course, the `App\User` model included with the framework already implements this interface, and uses the `Illuminate\Auth\Passwords\CanResetPassword` trait to include the methods needed to implement the interface.
+Para iniciar, verifica que tu modelo `App\User` implementa el contrato `Illuminate\Contracts\Auth\CanResetPassword`. Por supuesto, el modelo `App\User` incluído con el framework ya tiene implementado éste contrato, y usa el trait `Illuminate\Auth\Passwords\CanResetPassword` para incluir los métodos necesarios para implementar la contrato.
 
 #### Generar la tabla para los tokens de reseteo
 
-Next, a table must be created to store the password reset tokens. The migration for this table is included with Laravel out of the box, and resides in the `database/migrations` directory. So, all you need to do is migrate:
+A continuación, una tabla debe ser creada para almanecar los tokens de restablecimiento de contraseña. La migración para esta tabla esta incluída de forma predeterminada en Laravel, y se encuentra en la carpeta `database/migrations`. Así, todo lo que necesitas es:
 
     php artisan migrate
 
 <a name="resetting-routing"></a>
 ### Rutas
 
-Laravel includes an `Auth\PasswordController` that contains the logic necessary to reset user passwords. However, you will need to define routes to point requests to this controller:
+Laravel incluye el controlador `Auth\PasswordController` que contiene la lógica necesaria para restablecer la contraseña de usuarios. Sin embargo, necesitas definir las rutas a que apunten a este controlador:
 
     // Password reset link request routes...
     Route::get('password/email', 'Auth\PasswordController@getEmail');
@@ -398,11 +398,11 @@ Laravel includes an `Auth\PasswordController` that contains the logic necessary 
 <a name="resetting-views"></a>
 ### Vistas
 
-In addition to defining the routes for the `PasswordController`, you will need to provide views that can be returned by this controller. Don't worry, we will provide sample views to help you get started. Of course, you are free to style your forms however you wish.
+Además de definir las rutas para `PasswordController`, necesitas establecer las vistas que serán usadas por este controlador. No te preocupues, nosotros proveemos vistas de ejemplo para ayudarte a empezar. Por supuesto, eres libre de estilisarlas como quieras.
 
 #### Ejemplo de formulario para solicitar reseteo de contraseña
 
-You will need to provide an HTML view for the password reset request form. This view should be placed at `resources/views/auth/password.blade.php`. This form provides a single field for the user's e-mail address, allowing them to request a password reset link:
+Necesitas una vista HTML para el formulario de solicitud de contraseña. Esta vista debe estar en `resources/views/auth/password.blade.php`. Este formulario provee un solo campo para el email del usuario, permitiendole solicitar un enlace de restablecimiento de contraseña:
 
     <!-- resources/views/auth/password.blade.php -->
 
