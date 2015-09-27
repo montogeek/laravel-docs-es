@@ -429,7 +429,7 @@ Necesitas una vista HTML para el formulario de solicitud de contraseña. Esta vi
         </div>
     </form>
 
-When a user submits a request to reset their password, they will receive an e-mail with a link that points to the `getReset` method (typically routed at `/password/reset`) of the `PasswordController`. You will need to create a view for this e-mail at `resources/views/emails/password.blade.php`. The view will receive the `$token` variable which contains the password reset token to match the user to the password reset request. Here is an example e-mail view to get you started:
+Cuando un usuario envia una petición para restablecer su contraseña, recibirá un email con un enlace que apunta al método `getReset` (normalmente en la ruta `/password/reset`) del controlador `PasswordController`. Necesitas crear una vista para este email en `resouces/views/emails/password.blade.php`. La vista recibirá la variable `$token` que contiene el token de restablecimiento de contraseña para ser comparado con la petición del usuario. Acá hay un ejemplo la vista de email para empezar:
 
     <!-- resources/views/emails/password.blade.php -->
 
@@ -437,9 +437,9 @@ When a user submits a request to reset their password, they will receive an e-ma
 
 #### Ejemplo formulario reseteo de contraseña
 
-When the user clicks the e-mailed link to reset their password, they will be presented with a password reset form. This view should be placed at `resources/views/auth/reset.blade.php`.
+Cuando el usuario hace click en el enlace enviado a su email para restablecer su contraseña, se le mostrará un formulario de restablecimiento de contraseña. Esta vista debe estar en `resources/views/auth/reset.blade.php`.
 
-Here is a sample password reset form to get you started:
+Acá un ejemplo del formulario de restablecimiento de contraseña para empezar:
 
     <!-- resources/views/auth/reset.blade.php -->
 
@@ -477,11 +477,11 @@ Here is a sample password reset form to get you started:
     </form>
 
 <a name="after-resetting-passwords"></a>
-### Después de resetear contraseña
+### Después de restablecer contraseña
 
-Once you have defined the routes and views to reset your user's passwords, you may simply access the routes in your browser. The `PasswordController` included with the framework already includes the logic to send the password reset link e-mails as well as update passwords in the database.
+Una vez hayas definido las rutas y las vistas para restablecer la contraseña de los usuarios, puedes acceder a la ruta en tu navegador. El controlador `PasswordController` incluido con el framework ya tiene la lógica para enviar los emails con los enlaces de restablecimineto de contraseña asi como la actualización de las contraseñas en la base de datos.
 
-After the password is reset, the user will automatically be logged into the application and redirected to `/home`. You can customize the post password reset redirect location by defining a `redirectTo` property on the `PasswordController`:
+Después de que la contraseña es restablecida, el usuario automáticamente sería autenticado en la aplicación y redirigido a la ruta `/home`. Puedes personalizar la ruta de redirección definiendo la propiedad `redirectTo` en el controlador `PasswordController`:
 
     protected $redirectTo = '/dashboard';
 
