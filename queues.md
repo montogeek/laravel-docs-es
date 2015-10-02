@@ -377,7 +377,7 @@ As you can see, the `queue:work` job supports most of the same options available
 
 Daemon queue workers do not restart the framework before processing each job. Therefore, you should be careful to free any heavy resources before your job finishes. For example, if you are doing image manipulation with the GD library, you should free the memory with `imagedestroy` when you are done.
 
-Similarly, your database connection may disconnect when being used by long-running daemon. You may use the `DB::reconnect` method to ensure you have a fresh connection.
+Similarly, your database connection may disconnect when being used by a long-running daemon. You may use the `DB::reconnect` method to ensure you have a fresh connection.
 
 <a name="deploying-with-daemon-queue-listeners"></a>
 ### Deploying With Daemon Queue Listeners
@@ -393,7 +393,7 @@ This command will gracefully instruct all queue workers to restart after they fi
 <a name="dealing-with-failed-jobs"></a>
 ## Dealing With Failed Jobs
 
-Since things don't always go as planned, sometimes your queued jobs will fail. Don't worry, it happens to the best of us! Laravel includes a convenient way to specify the maximum number of times a job should be attempted. After a job has exceeded this amount of attempts, it will be inserted into a `failed_jobs` table. The name of the failed jobs can be configured via the `config/queue.php` configuration file.
+Since things don't always go as planned, sometimes your queued jobs will fail. Don't worry, it happens to the best of us! Laravel includes a convenient way to specify the maximum number of times a job should be attempted. After a job has exceeded this amount of attempts, it will be inserted into a `failed_jobs` table. The name of the table can be configured via the `config/queue.php` configuration file.
 
 To create a migration for the `failed_jobs` table, you may use the `queue:failed-table` command:
 
