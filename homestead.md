@@ -10,6 +10,7 @@
     - [Connecting Via SSH](#connecting-via-ssh)
     - [Connecting To Databases](#connecting-to-databases)
     - [Adding Additional Sites](#adding-additional-sites)
+    - [Configuration Cron Schedules](#configuring-cron-schedules)
     - [Ports](#ports)
     - [Bash Aliases](#bash-aliases)
 - [Blackfire Profiler](#blackfire-profiler)
@@ -40,7 +41,7 @@ Homestead is currently built and tested using Vagrant 1.7.
 - Redis
 - Memcached (PHP 5.x Only)
 - Beanstalkd
-- [Laravel Envoy](//{{version}}/envoy)
+- [Laravel Envoy](/{{version}}/envoy)
 - [Blackfire Profiler](#blackfire-profiler)
 
 <a name="installation-and-setup"></a>
@@ -204,6 +205,20 @@ To connect to your MySQL or Postgres database from your host machine via Navicat
 ### Adding Additional Sites
 
 Once your Homestead environment is provisioned and running, you may want to add additional Nginx sites for your Laravel applications. You can run as many Laravel installations as you wish on a single Homestead environment. To add an additional site, simply add the site to your `Homestead.yaml` file and then run the `vagrant provision` terminal command from your Homestead directory.
+
+<a name="configuring-cron-schedules"></a>
+### Configuring Cron Schedules
+
+Laravel provides a convenient way to [schedule Cron jobs](/{{version}}/scheduling) by scheduling a single `schedule:run` Artisan command to be run every minute. The `schedule:run` command will examine the job scheduled defined in your `App\Console\Kernel` class to determine which jobs should be run.
+
+If you would like the `schedule:run` command to be run for a Homestead site, you may set the `schedule` option to `true` when defining the site:
+
+    sites:
+        - map: homestead.app
+          to: /home/vagrant/Code/Laravel/public
+          schedule: true
+
+The Cron job for the site will be defined in the `/etc/cron.d` folder of the virtual machine.
 
 <a name="ports"></a>
 ### Ports
