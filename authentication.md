@@ -490,15 +490,15 @@ Después de que la contraseña es restablecida, el usuario automáticamente ser�
 <a name="social-authentication"></a>
 ## Autenticación Social
 
-In addition to typical, form based authentication, Laravel also provides a simple, convenient way to authenticate with OAuth providers using [Laravel Socialite](https://github.com/laravel/socialite). Socialite currently supports authentication with Facebook, Twitter, LinkedIn, Google, GitHub and Bitbucket.
+Además del típica forma de autenticación por formularios, Laravel provee una forma simple y conveniente para autenticar usuarios con proveedores OAuth usando [Laravel Socialite](https://github.com/laravel/socialite). Socialite actualmente soporta autenticación con Facebook, Twitter, LinkedIn, Google, GitHub y BitBucket.
 
-To get started with Socialite, add to your `composer.json` file as a dependency:
+Para empezar con Socialize, agregalo a tu `composer.json` como dependencia:
 
     composer require laravel/socialite
 
 ### Configuración
 
-After installing the Socialite library, register the `Laravel\Socialite\SocialiteServiceProvider` in your `config/app.php` configuration file:
+Después de instalar la librería Socialite, registra `Laravel\Socialite\SocialiteServiceProvider` en tu archivo de configuración `config/app.php`:
 
     'providers' => [
         // Other service providers...
@@ -506,11 +506,11 @@ After installing the Socialite library, register the `Laravel\Socialite\Socialit
         Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
-Also, add the `Socialite` facade to the `aliases` array in your `app` configuration file:
+Además, agrega el facade `Socialite` al array `aliases` en tu archivo de configuracion `app`:
 
     'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
-You will also need to add credentials for the OAuth services your application utilizes. These credentials should be placed in your `config/services.php` configuration file, and should use the key `facebook`, `twitter`, `linkedin`, `google`, `github` or `bitbucket`, depending on the providers your application requires. For example:
+Necesitas agregar las credenciales de los servicios OAuth que tu aplicación utiliza. Estas credenciales deben estar en tu archivo de configuración `config/services.php`, y debe usar las llaves `facebook`, `twitter`, `linkedin`, `google`, `github` or `bitbucket` dependiendo de los proveedores que tu aplicación requiera. Por ejemplo:
 
     'github' => [
         'client_id' => 'your-github-app-id',
