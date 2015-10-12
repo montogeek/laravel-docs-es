@@ -649,7 +649,12 @@ The field under validation must match the given regular expression.
 <a name="rule-required"></a>
 #### required
 
-The field under validation must be present in the input data.
+The field under validation must be present in the input data and not empty. A field is considered "empty" is one of the following conditions are true:
+
+- The value is `null`.
+- The value is an empty string.
+- The value is an empty array or empty `Countable` object.
+- The value is an uploaded file with no path.
 
 <a name="rule-required-if"></a>
 #### required_if:_anotherfield_,_value_,...
@@ -789,7 +794,7 @@ Laravel provides a variety of helpful validation rules; however, you may wish to
          */
         public function boot()
         {
-            Validator::extend('foo', function($attribute, $value, $parameters) {
+            Validator::extend('foo', function($attribute, $value, $parameters, $validator) {
                 return $value == 'foo';
             });
         }
@@ -805,7 +810,7 @@ Laravel provides a variety of helpful validation rules; however, you may wish to
         }
     }
 
-The custom validator Closure receives three arguments: the name of the `$attribute` being validated, the `$value` of the attribute, and an array of `$parameters` passed to the rule.
+The custom validator Closure receives four arguments: the name of the `$attribute` being validated, the `$value` of the attribute, an array of `$parameters` passed to the rule, and the `Validator` instance.
 
 You may also pass a class and method to the `extend` method instead of a Closure:
 
@@ -836,3 +841,21 @@ When creating a custom validation rule, you may sometimes need to define custom 
             return str_replace(...);
         });
     }
+
+#### Implicit Extensions
+
+By default, when an attribute being validated is not present or contains an empty value as defined by the [`required`](#rule-required) rule, normal validation rules, including custom extensions, are not run. For example, the [`integer`](#rule-integer) rule will not be run against a `null` value:
+
+    $rules = ['count' => 'integer'];
+
+    $input = ['count' => null];
+
+    Validator::make($input, $rules)->passes(); // true
+
+For a rule to run even when an attribute is empty, the rule must imply that the attribute is required. To create such an "implicit" extension, use the `Validator::extendImplicit()` method:
+
+    Validator::extendImplicit('foo', function($attribute, $value, $parameters, $validator) {
+        return $value == 'foo';
+    });
+
+> **Note:** An "implicit" extension only _implies_ that the attribute is required. Whether it actually invalidates a missing or empty attribute is up to you.
