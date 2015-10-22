@@ -53,7 +53,7 @@ Tenga en cuenta que podemos injectar cuanquiera dependencia en el constructor de
     use Illuminate\Console\Command;
     use Illuminate\Foundation\Inspiring;
 
-    class Inspire extends Command
+    class SendEmails extends Command
     {
         /**
          * The name and signature of the console command.
