@@ -241,7 +241,7 @@ Para proveer una lista de opciones predefinida, debe utilizar el método `choice
 <a name="writing-output"></a>
 ### Escribir salidas en la consola
 
-Para enviar informaciones a la consola, utilice los métodos `info`, `comment`, `question` y `error`. Cada uno de esos métodos imprimirá información en color, por ejemplo rojo para `error`.
+Para enviar informaciones a la consola, utilice los métodos `line`, `info`, `comment`, `question` y `error`. Cada uno de estos métodos imprimirá información en color, por ejemplo rojo para `error`.
 
 Para mostrar un mensaje de tipo informativo al usuario, utilice el método `info`. Generalmente, la información tendrá el color verde en la consola:
 
@@ -258,6 +258,10 @@ Para mostrar un mensaje de tipo informativo al usuario, utilice el método `info
 Para mostrar un mensaje de tipo error al usuario, utilice el método `error`. Generalmente, la información tendrá el color rojo en la consola:
 
     $this->error('Something went wrong!');
+
+Si quieres mostrar una salida sin formato, usa el método `line`. Éste método no recibe ninguna declaración de color:
+
+    $this->line('Display this on the screen.');
 
 #### Table Layouts
 
