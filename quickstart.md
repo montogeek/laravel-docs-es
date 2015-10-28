@@ -1,4 +1,4 @@
-# Quickstart - Basic Task List
+# Basic Task List
 
 - [Introduction](#introduction)
 - [Installation](#installation)
@@ -134,7 +134,7 @@ For this application, we know we will need at least three routes: a route to dis
   use Illuminate\Http\Request;
 
   /**
-   * Dislay All Tasks
+   * Display All Tasks
    */
   Route::get('/', function () {
     //
@@ -177,7 +177,7 @@ This application only has a single view which contains a form for adding new tas
 <a name="defining-the-layout"></a>
 ### Defining The Layout
 
-Almost all web applications share the same layout across pages. For example, this application has a top navigation bar that would be typically be present on every page (if we had more than one). Laravel makes it easy to share these common features across every page using Blade **layouts**.
+Almost all web applications share the same layout across pages. For example, this application has a top navigation bar that would be typically present on every page (if we had more than one). Laravel makes it easy to share these common features across every page using Blade **layouts**.
 
 As we discussed earlier, all Laravel views are stored in `resources/views`. So, let's define a new layout view in `resources/views/layouts/app.blade.php`. The `.blade.php` extension instructs the framework to use the [Blade templating engine](/{{version}}/blade) to render the view. Of course, you may use plain PHP templates with Laravel. However, Blade provides convenient short-cuts for writing cleaner, terse templates.
 
@@ -204,7 +204,7 @@ Our `app.blade.php` view should look like the following:
     </body>
   </html>
 
-Note the `@yield('content')` portion of the layout. This is a special Blade directive that specifies where all child pages that extend the layout can inject their own content. Next, let's define the child view that will use this layout and provide it's primary content.
+Note the `@yield('content')` portion of the layout. This is a special Blade directive that specifies where all child pages that extend the layout can inject their own content. Next, let's define the child view that will use this layout and provide its primary content.
 
 <a name="defining-the-child-view"></a>
 ### Defining The Child View
@@ -250,10 +250,6 @@ We'll skip over some of the Bootstrap CSS boilerplate and only focus on the thin
     </div>
 
     <!-- TODO: Current Tasks -->
-    @if (count($tasks) > 0)
-
-    @endif
-
   @endsection
 
 #### A Few Notes Of Explanation
@@ -402,7 +398,7 @@ Once the data is passed, we can spin through the tasks in our `tasks.blade.php` 
         @endif
   @endsection
 
-Our task application is almost complete. But, we have no way to delete our existing tasks when their done. Let's add that next!
+Our task application is almost complete. But, we have no way to delete our existing tasks when they're done. Let's add that next!
 
 <a name="deleting-tasks"></a>
 ## Deleting Tasks
@@ -420,7 +416,7 @@ We left a "TODO" note in our code where our delete button is supposed to be. So,
 
         <!-- Delete Button -->
         <td>
-            <form action="/task" method="POST">
+            <form action="/task/{{ $task->id }}" method="POST">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
 

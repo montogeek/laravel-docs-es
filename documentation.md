@@ -6,9 +6,11 @@
 - Configuración
     - [Instalación](/{{version}}/installation)
     - [Homestead](/{{version}}/homestead)
+- Tutoriales
+    - [Principiante](/{{version}}/quickstart)
+    - [Intermedio](/{{version}}/quickstart-intermediate)
 - Basico
     - **[Inicio rápido](/{{version}}/quickstart)**
-    - [Rutas](/{{version}}/routing)
     - [Middleware](/{{version}}/middleware)
     - [Controladores](/{{version}}/controllers)
     - [Peticiones](/{{version}}/requests)
