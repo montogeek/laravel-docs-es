@@ -5,6 +5,7 @@
 - [Which Branch?](#which-branch)
 - [Security Vulnerabilities](#security-vulnerabilities)
 - [Coding Style](#coding-style)
+    - [Code Style Fixer](#code-style-fixer)
 
 <a name="bug-reports"></a>
 ## Bug Reports
@@ -69,5 +70,16 @@ Here's an example block:
      */
     public function bind($abstract, $concrete = null, $shared = false)
     {
-        // …
+        //
     }
+
+<a name="code-style-fixer"></a>
+### Code Style Fixer
+
+You may use the [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to fix your code style before committing.
+
+To get started, [install the tool globally](https://github.com/FriendsOfPHP/PHP-CS-Fixer#globally-manual) and check the code style by issuing the following terminal command from your project's root directory:
+
+```sh
+php-cs-fixer fix
+```
