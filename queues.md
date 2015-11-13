@@ -532,6 +532,10 @@ The `queue:failed` command will list the job ID, connection, queue, and failure 
 
     php artisan queue:retry 5
 
+To retry all of your failed jobs, use `queue:retry` with `all` as the ID:
+
+    php artisan queue:retry all
+
 If you would like to delete a failed job, you may use the `queue:forget` command:
 
     php artisan queue:forget 5
