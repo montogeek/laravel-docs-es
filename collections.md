@@ -26,7 +26,7 @@ As mentioned above, the `collect` helper returns a new `Illuminate\Support\Colle
 
     $collection = collect([1, 2, 3]);
 
-By default, collections of [Eloquent](/{{version}}/eloquent) models are always returned as `Collection` instances; however, feel free to use the `Collection` class wherever it is convenient for your application.
+By default, collections of [Eloquent](/docs/{{version}}/eloquent) models are always returned as `Collection` instances; however, feel free to use the `Collection` class wherever it is convenient for your application.
 
 <a name="available-methods"></a>
 ## Available Methods
@@ -73,7 +73,9 @@ You may select any method from this table to see an example of its usage:
 [keys](#method-keys)
 [last](#method-last)
 [map](#method-map)
+[max](#method-max)
 [merge](#method-merge)
+[min](#method-min)
 [only](#method-only)
 [pluck](#method-pluck)
 [pop](#method-pop)
@@ -160,7 +162,7 @@ The `chunk` method breaks the collection into multiple, smaller collections of a
 
     // [[1, 2, 3, 4], [5, 6, 7]]
 
-This method is especially useful in [views](/{{version}}/views) when working with a grid system such as [Bootstrap](http://getbootstrap.com/css/#grid). Imagine you have a collection of [Eloquent](/{{version}}/eloquent) models you want to display in a grid:
+This method is especially useful in [views](/docs/{{version}}/views) when working with a grid system such as [Bootstrap](http://getbootstrap.com/css/#grid). Imagine you have a collection of [Eloquent](/docs/{{version}}/eloquent) models you want to display in a grid:
 
     @foreach ($products->chunk(3) as $chunk)
         <div class="row">
@@ -602,6 +604,19 @@ The `map` method iterates through the collection and passes each value to the gi
 
 > **Note:** Like most other collection methods, `map` returns a new collection instance; it does not modify the collection it is called on. If you want to transform the original collection, use the [`transform`](#method-transform) method.
 
+<a name="method-max"></a>
+#### `max()` {#collection-method}
+
+The `max` method return the maximum value of a given key:
+
+    $max = collect([['foo' => 10], ['foo' => 20]])->max('foo');
+
+    // 20
+
+    $max = collect([1, 2, 3, 4, 5])->max();
+
+    // 5
+
 <a name="method-merge"></a>
 #### `merge()` {#collection-method}
 
@@ -624,6 +639,19 @@ If the given array's keys are numeric, the values will be appended to the end of
     $merged->all();
 
     // ['Desk', 'Chair', 'Bookcase', 'Door']
+
+<a name="method-min"></a>
+#### `min()` {#collection-method}
+
+The `min` method return the minimum value of a given key:
+
+    $min = collect([['foo' => 10], ['foo' => 20]])->min('foo');
+
+    // 10
+
+    $min = collect([1, 2, 3, 4, 5])->min();
+
+    // 1
 
 <a name="method-only"></a>
 #### `only()` {#collection-method}
@@ -1065,7 +1093,7 @@ You may also pass a negative integer to take the specified amount of items from 
 <a name="method-toarray"></a>
 #### `toArray()` {#collection-method}
 
-The `toArray` method converts the collection into a plain PHP `array`. If the collection's values are [Eloquent](/{{version}}/eloquent) models, the models will also be converted to arrays:
+The `toArray` method converts the collection into a plain PHP `array`. If the collection's values are [Eloquent](/docs/{{version}}/eloquent) models, the models will also be converted to arrays:
 
     $collection = collect(['name' => 'Desk', 'price' => 200]);
 

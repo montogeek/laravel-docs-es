@@ -34,6 +34,7 @@ Laravel includes a variety of "helper" PHP functions. Many of these functions ar
 [array_flatten](#method-array-flatten)
 [array_forget](#method-array-forget)
 [array_get](#method-array-get)
+[array_has](#method-array-has)
 [array_only](#method-array-only)
 [array_pluck](#method-array-pluck)
 [array_pull](#method-array-pull)
@@ -171,7 +172,7 @@ The `array_dot` function flattens a multi-dimensional array into a single level 
 <a name="method-array-except"></a>
 #### `array_except()` {#collection-method}
 
-The `array_except` method removes the given key / value pairs from the array:
+The `array_except` function removes the given key / value pairs from the array:
 
     $array = ['name' => 'Desk', 'price' => 100];
 
@@ -182,7 +183,7 @@ The `array_except` method removes the given key / value pairs from the array:
 <a name="method-array-first"></a>
 #### `array_first()` {#collection-method}
 
-The `array_first` method returns the first element of an array passing a given truth test:
+The `array_first` function returns the first element of an array passing a given truth test:
 
     $array = [100, 200, 300];
 
@@ -199,7 +200,7 @@ A default value may also be passed as the third parameter to the method. This va
 <a name="method-array-flatten"></a>
 #### `array_flatten()` {#collection-method}
 
-The `array_flatten` method will flatten a multi-dimensional array into a single level.
+The `array_flatten` function will flatten a multi-dimensional array into a single level.
 
     $array = ['name' => 'Joe', 'languages' => ['PHP', 'Ruby']];
 
@@ -210,7 +211,7 @@ The `array_flatten` method will flatten a multi-dimensional array into a single 
 <a name="method-array-forget"></a>
 #### `array_forget()` {#collection-method}
 
-The `array_forget` method removes a given key / value pair from a deeply nested array using "dot" notation:
+The `array_forget` function removes a given key / value pair from a deeply nested array using "dot" notation:
 
     $array = ['products' => ['desk' => ['price' => 100]]];
 
@@ -221,7 +222,7 @@ The `array_forget` method removes a given key / value pair from a deeply nested 
 <a name="method-array-get"></a>
 #### `array_get()` {#collection-method}
 
-The `array_get` method retrieves a value from a deeply nested array using "dot" notation:
+The `array_get` function retrieves a value from a deeply nested array using "dot" notation:
 
     $array = ['products' => ['desk' => ['price' => 100]]];
 
@@ -233,10 +234,21 @@ The `array_get` function also accepts a default value, which will be returned if
 
     $value = array_get($array, 'names.john', 'default');
 
+<a name="method-array-has"></a>
+#### `array_has()` {#collection-method}
+
+The `array_has` function checks that a given item exists in an array using "dot" notation:
+
+    $array = ['products' => ['desk' => ['price' => 100]]];
+
+    $hasDesk = array_has($array, ['products.desk']);
+
+    // true
+
 <a name="method-array-only"></a>
 #### `array_only()` {#collection-method}
 
-The `array_only` method will return only the specified key / value pairs from the given array:
+The `array_only` function will return only the specified key / value pairs from the given array:
 
     $array = ['name' => 'Desk', 'price' => 100, 'orders' => 10];
 
@@ -247,7 +259,7 @@ The `array_only` method will return only the specified key / value pairs from th
 <a name="method-array-pluck"></a>
 #### `array_pluck()` {#collection-method}
 
-The `array_pluck` method will pluck a list of the given key / value pairs from the array:
+The `array_pluck` function will pluck a list of the given key / value pairs from the array:
 
     $array = [
         ['developer' => ['name' => 'Taylor']],
@@ -261,7 +273,7 @@ The `array_pluck` method will pluck a list of the given key / value pairs from t
 <a name="method-array-pull"></a>
 #### `array_pull()` {#collection-method}
 
-The `array_pull` method returns and removes a key / value pair from the array:
+The `array_pull` function returns and removes a key / value pair from the array:
 
     $array = ['name' => 'Desk', 'price' => 100];
 
@@ -274,7 +286,7 @@ The `array_pull` method returns and removes a key / value pair from the array:
 <a name="method-array-set"></a>
 #### `array_set()` {#collection-method}
 
-The `array_set` method sets a value within a deeply nested array using "dot" notation:
+The `array_set` function sets a value within a deeply nested array using "dot" notation:
 
     $array = ['products' => ['desk' => ['price' => 100]]];
 
@@ -285,7 +297,7 @@ The `array_set` method sets a value within a deeply nested array using "dot" not
 <a name="method-array-sort"></a>
 #### `array_sort()` {#collection-method}
 
-The `array_sort` method sorts the array by the results of the given Closure:
+The `array_sort` function sorts the array by the results of the given Closure:
 
     $array = [
         ['name' => 'Desk'],
@@ -415,7 +427,7 @@ The `database_path` function returns the fully qualified path to the application
 <a name="method-elixir"></a>
 #### `elixir()` {#collection-method}
 
-The `elixir` function gets the path to the versioned [Elixir](/{{version}}/elixir) file:
+The `elixir` function gets the path to the versioned [Elixir](/docs/{{version}}/elixir) file:
 
     elixir($file);
 
@@ -594,7 +606,7 @@ The `studly_case` function converts the given string to `StudlyCase`:
 <a name="method-trans"></a>
 #### `trans()` {#collection-method}
 
-The `trans` function translates the given language line using your [localization files](/{{version}}/localization):
+The `trans` function translates the given language line using your [localization files](/docs/{{version}}/localization):
 
     echo trans('validation.required'):
 
@@ -680,7 +692,7 @@ The `bcrypt` function hashes the given value using Bcrypt. You may use it as an 
 <a name="method-collect"></a>
 #### `collect()` {#collection-method}
 
-The `collect` function creates a [collection](/{{version}}/collections) instance from the supplied items:
+The `collect` function creates a [collection](/docs/{{version}}/collections) instance from the supplied items:
 
     $collection = collect(['taylor', 'abigail']);
 
@@ -700,7 +712,7 @@ The `config` helper may also be used to set configuration variables at runtime b
 <a name="method-csrf-field"></a>
 #### `csrf_field()` {#collection-method}
 
-The `csrf_field` function generates an HTML `hidden` input field containing the value of the CSRF token. For example, using [Blade syntax](/{{version}}/blade):
+The `csrf_field` function generates an HTML `hidden` input field containing the value of the CSRF token. For example, using [Blade syntax](/docs/{{version}}/blade):
 
     {!! csrf_field() !!}
 
@@ -731,21 +743,21 @@ The `env` function gets the value of an environment variable or returns a defaul
 <a name="method-event"></a>
 #### `event()` {#collection-method}
 
-The `event` function dispatches the given [event](/{{version}}/events) to its listeners:
+The `event` function dispatches the given [event](/docs/{{version}}/events) to its listeners:
 
     event(new UserRegistered($user));
 
 <a name="method-factory"></a>
 #### `factory()` {#collection-method}
 
-The `factory` function creates a model factory builder for a given class, name, and amount. It can be used while [testing](/{{version}}/testing#model-factories) or [seeding](/{{version}}/seeding#using-model-factories):
+The `factory` function creates a model factory builder for a given class, name, and amount. It can be used while [testing](/docs/{{version}}/testing#model-factories) or [seeding](/docs/{{version}}/seeding#using-model-factories):
 
     $user = factory(App\User::class)->make();
 
 <a name="method-method-field"></a>
 #### `method_field()` {#collection-method}
 
-The `method_field` function generates an HTML `hidden` input field containing the spoofed value of the form's HTTP verb. For example, using [Blade syntax](/{{version}}/blade):
+The `method_field` function generates an HTML `hidden` input field containing the spoofed value of the form's HTTP verb. For example, using [Blade syntax](/docs/{{version}}/blade):
 
     <form method="POST">
         {!! method_field('delete') !!}
@@ -754,21 +766,21 @@ The `method_field` function generates an HTML `hidden` input field containing th
 <a name="method-old"></a>
 #### `old()` {#collection-method}
 
-The `old` function [retrieves](/{{version}}/requests#retrieving-input) an old input value flashed into the session:
+The `old` function [retrieves](/docs/{{version}}/requests#retrieving-input) an old input value flashed into the session:
 
     $value = old('value');
 
 <a name="method-redirect"></a>
 #### `redirect()` {#collection-method}
 
-The `redirect` function returns an instance of the redirector to do [redirects](/{{version}}/responses#redirects):
+The `redirect` function returns an instance of the redirector to do [redirects](/docs/{{version}}/responses#redirects):
 
     return redirect('/home');
 
 <a name="method-request"></a>
 #### `request()` {#collection-method}
 
-The `request` function returns the current [request](/{{version}}/requests) instance or obtains an input item:
+The `request` function returns the current [request](/docs/{{version}}/requests) instance or obtains an input item:
 
     $request = request();
 
@@ -777,7 +789,7 @@ The `request` function returns the current [request](/{{version}}/requests) inst
 <a name="method-response"></a>
 #### `response()` {#collection-method}
 
-The `response` function creates a [response](/{{version}}/responses) instance or obtains an instance of the response factory:
+The `response` function creates a [response](/docs/{{version}}/responses) instance or obtains an instance of the response factory:
 
     return response('Hello World', 200, $headers);
 
@@ -810,7 +822,7 @@ The `value` function's behavior will simply return the value it is given. Howeve
 <a name="method-view"></a>
 #### `view()` {#collection-method}
 
-The `view` function retrieves a [view](/{{version}}/views) instance:
+The `view` function retrieves a [view](/docs/{{version}}/views) instance:
 
     return view('auth.login');
 
