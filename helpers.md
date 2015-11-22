@@ -262,13 +262,19 @@ The `array_only` function will return only the specified key / value pairs from 
 The `array_pluck` function will pluck a list of the given key / value pairs from the array:
 
     $array = [
-        ['developer' => ['name' => 'Taylor']],
-        ['developer' => ['name' => 'Abigail']]
+        ['developer' => ['id' => 1, 'name' => 'Taylor']],
+        ['developer' => ['id' => 2, 'name' => 'Abigail']],
     ];
 
     $array = array_pluck($array, 'developer.name');
 
     // ['Taylor', 'Abigail'];
+
+You may also specify how you wish the resulting list to be keyed:
+
+    $array = array_pluck($array, 'developer.name', 'developer.id');
+
+    // [1 => 'Taylor', 2 => 'Abigail'];
 
 <a name="method-array-pull"></a>
 #### `array_pull()` {#collection-method}
@@ -427,7 +433,7 @@ The `database_path` function returns the fully qualified path to the application
 <a name="method-elixir"></a>
 #### `elixir()` {#collection-method}
 
-The `elixir` function gets the path to the versioned [Elixir](/docs/{{version}}/elixir) file:
+The `elixir` function gets the path to the versioned [Elixir](/{{version}}/elixir) file:
 
     elixir($file);
 
@@ -606,7 +612,7 @@ The `studly_case` function converts the given string to `StudlyCase`:
 <a name="method-trans"></a>
 #### `trans()` {#collection-method}
 
-The `trans` function translates the given language line using your [localization files](/docs/{{version}}/localization):
+The `trans` function translates the given language line using your [localization files](/{{version}}/localization):
 
     echo trans('validation.required'):
 
@@ -692,7 +698,7 @@ The `bcrypt` function hashes the given value using Bcrypt. You may use it as an 
 <a name="method-collect"></a>
 #### `collect()` {#collection-method}
 
-The `collect` function creates a [collection](/docs/{{version}}/collections) instance from the supplied items:
+The `collect` function creates a [collection](/{{version}}/collections) instance from the supplied items:
 
     $collection = collect(['taylor', 'abigail']);
 
@@ -712,7 +718,7 @@ The `config` helper may also be used to set configuration variables at runtime b
 <a name="method-csrf-field"></a>
 #### `csrf_field()` {#collection-method}
 
-The `csrf_field` function generates an HTML `hidden` input field containing the value of the CSRF token. For example, using [Blade syntax](/docs/{{version}}/blade):
+The `csrf_field` function generates an HTML `hidden` input field containing the value of the CSRF token. For example, using [Blade syntax](/{{version}}/blade):
 
     {!! csrf_field() !!}
 
@@ -743,21 +749,21 @@ The `env` function gets the value of an environment variable or returns a defaul
 <a name="method-event"></a>
 #### `event()` {#collection-method}
 
-The `event` function dispatches the given [event](/docs/{{version}}/events) to its listeners:
+The `event` function dispatches the given [event](/{{version}}/events) to its listeners:
 
     event(new UserRegistered($user));
 
 <a name="method-factory"></a>
 #### `factory()` {#collection-method}
 
-The `factory` function creates a model factory builder for a given class, name, and amount. It can be used while [testing](/docs/{{version}}/testing#model-factories) or [seeding](/docs/{{version}}/seeding#using-model-factories):
+The `factory` function creates a model factory builder for a given class, name, and amount. It can be used while [testing](/{{version}}/testing#model-factories) or [seeding](/{{version}}/seeding#using-model-factories):
 
     $user = factory(App\User::class)->make();
 
 <a name="method-method-field"></a>
 #### `method_field()` {#collection-method}
 
-The `method_field` function generates an HTML `hidden` input field containing the spoofed value of the form's HTTP verb. For example, using [Blade syntax](/docs/{{version}}/blade):
+The `method_field` function generates an HTML `hidden` input field containing the spoofed value of the form's HTTP verb. For example, using [Blade syntax](/{{version}}/blade):
 
     <form method="POST">
         {!! method_field('delete') !!}
@@ -766,21 +772,21 @@ The `method_field` function generates an HTML `hidden` input field containing th
 <a name="method-old"></a>
 #### `old()` {#collection-method}
 
-The `old` function [retrieves](/docs/{{version}}/requests#retrieving-input) an old input value flashed into the session:
+The `old` function [retrieves](/{{version}}/requests#retrieving-input) an old input value flashed into the session:
 
     $value = old('value');
 
 <a name="method-redirect"></a>
 #### `redirect()` {#collection-method}
 
-The `redirect` function returns an instance of the redirector to do [redirects](/docs/{{version}}/responses#redirects):
+The `redirect` function returns an instance of the redirector to do [redirects](/{{version}}/responses#redirects):
 
     return redirect('/home');
 
 <a name="method-request"></a>
 #### `request()` {#collection-method}
 
-The `request` function returns the current [request](/docs/{{version}}/requests) instance or obtains an input item:
+The `request` function returns the current [request](/{{version}}/requests) instance or obtains an input item:
 
     $request = request();
 
@@ -789,7 +795,7 @@ The `request` function returns the current [request](/docs/{{version}}/requests)
 <a name="method-response"></a>
 #### `response()` {#collection-method}
 
-The `response` function creates a [response](/docs/{{version}}/responses) instance or obtains an instance of the response factory:
+The `response` function creates a [response](/{{version}}/responses) instance or obtains an instance of the response factory:
 
     return response('Hello World', 200, $headers);
 
@@ -822,7 +828,7 @@ The `value` function's behavior will simply return the value it is given. Howeve
 <a name="method-view"></a>
 #### `view()` {#collection-method}
 
-The `view` function retrieves a [view](/docs/{{version}}/views) instance:
+The `view` function retrieves a [view](/{{version}}/views) instance:
 
     return view('auth.login');
 
